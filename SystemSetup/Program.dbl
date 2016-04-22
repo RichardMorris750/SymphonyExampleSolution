@@ -1,0 +1,386 @@
+import System
+import System.Collections.Generic
+import System.Text
+
+namespace SystemSetup
+	
+	;;; <summary>
+	;;; This program creates and populates the files requird for the Symphony Framework Example application
+	;;; </summary>  
+	main
+		
+		.include 'product' repository, record = 'product'
+		.include 'supplier' repository, record = 'supplier'
+		.include 'productgroup' repository, record = 'productGroup'
+		.include 'parameter' repository, record = 'parameter'
+		
+		record
+			ttChn		,i4	,0
+			ans			,a1
+			dataChan	,i4	,0
+		endrecord
+		
+	proc
+		open(ttChn, I, 'TT:')
+
+		writes(ttChn, 'Recreate all files ?  (Y/N) ?')
+		reads(ttChn, ans)
+		if (ans.eq.'Y' .or. ans.eq.'y')
+		begin
+			writes(ttChn, 'Creating Files...')
+			
+			call create
+			
+			call setParameter
+			call loadProduct
+			call loadSupplier
+			call loadGroup
+			
+			writes(ttChn, 'Completed')
+		end
+			
+		close ttChn
+		flags(7000000, 1)
+		stop
+;----------------------------------------------------------------------------------------
+;create files
+		
+	create,
+
+		;;create the folder if it's not there
+		data logValue	,a255
+		data logLength	,i4
+		getlog("SFEDATA", logValue, logLength)
+		if (!logLength)
+		begin
+			writes(ttChn, "Logical SFEDATA not correctly defined")
+			return
+		end
+
+		if (!System.IO.Directory.Exists(%atrim(logValue)))
+		begin
+			System.IO.Directory.CreateDirectory(%atrim(logValue))
+		end
+
+		writes(ttChn, 'Creating files')
+		
+		try
+		begin
+			delet('SFEDATA:product.ism')
+			isamc('SFEDATA:product.ism', 82, 1, "START=1,LENGTH=6,NODUPS")	
+		end
+		catch (e, @Exception)
+		begin
+			writes(ttChn, 'Error creating product.ism file: ' + e.Message)
+		end
+		endtry
+		
+		try
+		begin
+			delet('SFEDATA:supplier.ism')
+			isamc('SFEDATA:supplier.ism', 236, 1, "START=1,LENGTH=6,NODUPS")	
+		end
+		catch (e, @Exception)
+		begin
+			writes(ttChn,'Error creating supplier.ism file: ' + e.Message)
+		end
+		endtry
+		
+		try
+		begin
+			delet('SFEDATA:productgroup.ism')
+			isamc('SFEDATA:productgroup.ism', 23, 1, "START=1,LENGTH=3,NODUPS")	
+		end
+		catch (e, @Exception)
+		begin
+			writes(ttChn, 'Error creating productgroup.ism file: ' + e.Message)
+		end
+		endtry
+		
+		try
+		begin
+			delet('SFEDATA:OrderHeader.ism')
+			isamc('SFEDATA:OrderHeader.ism', 159, 2, "START=7,LENGTH=6,NODUPS","START=1,LENGTH=12,NODUPS")	
+		end
+		catch (e, @Exception)
+		begin
+			writes(ttChn, 'Error creating OrderHeader.ism file: ' + e.Message)
+		end
+		endtry
+		
+		try
+		begin
+			delet('SFEDATA:OrderLine.ism')
+			isamc('SFEDATA:OrderLine.ism', 100, 1, "START=1,LENGTH=11,NODUPS")	
+		end
+		catch (e, @Exception)
+		begin
+			writes(ttChn,'Error creating OrderLine.ism file: ' + e.Message)
+		end
+		endtry
+		
+		return
+		
+;--------------------------------------------------------------------
+;set parameter file
+		
+	setparameter,
+		writes(ttChn,'Creating parameter file')
+		try
+		begin
+			open(dataChan = 0, O:R, 'SFEDATA:parameter.dat', RECSIZ:100)
+			clear parameter
+			lastorderno = 1
+			write(dataChan, parameter, 1)
+			close dataChan
+		end
+		catch (e,@Exception)
+		begin
+			writes(ttChn,'Error creating and setting parameter.dat file: ' + e.Message)		
+		end
+		endtry
+		
+		return
+		
+		
+;------------------------------------------------------------
+; populate product file
+	loadproduct,
+		writes(ttChn, 'Loading products')
+		open(dataChan = 0, U:I, 'SFEDATA:product.ism')
+		
+		pcode			=	'COK001'
+		pdescription	=	'Coke Cans'
+		psellprice		=	8.00	
+		pcostprice		=	6.00
+		pgroup			=	'SD'
+		psupplier		=	'D00001'
+		pvatcode		=	1
+		ppacksize		=	'330ML'
+		call addproduct
+		
+		pcode			=	'COK002'
+		pdescription	=	'Coke 1ltr bottles'
+		psellprice		=	12.00	
+		pcostprice		=	10.00
+		pgroup			=	'SD'
+		psupplier		=	'D00001'
+		pvatcode		=	1
+		ppacksize		=	'12 x 1ltr'
+		call addproduct
+		
+		pcode			=	'COK003'
+		pdescription	=	'Coke 2Ltr Bottles'
+		psellprice		=	14.00	
+		pcostprice		=	10.00
+		pgroup			=	'SD'
+		psupplier		=	'D00001'
+		pvatcode		=	1
+		ppacksize		=	'6 x 2Ltr'
+		call addproduct
+		
+		pcode			=	'COK004'
+		pdescription	=	'Diet Coke Cans'
+		psellprice		=	8.00	
+		pcostprice		=	6.00
+		pgroup			=	'SD'
+		psupplier		=	'D00001'
+		pvatcode		=	1
+		ppacksize		=	'330ML'
+		call addproduct
+		
+		pcode			=	'COK005'
+		pdescription	=	'Diet Coke 1ltr bottle'
+		psellprice		=	12.00	
+		pcostprice		=	10.00
+		pgroup			=	'SD'
+		psupplier		=	'D00001'
+		pvatcode		=	1
+		ppacksize		=	'12 x 1ltr'
+		call addproduct
+		
+		pcode			=	'COK006'
+		pdescription	=	'Diet Coke 2Ltr Bottles'
+		psellprice		=	14.00	
+		pcostprice		=	10.00
+		pgroup			=	'SD'
+		psupplier		=	'D00001'
+		pvatcode		=	1
+		ppacksize		=	'6 x 2Ltr'
+		call addproduct		
+		
+		pcode			=	'7UP001'
+		pdescription	=	'7UP Cans'
+		psellprice		=	8.50	
+		pcostprice		=	11.00
+		pgroup			=	'SD'
+		psupplier		=	'D00001'
+		pvatcode		=	1
+		ppacksize		=	'330ML'
+		call addproduct
+		
+		pcode			=	'7UP002'
+		pdescription	=	'7UP 1 Litre Bottles'
+		psellprice		=	12.00	
+		pcostprice		=	9.00
+		pgroup			=	'SD'
+		psupplier		=	'D00001'
+		pvatcode		=	1
+		ppacksize		=	'12 x 1 Ltr'
+		call addproduct
+		close 1
+		return
+		
+		pcode			=	'7UP003'
+		pdescription	=	'7UP 2 Litre Bottles'
+		psellprice		=	13.00	
+		pcostprice		=	10.50
+		pgroup			=	'SD'
+		psupplier		=	'D00001'
+		pvatcode		=	1
+		ppacksize		=	'6 x 2 Ltr'
+		call addproduct
+		
+		pcode			=	'CRISP1'
+		pdescription	=	'Ready Salted Crisps'
+		psellprice		=	13.00	
+		pcostprice		=	10.50
+		pgroup			=	'CR'
+		psupplier		=	'C00001'
+		pvatcode		=	1
+		ppacksize		=	'Box of 48'
+		call addproduct
+		
+		pcode			=	'CRISP1'
+		pdescription	=	'Ready Salted Crisps'
+		psellprice		=	6.00	
+		pcostprice		=	4.00
+		pgroup			=	'CR'
+		psupplier		=	'C00001'
+		pvatcode		=	1
+		ppacksize		=	'Box of 48'
+		call addproduct
+		
+		pcode			=	'CRISP2'
+		pdescription	=	'Salt and Vinegar Crisps'
+		psellprice		=	6.00	
+		pcostprice		=	4.00
+		pgroup			=	'CR'
+		psupplier		=	'C00001'
+		pvatcode		=	1
+		ppacksize		=	'Box of 48'
+		call addproduct
+		
+		pcode			=	'CRISP3'
+		pdescription	=	'Cheese and Onion Crisps'
+		psellprice		=	6.00	
+		pcostprice		=	4.00
+		pgroup			=	'CR'
+		psupplier		=	'C00001'
+		pvatcode		=	1
+		ppacksize		=	'Box of 48'
+		call addproduct
+		close dataChan
+		
+		return
+		
+;--------------------------------------------------------
+		
+	addproduct,
+		try
+		begin
+			store(dataChan, product)
+		end
+		catch (e,@Exception)
+		begin
+			writes(ttChn, 'Error adding product record for ' + pcode + ' : ' + e.Message)
+		end
+		endtry
+		return
+		
+;-----------------------------------------------------------------------------
+; populate supplier file
+	loadsupplier,
+		writes(ttChn, 'loading suppliers')
+		open(dataChan = 0, U:I, 'SFEDATA:supplier.ism')
+		
+		suppcode	=	'D00001'
+		suppname	=	'Drinks Company'
+		suppaddress1=	'123 Main Road'
+		suppaddress2=	'Anytown'
+		suppaddress3=
+		supppostcode=	'UK1 7TH'
+		suppphone	=	'028 91123765'
+		suppcontact	=	'Mr T Jones'
+		suppemail	=	'Tjones@drinksco.com'
+		call addsupplier
+		
+		suppcode	=	'C00001'
+		suppname	=	'Crisp Company'
+		suppaddress1=	'456 Main Road'
+		suppaddress2=	'Othertown'
+		suppaddress3=
+		supppostcode=	'UK1 1TS'
+		suppphone	=	'0108 6726155'
+		suppcontact	=	'Mr B Moore'
+		suppemail	=	'BMoore@crisps.com'
+		call addsupplier
+		
+		close dataChan
+		return
+		
+;---------------------------------------------------------
+	addsupplier,
+		try
+		begin
+			store(dataChan, supplier)
+		end
+		catch (e,@Exception)
+		begin
+			writes(ttChn, 'Error adding supplier record for ' + suppcode + ' : ' + e.Message)
+		end
+		endtry
+		return
+		
+;-------------------------------------------------------------------------------
+; populate product group file
+	loadgroup,
+		writes(ttChn, 'loading groups')
+		open(dataChan = 0, U:I, 'SFEDATA:productgroup.ism')
+		
+		groupcode	= 'SD'
+		groupdesc	= 'Soft Drinks'
+		call addgroup
+		
+		groupcode	= 'CRI'
+		groupdesc	= 'Crisps'
+		call addgroup
+		
+		groupcode	= 'NUT'
+		groupdesc	= 'Nuts'
+		call addgroup
+		
+		groupcode	= 'CHO'
+		groupdesc	= 'Chocolate'
+		call addgroup
+		
+		close dataChan
+		return
+;---------------------------------------------------------
+	addgroup,
+		try
+		begin
+			store(dataChan, productgroup)
+		end
+		catch (e,@Exception)
+		begin
+			writes(ttChn, 'Error adding product group record for ' + groupcode + ' : ' + e.Message)
+		end
+		endtry
+		return
+		
+		
+		
+	endmain
+	
+endnamespace

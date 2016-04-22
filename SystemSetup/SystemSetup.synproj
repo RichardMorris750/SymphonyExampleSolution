@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <!--<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>-->
+    <Name>"SystemSetup"</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{78504da9-412f-490b-b944-471209c6b25f}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>SystemSetup</RootNamespace>
+    <AssemblyName>SystemSetup</AssemblyName>
+    <MainFile>Program.dbl</MainFile>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetPlatform>v452</TargetPlatform>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <DBL_qWarnLevel>3 - Don't display warning levels higher than 3</DBL_qWarnLevel>
+    <DBL_qWarn>True</DBL_qWarn>
+    <DBLCmdOptions> -W3 -qstack</DBLCmdOptions>
+    <Language>Synergy</Language>
+    <DBL_unQulRecStm>Stack</DBL_unQulRecStm>
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+    <ProjEnvVars>RPSMFIL=$(SolutionDIR)\Rps\rpsmain.ism;RPSTFIL=$(SolutionDIR)\Rps\rpstext.ism</ProjEnvVars>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Prefer32Bit Condition=" '$(TargetFrameworkVersion)'  != 'v4.0' AND '$(Prefer32Bit)' != 'false' ">true</Prefer32Bit>
+    <IncludeDebugInformation>true</IncludeDebugInformation>
+    <OutputPath>bin\Debug\</OutputPath>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DebugOptimize>Debug</DebugOptimize>
+    <DocumentationFile>bin\Debug\SystemSetup.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Prefer32Bit Condition=" '$(TargetFrameworkVersion)'  != 'v4.0' AND '$(Prefer32Bit)' != 'false' ">true</Prefer32Bit>
+    <IncludeDebugInformation>true</IncludeDebugInformation>
+    <OutputPath>bin\Release\</OutputPath>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DebugOptimize>Optimize</DebugOptimize>
+    <DocumentationFile>bin\Release\SystemSetup.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="synrnt">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.dbl" />
+    <Compile Include="Program.dbl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Synergex\VS2010\Synergex.SynergyDE.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

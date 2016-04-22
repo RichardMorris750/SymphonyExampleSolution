@@ -5,12 +5,12 @@ import System.Runtime.InteropServices
 ; General Information about an assembly is controlled through the following
 ; set of attributes. Change these attribute values to modify the information
 ; associated with an assembly.
-{assembly: AssemblyTitle("SystemSetup")}
-{assembly: AssemblyDescription("")}
+{assembly: AssemblyTitle("System Setup")}
+{assembly: AssemblyDescription("Program to create and popualte sample data files.")}
 {assembly: AssemblyConfiguration("")}
-{assembly: AssemblyCompany("")}
+{assembly: AssemblyCompany("Synergex")}
 {assembly: AssemblyProduct("SystemSetup")}
-{assembly: AssemblyCopyright("Copyright ©  2016")}
+{assembly: AssemblyCopyright("Copyright © Synergex 2016")}
 {assembly: AssemblyTrademark("")}
 {assembly: AssemblyCulture("")}
 

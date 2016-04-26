@@ -1,0 +1,236 @@
+ 
+;  SYNERGY DATA LANGUAGE OUTPUT
+;
+;  REPOSITORY     : C:\SYmphonySolutionsExample\\Rps\rpsmain.ism
+;                 : C:\SYmphonySolutionsExample\\Rps\rpstext.ism
+;                 : Version 10.3.1b
+;
+;  GENERATED      : 26-APR-2016, 10:44:30
+;                 : Version 10.3.1b
+;  EXPORT OPTIONS : [ALL] 
+ 
+ 
+Structure ORDER_HEADER   DBL ISAM
+   Description "Order Header"
+ 
+Field SUPP_CODE   Type ALPHA   Size 6
+   Description "Supplier Code"
+   Prompt "Supplier"   Report Heading "Supplier"
+ 
+Field ORDER_NO   Type DECIMAL   Size 6
+   Description "Order No"
+   Prompt "Order No"   Report Heading "Order No"
+ 
+Field ORDER_DATE   Type DATE   Size 8   Stored YYYYMMDD
+   Description "Order date"
+   Position 0 0   Prompt "Order Date"   Report Heading "Order Date"
+ 
+Field REQD_DATE   Type DATE   Size 8   Stored YYYYMMDD
+   Description "required delivery date"
+   Prompt "Required by"   Report Heading "Required by"
+ 
+Field COMMENTS   Type ALPHA   Size 100
+   Description "Comments"
+   Prompt "Comments"   Report Heading "Comments"
+ 
+Field LINE_COUNT   Type DECIMAL   Size 5
+   Description "Number of lines"
+   Prompt "No of Lines"   Report Heading "No of Lines"
+ 
+Field TOT_VALUE   Type DECIMAL   Size 10   Precision 2
+   Description "Total Value (ex VAT)"
+   Prompt "Total value (ex VAT)"   Report Heading "Total Value (Ex VAT)"
+ 
+Field TOT_VAT   Type DECIMAL   Size 10   Precision 2
+   Description "Total VAT"
+   Prompt "Total VAT"   Report Heading "Total VAT"
+ 
+Field TOT_QTY   Type DECIMAL   Size 6
+   Description "Total Quantity"
+   Prompt "Total Qty"   Report Heading "Total Quantity"
+ 
+Key PRIMARY   ACCESS   Order ASCENDING   Dups NO
+   Description "Priumary key - order no"
+   Segment FIELD   ORDER_NO  SegType DECIMAL  SegOrder ASCENDING
+ 
+Key KEY2   ACCESS   Order ASCENDING   Dups NO
+   Description "2nd key - supplier code + order no"
+   Segment FIELD   SUPP_CODE  SegType ALPHA  SegOrder ASCENDING
+   Segment FIELD   ORDER_NO  SegType DECIMAL  SegOrder ASCENDING
+ 
+Structure ORDER_LINE   DBL ISAM
+   Description "Order Line"
+ 
+Field ORDER_NO   Type DECIMAL   Size 6
+   Description "Order No"
+   Prompt "Order No"   Report Heading "Order No"
+ 
+Field LINE_NO   Type DECIMAL   Size 5
+   Description "Line Seq No"
+   Report Heading "Line Seq No"
+ 
+Field PROD_CODE   Type ALPHA   Size 10
+   Description "Product Code"
+   Prompt "Product Code"   Report Heading "Product Code"
+ 
+Field PROD_DESCRIPTION   Type ALPHA   Size 40
+   Description "Description"
+   Prompt "Description"   Report Heading "Description"
+ 
+Field QTY   Type DECIMAL   Size 6
+   Description "Quantity Ordered"
+   Prompt "Quantity Ordered"   Report Heading "Quantity"
+ 
+Field PRICE   Type DECIMAL   Size 8   Precision 2
+   Description "Price"
+   Position Relative 0 0   Prompt "Price"   Report Heading "Price"
+ 
+Field LINE_VALUE   Type DECIMAL   Size 10   Precision 2
+   Description "Line Value, excl VAT"
+   Prompt "Line Value (ex VAT)"   Report Heading "Line Value"
+ 
+Field VAT_RATE   Type DECIMAL   Size 5   Precision 2
+   Description "VAT Rate"
+   Prompt "VAT Rate"   Report Heading "VAT Rate"
+ 
+Field VAT_VALUE   Type DECIMAL   Size 10   Precision 2
+   Description "VAT Value"
+   Position 0 0   Prompt "VAT Value"   Report Heading "VAT Value"
+ 
+Structure PARAMETER   RELATIVE
+   Description "Parameter File"
+ 
+Field LAST_ORDER_NO   Type DECIMAL   Size 6
+   Description "Last Order Number"
+   Report Heading "Last Order No"
+ 
+Field FILLER   Type ALPHA   Size 94
+   Report Heading "UNUSED"
+ 
+Structure PRODUCT   DBL ISAM
+   Description "Product Master File"
+ 
+Field PROD_CODE   Type ALPHA   Size 6
+   Prompt "Product Code"   Report Heading "Product Code"
+   Uppercase
+ 
+Field PROD_DESCRIPTION   Type ALPHA   Size 40
+   Description "Description"
+   Prompt "Description"   Report Heading "Description"
+ 
+Field SUPP_CODE   Type ALPHA   Size 6
+   Description "Supplier Code"
+   Prompt "Supplier"   Report Heading "Supplier"
+   Uppercase
+ 
+Field COST_PRICE   Type DECIMAL   Size 8   Precision 2
+   Description "Cost price"
+   Prompt "Cost Price"   Report Heading "Cost Price"
+ 
+Field SELL_PRICE   Type DECIMAL   Size 8   Precision 2
+   Description "Selling Price"
+   Prompt "Selling Price"   Report Heading "Selling Price"
+ 
+Field PACK_SIZE   Type ALPHA   Size 10
+   Description "Pack Size"
+   Prompt "Pack Size"   Report Heading "Pack Size"
+ 
+Field VAT_CODE   Type DECIMAL   Size 1
+   Description "VAT Code"
+   Prompt "VAT Code"   Report Heading "VAT Code"
+   Selection List 0 0 0  Entries " 0.00%", "20.00%", " 5.00%", "EXEMPT"
+   Enumerated 10 0 1
+ 
+Field PROD_GROUP   Type ALPHA   Size 3
+   Description "Product Group"
+   Prompt "Product Group"   Report Heading "Product Group"
+   Uppercase
+ 
+Key PRIMARY   ACCESS   Order ASCENDING   Dups NO
+   Description "Primary key - product code"
+   Segment FIELD   PROD_CODE  SegType ALPHA  SegOrder ASCENDING
+ 
+Structure PRODUCT_GROUP   DBL ISAM
+   Description "Product Group"
+ 
+Field PROD_GROUP   Type ALPHA   Size 3
+   Description "Group Code"
+   Prompt "Group Code"   Report Heading "Group Code"
+   Uppercase
+ 
+Field GROUP_DESC   Type ALPHA   Size 20
+   Description "Group Description"
+   Prompt "Description"   Report Heading "Description"
+ 
+Key PRIMARY   ACCESS   Order ASCENDING   Dups NO
+   Description "Primary key - product group"
+   Segment FIELD   PROD_GROUP  SegType ALPHA  SegOrder ASCENDING
+ 
+Structure SUPPLIER   DBL ISAM
+   Description "Supplier Master File"
+ 
+Field SUPP_CODE   Type ALPHA   Size 6
+   Description "Supplier Code"
+   Prompt "Supplier Code"   Report Heading "Supplier Code"
+   Uppercase
+ 
+Field NAME   Type ALPHA   Size 30
+   Description "Supplier name"
+   Prompt "Supplier Name"   Report Heading "Supplier Name"
+ 
+Field ADDRESS1   Type ALPHA   Size 30
+   Description "Address Line 1"
+   Prompt "Address"   Report Heading "Address 1"
+ 
+Field ADDRESS2   Type ALPHA   Size 30
+   Description "Address Line 2"
+   Report Heading "Address 2"
+ 
+Field ADDRESS3   Type ALPHA   Size 30
+   Description "Address Line 3"
+   Report Heading "Address 3"
+ 
+Field POSTCODE   Type ALPHA   Size 10
+   Description "Post Code"
+   Prompt "Post Code"   Report Heading "Post Code"
+ 
+Field PHONE   Type ALPHA   Size 20
+   Description "Phone Number"
+   Prompt "Phone Number"   Report Heading "Phone No"
+ 
+Field CONTACT   Type ALPHA   Size 30
+   Description "Contact Name"
+   Prompt "Contact Name"   Report Heading "Contact Name"
+ 
+Field EMAIL   Type ALPHA   Size 50
+   Description "Email Address"
+   Prompt "Email Address"   Report Heading "Email"
+ 
+Key PRIMARY   ACCESS   Order ASCENDING   Dups NO
+   Description "Primary key - supplier code"
+   Segment FIELD   SUPP_CODE  SegType ALPHA  SegOrder ASCENDING
+ 
+File ORDER_HEADER   DBL ISAM   "sfedata:Order_header.ism"
+   Description "Order Header File"
+   Assign ORDER_HEADER
+ 
+File ORDER_LINE   DBL ISAM   "sfedata:Order_line.ism"
+   Description "Order Line File"
+   Assign ORDER_LINE
+ 
+File PARAMETER   RELATIVE   "sfedata:parameter.dat"
+   Description "Parameter file"
+   Assign PARAMETER
+ 
+File PRODUCT   DBL ISAM   "SFEDATA:PRODUCT.ISM"
+   Description "Product Master File"
+   Assign PRODUCT
+ 
+File PRODUCT_GROUP   DBL ISAM   "sfedata:Product_Group.ism"
+   Description "Product Group master File"
+   Assign PRODUCT_GROUP
+ 
+File SUPPLIER   DBL ISAM   "sfedata:supplier.ism"
+   Description "Supplier Master File"
+   Assign SUPPLIER
+ 

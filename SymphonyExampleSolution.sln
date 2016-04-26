@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "SystemSetup", "SystemSetup\SystemSetup.synproj", "{78504DA9-412F-490B-B944-471209C6B25F}"
 EndProject
@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		Rps\rpsmain.is1 = Rps\rpsmain.is1
 		Rps\rpsmain.ism = Rps\rpsmain.ism
+		Rps\rpsmain.schema = Rps\rpsmain.schema
 		Rps\rpstext.is1 = Rps\rpstext.is1
 		Rps\rpstext.ism = Rps\rpstext.ism
 	EndProjectSection

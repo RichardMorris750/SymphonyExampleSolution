@@ -48,7 +48,7 @@ namespace SystemSetup
 		
 		.include 'product' repository, record = 'product'
 		.include 'supplier' repository, record = 'supplier'
-		.include 'productgroup' repository, record = 'productGroup'
+		.include 'product_group' repository, record = 'product_group'
 		.include 'parameter' repository, record = 'parameter'
 		
 		record
@@ -125,8 +125,8 @@ namespace SystemSetup
 		
 		try
 		begin
-			delet('SFEDATA:productgroup.ism')
-			isamc('SFEDATA:productgroup.ism', 23, 1, "START=1,LENGTH=3,NODUPS")	
+			delet('SFEDATA:Product_Group.ism')
+			isamc('SFEDATA:Product_Group.ism', 23, 1, "START=1,LENGTH=3,NODUPS")	
 		end
 		catch (e, @Exception)
 		begin
@@ -136,8 +136,8 @@ namespace SystemSetup
 		
 		try
 		begin
-			delet('SFEDATA:OrderHeader.ism')
-			isamc('SFEDATA:OrderHeader.ism', 159, 2, "START=7,LENGTH=6,NODUPS","START=1,LENGTH=12,NODUPS")	
+			delet('SFEDATA:Order_Header.ism')
+			isamc('SFEDATA:Order_Header.ism', 159, 2, "START=7,LENGTH=6,NODUPS","START=1,LENGTH=12,NODUPS")	
 		end
 		catch (e, @Exception)
 		begin
@@ -147,8 +147,8 @@ namespace SystemSetup
 		
 		try
 		begin
-			delet('SFEDATA:OrderLine.ism')
-			isamc('SFEDATA:OrderLine.ism', 100, 1, "START=1,LENGTH=11,NODUPS")	
+			delet('SFEDATA:Order_Line.ism')
+			isamc('SFEDATA:Order_Line.ism', 100, 1, "START=1,LENGTH=11,NODUPS")	
 		end
 		catch (e, @Exception)
 		begin
@@ -167,7 +167,7 @@ namespace SystemSetup
 		begin
 			open(dataChan = 0, O:R, 'SFEDATA:parameter.dat', RECSIZ:100)
 			clear parameter
-			lastorderno = 1
+			last_order_no = 1
 			write(dataChan, parameter, 1)
 			close dataChan
 		end
@@ -186,136 +186,136 @@ namespace SystemSetup
 		writes(ttChn, 'Loading products')
 		open(dataChan = 0, U:I, 'SFEDATA:product.ism')
 		
-		pcode			=	'COK001'
-		pdescription	=	'Coke Cans'
-		psellprice		=	8.00	
-		pcostprice		=	6.00
-		pgroup			=	'SD'
-		psupplier		=	'D00001'
-		pvatcode		=	1
-		ppacksize		=	'330ML'
+		prod_code			=	'COK001'
+		prod_description	=	'Coke Cans'
+		sell_price			=	8.00	
+		cost_price			=	6.00
+		product.prod_group	=	'SD'
+		product.supp_code	=	'D00001'
+		vat_code			=	1
+		pack_size			=	'330ML'
 		call addproduct
 		
-		pcode			=	'COK002'
-		pdescription	=	'Coke 1ltr bottles'
-		psellprice		=	12.00	
-		pcostprice		=	10.00
-		pgroup			=	'SD'
-		psupplier		=	'D00001'
-		pvatcode		=	1
-		ppacksize		=	'12 x 1ltr'
+		prod_code			=	'COK002'
+		prod_description	=	'Coke 1ltr bottles'
+		sell_price			=	12.00	
+		cost_price			=	10.00
+		product.prod_group	=	'SD'
+		product.supp_code	=	'D00001'
+		vat_code			=	1
+		pack_size			=	'12 x 1ltr'
 		call addproduct
 		
-		pcode			=	'COK003'
-		pdescription	=	'Coke 2Ltr Bottles'
-		psellprice		=	14.00	
-		pcostprice		=	10.00
-		pgroup			=	'SD'
-		psupplier		=	'D00001'
-		pvatcode		=	1
-		ppacksize		=	'6 x 2Ltr'
+		prod_code			=	'COK003'
+		prod_description	=	'Coke 2Ltr Bottles'
+		sell_price			=	14.00	
+		cost_price			=	10.00
+		product.prod_group	=	'SD'
+		product.supp_code	=	'D00001'
+		vat_code			=	1
+		pack_size			=	'6 x 2Ltr'
 		call addproduct
 		
-		pcode			=	'COK004'
-		pdescription	=	'Diet Coke Cans'
-		psellprice		=	8.00	
-		pcostprice		=	6.00
-		pgroup			=	'SD'
-		psupplier		=	'D00001'
-		pvatcode		=	1
-		ppacksize		=	'330ML'
+		prod_code			=	'COK004'
+		prod_description	=	'Diet Coke Cans'
+		sell_price			=	8.00	
+		cost_price			=	6.00
+		product.prod_group	=	'SD'
+		product.supp_code	=	'D00001'
+		vat_code			=	1
+		pack_size			=	'330ML'
 		call addproduct
 		
-		pcode			=	'COK005'
-		pdescription	=	'Diet Coke 1ltr bottle'
-		psellprice		=	12.00	
-		pcostprice		=	10.00
-		pgroup			=	'SD'
-		psupplier		=	'D00001'
-		pvatcode		=	1
-		ppacksize		=	'12 x 1ltr'
+		prod_code			=	'COK005'
+		prod_description	=	'Diet Coke 1ltr bottle'
+		sell_price			=	12.00	
+		cost_price			=	10.00
+		product.prod_group	=	'SD'
+		product.supp_code	=	'D00001'
+		vat_code			=	1
+		pack_size			=	'12 x 1ltr'
 		call addproduct
 		
-		pcode			=	'COK006'
-		pdescription	=	'Diet Coke 2Ltr Bottles'
-		psellprice		=	14.00	
-		pcostprice		=	10.00
-		pgroup			=	'SD'
-		psupplier		=	'D00001'
-		pvatcode		=	1
-		ppacksize		=	'6 x 2Ltr'
+		prod_code			=	'COK006'
+		prod_description	=	'Diet Coke 2Ltr Bottles'
+		sell_price			=	14.00	
+		cost_price			=	10.00
+		product.prod_group	=	'SD'
+		product.supp_code	=	'D00001'
+		vat_code			=	1
+		pack_size			=	'6 x 2Ltr'
 		call addproduct		
 		
-		pcode			=	'7UP001'
-		pdescription	=	'7UP Cans'
-		psellprice		=	8.50	
-		pcostprice		=	11.00
-		pgroup			=	'SD'
-		psupplier		=	'D00001'
-		pvatcode		=	1
-		ppacksize		=	'330ML'
+		prod_code			=	'7UP001'
+		prod_description	=	'7UP Cans'
+		sell_price			=	8.50	
+		cost_price			=	11.00
+		product.prod_group	=	'SD'
+		product.supp_code	=	'D00001'
+		vat_code			=	1
+		pack_size			=	'330ML'
 		call addproduct
 		
-		pcode			=	'7UP002'
-		pdescription	=	'7UP 1 Litre Bottles'
-		psellprice		=	12.00	
-		pcostprice		=	9.00
-		pgroup			=	'SD'
-		psupplier		=	'D00001'
-		pvatcode		=	1
-		ppacksize		=	'12 x 1 Ltr'
+		prod_code			=	'7UP002'
+		prod_description	=	'7UP 1 Litre Bottles'
+		sell_price			=	12.00	
+		cost_price			=	9.00
+		product.prod_group	=	'SD'
+		product.supp_code	=	'D00001'
+		vat_code			=	1
+		pack_size			=	'12 x 1 Ltr'
 		call addproduct
 		close 1
 		return
 		
-		pcode			=	'7UP003'
-		pdescription	=	'7UP 2 Litre Bottles'
-		psellprice		=	13.00	
-		pcostprice		=	10.50
-		pgroup			=	'SD'
-		psupplier		=	'D00001'
-		pvatcode		=	1
-		ppacksize		=	'6 x 2 Ltr'
+		prod_code			=	'7UP003'
+		prod_description	=	'7UP 2 Litre Bottles'
+		sell_price			=	13.00	
+		cost_price			=	10.50
+		product.prod_group	=	'SD'
+		product.supp_code	=	'D00001'
+		vat_code			=	1
+		pack_size			=	'6 x 2 Ltr'
 		call addproduct
 		
-		pcode			=	'CRISP1'
-		pdescription	=	'Ready Salted Crisps'
-		psellprice		=	13.00	
-		pcostprice		=	10.50
-		pgroup			=	'CR'
-		psupplier		=	'C00001'
-		pvatcode		=	1
-		ppacksize		=	'Box of 48'
+		prod_code			=	'CRISP1'
+		prod_description	=	'Ready Salted Crisps'
+		sell_price			=	13.00	
+		cost_price			=	10.50
+		product.prod_group	=	'CR'
+		product.supp_code	=	'C00001'
+		vat_code			=	1
+		pack_size			=	'Box of 48'
 		call addproduct
 		
-		pcode			=	'CRISP1'
-		pdescription	=	'Ready Salted Crisps'
-		psellprice		=	6.00	
-		pcostprice		=	4.00
-		pgroup			=	'CR'
-		psupplier		=	'C00001'
-		pvatcode		=	1
-		ppacksize		=	'Box of 48'
+		prod_code			=	'CRISP1'
+		prod_description	=	'Ready Salted Crisps'
+		sell_price			=	6.00	
+		cost_price			=	4.00
+		product.prod_group	=	'CR'
+		product.supp_code	=	'C00001'
+		vat_code			=	1
+		pack_size			=	'Box of 48'
 		call addproduct
 		
-		pcode			=	'CRISP2'
-		pdescription	=	'Salt and Vinegar Crisps'
-		psellprice		=	6.00	
-		pcostprice		=	4.00
-		pgroup			=	'CR'
-		psupplier		=	'C00001'
-		pvatcode		=	1
-		ppacksize		=	'Box of 48'
+		prod_code			=	'CRISP2'
+		prod_description	=	'Salt and Vinegar Crisps'
+		sell_price			=	6.00	
+		cost_price			=	4.00
+		product.prod_group	=	'CR'
+		product.supp_code	=	'C00001'
+		vat_code			=	1
+		pack_size			=	'Box of 48'
 		call addproduct
 		
-		pcode			=	'CRISP3'
-		pdescription	=	'Cheese and Onion Crisps'
-		psellprice		=	6.00	
-		pcostprice		=	4.00
-		pgroup			=	'CR'
-		psupplier		=	'C00001'
-		pvatcode		=	1
-		ppacksize		=	'Box of 48'
+		prod_code			=	'CRISP3'
+		prod_description	=	'Cheese and Onion Crisps'
+		sell_price			=	6.00	
+		cost_price			=	4.00
+		product.prod_group	=	'CR'
+		product.supp_code	=	'C00001'
+		vat_code			=	1
+		pack_size			=	'Box of 48'
 		call addproduct
 		close dataChan
 		
@@ -330,7 +330,7 @@ namespace SystemSetup
 		end
 		catch (e,@Exception)
 		begin
-			writes(ttChn, 'Error adding product record for ' + pcode + ' : ' + e.Message)
+			writes(ttChn, 'Error adding product record for ' + prod_code + ' : ' + e.Message)
 		end
 		endtry
 		return
@@ -341,26 +341,26 @@ namespace SystemSetup
 		writes(ttChn, 'loading suppliers')
 		open(dataChan = 0, U:I, 'SFEDATA:supplier.ism')
 		
-		suppcode	=	'D00001'
-		suppname	=	'Drinks Company'
-		suppaddress1=	'123 Main Road'
-		suppaddress2=	'Anytown'
-		suppaddress3=
-		supppostcode=	'UK1 7TH'
-		suppphone	=	'028 91123765'
-		suppcontact	=	'Mr T Jones'
-		suppemail	=	'Tjones@drinksco.com'
+		supplier.supp_code	=	'D00001'
+		name				=	'Drinks Company'
+		address1			=	'123 Main Road'
+		address2			=	'Anytown'
+		address3			=
+		postcode			=	'UK1 7TH'
+		phone				=	'028 91123765'
+		contact				=	'Mr T Jones'
+		email				=	'Tjones@drinksco.com'
 		call addsupplier
 		
-		suppcode	=	'C00001'
-		suppname	=	'Crisp Company'
-		suppaddress1=	'456 Main Road'
-		suppaddress2=	'Othertown'
-		suppaddress3=
-		supppostcode=	'UK1 1TS'
-		suppphone	=	'0108 6726155'
-		suppcontact	=	'Mr B Moore'
-		suppemail	=	'BMoore@crisps.com'
+		supplier.supp_code	=	'C00001'
+		name				=	'Crisp Company'
+		address1			=	'456 Main Road'
+		address2			=	'Othertown'
+		address3			=
+		postcode			=	'UK1 1TS'
+		phone				=	'0108 6726155'
+		contact				=	'Mr B Moore'
+		email				=	'BMoore@crisps.com'
 		call addsupplier
 		
 		close dataChan
@@ -374,7 +374,7 @@ namespace SystemSetup
 		end
 		catch (e,@Exception)
 		begin
-			writes(ttChn, 'Error adding supplier record for ' + suppcode + ' : ' + e.Message)
+			writes(ttChn, 'Error adding supplier record for ' + supplier.supp_code + ' : ' + e.Message)
 		end
 		endtry
 		return
@@ -383,22 +383,22 @@ namespace SystemSetup
 ; populate product group file
 	loadgroup,
 		writes(ttChn, 'loading groups')
-		open(dataChan = 0, U:I, 'SFEDATA:productgroup.ism')
-		
-		groupcode	= 'SD'
-		groupdesc	= 'Soft Drinks'
+		open(dataChan = 0, U:I, 'SFEDATA:product_group.ism')
+
+		product_group.prod_group	= 'SD'
+		group_desc					= 'Soft Drinks'
 		call addgroup
 		
-		groupcode	= 'CRI'
-		groupdesc	= 'Crisps'
+		product_group.prod_group	= 'CRI'
+		group_desc					= 'Crisps'
 		call addgroup
 		
-		groupcode	= 'NUT'
-		groupdesc	= 'Nuts'
+		product_group.prod_group	= 'NUT'
+		group_desc					= 'Nuts'
 		call addgroup
 		
-		groupcode	= 'CHO'
-		groupdesc	= 'Chocolate'
+		product_group.prod_group	= 'CHO'
+		group_desc					= 'Chocolate'
 		call addgroup
 		
 		close dataChan
@@ -407,11 +407,11 @@ namespace SystemSetup
 	addgroup,
 		try
 		begin
-			store(dataChan, productgroup)
+			store(dataChan, product_group)
 		end
 		catch (e,@Exception)
 		begin
-			writes(ttChn, 'Error adding product group record for ' + groupcode + ' : ' + e.Message)
+			writes(ttChn, 'Error adding product group record for ' + product_group.prod_group + ' : ' + e.Message)
 		end
 		endtry
 		return

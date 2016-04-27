@@ -19,7 +19,7 @@
     <Language>Synergy</Language>
     <DBL_unQulRecStm>Stack</DBL_unQulRecStm>
     <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
-    <ProjEnvVars>RPSMFIL=$(SolutionDIR)\Rps\rpsmain.ism;</ProjEnvVars>
+    <ProjEnvVars>RPSMFIL=$(SolutionDIR)\Rps\rpsmain.ism;RPSTFIL=$(SolutionDIR)\Rps\rpstext.ism</ProjEnvVars>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <Prefer32Bit Condition=" '$(TargetFrameworkVersion)'  != 'v4.0' AND '$(Prefer32Bit)' != 'false' ">true</Prefer32Bit>

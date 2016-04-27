@@ -12,7 +12,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Rps\rpsmain.schema = Rps\rpsmain.schema
 		Rps\rpstext.is1 = Rps\rpstext.is1
 		Rps\rpstext.ism = Rps\rpstext.ism
+		SymphonyExampleSolution.symproj = SymphonyExampleSolution.symproj
+		SymphonyExampleSolution.symprojDefaults = SymphonyExampleSolution.symprojDefaults
 	EndProjectSection
+EndProject
+Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "AppData_Server", "AppData_Server\AppData_Server.synproj", "{1C61E987-FBD9-49B8-B987-8A30D6EF3218}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +28,10 @@ Global
 		{78504DA9-412F-490B-B944-471209C6B25F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78504DA9-412F-490B-B944-471209C6B25F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78504DA9-412F-490B-B944-471209C6B25F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C61E987-FBD9-49B8-B987-8A30D6EF3218}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C61E987-FBD9-49B8-B987-8A30D6EF3218}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C61E987-FBD9-49B8-B987-8A30D6EF3218}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C61E987-FBD9-49B8-B987-8A30D6EF3218}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

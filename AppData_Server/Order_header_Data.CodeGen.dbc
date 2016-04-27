@@ -24,7 +24,7 @@ import System.Runtime.Serialization
 import Newtonsoft.Json
 
 
-namespace AppData.AppData_Server
+namespace AppData
 
     ;;define a structure that we can use around the applicaiton
 
@@ -35,9 +35,9 @@ namespace AppData.AppData_Server
 
 		private cls structure clsstrOrder_header
 .align
-			public csSupp_code, String
-.align
 			public csOrder_no, Int32
+.align
+			public csSupp_code, String
 .align
 			public csOrder_date, DateTime
 .align
@@ -86,16 +86,16 @@ namespace AppData.AppData_Server
 
 			
 			
-			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "SUPP_CODE", "Supp_code",  "", "",
-			&	"", "SUPP_CODE", 1, 6,
-			&	0, 0, 0, 0,
-			&	"ALPHA", false, 0, 0)
-
-			
 			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "ORDER_NO", "Order_no",  "", "",
-			&	"", "ORDER_NO", 7, 6,
+			&	"", "ORDER_NO", 1, 6,
 			&	0, 0, 0, 0,
 			&	"DECIMAL", false, 0, 999999)
+
+			
+			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "SUPP_CODE", "Supp_code",  "", "",
+			&	"", "SUPP_CODE", 7, 6,
+			&	0, 0, 0, 0,
+			&	"ALPHA", false, 0, 0)
 
 			
 			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "ORDER_DATE", "Order_date",  "", "",
@@ -140,10 +140,10 @@ namespace AppData.AppData_Server
 			&	"DECIMAL", false, 0, 999999)
 
 
-			mStaticFieldNameList.Add("Supp_code")
-			mStaticFieldHeadingList.Add("Supplier")
 			mStaticFieldNameList.Add("Order_no")
 			mStaticFieldHeadingList.Add("Order No")
+			mStaticFieldNameList.Add("Supp_code")
+			mStaticFieldHeadingList.Add("Supplier")
 			mStaticFieldNameList.Add("Order_date")
 			mStaticFieldHeadingList.Add("Order Date")
 			mStaticFieldNameList.Add("Reqd_date")
@@ -297,23 +297,6 @@ namespace AppData.AppData_Server
 
         ;;Expose fields as properties for data binding
         
-        ;;Supp_code
-		{JsonProperty}
-		public property Supp_code, a6
-			method get
-			proc
-				mreturn %atrim(order_header_main.STR_Supp_code)
-            endmethod
-			method set
-			proc
-					if (order_header_main.STR_Supp_code .nes. value)
-				begin
-										order_header_main.STR_Supp_code = value
-					ValidateEnteredData(1)
-					RaisePropertyChanged("Supp_code")
-				end
-			endmethod
-		endproperty
         ;;Order_no
 		{JsonProperty}
 		public property Order_no, d6
@@ -326,8 +309,25 @@ namespace AppData.AppData_Server
 				if (order_header_main.STR_Order_no .ne. value)
 				begin
 										order_header_main.STR_Order_no = value
-					ValidateEnteredData(2)
+					ValidateEnteredData(1)
 					RaisePropertyChanged("Order_no")
+				end
+			endmethod
+		endproperty
+        ;;Supp_code
+		{JsonProperty}
+		public property Supp_code, a6
+			method get
+			proc
+				mreturn %atrim(order_header_main.STR_Supp_code)
+            endmethod
+			method set
+			proc
+					if (order_header_main.STR_Supp_code .nes. value)
+				begin
+										order_header_main.STR_Supp_code = value
+					ValidateEnteredData(2)
+					RaisePropertyChanged("Supp_code")
 				end
 			endmethod
 		endproperty
@@ -471,9 +471,9 @@ namespace AppData.AppData_Server
 
                 ;;Signal that all fields have changed
                 
-				SetFieldValid("Supp_code")
-									if (mValidateSynergyData) ValidateEnteredData(1)
 				SetFieldValid("Order_no")
+									if (mValidateSynergyData) ValidateEnteredData(1)
+				SetFieldValid("Supp_code")
 									if (mValidateSynergyData) ValidateEnteredData(2)
 				SetFieldValid("Order_date")
 									if (mValidateSynergyData) ValidateEnteredData(3)
@@ -512,9 +512,9 @@ namespace AppData.AppData_Server
         proc
 			
 				            ValidateEnteredData(1)
-            RaisePropertyChanged("Supp_code")
-				            ValidateEnteredData(2)
             RaisePropertyChanged("Order_no")
+				            ValidateEnteredData(2)
+            RaisePropertyChanged("Supp_code")
 				            ValidateEnteredData(3)
             RaisePropertyChanged("Order_date")
 				            ValidateEnteredData(4)
@@ -544,9 +544,9 @@ namespace AppData.AppData_Server
             using fieldName select
 			
 			
-            ("SUPP_CODE"), mCurrentField = 1
+            ("ORDER_NO"), mCurrentField = 1
 			
-            ("ORDER_NO"), mCurrentField = 2
+            ("SUPP_CODE"), mCurrentField = 2
 			
             ("ORDER_DATE"), mCurrentField = 3
 			
@@ -603,7 +603,7 @@ namespace AppData.AppData_Server
         
 		
 
-        public property Supp_codeIsEnabled, Boolean
+        public property Order_noIsEnabled, Boolean
             method get
             proc
                 mreturn GetFieldEnabledState(1)
@@ -611,12 +611,12 @@ namespace AppData.AppData_Server
             method set
             proc
                 SetFieldEnabledState(1, value)
-                RaiseNonRPSPropertyChanged("Supp_codeIsEnabled")
+                RaiseNonRPSPropertyChanged("Order_noIsEnabled")
             endmethod
         endproperty
 		
 
-        public property Order_noIsEnabled, Boolean
+        public property Supp_codeIsEnabled, Boolean
             method get
             proc
                 mreturn GetFieldEnabledState(2)
@@ -624,7 +624,7 @@ namespace AppData.AppData_Server
             method set
             proc
                 SetFieldEnabledState(2, value)
-                RaiseNonRPSPropertyChanged("Order_noIsEnabled")
+                RaiseNonRPSPropertyChanged("Supp_codeIsEnabled")
             endmethod
         endproperty
 		
@@ -720,19 +720,6 @@ namespace AppData.AppData_Server
         endproperty
 
         ;;Expose properties to indicate whether fields are focussed
-		private mSupp_codeIsFocused	,Boolean
-		public property Supp_codeIsFocused, Boolean
-			method get
-			proc
-				mreturn mSupp_codeIsFocused
-			endmethod
-			method set
-			proc
-				clearFocus()
-				mSupp_codeIsFocused = value
-				RaiseNonRPSPropertyChanged("Supp_codeIsFocused")
-			endmethod
-		endproperty
 		private mOrder_noIsFocused	,Boolean
 		public property Order_noIsFocused, Boolean
 			method get
@@ -744,6 +731,19 @@ namespace AppData.AppData_Server
 				clearFocus()
 				mOrder_noIsFocused = value
 				RaiseNonRPSPropertyChanged("Order_noIsFocused")
+			endmethod
+		endproperty
+		private mSupp_codeIsFocused	,Boolean
+		public property Supp_codeIsFocused, Boolean
+			method get
+			proc
+				mreturn mSupp_codeIsFocused
+			endmethod
+			method set
+			proc
+				clearFocus()
+				mSupp_codeIsFocused = value
+				RaiseNonRPSPropertyChanged("Supp_codeIsFocused")
 			endmethod
 		endproperty
 		private mOrder_dateIsFocused	,Boolean
@@ -842,7 +842,7 @@ namespace AppData.AppData_Server
 		
 		
 
-		public property Supp_codeIsReadOnly, Boolean
+		public property Order_noIsReadOnly, Boolean
 			method get
 			proc
 				mreturn GetFieldReadOnlyState(1)
@@ -850,12 +850,12 @@ namespace AppData.AppData_Server
 			method set
 			proc
 				SetFieldReadOnlyState(1, value)
-				RaiseNonRPSPropertyChanged("Supp_codeIsReadOnly")
+				RaiseNonRPSPropertyChanged("Order_noIsReadOnly")
 			endmethod
 		endproperty
 		
 
-		public property Order_noIsReadOnly, Boolean
+		public property Supp_codeIsReadOnly, Boolean
 			method get
 			proc
 				mreturn GetFieldReadOnlyState(2)
@@ -863,7 +863,7 @@ namespace AppData.AppData_Server
 			method set
 			proc
 				SetFieldReadOnlyState(2, value)
-				RaiseNonRPSPropertyChanged("Order_noIsReadOnly")
+				RaiseNonRPSPropertyChanged("Supp_codeIsReadOnly")
 			endmethod
 		endproperty
 		
@@ -966,8 +966,8 @@ namespace AppData.AppData_Server
 			if (!doingClearFocus)
 			begin
 				doingClearFocus = true
-				if (Supp_codeIsFocused) Supp_codeIsFocused = false
 				if (Order_noIsFocused) Order_noIsFocused = false
+				if (Supp_codeIsFocused) Supp_codeIsFocused = false
 				if (Order_dateIsFocused) Order_dateIsFocused = false
 				if (Reqd_dateIsFocused) Reqd_dateIsFocused = false
 				if (CommentsIsFocused) CommentsIsFocused = false
@@ -1008,13 +1008,13 @@ namespace AppData.AppData_Server
 			endrecord
 		proc
 			using colName select
-			("Supp_code"),
+			("Order_no"),
 			begin
-				if (((Order_header_Data)obj1).Supp_code == ((Order_header_Data)obj2).Supp_code) then
+				if (((Order_header_Data)obj1).Order_no == ((Order_header_Data)obj2).Order_no) then
 					result = 0
 				else
 				begin
-					if (((Order_header_Data)obj1).Supp_code > ((Order_header_Data)obj2).Supp_code) then
+					if (((Order_header_Data)obj1).Order_no > ((Order_header_Data)obj2).Order_no) then
 					begin
 						if (sortDir == Symphony.Conductor.Framework.SynergySortOrder.Ascending) then
 							result = -1
@@ -1030,13 +1030,13 @@ namespace AppData.AppData_Server
 					end
 				end
 			end
-			("Order_no"),
+			("Supp_code"),
 			begin
-				if (((Order_header_Data)obj1).Order_no == ((Order_header_Data)obj2).Order_no) then
+				if (((Order_header_Data)obj1).Supp_code == ((Order_header_Data)obj2).Supp_code) then
 					result = 0
 				else
 				begin
-					if (((Order_header_Data)obj1).Order_no > ((Order_header_Data)obj2).Order_no) then
+					if (((Order_header_Data)obj1).Supp_code > ((Order_header_Data)obj2).Supp_code) then
 					begin
 						if (sortDir == Symphony.Conductor.Framework.SynergySortOrder.Ascending) then
 							result = -1
@@ -1221,8 +1221,8 @@ namespace AppData.AppData_Server
 			method get
 			proc
 				data tmpSTR	,clsstrOrder_header
-				tmpSTR.csSupp_code = (string)mAlphaConveter.Convert(order_header_main.STR_supp_code, ^null, ^null, ^null)
 				tmpSTR.csOrder_no = (int32)mIntegerConveter.Convert(order_header_main.STR_order_no, ^null, ^null, ^null)
+				tmpSTR.csSupp_code = (string)mAlphaConveter.Convert(order_header_main.STR_supp_code, ^null, ^null, ^null)
 				if (order_header_main.STR_order_date)
 					tmpSTR.csOrder_date = (datetime?)mDateConveter.Convert(order_header_main.STR_order_date, ^null, "FORMAT:YYYYMMDD|NODEFAULTODAY", ^null)
 				if (order_header_main.STR_reqd_date)
@@ -1238,8 +1238,8 @@ namespace AppData.AppData_Server
 			proc
 				data tmpSTR	,clsstrOrder_header
 				tmpSTR = byteArrayToStructure(value)
-				order_header_main.STR_Supp_code = (a)mAlphaConveter.ConvertBack(tmpSTR.csSupp_code, ^null, ^null, ^null)
 				order_header_main.STR_Order_no = (d)((i)mIntegerConveter.ConvertBack(tmpSTR.csOrder_no, ^null, ^null, ^null))
+				order_header_main.STR_Supp_code = (a)mAlphaConveter.ConvertBack(tmpSTR.csSupp_code, ^null, ^null, ^null)
 				order_header_main.STR_Order_date = (d)mDateConveter.ConvertBack(tmpSTR.csOrder_date, ^null, "FORMAT:YYYYMMDD|NODEFAULTODAY", ^null)
 				order_header_main.STR_Reqd_date = (d)mDateConveter.ConvertBack(tmpSTR.csReqd_date, ^null, "FORMAT:YYYYMMDD|NODEFAULTODAY", ^null)
 				order_header_main.STR_Comments = (a)mAlphaConveter.ConvertBack(tmpSTR.csComments, ^null, ^null, ^null)
@@ -1257,8 +1257,8 @@ namespace AppData.AppData_Server
 			data stream	,@MemoryStream , new MemoryStream()
 			begin
 				disposable data writer ,@BinaryWriter , new BinaryWriter(stream)
-				writer.Write(tmpSTRUCT.csSupp_code)
 				writer.Write(tmpSTRUCT.csOrder_no.ToString())
+				writer.Write(tmpSTRUCT.csSupp_code)
 				if (tmpSTRUCT.csOrder_date.Ticks >= DateTime.MinValue.Ticks && tmpSTRUCT.csOrder_date.Ticks <= DateTime.MaxValue.Ticks) then
 					writer.Write(tmpSTRUCT.csOrder_date.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'"))
 				else
@@ -1285,9 +1285,9 @@ namespace AppData.AppData_Server
 			data stream	,@MemoryStream	,new MemoryStream(byteArray)
 			begin
 				disposable data reader	,@BinaryReader	,new BinaryReader(stream)
-				tmpSTRUCT.csSupp_code = reader.ReadString()
 				tmpString = reader.ReadString()
 				tmpSTRUCT.csOrder_no = Convert.ToInt32(tmpString)
+				tmpSTRUCT.csSupp_code = reader.ReadString()
 				tmpString = reader.ReadString()
 				if (tmpString.Length > 0) tmpSTRUCT.csOrder_date = Convert.ToDateTime(tmpString)
 				tmpString = reader.ReadString()

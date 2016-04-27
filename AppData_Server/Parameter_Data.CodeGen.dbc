@@ -24,7 +24,7 @@ import System.Runtime.Serialization
 import Newtonsoft.Json
 
 
-namespace AppData.AppData_Server
+namespace AppData
 
     ;;define a structure that we can use around the applicaiton
 

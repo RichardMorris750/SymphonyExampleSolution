@@ -84,6 +84,8 @@ namespace SystemSetup
 		
 	create,
 
+		data hadError	,boolean	,false
+
 		;;create the folder if it's not there
 		data logValue	,a255
 		data logLength	,i4
@@ -109,6 +111,7 @@ namespace SystemSetup
 		catch (e, @Exception)
 		begin
 			writes(ttChn, 'Error creating product.ism file: ' + e.Message)
+			hadError = true
 		end
 		endtry
 		
@@ -120,6 +123,7 @@ namespace SystemSetup
 		catch (e, @Exception)
 		begin
 			writes(ttChn,'Error creating supplier.ism file: ' + e.Message)
+			hadError = true
 		end
 		endtry
 		
@@ -131,31 +135,47 @@ namespace SystemSetup
 		catch (e, @Exception)
 		begin
 			writes(ttChn, 'Error creating productgroup.ism file: ' + e.Message)
+			hadError = true
 		end
 		endtry
 		
 		try
 		begin
 			delet('SFEDATA:Order_Header.ism')
-			isamc('SFEDATA:Order_Header.ism', 159, 2, "START=7,LENGTH=6,NODUPS","START=1,LENGTH=12,NODUPS")	
+			data headerKeyVals	,[4]a*
+			&	,"START=1,LENGTH=6,TYPE=DECIMAL,NODUPS"
+			&	,"START=7:1,LENGTH=6:6,TYPE=ALPHA:DECIMAL,NODUPS"
+			&	,"START=13:1,LENGTH=8:6,TYPE=DECIMAL:DECIMAL,NODUPS"
+			&	,"START=21:1,LENGTH=8:6,TYPE=DECIMAL:DECIMAL,NODUPS"
+			isamc('SFEDATA:Order_Header.ism', 159, 4, headerKeyVals)	
 		end
 		catch (e, @Exception)
 		begin
 			writes(ttChn, 'Error creating OrderHeader.ism file: ' + e.Message)
+			hadError = true
 		end
 		endtry
 		
 		try
 		begin
 			delet('SFEDATA:Order_Line.ism')
-			isamc('SFEDATA:Order_Line.ism', 100, 1, "START=1,LENGTH=11,NODUPS")	
+			data lineKeyVals	,[2]a*
+			&	,"START=1:6,LENGTH=5:6,TYPE=DECIMAL:DECIMAL,NODUPS"
+			&	,"START=12:1:6,LENGTH=10:5:6,TYPE=ALPHA:DECIMAL:DECIMAL,NODUPS"
+			isamc('SFEDATA:Order_Line.ism', 100, 2, lineKeyVals)	
 		end
 		catch (e, @Exception)
 		begin
 			writes(ttChn,'Error creating OrderLine.ism file: ' + e.Message)
+			hadError = true
 		end
 		endtry
 		
+		if (hadError)
+		begin
+			writes(ttChn,'Press <RETURN> to continue')
+			reads(ttChn, ans)
+		end
 		return
 		
 ;--------------------------------------------------------------------

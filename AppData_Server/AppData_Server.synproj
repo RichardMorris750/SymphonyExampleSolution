@@ -111,12 +111,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Order_header_Data.CodeGen.dbc" />
+    <Compile Include="Order_header_FileIO.CodeGen.dbc" />
     <Compile Include="Order_line_Data.CodeGen.dbc" />
+    <Compile Include="Order_line_FileIO.CodeGen.dbc" />
     <Compile Include="Parameter_Data.CodeGen.dbc" />
+    <Compile Include="Parameter_FileIO.dbc" />
     <Compile Include="Product_Data.CodeGen.dbc" />
+    <Compile Include="Product_FileIO.CodeGen.dbc" />
     <Compile Include="Product_group_Data.CodeGen.dbc" />
+    <Compile Include="Product_group_FileIO.CodeGen.dbc" />
     <Compile Include="Properties\AssemblyInfo.dbl" />
     <Compile Include="Supplier_Data.CodeGen.dbc" />
+    <Compile Include="Supplier_FileIO.CodeGen.dbc" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties" />

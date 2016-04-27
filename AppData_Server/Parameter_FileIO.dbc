@@ -1,0 +1,47 @@
+import System
+import System.Collections.Generic
+import System.Text
+
+import Symphony.Core
+import Symphony.Conductor.Model
+import Symphony.Conductor.DataIO
+
+namespace AppData
+	
+	public class Parameter_FileIO extends FileIO
+		
+		;;; <summary>
+		;;;  Default constructor openes the data file in input mode
+		;;; </summary>
+		public method Parameter_FileIO
+			endparams
+			parent(82)
+		proc
+			mOpenMode = FileOpenMode.InputRelative
+			openTheFile("SFEDATA:parameter.dat")
+		endmethod
+		
+		;;; <summary>
+		;;;  Alternate constructor accepts the file open mode
+		;;; </summary>
+		public method Parameter_FileIO
+			in req openMode		,FileOpenMode
+			endparams
+			parent(82)
+		proc
+			mOpenMode = openMode
+			openTheFile("SFEDATA:parameter.dat")
+		endmethod
+		
+		protected override method checkInRange	,boolean
+			in req productArg		,a
+			endparams
+		proc
+			mreturn true
+		endmethod
+		
+	endclass
+	
+endnamespace
+
+

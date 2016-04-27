@@ -1,25 +1,25 @@
  
 ;  SYNERGY DATA LANGUAGE OUTPUT
 ;
-;  REPOSITORY     : C:\SYmphonySolutionsExample\\Rps\rpsmain.ism
-;                 : C:\SYmphonySolutionsExample\\Rps\rpstext.ism
+;  REPOSITORY     : C:\SymphonyExampleSolution\\Rps\rpsmain.ism
+;                 : C:\SymphonyExampleSolution\\Rps\rpstext.ism
 ;                 : Version 10.3.1b
 ;
-;  GENERATED      : 26-APR-2016, 10:44:30
-;                 : Version 10.3.1b
+;  GENERATED      : 27-APR-2016, 12:43:35
+;                 : Version 10.3.3
 ;  EXPORT OPTIONS : [ALL] 
  
  
 Structure ORDER_HEADER   DBL ISAM
    Description "Order Header"
  
-Field SUPP_CODE   Type ALPHA   Size 6
-   Description "Supplier Code"
-   Prompt "Supplier"   Report Heading "Supplier"
- 
 Field ORDER_NO   Type DECIMAL   Size 6
    Description "Order No"
    Prompt "Order No"   Report Heading "Order No"
+ 
+Field SUPP_CODE   Type ALPHA   Size 6
+   Description "Supplier Code"
+   Prompt "Supplier"   Report Heading "Supplier"
  
 Field ORDER_DATE   Type DATE   Size 8   Stored YYYYMMDD
    Description "Order date"
@@ -57,6 +57,16 @@ Key KEY2   ACCESS   Order ASCENDING   Dups NO
    Description "2nd key - supplier code + order no"
    Segment FIELD   SUPP_CODE  SegType ALPHA  SegOrder ASCENDING
    Segment FIELD   ORDER_NO  SegType DECIMAL  SegOrder ASCENDING
+ 
+Key KEY3   ACCESS   Order ASCENDING   Dups NO
+   Description "order date + order"
+   Segment FIELD   ORDER_DATE
+   Segment FIELD   ORDER_NO
+ 
+Key KEY4   ACCESS   Order ASCENDING   Dups NO
+   Description "required date + order"
+   Segment FIELD   REQD_DATE
+   Segment FIELD   ORDER_NO
  
 Structure ORDER_LINE   DBL ISAM
    Description "Order Line"
@@ -97,6 +107,15 @@ Field VAT_VALUE   Type DECIMAL   Size 10   Precision 2
    Description "VAT Value"
    Position 0 0   Prompt "VAT Value"   Report Heading "VAT Value"
  
+Key PRIMARY   ACCESS   Order ASCENDING   Dups NO
+   Description "order number and line"
+   Segment FIELD   ORDER_NO
+   Segment FIELD   LINE_NO
+ 
+Key PRODUCT   ACCESS   Order ASCENDING   Dups NO
+   Description "product code"
+   Segment FIELD   PROD_CODE
+ 
 Structure PARAMETER   RELATIVE
    Description "Parameter File"
  
@@ -106,6 +125,9 @@ Field LAST_ORDER_NO   Type DECIMAL   Size 6
  
 Field FILLER   Type ALPHA   Size 94
    Report Heading "UNUSED"
+ 
+Key PRIMARY   ACCESS   Order ASCENDING   Dups NO
+   Segment RECORD NUMBER
  
 Structure PRODUCT   DBL ISAM
    Description "Product Master File"
@@ -210,27 +232,27 @@ Key PRIMARY   ACCESS   Order ASCENDING   Dups NO
    Description "Primary key - supplier code"
    Segment FIELD   SUPP_CODE  SegType ALPHA  SegOrder ASCENDING
  
-File ORDER_HEADER   DBL ISAM   "sfedata:Order_header.ism"
+File ORDER_HEADER   DBL ISAM   "SFEDATA:order_header.ism"
    Description "Order Header File"
    Assign ORDER_HEADER
  
-File ORDER_LINE   DBL ISAM   "sfedata:Order_line.ism"
+File ORDER_LINE   DBL ISAM   "SFEDATA:order_line.ism"
    Description "Order Line File"
    Assign ORDER_LINE
  
-File PARAMETER   RELATIVE   "sfedata:parameter.dat"
+File PARAMETER   RELATIVE   "SFEDATA:parameter.dat"
    Description "Parameter file"
    Assign PARAMETER
  
-File PRODUCT   DBL ISAM   "SFEDATA:PRODUCT.ISM"
+File PRODUCT   DBL ISAM   "SFEDATA:product.ism"
    Description "Product Master File"
    Assign PRODUCT
  
-File PRODUCT_GROUP   DBL ISAM   "sfedata:Product_Group.ism"
+File PRODUCT_GROUP   DBL ISAM   "SFEDATA:product_group.ism"
    Description "Product Group master File"
    Assign PRODUCT_GROUP
  
-File SUPPLIER   DBL ISAM   "sfedata:supplier.ism"
+File SUPPLIER   DBL ISAM   "SFEDATA:supplier.ism"
    Description "Supplier Master File"
    Assign SUPPLIER
  

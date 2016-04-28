@@ -133,8 +133,8 @@ namespace SystemSetup
 		
 		try
 		begin
-			delet('SFEDATA:Product_Group.ism')
-			isamc('SFEDATA:Product_Group.ism', 23, 1, "START=1,LENGTH=3,NODUPS")	
+			delet('SFEDATA:product_group.ism')
+			isamc('SFEDATA:product_group.ism', 23, 1, "START=1,LENGTH=3,NODUPS")	
 		end
 		catch (e, @Exception)
 		begin
@@ -145,13 +145,13 @@ namespace SystemSetup
 		
 		try
 		begin
-			delet('SFEDATA:Order_Header.ism')
+			delet('SFEDATA:order_header.ism')
 			data headerKeyVals	,[4]a*
 			&	,"START=1,LENGTH=6,TYPE=DECIMAL,NODUPS"
 			&	,"START=7:1,LENGTH=6:6,TYPE=ALPHA:DECIMAL,NODUPS"
 			&	,"START=13:1,LENGTH=8:6,TYPE=DECIMAL:DECIMAL,NODUPS"
 			&	,"START=21:1,LENGTH=8:6,TYPE=DECIMAL:DECIMAL,NODUPS"
-			isamc('SFEDATA:Order_Header.ism', 159, 4, headerKeyVals)	
+			isamc('SFEDATA:order_header.ism', 159, 4, headerKeyVals)	
 		end
 		catch (e, @Exception)
 		begin
@@ -162,11 +162,11 @@ namespace SystemSetup
 		
 		try
 		begin
-			delet('SFEDATA:Order_Line.ism')
+			delet('SFEDATA:order_line.ism')
 			data lineKeyVals	,[2]a*
 			&	,"START=1:6,LENGTH=5:6,TYPE=DECIMAL:DECIMAL,NODUPS"
 			&	,"START=12:1:6,LENGTH=10:5:6,TYPE=ALPHA:DECIMAL:DECIMAL,NODUPS"
-			isamc('SFEDATA:Order_Line.ism', 100, 2, lineKeyVals)	
+			isamc('SFEDATA:order_line.ism', 100, 2, lineKeyVals)	
 		end
 		catch (e, @Exception)
 		begin

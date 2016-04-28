@@ -1,0 +1,14 @@
+﻿<Window x:Class="ProductViewer.MainWindow1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Product List" Height="300" Width="600" Loaded="Window_Loaded">
+    <Grid>
+        <DataGrid ItemsSource="{Binding Path=ProductList}" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Code" Binding="{Binding Path=Prod_code}" Width="150"></DataGridTextColumn>
+                <DataGridTextColumn Header="Description" Binding="{Binding Path=Prod_description}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Selling price" Binding="{Binding Path=Sell_price}" Width="150"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

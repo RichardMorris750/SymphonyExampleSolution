@@ -1,0 +1,56 @@
+import System
+import System.Collections.Generic
+import System.Text
+
+import Symphony.Conductor.ViewModel
+import System.Windows
+import System.Collections.ObjectModel
+import AppData
+import Symphony.Harmony
+
+;;use the extension methods
+import System.Linq
+import Symphony.Conductor.Model
+
+namespace ProductViewer
+
+	public class ProductViewerViewModel extends BaseViewModel
+
+		public method ProductViewerViewModel
+			in req sender						,@FrameworkElement
+			endparams
+			parent(sender)
+		proc
+			mProductList = new List<Product_Data>()
+
+			;;let's load the products using Symphoiny Harmony and a local connection
+
+			mConnector = new DBConnector("SYMLOCAL:ricahrd/morris!AppData.TableMapper.MapTableToFile")
+
+			try
+			begin
+				mProductList = new DataSelect(mConnector, "select prod_code, prod_description, sell_price from product", new Product_Data()).OfType<Product_Data>().ToList()
+			end
+			catch (e, @Exception)
+			begin
+				;;oops
+			end
+			endtry
+
+		endmethod
+
+		private mConnector		,@DBConnector
+
+		private mProductList	,@List<Product_Data>
+	
+		public property ProductList, @List<Product_Data>
+			method get
+			proc
+				mreturn mProductList
+			endmethod
+		endproperty
+		
+
+	endclass
+
+endnamespace

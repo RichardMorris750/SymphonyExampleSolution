@@ -1,0 +1,33 @@
+import System
+import System.Collections.Generic
+import System.Text
+
+
+namespace AppData
+
+	public class TableMapper
+	
+		public method MapTableToFile	,string
+			in req tableName			,string
+			endparams
+		proc
+			data fileName	,string
+			using tableName + " " select
+			("ORDER_HEADER "),
+				fileName = "SFEDATA:order_header.ism"
+			("ORDER_LINE "),
+				fileName = "SFEDATA:order_line.ism"
+			("PRODUCT "),
+				fileName = "SFEDATA:product.ism"
+			("PRODUCT_GROUP "),
+				fileName = "SFEDATA:product_group.ism"
+			("SUPPLIER "),
+				fileName = "SFEDATA:supplier.ism"
+			endusing
+			
+			mreturn fileName
+		endmethod
+		
+	endclass
+
+endnamespace

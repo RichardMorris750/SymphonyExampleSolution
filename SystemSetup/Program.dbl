@@ -39,6 +39,10 @@ import System
 import System.Collections.Generic
 import System.Text
 
+;;imports required to use data objects and file IO classes.
+import AppData
+import Symphony.Conductor.DataIO
+
 namespace SystemSetup
 	
 	;;; <summary>
@@ -359,7 +363,8 @@ namespace SystemSetup
 ; populate supplier file
 	loadsupplier,
 		writes(ttChn, 'loading suppliers')
-		open(dataChan = 0, U:I, 'SFEDATA:supplier.ism')
+
+		data supplierIO = new Supplier_FileIO(FileOpenMode.UpdateIndexed)
 		
 		supplier.supp_code	=	'D00001'
 		name				=	'Drinks Company'
@@ -382,21 +387,33 @@ namespace SystemSetup
 		contact				=	'Mr B Moore'
 		email				=	'BMoore@crisps.com'
 		call addsupplier
+
+		;;let's display the records to the screen
+
+		writes(ttChn, "Suppliers created:")
 		
-		close dataChan
+		data supplierObject = new Supplier_Data()
+		
+		data status	,FileAccessResults	,supplierIO.ReadFirstRecord(supplierObject)
+		while (status == FileAccessResults.Success)
+		begin
+			writes(ttChn, supplierObject.Name + " : " + supplierObject.Contact)
+			status = supplierIO.ReadNextRecord(supplierObject)
+		end
+		
+		;;close the channel
+		supplierIO.CloseChannel()
+
+		writes(ttChn, "Press <RETURN> to continue")
+		reads(ttChn, ans)		
+
 		return
 		
 ;---------------------------------------------------------
 	addsupplier,
-		try
-		begin
-			store(dataChan, supplier)
-		end
-		catch (e,@Exception)
-		begin
-			writes(ttChn, 'Error adding supplier record for ' + supplier.supp_code + ' : ' + e.Message)
-		end
-		endtry
+		
+		if (supplierIO.CreateRecord(new Supplier_Data(supplier)) != FileAccessResults.Success)
+			writes(ttChn, 'Error adding supplier record for ' + supplier.supp_code + ' : ' + supplierIO.LastSynergyError.ToString())
 		return
 		
 ;-------------------------------------------------------------------------------

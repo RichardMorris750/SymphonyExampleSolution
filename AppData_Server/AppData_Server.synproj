@@ -24,6 +24,7 @@
     <ResourceType>Icon</ResourceType>
     <ResourceName />
     <NoWin32Manifest />
+    <ProjEnvVars>RPSMFIL=$(SolutionDir)Rps\rpsmain.ism;RPSTFIL=$(SolutionDir)Rps\rpstext.ism</ProjEnvVars>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <IncludeDebugInformation>true</IncludeDebugInformation>

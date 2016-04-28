@@ -367,26 +367,26 @@ namespace SystemSetup
 		
 		data supplier	,STRSupplier
 
-		supplier.STR_SUPP_CODE	=	'D00001'
-		supplier.STR_NAME				=	'Drinks Company'
-		supplier.STR_ADDRESS1			=	'123 Main Road'
-		supplier.STR_ADDRESS2			=	'Anytown'
-		supplier.STR_ADDRESS3			=
-		supplier.STR_POSTCODE			=	'UK1 7TH'
-		supplier.STR_PHONE				=	'028 91123765'
-		supplier.STR_CONTACT				=	'Mr T Jones'
-		supplier.STR_EMAIL				=	'Tjones@drinksco.com'
+		supplier.str_supp_code	=	'D00001'
+		supplier.str_name				=	'Drinks Company'
+		supplier.str_address1			=	'123 Main Road'
+		supplier.str_address2			=	'Anytown'
+		supplier.str_address3			=
+		supplier.str_postcode			=	'UK1 7TH'
+		supplier.str_phone				=	'028 91123765'
+		supplier.str_contact				=	'Mr T Jones'
+		supplier.str_email				=	'Tjones@drinksco.com'
 		call addsupplier
 		
-		supplier.STR_SUPP_CODE	=	'C00001'
-		supplier.STR_NAME				=	'Crisp Company'
-		supplier.STR_ADDRESS1			=	'456 Main Road'
-		supplier.STR_ADDRESS2			=	'Othertown'
-		supplier.STR_ADDRESS3			=
-		supplier.STR_POSTCODE			=	'UK1 1TS'
-		supplier.STR_PHONE				=	'0108 6726155'
-		supplier.STR_CONTACT				=	'Mr B Moore'
-		supplier.STR_EMAIL				=	'BMoore@crisps.com'
+		supplier.str_supp_code	=	'C00001'
+		supplier.str_name				=	'Crisp Company'
+		supplier.str_address1			=	'456 Main Road'
+		supplier.str_address2			=	'Othertown'
+		supplier.str_address3			=
+		supplier.str_postcode			=	'UK1 1TS'
+		supplier.str_phone				=	'0108 6726155'
+		supplier.str_contact				=	'Mr B Moore'
+		supplier.str_email				=	'BMoore@crisps.com'
 		call addsupplier
 
 		;;let's display the records to the screen

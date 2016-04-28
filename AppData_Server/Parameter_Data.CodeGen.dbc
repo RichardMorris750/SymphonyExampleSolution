@@ -28,7 +28,9 @@ namespace AppData
 
     ;;define a structure that we can use around the applicaiton
 
-    .include 'parameter' repository  , structure = 'STRParameter', prefix = "str_", end
+	structure STRParameter
+		.include 'parameter' repository  , norecord, prefix = "str_"
+	endstructure
 
 	{JsonObject(MemberSerialization.OptIn)}
     public partial class Parameter_Data extends Symphony.Conductor.Model.DataObjectBase

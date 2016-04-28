@@ -28,7 +28,9 @@ namespace AppData
 
     ;;define a structure that we can use around the applicaiton
 
-    .include 'order_header' repository  , structure = 'STROrder_header', prefix = "str_", end
+	structure STROrder_header
+		.include 'order_header' repository  , norecord, prefix = "str_"
+	endstructure
 
 	{JsonObject(MemberSerialization.OptIn)}
     public partial class Order_header_Data extends Symphony.Conductor.Model.DataObjectBase

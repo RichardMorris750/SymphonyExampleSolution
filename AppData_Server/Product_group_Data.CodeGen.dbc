@@ -28,7 +28,9 @@ namespace AppData
 
     ;;define a structure that we can use around the applicaiton
 
-    .include 'product_group' repository  , structure = 'STRProduct_group', prefix = "str_", end
+	structure STRProduct_group
+		.include 'product_group' repository  , norecord, prefix = "str_"
+	endstructure
 
 	{JsonObject(MemberSerialization.OptIn)}
     public partial class Product_group_Data extends Symphony.Conductor.Model.DataObjectBase

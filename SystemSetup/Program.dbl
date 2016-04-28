@@ -51,7 +51,6 @@ namespace SystemSetup
 	main
 		
 		.include 'product' repository, record = 'product'
-		.include 'supplier' repository, record = 'supplier'
 		.include 'product_group' repository, record = 'product_group'
 		.include 'parameter' repository, record = 'parameter'
 		
@@ -366,26 +365,28 @@ namespace SystemSetup
 
 		data supplierIO = new Supplier_FileIO(FileOpenMode.UpdateIndexed)
 		
-		supplier.supp_code	=	'D00001'
-		name				=	'Drinks Company'
-		address1			=	'123 Main Road'
-		address2			=	'Anytown'
-		address3			=
-		postcode			=	'UK1 7TH'
-		phone				=	'028 91123765'
-		contact				=	'Mr T Jones'
-		email				=	'Tjones@drinksco.com'
+		data supplier	,STRSupplier
+
+		supplier.STR_SUPP_CODE	=	'D00001'
+		supplier.STR_NAME				=	'Drinks Company'
+		supplier.STR_ADDRESS1			=	'123 Main Road'
+		supplier.STR_ADDRESS2			=	'Anytown'
+		supplier.STR_ADDRESS3			=
+		supplier.STR_POSTCODE			=	'UK1 7TH'
+		supplier.STR_PHONE				=	'028 91123765'
+		supplier.STR_CONTACT				=	'Mr T Jones'
+		supplier.STR_EMAIL				=	'Tjones@drinksco.com'
 		call addsupplier
 		
-		supplier.supp_code	=	'C00001'
-		name				=	'Crisp Company'
-		address1			=	'456 Main Road'
-		address2			=	'Othertown'
-		address3			=
-		postcode			=	'UK1 1TS'
-		phone				=	'0108 6726155'
-		contact				=	'Mr B Moore'
-		email				=	'BMoore@crisps.com'
+		supplier.STR_SUPP_CODE	=	'C00001'
+		supplier.STR_NAME				=	'Crisp Company'
+		supplier.STR_ADDRESS1			=	'456 Main Road'
+		supplier.STR_ADDRESS2			=	'Othertown'
+		supplier.STR_ADDRESS3			=
+		supplier.STR_POSTCODE			=	'UK1 1TS'
+		supplier.STR_PHONE				=	'0108 6726155'
+		supplier.STR_CONTACT				=	'Mr B Moore'
+		supplier.STR_EMAIL				=	'BMoore@crisps.com'
 		call addsupplier
 
 		;;let's display the records to the screen
@@ -413,7 +414,7 @@ namespace SystemSetup
 	addsupplier,
 		
 		if (supplierIO.CreateRecord(new Supplier_Data(supplier)) != FileAccessResults.Success)
-			writes(ttChn, 'Error adding supplier record for ' + supplier.supp_code + ' : ' + supplierIO.LastSynergyError.ToString())
+			writes(ttChn, 'Error adding supplier record for ' + supplier.STR_SUPP_CODE + ' : ' + supplierIO.LastSynergyError.ToString())
 		return
 		
 ;-------------------------------------------------------------------------------

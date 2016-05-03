@@ -50,14 +50,14 @@ namespace SystemSetup
 	;;; </summary>  
 	main
 		
-		.include 'product' repository, record = 'product'
-		.include 'product_group' repository, record = 'product_group'
-		.include 'parameter' repository, record = 'parameter'
+;		.include 'product' repository, record = 'product'
+;		.include 'product_group' repository, record = 'product_group'
+;		.include 'parameter' repository, record = 'parameter'
 		
 		record
 			ttChn		,i4	,0
 			ans			,a1
-			dataChan	,i4	,0
+;			dataChan	,i4	,0
 		endrecord
 		
 	proc
@@ -185,20 +185,30 @@ namespace SystemSetup
 ;set parameter file
 		
 	setparameter,
-		writes(ttChn,'Creating parameter file')
-		try
-		begin
-			open(dataChan = 0, O:R, 'SFEDATA:parameter.dat', RECSIZ:100)
-			clear parameter
-			last_order_no = 1
-			write(dataChan, parameter, 1)
-			close dataChan
-		end
-		catch (e,@Exception)
-		begin
-			writes(ttChn,'Error creating and setting parameter.dat file: ' + e.Message)		
-		end
-		endtry
+;		writes(ttChn,'Creating parameter file')
+;		
+;		
+;		data parameterIO = new Parameter_fileIO(FileOpenMode.CreateRelative)
+;		
+;		data parameter	,STRparameter
+;
+;		parameter.str_last_ord_no = 1
+
+
+
+;		try
+;		begin
+;			open(dataChan = 0, O:R, 'SFEDATA:parameter.dat', RECSIZ:100)
+;			clear parameter
+;			last_order_no = 1
+;			write(dataChan, parameter, 1)
+;			close dataChan
+;		end
+;		catch (e,@Exception)
+;		begin
+;			writes(ttChn,'Error creating and setting parameter.dat file: ' + e.Message)		
+;		end
+;		endtry
 		
 		return
 		
@@ -206,167 +216,213 @@ namespace SystemSetup
 ;------------------------------------------------------------
 ; populate product file
 	loadproduct,
-		writes(ttChn, 'Loading products')
-		open(dataChan = 0, U:I, 'SFEDATA:product.ism')
+
+		data productIO = new Product_FileIO(FileOpenMode.UpdateIndexed)
 		
-		prod_code			=	'COK001'
-		prod_description	=	'Coke Cans'
-		sell_price			=	8.00	
-		cost_price			=	6.00
-		product.prod_group	=	'SD'
-		product.supp_code	=	'D00001'
-		vat_code			=	1
-		pack_size			=	'330ML'
+		data product	,STRproduct
+
+		product.str_prod_code			=	'COK001'
+		product.str_prod_description	=	'Coke Cans'
+		product.str_sell_price			=	8.00	
+		product.str_cost_price			=	6.00
+		product.str_prod_group	=	'SD'
+		product.str_supp_code	=	'D00001'
+		product.str_vat_code			=	1
+		product.str_pack_size			=	'330ML'
+		call addproduct
+
+		product.str_prod_code			=	'COK002'
+		product.str_prod_description	=	'Coke 1ltr bottles'
+		product.str_sell_price			=	12.00	
+		product.str_cost_price			=	10.00
+		product.str_prod_group	=	'SD'
+		product.str_supp_code	=	'D00001'
+		product.str_vat_code			=	1
+		product.str_pack_size			=	'12 x 1ltr'
 		call addproduct
 		
-		prod_code			=	'COK002'
-		prod_description	=	'Coke 1ltr bottles'
-		sell_price			=	12.00	
-		cost_price			=	10.00
-		product.prod_group	=	'SD'
-		product.supp_code	=	'D00001'
-		vat_code			=	1
-		pack_size			=	'12 x 1ltr'
+		product.str_prod_code			=	'COK003'
+		product.str_prod_description	=	'Coke 2Ltr Bottles'
+		product.str_sell_price			=	14.00	
+		product.str_cost_price			=	10.00
+		product.str_prod_group	=	'SD'
+		product.str_supp_code	=	'D00001'
+		product.str_vat_code			=	1
+		product.str_pack_size			=	'6 x 2Ltr'
 		call addproduct
 		
-		prod_code			=	'COK003'
-		prod_description	=	'Coke 2Ltr Bottles'
-		sell_price			=	14.00	
-		cost_price			=	10.00
-		product.prod_group	=	'SD'
-		product.supp_code	=	'D00001'
-		vat_code			=	1
-		pack_size			=	'6 x 2Ltr'
+		product.str_prod_code			=	'COK004'
+		product.str_prod_description	=	'Diet Coke Cans'
+		product.str_sell_price			=	8.00	
+		product.str_cost_price			=	6.00
+		product.str_prod_group	=	'SD'
+		product.str_supp_code	=	'D00001'
+		product.str_vat_code			=	1
+		product.str_pack_size			=	'330ML'
 		call addproduct
 		
-		prod_code			=	'COK004'
-		prod_description	=	'Diet Coke Cans'
-		sell_price			=	8.00	
-		cost_price			=	6.00
-		product.prod_group	=	'SD'
-		product.supp_code	=	'D00001'
-		vat_code			=	1
-		pack_size			=	'330ML'
+		product.str_prod_code			=	'COK005'
+		product.str_prod_description	=	'Diet Coke 1ltr bottle'
+		product.str_sell_price			=	12.00	
+		product.str_cost_price			=	10.00
+		product.str_prod_group	=	'SD'
+		product.str_supp_code	=	'D00001'
+		product.str_vat_code			=	1
+		product.str_pack_size			=	'12 x 1ltr'
 		call addproduct
 		
-		prod_code			=	'COK005'
-		prod_description	=	'Diet Coke 1ltr bottle'
-		sell_price			=	12.00	
-		cost_price			=	10.00
-		product.prod_group	=	'SD'
-		product.supp_code	=	'D00001'
-		vat_code			=	1
-		pack_size			=	'12 x 1ltr'
-		call addproduct
-		
-		prod_code			=	'COK006'
-		prod_description	=	'Diet Coke 2Ltr Bottles'
-		sell_price			=	14.00	
-		cost_price			=	10.00
-		product.prod_group	=	'SD'
-		product.supp_code	=	'D00001'
-		vat_code			=	1
-		pack_size			=	'6 x 2Ltr'
+		product.str_prod_code			=	'COK006'
+		product.str_prod_description	=	'Diet Coke 2Ltr Bottles'
+		product.str_sell_price			=	14.00	
+		product.str_cost_price			=	10.00
+		product.str_prod_group	=	'SD'
+		product.str_supp_code	=	'D00001'
+		product.str_vat_code			=	1
+		product.str_pack_size			=	'6 x 2Ltr'
 		call addproduct		
 		
-		prod_code			=	'7UP001'
-		prod_description	=	'7UP Cans'
-		sell_price			=	8.50	
-		cost_price			=	11.00
-		product.prod_group	=	'SD'
-		product.supp_code	=	'D00001'
-		vat_code			=	1
-		pack_size			=	'330ML'
+		product.str_prod_code			=	'7UP001'
+		product.str_prod_description	=	'7UP Cans'
+		product.str_sell_price			=	8.50	
+		product.str_cost_price			=	11.00
+		product.str_prod_group	=	'SD'
+		product.str_supp_code	=	'D00001'
+		product.str_vat_code			=	1
+		product.str_pack_size			=	'330ML'
 		call addproduct
 		
-		prod_code			=	'7UP002'
-		prod_description	=	'7UP 1 Litre Bottles'
-		sell_price			=	12.00	
-		cost_price			=	9.00
-		product.prod_group	=	'SD'
-		product.supp_code	=	'D00001'
-		vat_code			=	1
-		pack_size			=	'12 x 1 Ltr'
+		product.str_prod_code			=	'7UP002'
+		product.str_prod_description	=	'7UP 1 Litre Bottles'
+		product.str_sell_price			=	12.00	
+		product.str_cost_price			=	9.00
+		product.str_prod_group	=	'SD'
+		product.str_supp_code	=	'D00001'
+		product.str_vat_code			=	1
+		product.str_pack_size			=	'12 x 1 Ltr'
 		call addproduct
-		close 1
+		
+		product.str_prod_code			=	'7UP003'
+		product.str_prod_description	=	'7UP 2 Litre Bottles'
+		product.str_sell_price			=	13.00	
+		product.str_cost_price			=	10.50
+		product.str_prod_group	=	'SD'
+		product.str_supp_code	=	'D00001'
+		product.str_vat_code			=	1
+		product.str_pack_size			=	'6 x 2 Ltr'
+		call addproduct
+		
+		product.str_prod_code			=	'CRISP1'
+		product.str_prod_description	=	'Ready Salted Crisps'
+		product.str_sell_price			=	13.00	
+		product.str_cost_price			=	10.50
+		product.str_prod_group	=	'CR'
+		product.str_supp_code	=	'C00001'
+		product.str_vat_code			=	1
+		product.str_pack_size			=	'Box of 48'
+		call addproduct
+		
+		product.str_prod_code			=	'CRISP1'
+		product.str_prod_description	=	'Ready Salted Crisps'
+		product.str_sell_price			=	6.00	
+		product.str_cost_price			=	4.00
+		product.str_prod_group	=	'CR'
+		product.str_supp_code	=	'C00001'
+		product.str_vat_code			=	1
+		product.str_pack_size			=	'Box of 48'
+		call addproduct
+		;gi - I got my duiplicate key error here, as expected
+		
+		product.str_prod_code			=	'CRISP2'
+		product.str_prod_description	=	'Salt and Vinegar Crisps'
+		product.str_sell_price			=	6.00	
+		product.str_cost_price			=	4.00
+		product.str_prod_group	=	'CR'
+		product.str_supp_code	=	'C00001'
+		product.str_vat_code			=	1
+		product.str_pack_size			=	'Box of 48'
+		call addproduct
+		
+		product.str_prod_code			=	'CRISP3'
+		product.str_prod_description	=	'Cheese and Onion Crisps'
+		product.str_sell_price			=	6.00	
+		product.str_cost_price			=	4.00
+		product.str_prod_group	=	'CR'
+		product.str_supp_code	=	'C00001'
+		product.str_vat_code			=	1
+		product.str_pack_size			=	'Box of 48'
+		;gi - and duplicate key error here as well
+		call addproduct
+
+		data productObject = new Product_Data()
+		
+		data productStatus	,FileAccessResults	,productIO.ReadFirstRecord(productObject)
+		while (productStatus == FileAccessResults.Success)
+		begin
+			writes(ttChn, productObject.prod_code + " : " + productObject.prod_description)
+
+			productStatus = productIO.ReadNextRecord(productObject)
+
+		end
+
+		productIO.CloseChannel()
+
+		writes(ttChn, "Press <RETURN> to continue")
+		reads(ttChn, ans)
+
 		return
-		
-		prod_code			=	'7UP003'
-		prod_description	=	'7UP 2 Litre Bottles'
-		sell_price			=	13.00	
-		cost_price			=	10.50
-		product.prod_group	=	'SD'
-		product.supp_code	=	'D00001'
-		vat_code			=	1
-		pack_size			=	'6 x 2 Ltr'
-		call addproduct
-		
-		prod_code			=	'CRISP1'
-		prod_description	=	'Ready Salted Crisps'
-		sell_price			=	13.00	
-		cost_price			=	10.50
-		product.prod_group	=	'CR'
-		product.supp_code	=	'C00001'
-		vat_code			=	1
-		pack_size			=	'Box of 48'
-		call addproduct
-		
-		prod_code			=	'CRISP1'
-		prod_description	=	'Ready Salted Crisps'
-		sell_price			=	6.00	
-		cost_price			=	4.00
-		product.prod_group	=	'CR'
-		product.supp_code	=	'C00001'
-		vat_code			=	1
-		pack_size			=	'Box of 48'
-		call addproduct
-		
-		prod_code			=	'CRISP2'
-		prod_description	=	'Salt and Vinegar Crisps'
-		sell_price			=	6.00	
-		cost_price			=	4.00
-		product.prod_group	=	'CR'
-		product.supp_code	=	'C00001'
-		vat_code			=	1
-		pack_size			=	'Box of 48'
-		call addproduct
-		
-		prod_code			=	'CRISP3'
-		prod_description	=	'Cheese and Onion Crisps'
-		sell_price			=	6.00	
-		cost_price			=	4.00
-		product.prod_group	=	'CR'
-		product.supp_code	=	'C00001'
-		vat_code			=	1
-		pack_size			=	'Box of 48'
-		call addproduct
-		close dataChan
-		
-		return
-		
-;--------------------------------------------------------
-		
+
+;------------------------------------------------------------------------------------
 	addproduct,
-		try
-		begin
-			store(dataChan, product)
-		end
-		catch (e,@Exception)
-		begin
-			writes(ttChn, 'Error adding product record for ' + prod_code + ' : ' + e.Message)
-		end
-		endtry
+		if (productIO.CreateRecord(new Product_Data(product)) != FileAccessResults.Success)
+			writes(ttChn, 'Error adding product record for ' + product.str_prod_code + ' : ' + productIO.LastSynergyError.ToString())
 		return
-		
+
+
+;; just to keep old code for comparison
+
+;		writes(ttChn, 'Loading products')
+;		open(dataChan = 0, U:I, 'SFEDATA:product.ism')
+;		
+;		prod_code			=	'COK001'
+;		prod_description	=	'Coke Cans'
+;		sell_price			=	8.00	
+;		cost_price			=	6.00
+;		product.prod_group	=	'SD'
+;		product.supp_code	=	'D00001'
+;		vat_code			=	1
+;		pack_size			=	'330ML'
+;		call addproduct
+;		
+;
+;		return
+;		
+;--------------------------------------------------------
+;		
+;	addproduct,
+;		try
+;		begin
+;			store(dataChan, product)
+;		end
+;		catch (e,@Exception)
+;		begin
+;			writes(ttChn, 'Error adding product record for ' + prod_code + ' : ' + e.Message)
+;		end
+;		endtry
+;		return
+;		
+
+
 ;-----------------------------------------------------------------------------
 ; populate supplier file
 	loadsupplier,
 		writes(ttChn, 'loading suppliers')
 
 		data supplierIO = new Supplier_FileIO(FileOpenMode.UpdateIndexed)
-		
+		; gi - so this creates an object which has the file open in update mode
+			
 		data supplier	,STRSupplier
 
+		; gi - i use a structure instead fo a record to hold the data I want to add to the file
 		supplier.str_supp_code	=	'D00001'
 		supplier.str_name				=	'Drinks Company'
 		supplier.str_address1			=	'123 Main Road'
@@ -396,14 +452,19 @@ namespace SystemSetup
 		data supplierObject = new Supplier_Data()
 		
 		data status	,FileAccessResults	,supplierIO.ReadFirstRecord(supplierObject)
+		; gi,  this defines the status and calls the "read first record" for the file class and returns a supplier data object and sets the status we just defined
 		while (status == FileAccessResults.Success)
 		begin
 			writes(ttChn, supplierObject.Name + " : " + supplierObject.Contact)
+			; we can now access properties of the supplier object.  how would we set them and update the file ?
 			status = supplierIO.ReadNextRecord(supplierObject)
+			; gi - this then calls a method of the file class to read next record and return as an object ?
 		end
 		
 		;;close the channel
 		supplierIO.CloseChannel()
+		; gi - this closes the file.  Does this dispose of the file object as well ? If not, should we dispose of it ?
+		; how would we dispose of thedata object ?
 
 		writes(ttChn, "Press <RETURN> to continue")
 		reads(ttChn, ans)		
@@ -412,46 +473,61 @@ namespace SystemSetup
 		
 ;---------------------------------------------------------
 	addsupplier,
-		
+		; gi - this creates an object from the structure and passes it to the file obejct.  It has a return value which can be checked
 		if (supplierIO.CreateRecord(new Supplier_Data(supplier)) != FileAccessResults.Success)
-			writes(ttChn, 'Error adding supplier record for ' + supplier.STR_SUPP_CODE + ' : ' + supplierIO.LastSynergyError.ToString())
+			writes(ttChn, 'Error adding supplier record for ' + supplier.str_supp_code + ' : ' + supplierIO.LastSynergyError.ToString())
+		; gi - this replaces the try / catch logic, and uses properties of the data obejct and teh file object for the error message
+		; gi - Q - does this object exist after it is created ?  If so, do we need to dispose of it ?
 		return
 		
 ;-------------------------------------------------------------------------------
 ; populate product group file
 	loadgroup,
-		writes(ttChn, 'loading groups')
-		open(dataChan = 0, U:I, 'SFEDATA:product_group.ism')
 
-		product_group.prod_group	= 'SD'
-		group_desc					= 'Soft Drinks'
+		data product_groupIO = new product_group_FileIO(FileOpenMode.UpdateIndexed)
+		
+		data product_group	,STRProduct_group
+		
+		writes(ttChn, 'loading groups')
+
+
+		product_group.str_prod_group	= 'SD'
+		product_group.str_group_desc	= 'Soft Drinks'
 		call addgroup
 		
-		product_group.prod_group	= 'CRI'
-		group_desc					= 'Crisps'
+		product_group.str_prod_group	= 'CRI'
+		product_group.str_group_desc	= 'Crisps'
 		call addgroup
 		
-		product_group.prod_group	= 'NUT'
-		group_desc					= 'Nuts'
+		product_group.str_prod_group	= 'NUT'
+		product_group.str_group_desc	= 'Nuts'
 		call addgroup
 		
-		product_group.prod_group	= 'CHO'
-		group_desc					= 'Chocolate'
+		product_group.str_prod_group	= 'CHO'
+		product_group.str_group_desc	= 'Chocolate'
 		call addgroup
+
+		data product_groupObject = new Product_group_Data()
 		
-		close dataChan
+		data product_groupStatus	,FileAccessResults	,Product_groupIO.ReadFirstRecord(Product_groupObject)
+		while (product_groupStatus == FileAccessResults.Success)
+		begin
+			writes(ttChn, product_groupObject.prod_group + " : " + product_groupObject.group_desc)
+			
+			product_groupStatus = product_groupIO.ReadNextRecord(product_groupObject)
+			
+		end
+
+		product_groupIO.CloseChannel()
+
+		writes(ttChn, "Press <RETURN> to continue")
+		reads(ttChn, ans)
+
 		return
 ;---------------------------------------------------------
 	addgroup,
-		try
-		begin
-			store(dataChan, product_group)
-		end
-		catch (e,@Exception)
-		begin
-			writes(ttChn, 'Error adding product group record for ' + product_group.prod_group + ' : ' + e.Message)
-		end
-		endtry
+		if (product_groupIO.CreateRecord(new Product_group_Data(product_group)) != FileAccessResults.Success)
+			writes(ttChn, 'Error adding product group record for ' + product_group.str_prod_group + ' : ' + product_groupIO.LastSynergyError.ToString())
 		return
 		
 		

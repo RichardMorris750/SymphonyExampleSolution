@@ -1,11 +1,11 @@
  
 ;  SYNERGY DATA LANGUAGE OUTPUT
 ;
-;  REPOSITORY     : C:\SymphonyExampleSolution\\Rps\rpsmain.ism
-;                 : C:\SymphonyExampleSolution\\Rps\rpstext.ism
+;  REPOSITORY     : C:\SymphonyExampleSolution\Rps\rpsmain.ism
+;                 : C:\SymphonyExampleSolution\Rps\rpstext.ism
 ;                 : Version 10.3.1b
 ;
-;  GENERATED      : 27-APR-2016, 12:43:35
+;  GENERATED      : 04-MAY-2016, 08:51:04
 ;                 : Version 10.3.3
 ;  EXPORT OPTIONS : [ALL] 
  
@@ -123,7 +123,7 @@ Field LAST_ORDER_NO   Type DECIMAL   Size 6
    Description "Last Order Number"
    Report Heading "Last Order No"
  
-Field FILLER   Type ALPHA   Size 94
+Field FILLER   Type ALPHA   Size 94   Language Noview
    Report Heading "UNUSED"
  
 Key PRIMARY   ACCESS   Order ASCENDING   Dups NO

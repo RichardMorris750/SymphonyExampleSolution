@@ -185,30 +185,40 @@ namespace SystemSetup
 ;set parameter file
 		
 	setparameter,
-;		writes(ttChn,'Creating parameter file')
-;		
-;		
-;		data parameterIO = new Parameter_fileIO(FileOpenMode.CreateRelative)
-;		
-;		data parameter	,STRparameter
-;
-;		parameter.str_last_ord_no = 1
+		writes(ttChn,'Creating parameter file')
 
+		;;need to create a relative file
+		try
+		begin
+			data tmpChan	,i4	,0
+			open(tmpChan, O:R, 'SFEDATA:parameter.dat', RECSIZ:100)
+			close(tmpChan)
+		end
+		catch (e,@Exception)
+		begin
+			writes(ttChn,'Error creating and setting parameter.dat file: ' + e.Message)		
+		end
+		endtry
 
+		data parameterIO = new Parameter_fileIO(FileOpenMode.UpdateRelative)
 
-;		try
-;		begin
-;			open(dataChan = 0, O:R, 'SFEDATA:parameter.dat', RECSIZ:100)
-;			clear parameter
-;			last_order_no = 1
-;			write(dataChan, parameter, 1)
-;			close dataChan
-;		end
-;		catch (e,@Exception)
-;		begin
-;			writes(ttChn,'Error creating and setting parameter.dat file: ' + e.Message)		
-;		end
-;		endtry
+		data paramObj	,@Parameter_Data	,new Parameter_Data()
+
+		;;read the first record (record number 1).  We ignore any "not found" errors.
+		parameterIO.ReadRecord(paramObj, 1)
+
+		;;set values		
+		paramObj.Last_order_no = 1
+
+		;;update record #1
+		if (parameterIO.UpdateRecord(paramObj) != FileAccessResults.Success)
+		begin
+			writes(ttChn,'Error creating and setting parameter.dat file: ' + %string(parameterIO.LastSynergyError))
+		end
+
+		writes(ttChn, "Parameter record created.")
+		writes(ttChn, "Press <RETURN> to continue")
+		reads(ttChn, ans)
 		
 		return
 		
@@ -453,18 +463,71 @@ namespace SystemSetup
 		
 		data status	,FileAccessResults	,supplierIO.ReadFirstRecord(supplierObject)
 		; gi,  this defines the status and calls the "read first record" for the file class and returns a supplier data object and sets the status we just defined
+		;;correct!
 		while (status == FileAccessResults.Success)
 		begin
 			writes(ttChn, supplierObject.Name + " : " + supplierObject.Contact)
 			; we can now access properties of the supplier object.  how would we set them and update the file ?
+
+			;; rcm - if we wanted to update the file.....
+			data storeName	,string	,supplierObject.Name
+			;; rcm - set the "new data"
+			supplierObject.Name = "New Name"
+			;; rcm - update the file
+			if (supplierIO.UpdateRecord(supplierObject) != FileAccessResults.Success)
+			begin
+				;;we have an error
+				writes(ttChn, "Error updating record : " + %string(supplierIO.LastSynergyError))
+			end
+
 			status = supplierIO.ReadNextRecord(supplierObject)
 			; gi - this then calls a method of the file class to read next record and return as an object ?
+			;; rcm - correct!
+		end
+
+		;re-display them with updated names
+		status = supplierIO.ReadFirstRecord(supplierObject)
+		while (status == FileAccessResults.Success)
+		begin
+			writes(ttChn, supplierObject.Name + " : " + supplierObject.Contact)
+			status = supplierIO.ReadNextRecord(supplierObject)
 		end
 		
+		;; rcm - in the loops about we are reading and then updating records - so the records are locked.
+		;; rcm - we can also update a record without having it locked - you must have read it first :)
+		;; rcm - when the FileIO objects are used we store the GRFA and so can use this.  The GRFA
+		;; rcm - is stored in the data object.
+		;; rcm - let's just re-read the first 2 records.
+		data sup1	,@Supplier_Data	,new Supplier_Data()
+		supplierIO.ReadFirstRecord(sup1)
+		data sup2	,@Supplier_Data	,new Supplier_Data()
+		supplierIO.ReadNextRecord(sup2)
+		supplierIO.UnlockChannel()	;;force no records to be locked!!
+
+		;; rcm - update supplier named back to what they were
+		sup1.Name = 'Crisp Company'
+		sup2.Name = 'Drinks Company'
+		
+		;; rcm - update supplier 1
+		supplierIO.UpdateRecordUsingGRFA(sup1)
+		;; rcm - and supplier 2
+		supplierIO.UpdateRecordUsingGRFA(sup2)
+
+		;; rcm - re-display them with updated names
+		status = supplierIO.ReadFirstRecord(supplierObject)
+		while (status == FileAccessResults.Success)
+		begin
+			writes(ttChn, supplierObject.Name + " : " + supplierObject.Contact)
+			status = supplierIO.ReadNextRecord(supplierObject)
+		end
+
 		;;close the channel
 		supplierIO.CloseChannel()
 		; gi - this closes the file.  Does this dispose of the file object as well ? If not, should we dispose of it ?
 		; how would we dispose of thedata object ?
+
+
+		;; rcm - the object will go out of scope so no need to worry about disposing of them here.
 
 		writes(ttChn, "Press <RETURN> to continue")
 		reads(ttChn, ans)		
@@ -478,6 +541,9 @@ namespace SystemSetup
 			writes(ttChn, 'Error adding supplier record for ' + supplier.str_supp_code + ' : ' + supplierIO.LastSynergyError.ToString())
 		; gi - this replaces the try / catch logic, and uses properties of the data obejct and teh file object for the error message
 		; gi - Q - does this object exist after it is created ?  If so, do we need to dispose of it ?
+
+		;; rcm - the object will go out of scope.
+
 		return
 		
 ;-------------------------------------------------------------------------------

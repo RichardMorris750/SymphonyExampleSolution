@@ -38,8 +38,6 @@ namespace AppData
 		private cls structure clsstrParameter
 .align
 			public csLast_order_no, Int32
-.align
-			public csFiller, String
 		endstructure
 		
 		public static SynergyMemberInfo, @List<System.Reflection.MemberInfo>
@@ -79,17 +77,9 @@ namespace AppData
 			&	0, 0, 0, 0,
 			&	"DECIMAL", false, 0, 999999)
 
-			
-			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "FILLER", "Filler",  "", "",
-			&	"", "FILLER", 7, 94,
-			&	0, 0, 0, 0,
-			&	"ALPHA", false, 0, 0)
-
 
 			mStaticFieldNameList.Add("Last_order_no")
 			mStaticFieldHeadingList.Add("Last Order No")
-			mStaticFieldNameList.Add("Filler")
-			mStaticFieldHeadingList.Add("UNUSED")
 
 			mreturn
 		endmethod
@@ -246,23 +236,6 @@ namespace AppData
 				end
 			endmethod
 		endproperty
-        ;;Filler
-		{JsonProperty}
-		public property Filler, a94
-			method get
-			proc
-				mreturn %atrim(parameter_main.STR_Filler)
-            endmethod
-			method set
-			proc
-					if (parameter_main.STR_Filler .nes. value)
-				begin
-										parameter_main.STR_Filler = value
-					ValidateEnteredData(2)
-					RaisePropertyChanged("Filler")
-				end
-			endmethod
-		endproperty
 			
         ;;; <summary>
         ;;; Expose the complete synergy record
@@ -286,8 +259,6 @@ namespace AppData
                 
 				SetFieldValid("Last_order_no")
 									if (mValidateSynergyData) ValidateEnteredData(1)
-				SetFieldValid("Filler")
-									if (mValidateSynergyData) ValidateEnteredData(2)
 				RaisePropertyChanged(^null)
 				RaiseSynergyRecordChanged()
             endmethod
@@ -312,8 +283,6 @@ namespace AppData
 			
 				            ValidateEnteredData(1)
             RaisePropertyChanged("Last_order_no")
-				            ValidateEnteredData(2)
-            RaisePropertyChanged("Filler")
 
         endmethod
 
@@ -330,8 +299,6 @@ namespace AppData
 			
 			
             ("LAST_ORDER_NO"), mCurrentField = 1
-			
-            ("FILLER"), mCurrentField = 2
             (),
                 mCurrentField = 0
             endusing
@@ -349,8 +316,6 @@ namespace AppData
 				
 				
                 (1),    mreturn ""
-				
-                (2),    mreturn ""
 				(), mreturn ""  ;;if incorrect field value or not configured, ensure we clear the return value
                 endusing
             endmethod
@@ -371,19 +336,6 @@ namespace AppData
                 RaiseNonRPSPropertyChanged("Last_order_noIsEnabled")
             endmethod
         endproperty
-		
-
-        public property FillerIsEnabled, Boolean
-            method get
-            proc
-                mreturn GetFieldEnabledState(2)
-            endmethod
-            method set
-            proc
-                SetFieldEnabledState(2, value)
-                RaiseNonRPSPropertyChanged("FillerIsEnabled")
-            endmethod
-        endproperty
 
         ;;Expose properties to indicate whether fields are focussed
 		private mLast_order_noIsFocused	,Boolean
@@ -397,19 +349,6 @@ namespace AppData
 				clearFocus()
 				mLast_order_noIsFocused = value
 				RaiseNonRPSPropertyChanged("Last_order_noIsFocused")
-			endmethod
-		endproperty
-		private mFillerIsFocused	,Boolean
-		public property FillerIsFocused, Boolean
-			method get
-			proc
-				mreturn mFillerIsFocused
-			endmethod
-			method set
-			proc
-				clearFocus()
-				mFillerIsFocused = value
-				RaiseNonRPSPropertyChanged("FillerIsFocused")
 			endmethod
 		endproperty
 
@@ -428,19 +367,6 @@ namespace AppData
 				RaiseNonRPSPropertyChanged("Last_order_noIsReadOnly")
 			endmethod
 		endproperty
-		
-
-		public property FillerIsReadOnly, Boolean
-			method get
-			proc
-				mreturn GetFieldReadOnlyState(2)
-			endmethod
-			method set
-			proc
-				SetFieldReadOnlyState(2, value)
-				RaiseNonRPSPropertyChanged("FillerIsReadOnly")
-			endmethod
-		endproperty
 
 		private doingClearFocus	,Boolean
 
@@ -451,7 +377,6 @@ namespace AppData
 			begin
 				doingClearFocus = true
 				if (Last_order_noIsFocused) Last_order_noIsFocused = false
-				if (FillerIsFocused) FillerIsFocused = false
 				doingClearFocus = false
 			end
 		endmethod
@@ -507,28 +432,6 @@ namespace AppData
 					end
 				end
 			end
-			("Filler"),
-			begin
-				if (((Parameter_Data)obj1).Filler == ((Parameter_Data)obj2).Filler) then
-					result = 0
-				else
-				begin
-					if (((Parameter_Data)obj1).Filler > ((Parameter_Data)obj2).Filler) then
-					begin
-						if (sortDir == Symphony.Conductor.Framework.SynergySortOrder.Ascending) then
-							result = -1
-						else
-							result = 1
-					end
-					else
-					begin
-						if (sortDir == Symphony.Conductor.Framework.SynergySortOrder.Descending) then
-							result = -1
-						else
-							result = 1
-					end
-				end
-			end
 			(),
 				result = this.CustomCompareObjects(obj1, obj2, colName, sortDir)
 			endusing
@@ -545,7 +448,6 @@ namespace AppData
 			proc
 				data tmpSTR	,clsstrParameter
 				tmpSTR.csLast_order_no = (int32)mIntegerConveter.Convert(parameter_main.STR_last_order_no, ^null, ^null, ^null)
-				tmpSTR.csFiller = (string)mAlphaConveter.Convert(parameter_main.STR_filler, ^null, ^null, ^null)
 				mreturn structureToByteArray(tmpSTR)
 			endmethod
 			method set
@@ -553,7 +455,6 @@ namespace AppData
 				data tmpSTR	,clsstrParameter
 				tmpSTR = byteArrayToStructure(value)
 				parameter_main.STR_Last_order_no = (d)((i)mIntegerConveter.ConvertBack(tmpSTR.csLast_order_no, ^null, ^null, ^null))
-				parameter_main.STR_Filler = (a)mAlphaConveter.ConvertBack(tmpSTR.csFiller, ^null, ^null, ^null)
 			endmethod
 		endproperty
 			
@@ -565,7 +466,6 @@ namespace AppData
 			begin
 				disposable data writer ,@BinaryWriter , new BinaryWriter(stream)
 				writer.Write(tmpSTRUCT.csLast_order_no.ToString())
-				writer.Write(tmpSTRUCT.csFiller)
 			end
 			mreturn stream.ToArray()
 		endmethod
@@ -581,7 +481,6 @@ namespace AppData
 				disposable data reader	,@BinaryReader	,new BinaryReader(stream)
 				tmpString = reader.ReadString()
 				tmpSTRUCT.csLast_order_no = Convert.ToInt32(tmpString)
-				tmpSTRUCT.csFiller = reader.ReadString()
 			end
 
 			mreturn tmpSTRUCT

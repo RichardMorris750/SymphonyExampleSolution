@@ -61,6 +61,13 @@ namespace SystemSetup
 		endrecord
 		
 	proc
+		;;************************************************************
+		;;Becuase we are now using Symphony Threading capabilties we
+		;;need to ensure that we correctly "anchor" the process
+		;;to the main UI thread
+		;;************************************************************
+		Symphony.Conductor.Static.ThreadSafe.AnchorToUIThread()
+
 		open(ttChn, I, 'TT:')
 
 		writes(ttChn, 'Recreate all files ?  (Y/N) ?')
@@ -109,7 +116,10 @@ namespace SystemSetup
 		try
 		begin
 			delet('SFEDATA:product.ism')
-			isamc('SFEDATA:product.ism', 82, 1, "START=1,LENGTH=6,NODUPS")	
+			data headerKeyVals	,[2]a*
+			&	,"START=1,LENGTH=6,TYPE=ALPHA,NODUPS"
+			&	,"START=80:1,LENGTH=3:6,TYPE=ALPHA:ALPHA,NODUPS"
+			isamc('SFEDATA:product.ism', 82, 2, headerKeyVals)	
 		end
 		catch (e, @Exception)
 		begin

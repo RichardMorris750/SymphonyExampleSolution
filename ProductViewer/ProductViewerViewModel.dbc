@@ -11,46 +11,202 @@ import Symphony.Harmony
 ;;use the extension methods
 import System.Linq
 import Symphony.Conductor.Model
+import Symphony.Conductor.Commands
+import Symphony.Conductor.DataIO
+import Symphony.Conductor.Types
 
 namespace ProductViewer
-
+	
 	public class ProductViewerViewModel extends BaseViewModel
-
+		
 		public method ProductViewerViewModel
 			in req sender						,@FrameworkElement
 			endparams
 			parent(sender)
 		proc
-			mProductList = new List<Product_Data>()
-
 			;;let's load the products using Symphoiny Harmony and a local connection
-
-			mConnector = new DBConnector("SYMLOCAL:ricahrd/morris!AppData.TableMapper.MapTableToFile")
-
+			
+			mConnector = new DBConnector("SYMLOCAL:richard/morris!AppData.TableMapper.MapTableToFile")
+			
+			loadAllProducts()
+			
+		endmethod
+		
+		private method loadAllProducts, void
+			endparams
+		proc
+			
 			try
 			begin
-				mProductList = new DataSelect(mConnector, "select prod_code, prod_description, sell_price from product", new Product_Data()).OfType<Product_Data>().ToList()
+				if (mProductList == ^null)
+				begin
+					mProductList = new AsyncObservableCollection<Product_Data>()
+				end
+				
+				;;the list is instanced so we need to load each item individually
+				mProductList.ClearCollection()
+				data item	,@DataObjectBase
+				foreach item in new DataSelect(mConnector, "select prod_code, prod_description, sell_price from product", new Product_Data())
+				begin
+					mProductList.AddToCollection(^as(item, Product_Data))
+				end
 			end
 			catch (e, @Exception)
 			begin
 				;;oops
 			end
 			endtry
-
+			
 		endmethod
-
+		
 		private mConnector		,@DBConnector
-
-		private mProductList	,@List<Product_Data>
-	
-		public property ProductList, @List<Product_Data>
+		
+		private mProductList	,@AsyncObservableCollection<Product_Data>
+		
+		public property ProductList, @AsyncObservableCollection<Product_Data>
 			method get
 			proc
 				mreturn mProductList
 			endmethod
 		endproperty
 		
-
+.region "Query fields"
+		
+		private mFullKeyMatch	,boolean	,false
+		
+		public property FullKeyMatch, boolean
+			method get
+			proc
+				mreturn mFullKeyMatch
+			endmethod
+			method set
+			proc
+				mFullKeyMatch = value
+				RaisePropertyChanged("FullKeyMatch")
+			endmethod
+		endproperty
+		
+		private mSearchOnGroup	,boolean	,false
+		
+		public property SearchOnGroup, boolean
+			method get
+			proc
+				mreturn mSearchOnGroup
+			endmethod
+			method set
+			proc
+				mSearchOnGroup = value
+				RaisePropertyChanged("SearchOnGroup")
+			endmethod
+		endproperty
+		
+		
+		private	mKeyValue	,string	
+		
+		public property KeyValue, string
+			method get
+			proc
+				mreturn mKeyValue
+			endmethod
+			method set
+			proc
+				mKeyValue = value
+				RaisePropertyChanged("KeyValue")
+			endmethod
+		endproperty
+		
+		private mSearchCommand	,@GenericCommand
+		
+		public property SearchCommand, @GenericCommand
+			method get
+			proc
+				if (mSearchCommand == ^null)
+				begin
+					lambda doSearchCommand(sender, param)
+					begin
+						;;if there is no key value, reload the whole list
+						if (KeyValue.Length > 0) then
+						begin
+							;;find matching records using FileIO objects
+							mProductList.ClearCollection()
+							
+							data prodObj	,@Product_Data	,new Product_Data()
+							prodObj.Prod_code = KeyValue
+							
+							data prodIO		,@Product_FileIO	,new Product_FileIO()
+							
+							;;do we want to do a key match?
+							if (mFullKeyMatch)
+								prodIO.ForceFullKeyRead = true
+							
+							;;Are we wanting to search on the group (alternate) key
+							if (mSearchOnGroup)
+							begin
+								;;set the field for the key read
+								prodObj.Prod_group = KeyValue
+								
+								;;alternate key
+								prodIO.KeyReference = 1
+								
+								;;need to force the partial key read length for just the product group field
+								;;becuase it's a segmented key, otherwise it would include the
+								;;other segments
+								if (mFullKeyMatch) then
+								begin
+									data tmpP	,STRProduct
+									prodIO.ForceKeyLength = ^size(tmpP.str_prod_group)
+								end
+								else
+									prodIO.ForceKeyLength = %trimz(prodObj.Prod_group)
+							end
+							
+							if (prodIO.ReadRecord(prodObj) == FileAccessResults.Success)
+							begin
+								;;whenh adding the item to the list we need to create a new
+								;;instance so that each item  in the collection is a "new" instance
+								;;of the product otherwise each item would "point" to the same
+								;;object.
+								mProductList.AddToCollection(new Product_Data(prodObj.SynergyRecord))
+								
+								;;should we display more matching records?
+								if (mSearchOnGroup || (!mSearchOnGroup && !mFullKeyMatch))
+									while (prodIO.ReadNextRecord(prodObj) == FileAccessResults.Success)
+									begin
+										;;need to determine if we are still valid - the IO class will not know if
+										;;we have dropped off the matching records.
+										if (mSearchOnGroup) then
+										begin
+											;;searching on group so check group
+											if (prodObj.Prod_group(1:KeyValue.Length) != KeyValue)
+												exitloop	;;no match
+										end
+										else
+										begin
+											;;searching on group so check group
+											if (prodObj.Prod_code(1:KeyValue.Length) != KeyValue)
+												exitloop	;;no match
+										end
+										;;still matching
+										mProductList.AddToCollection(new Product_Data(prodObj.SynergyRecord))
+									end
+							end
+							
+						end
+						else
+						begin
+							;;relaod the whole list using Symphony Harmony
+							loadAllProducts()
+						end
+					end
+					mSearchCommand = new GenericCommand("SEARCH", doSearchCommand)
+				end
+				mreturn mSearchCommand
+			endmethod
+		endproperty
+		
+.endregion
+		
+		
 	endclass
-
+	
 endnamespace

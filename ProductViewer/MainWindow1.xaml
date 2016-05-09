@@ -3,11 +3,31 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Title="Product List" Height="300" Width="600" Loaded="Window_Loaded">
     <Grid>
-        <DataGrid ItemsSource="{Binding Path=ProductList}" AutoGenerateColumns="False" IsReadOnly="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <Border Grid.Row="0">
+            
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Key value" Margin="20,5,10,5"></Label>
+                <TextBox Text="{Binding Path=KeyValue}" Width="100" Margin="0,5,10,5" MaxLength="10" VerticalAlignment="Center" CharacterCasing="Upper"></TextBox>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <CheckBox Content="Full key match?" IsChecked="{Binding Path=FullKeyMatch}" Margin="0,5,10,5" VerticalAlignment="Center"></CheckBox>
+                    <CheckBox Content="Read on Group?" IsChecked="{Binding Path=SearchOnGroup}" Margin="0,5,10,5" VerticalAlignment="Center"></CheckBox>
+                </StackPanel>
+                <Button Content="Update grid" Command="{Binding Path=SearchCommand}" Margin="0,5,10,5" Padding="5"></Button>
+            </StackPanel>
+            
+        </Border>
+        
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Path=ProductList}" AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Code" Binding="{Binding Path=Prod_code}" Width="150"></DataGridTextColumn>
                 <DataGridTextColumn Header="Description" Binding="{Binding Path=Prod_description}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Selling price" Binding="{Binding Path=Sell_price}" Width="150"></DataGridTextColumn>
+                <DataGridTextColumn Header="Product group" Binding="{Binding Path=Prod_group}" Width="50"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

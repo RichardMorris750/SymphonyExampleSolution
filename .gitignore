@@ -249,3 +249,8 @@ ModelManifest.xml
 *.dbp
 *.log
 
+/AppData_Server/DBPb0000
+/AppData_Server/DBPa0000
+/AppData_Server/DBP00000
+/ProductViewer/ProductViewer.g.resources
+/ProductViewer/ProductViewer.Properties.Resources.resources

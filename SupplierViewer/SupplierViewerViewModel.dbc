@@ -1,0 +1,181 @@
+import System
+import System.Collections.Generic
+import System.Text
+
+import Symphony.Conductor.ViewModel
+import System.Windows
+import System.Collections.ObjectModel
+import AppData
+import Symphony.Harmony
+
+;;use the extension methods
+import System.Linq
+import Symphony.Conductor.Model
+import Symphony.Conductor.Commands
+import Symphony.Conductor.DataIO
+import Symphony.Conductor.Types
+
+namespace SupplierViewer
+	
+	public class SupplierViewerViewModel extends BaseViewModel
+		
+		public method SupplierViewerViewModel
+			in req sender						,@FrameworkElement
+			endparams
+			parent(sender)
+		proc
+			;;let's load the supplier using Symphony Harmony and a local connection
+			
+			mConnector = new DBConnector("SYMLOCAL:richard/morris!AppData.TableMapper.MapTableToFile")
+			
+			loadAllSuppliers()
+			
+		endmethod
+		
+		private method loadAllSuppliers, void
+			endparams
+		proc
+			
+			try
+			begin
+				if (mSupplierList == ^null)
+				begin
+					mSupplierList = new AsyncObservableCollection<Supplier_Data>()
+				end
+				
+				;;the list is instanced so we need to load each item individually
+				mSupplierList.ClearCollection()
+				data item	,@DataObjectBase
+				foreach item in new DataSelect(mConnector, "select supp_code, name, contact, phone, email from supplier", new Supplier_Data())
+				begin
+					mSupplierList.AddToCollection(^as(item, Supplier_Data))
+				end
+			end
+			catch (e, @Exception)
+			begin
+				;;oops
+			end
+			endtry
+			
+		endmethod
+		
+		private mConnector		,@DBConnector
+		
+		private mSupplierList	,@AsyncObservableCollection<Supplier_Data>
+		
+		public property SupplierList, @AsyncObservableCollection<Supplier_Data>
+			method get
+			proc
+				mreturn mSupplierList
+			endmethod
+		endproperty
+		
+.region "Query fields"
+		
+		private mFullKeyMatch	,boolean	,false
+		
+		public property FullKeyMatch, boolean
+			method get
+			proc
+				mreturn mFullKeyMatch
+			endmethod
+			method set
+			proc
+				mFullKeyMatch = value
+				RaisePropertyChanged("FullKeyMatch")
+			endmethod
+		endproperty
+		
+		private mKeyWord	,string
+		
+		public property KeyWord, string
+			method get
+			proc
+				mreturn mKeyWord
+			endmethod
+			method set
+			proc
+				mKeyWord = value
+				RaisePropertyChanged("KeyWord")
+			endmethod
+		endproperty
+		
+		
+		private	mKeyValue	,string	
+		
+		public property KeyValue, string
+			method get
+			proc
+				mreturn mKeyValue
+			endmethod
+			method set
+			proc
+				mKeyValue = value
+				RaisePropertyChanged("KeyValue")
+			endmethod
+		endproperty
+		
+		private mSearchCommand	,@GenericCommand
+		
+		public property SearchCommand, @GenericCommand
+			method get
+			proc
+				if (mSearchCommand == ^null)
+				begin
+					lambda doSearchCommand(sender, param)
+					begin
+						;;if there is no key value, reload the whole list
+						if (KeyValue.Length > 0) then
+						begin
+							;;find matching records using FileIO objects
+							mSupplierList.ClearCollection()
+							
+							data suppObj	,@Supplier_Data	,new Supplier_Data()
+							suppObj.Supp_code = KeyValue
+							
+							data suppIO		,@Supplier_FileIO	,new Supplier_FileIO()
+							
+							;;do we want to do a key match?
+							if (mFullKeyMatch)
+								suppIO.ForceFullKeyRead = true
+							
+							
+							if (suppIO.ReadRecord(suppObj) == FileAccessResults.Success)
+							begin
+								;;whenh adding the item to the list we need to create a new
+								;;instance so that each item  in the collection is a "new" instance
+								;;of the product otherwise each item would "point" to the same
+								;;object.
+								mSupplierList.AddToCollection(new Supplier_Data(suppObj.SynergyRecord))
+								
+								;;should we display more matching records?
+								while (suppIO.ReadNextRecord(suppObj) == FileAccessResults.Success)
+								begin
+									;;need to determine if we are still valid - the IO class will not know if
+									;;we have dropped off the matching records.
+									if (suppObj.Supp_code(1:KeyValue.Length) != KeyValue)
+										exitloop	;;no match
+									
+									;;still matching
+									mSupplierList.AddToCollection(new Supplier_Data(suppObj.SynergyRecord))
+								end
+							end
+							
+						end
+						else
+						begin
+							;;relaod the whole list using Symphony Harmony
+							loadAllSuppliers()
+						end
+					end
+					mSearchCommand = new GenericCommand("SEARCH", doSearchCommand)
+				end
+				mreturn mSearchCommand
+			endmethod
+		endproperty
+		
+.endregion
+		
+	endclass
+	
+endnamespace

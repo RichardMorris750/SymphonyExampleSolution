@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "SystemSetup", "SystemSetup\SystemSetup.synproj", "{78504DA9-412F-490B-B944-471209C6B25F}"
 EndProject
@@ -19,6 +19,11 @@ EndProject
 Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "AppData_Server", "AppData_Server\AppData_Server.synproj", "{1C61E987-FBD9-49B8-B987-8A30D6EF3218}"
 EndProject
 Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "ProductViewer", "ProductViewer\ProductViewer.synproj", "{8B9F7D33-3D3B-423E-8004-9B504D3F3BC3}"
+EndProject
+Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "SupplierViewer", "SupplierViewer\SupplierViewer.synproj", "{1DC18BDF-ED62-4C4F-8481-A2CE7A7D56F2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1C61E987-FBD9-49B8-B987-8A30D6EF3218} = {1C61E987-FBD9-49B8-B987-8A30D6EF3218}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +43,10 @@ Global
 		{8B9F7D33-3D3B-423E-8004-9B504D3F3BC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B9F7D33-3D3B-423E-8004-9B504D3F3BC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B9F7D33-3D3B-423E-8004-9B504D3F3BC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DC18BDF-ED62-4C4F-8481-A2CE7A7D56F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DC18BDF-ED62-4C4F-8481-A2CE7A7D56F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DC18BDF-ED62-4C4F-8481-A2CE7A7D56F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DC18BDF-ED62-4C4F-8481-A2CE7A7D56F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

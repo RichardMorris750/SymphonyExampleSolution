@@ -1,0 +1,40 @@
+﻿<Window x:Class="SupplierViewer.MainWindow1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="MainWindow1" Height="300" Width="600">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0">
+
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Supplier Key" Margin="20,5,10,5"></Label>
+                <TextBox Text="{Binding Path=KeyValue}" Width="100" Margin="0,5,10,5" MaxLength="10" VerticalAlignment="Center" CharacterCasing="Upper"></TextBox>
+                <Label Content="Key Word" Margin="20,5,10,5"></Label>
+                <TextBox Text="{Binding Path=KeyWordValue}" Width="100" Margin="0,5,10,5" MaxLength="10" VerticalAlignment="Center" CharacterCasing="Upper"></TextBox>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="1">
+            <StackPanel Orientation="Horizontal">
+                <CheckBox Content="Full key match?" IsChecked="{Binding Path=FullKeyMatch}" Margin="20,5,10,5" VerticalAlignment="Center"></CheckBox>
+                <Button Content="Search" Command="{Binding Path=SearchCommand}" Margin="300,5,10,5" Padding="5"></Button>
+            </StackPanel>
+        </Border>
+
+        <DataGrid Grid.Row="2" ItemsSource="{Binding Path=SupplierList}" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Code" Binding="{Binding Path=Supp_code}" Width="50"></DataGridTextColumn>
+                <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Contact" Binding="{Binding Path=Email}" Width="100"></DataGridTextColumn>
+                <DataGridTextColumn Header="Phone No" Binding="{Binding Path=Phone}" Width="100"></DataGridTextColumn>
+                <DataGridTextColumn Header="Email" Binding="{Binding Path=Email}" Width="100"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

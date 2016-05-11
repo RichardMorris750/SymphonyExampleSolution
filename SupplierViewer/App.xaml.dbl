@@ -1,0 +1,21 @@
+﻿import System
+import System.Windows
+import System.Data
+import System.Xml
+import System.Configuration
+import System.Diagnostics
+
+
+namespace SupplierViewer
+
+	
+	public partial class App extends System.Windows.Application
+		
+		public method App
+			endparams
+		proc
+			Symphony.Conductor.Static.ThreadSafe.AnchorToUIThread()
+		endmethod
+    
+    endclass
+endnamespace

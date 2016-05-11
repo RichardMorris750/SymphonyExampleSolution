@@ -370,7 +370,7 @@ namespace SystemSetup
 		product.str_supp_code	=	'C00001'
 		product.str_vat_code			=	1
 		product.str_pack_size			=	'Box of 48'
-		;gi - and duplicate key error here as well
+
 		call addproduct
 
 		data productObject = new Product_Data()

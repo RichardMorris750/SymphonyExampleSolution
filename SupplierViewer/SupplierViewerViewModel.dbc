@@ -98,6 +98,7 @@ namespace SupplierViewer
 				mKeyWord = value
 				RaisePropertyChanged("KeyWord")
 			endmethod
+			
 		endproperty
 		
 		
@@ -157,7 +158,16 @@ namespace SupplierViewer
 										exitloop	;;no match
 									
 									;;still matching
-									mSupplierList.AddToCollection(new Supplier_Data(suppObj.SynergyRecord))
+									if (KeyWord) then
+									begin
+										data upName ,a30
+										upName = suppObj.Name
+										upcase upName
+										if %instr(1,upName,%atrim(KeyWord))
+											mSupplierList.AddToCollection(new Supplier_Data(suppObj.SynergyRecord))
+									end
+									else
+										mSupplierList.AddToCollection(new Supplier_Data(suppObj.SynergyRecord))
 								end
 							end
 							

@@ -16,7 +16,7 @@
                 <Label Content="Supplier Key" Margin="20,5,10,5"></Label>
                 <TextBox Text="{Binding Path=KeyValue}" Width="100" Margin="0,5,10,5" MaxLength="10" VerticalAlignment="Center" CharacterCasing="Upper"></TextBox>
                 <Label Content="Key Word" Margin="20,5,10,5"></Label>
-                <TextBox Text="{Binding Path=KeyWord}" Width="100" Margin="0,5,10,5" MaxLength="10" VerticalAlignment="Center" CharacterCasing="Upper"></TextBox>
+                <TextBox Text="{Binding Path=KeyWord}" Width="100" Margin="0,5,10,5" MaxLength="10" VerticalAlignment="Center" CharacterCasing="Normal"></TextBox>
             </StackPanel>
         </Border>
 

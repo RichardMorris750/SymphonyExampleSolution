@@ -27,6 +27,9 @@ namespace SupplierViewer
 			;;let's load the supplier using Symphony Harmony and a local connection
 			
 			mConnector = new DBConnector("SYMLOCAL:richard/morris!AppData.TableMapper.MapTableToFile")
+
+			;;To enable case insensitive comparisons:
+			mConnector.SetCaseSensitivity(false)
 			
 			loadAllSuppliers()
 			
@@ -46,7 +49,16 @@ namespace SupplierViewer
 				;;the list is instanced so we need to load each item individually
 				mSupplierList.ClearCollection()
 				data item	,@DataObjectBase
-				foreach item in new DataSelect(mConnector, "select supp_code, name, contact, phone, email from supplier", new Supplier_Data())
+				
+				data typeOfSearch	,@DataSelect
+				
+				;;do We have a KeyWord search?
+				if (string.IsNullOrEmpty(mKeyWord)) then
+					typeOfSearch = new DataSelect(mConnector, "select supp_code, name, contact, phone, email from supplier", new Supplier_Data())
+				else
+					typeOfSearch = new DataSelect(mConnector, "select supp_code, name, contact, phone, email from supplier where name like :1", new Supplier_Data(), mKeyWord)
+					
+				foreach item in typeOfSearch
 				begin
 					mSupplierList.AddToCollection(^as(item, Supplier_Data))
 				end
@@ -126,7 +138,7 @@ namespace SupplierViewer
 					lambda doSearchCommand(sender, param)
 					begin
 						;;if there is no key value, reload the whole list
-						if (KeyValue.Length > 0) then
+						if (!string.IsNullOrEmpty(KeyValue) && KeyValue.Length > 0) then
 						begin
 							;;find matching records using FileIO objects
 							mSupplierList.ClearCollection()

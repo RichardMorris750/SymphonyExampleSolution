@@ -125,7 +125,7 @@ namespace ProductViewer
 					lambda doSearchCommand(sender, param)
 					begin
 						;;if there is no key value, reload the whole list
-						if (!string.IsNullOrEmpty(KeyValue) && KeyValue.Length > 0) then
+						if (!string.IsNullOrEmpty(KeyValue)) then
 						begin
 							;;find matching records using FileIO objects
 							mProductList.ClearCollection()

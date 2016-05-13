@@ -27,7 +27,7 @@ namespace SupplierViewer
 			;;let's load the supplier using Symphony Harmony and a local connection
 			
 			mConnector = new DBConnector("SYMLOCAL:richard/morris!AppData.TableMapper.MapTableToFile")
-
+			
 			;;To enable case insensitive comparisons:
 			mConnector.SetCaseSensitivity(false)
 			
@@ -57,7 +57,7 @@ namespace SupplierViewer
 					typeOfSearch = new DataSelect(mConnector, "select supp_code, name, contact, phone, email from supplier", new Supplier_Data())
 				else
 					typeOfSearch = new DataSelect(mConnector, "select supp_code, name, contact, phone, email from supplier where name like :1", new Supplier_Data(), mKeyWord)
-					
+				
 				foreach item in typeOfSearch
 				begin
 					mSupplierList.AddToCollection(^as(item, Supplier_Data))
@@ -137,13 +137,36 @@ namespace SupplierViewer
 				begin
 					lambda doSearchCommand(sender, param)
 					begin
+						
 						;;if there is no key value, reload the whole list
-						if (!string.IsNullOrEmpty(KeyValue) && KeyValue.Length > 0) then
+						if (!string.IsNullOrEmpty(KeyValue)) then
 						begin
-							;;find matching records using FileIO objects
 							mSupplierList.ClearCollection()
-							
+
 							data suppObj	,@Supplier_Data	,new Supplier_Data()
+
+;;change this to change the way we access data!!!
+.define DO_SQL_QUERY
+
+.ifdef DO_SQL_QUERY
+							;;find matching records using Symphony Harmony
+
+							;;define the query
+							data typeOfSearch	,@DataSelect
+
+							if (string.IsNullOrEmpty(mKeyWord)) then
+								typeOfSearch = new DataSelect(mConnector, "select * from supplier where supp_code like :1", new Supplier_Data(), mKeyValue)
+							else
+								typeOfSearch = new DataSelect(mConnector, "select * from supplier where supp_code like :1 and name like :2", new Supplier_Data(), mKeyValue, mKeyWord)
+
+							foreach suppObj in typeOfSearch
+							begin
+								mSupplierList.AddToCollection(^as(suppObj, Supplier_Data))
+							end
+							
+.else
+							;;find matching records using FileIO objects
+							
 							suppObj.Supp_code = KeyValue
 							
 							data suppIO		,@Supplier_FileIO	,new Supplier_FileIO()
@@ -155,34 +178,22 @@ namespace SupplierViewer
 							
 							if (suppIO.ReadRecord(suppObj) == FileAccessResults.Success)
 							begin
-								;;whenh adding the item to the list we need to create a new
-								;;instance so that each item  in the collection is a "new" instance
-								;;of the product otherwise each item would "point" to the same
-								;;object.
-								mSupplierList.AddToCollection(new Supplier_Data(suppObj.SynergyRecord))
 								
-								;;should we display more matching records?
-								while (suppIO.ReadNextRecord(suppObj) == FileAccessResults.Success)
+								data accessStatus	,FileAccessResults	,FileAccessResults.Success
+								
+								while(accessStatus == FileAccessResults.Success)
 								begin
-									;;need to determine if we are still valid - the IO class will not know if
-									;;we have dropped off the matching records.
-									if (suppObj.Supp_code(1:KeyValue.Length) != KeyValue)
-										exitloop	;;no match
-									
 									;;still matching
-									if (KeyWord) then
-									begin
-										data upName ,a30
-										upName = suppObj.Name
-										upcase upName
-										if %instr(1,upName,%atrim(KeyWord))
-											mSupplierList.AddToCollection(new Supplier_Data(suppObj.SynergyRecord))
-									end
-									else
+									if (string.IsNullOrEmpty(KeyWord) || (!string.IsNullOrEmpty(KeyWord) && ((string)suppObj.Name).ToString().ToUpper().Contains(KeyWord.ToUpper())) )
 										mSupplierList.AddToCollection(new Supplier_Data(suppObj.SynergyRecord))
+										
+									accessStatus = suppIO.ReadNextRecord(suppObj)
+									
+									if (accessStatus == FileAccessResults.Success && suppObj.Supp_code(1:KeyValue.Length) != KeyValue)
+										accessStatus = FileAccessResults.EndOFDataFile
 								end
 							end
-							
+.endc
 						end
 						else
 						begin

@@ -175,7 +175,7 @@ namespace SupplierViewer
 										data upName ,a30
 										upName = suppObj.Name
 										upcase upName
-										if %instr(1,upName,%atrim(KeyWord))
+										if %instr(1,upName,%atrim(mKeyWord))
 											mSupplierList.AddToCollection(new Supplier_Data(suppObj.SynergyRecord))
 									end
 									else

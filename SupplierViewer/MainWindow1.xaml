@@ -2,6 +2,15 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Title="MainWindow1" Height="1200" Width="1200" Loaded="Window_Loaded" >
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/SymphonyConductor;component/Resources/Converters.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    
     <Grid>
 
         <Grid.RowDefinitions>
@@ -28,7 +37,8 @@
             </StackPanel>
         </Border>
 
-        <DataGrid Grid.Row="2" ItemsSource="{Binding Path=SupplierList}" AutoGenerateColumns="False" IsReadOnly="True">
+        <DataGrid Grid.Row="2" ItemsSource="{Binding Path=SupplierList}" AutoGenerateColumns="False" IsReadOnly="True"
+                  SelectedItem="{Binding Path=SelectedSupplier}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Code" Binding="{Binding Path=Supp_code}" Width="50"></DataGridTextColumn>
                 <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="*"></DataGridTextColumn>
@@ -42,9 +52,9 @@
 
             <StackPanel Orientation="Vertical">
                 <Label Content="Supplier Code" Margin="20,5,10,5"></Label>
-                <TextBox Text="{Binding Path=Supp_code}" Width="100" Margin="0,5,10,5" MaxLength="10" VerticalAlignment="Center" CharacterCasing="Upper"></TextBox>
+                <TextBox Text="{Binding Path=SelectedSupplier.Supp_code, Converter={StaticResource alphaConverter}}" Width="100" Margin="0,5,10,5" MaxLength="10" VerticalAlignment="Center" CharacterCasing="Upper"></TextBox>
                 <Label Content="Name" Margin="20,5,10,5"></Label>
-                <TextBox Text="{Binding Path=Name}" Width="100" Margin="0,5,10,5" MaxLength="10" VerticalAlignment="Center" CharacterCasing="Normal"></TextBox>
+                <TextBox Text="{Binding Path=SelectedSupplier.Name, Converter={StaticResource alphaConverter}}" Width="100" Margin="0,5,10,5" MaxLength="10" VerticalAlignment="Center" CharacterCasing="Normal"></TextBox>
             </StackPanel>
         </Border>        
         

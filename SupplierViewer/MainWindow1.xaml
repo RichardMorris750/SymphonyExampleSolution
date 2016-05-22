@@ -1,14 +1,23 @@
 ﻿<Window x:Class="SupplierViewer.MainWindow1"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="MainWindow1" Height="1200" Width="1200" Loaded="Window_Loaded" >
+    Title="MainWindow1" Height="500" Width="600" Loaded="Window_Loaded" >
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/SymphonyConductor;component/Resources/Converters.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
     <Grid>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Border Grid.Row="0">
@@ -24,29 +33,124 @@
         <Border Grid.Row="1">
             <StackPanel Orientation="Horizontal">
                 <CheckBox Content="Full key match?" IsChecked="{Binding Path=FullKeyMatch}" Margin="20,5,10,5" VerticalAlignment="Center"></CheckBox>
-                <Button Content="Search" Command="{Binding Path=SearchCommand}" Margin="300,5,10,5" Padding="5"></Button>
+                <Button Content="Search" Command="{Binding SearchCommand}" Margin="300,5,10,5" Padding="5" Width="110"/>
             </StackPanel>
         </Border>
 
-        <DataGrid Grid.Row="2" ItemsSource="{Binding Path=SupplierList}" AutoGenerateColumns="False" IsReadOnly="True">
+        <DataGrid Grid.Row="2" ItemsSource="{Binding Path=SupplierList}" AutoGenerateColumns="False" IsReadOnly="True"
+            SelectedItem="{Binding Path=SelectedSupplier}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Code" Binding="{Binding Path=Supp_code}" Width="50"></DataGridTextColumn>
-                <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="200"></DataGridTextColumn>
                 <DataGridTextColumn Header="Contact" Binding="{Binding Path=Email}" Width="100"></DataGridTextColumn>
                 <DataGridTextColumn Header="Phone No" Binding="{Binding Path=Phone}" Width="100"></DataGridTextColumn>
                 <DataGridTextColumn Header="Email" Binding="{Binding Path=Email}" Width="100"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        
-        <Border Grid.Row="3">
 
-            <StackPanel Orientation="Vertical">
-                <Label Content="Supplier Code" Margin="20,5,10,5"></Label>
-                <TextBox Text="{Binding Path=Supp_code}" Width="100" Margin="0,5,10,5" MaxLength="10" VerticalAlignment="Center" CharacterCasing="Upper"></TextBox>
-                <Label Content="Name" Margin="20,5,10,5"></Label>
-                <TextBox Text="{Binding Path=Name}" Width="100" Margin="0,5,10,5" MaxLength="10" VerticalAlignment="Center" CharacterCasing="Normal"></TextBox>
-            </StackPanel>
-        </Border>        
-        
+
+        <Border Grid.Row="3">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Grid.Column="0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Supplier Code " Margin="10,20,0,5" VerticalAlignment="Center"  ></TextBlock>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Row="0" Grid.Column="1">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Text="{Binding Path=SelectedSupplier.Supp_code, Converter={StaticResource alphaConverter}}" 
+                             Width="100" Margin="0,20,0,5" VerticalAlignment="Center" MaxLength="10" CharacterCasing="Upper">
+                        </TextBox>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Row="1" Grid.Column="0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Name " Margin="10,5,0,5" VerticalAlignment="Center" ></TextBlock>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Row="1" Grid.Column="1">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Text="{Binding Path=SelectedSupplier.Name, Converter={StaticResource alphaConverter}}" 
+                             Width="200" Margin="0,5,0,5" VerticalAlignment="Center" MaxLength="30" CharacterCasing="Upper">
+                        </TextBox>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Row="2" Grid.Column="0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Grid.Column="0"  Text="Address " Margin="10,5,0,5" VerticalAlignment="Center" ></TextBlock>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Row="2" Grid.Column="1">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Text="{Binding Path=SelectedSupplier.Address1, Converter={StaticResource alphaConverter}}" 
+                             Width="200" Margin="0,0,0,0" VerticalAlignment="Center" MaxLength="30" CharacterCasing="Upper">
+                        </TextBox>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Row="3" Grid.Column="0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="" Margin="10,5,0,5" VerticalAlignment="Center" ></TextBlock>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Row="3" Grid.Column="1">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Text="{Binding Path=SelectedSupplier.Address2, Converter={StaticResource alphaConverter}}" 
+                             Width="200" Margin="0,5,0,5" VerticalAlignment="Center" MaxLength="30" CharacterCasing="Upper">
+                        </TextBox>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Row="4" Grid.Column="0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="" Margin="10,5,0,5" VerticalAlignment="Center" ></TextBlock>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Row="4" Grid.Column="1">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Text="{Binding Path=SelectedSupplier.Address3, Converter={StaticResource alphaConverter}}" 
+                             Width="200" Margin="0,5,0,5" VerticalAlignment="Center" MaxLength="30" CharacterCasing="Upper">
+                        </TextBox>
+                    </StackPanel>
+                </Border>
+
+
+
+                <Border Grid.Row="5" Grid.Column="0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Post Code" Margin="10,5,0,20"></TextBlock>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Row="5" Grid.Column="1">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Text="{Binding Path=SelectedSupplier.Postcode, Converter={StaticResource alphaConverter}}" 
+                             Width="100" Margin="0,5,0,20" VerticalAlignment="Center" MaxLength="10" CharacterCasing="Upper">
+                        </TextBox>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

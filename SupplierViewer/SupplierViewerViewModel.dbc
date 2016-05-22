@@ -54,9 +54,9 @@ namespace SupplierViewer
 				
 				;;do We have a KeyWord search?
 				if (string.IsNullOrEmpty(mKeyWord)) then
-					typeOfSearch = new DataSelect(mConnector, "select supp_code, name, contact, phone, email from supplier", new Supplier_Data())
+					typeOfSearch = new DataSelect(mConnector, "select * from supplier", new Supplier_Data())
 				else
-					typeOfSearch = new DataSelect(mConnector, "select supp_code, name, contact, phone, email from supplier where name like :1", new Supplier_Data(), mKeyWord)
+					typeOfSearch = new DataSelect(mConnector, "select * from supplier where name like :1", new Supplier_Data(), mKeyWord)
 				
 				foreach item in typeOfSearch
 				begin
@@ -128,6 +128,23 @@ namespace SupplierViewer
 			endmethod
 		endproperty
 		
+
+		
+		private mSelectedSupplier  ,@Supplier_Data
+		
+		public property SelectedSupplier, @Supplier_Data
+			method get
+			proc
+				mreturn mSelectedSupplier
+			endmethod
+			method set
+			proc
+				mSelectedSupplier = value
+				RaisePropertyChanged("SelectedSupplier")
+			endmethod
+		endproperty
+		
+
 		private mSearchCommand	,@GenericCommand
 		
 		public property SearchCommand, @GenericCommand

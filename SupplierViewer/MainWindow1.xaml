@@ -42,7 +42,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Code" Binding="{Binding Path=Supp_code}" Width="50"></DataGridTextColumn>
                 <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="200"></DataGridTextColumn>
-                <DataGridTextColumn Header="Contact" Binding="{Binding Path=Email}" Width="100"></DataGridTextColumn>
+                <DataGridTextColumn Header="Contact" Binding="{Binding Path=Contact}" Width="100"></DataGridTextColumn>
                 <DataGridTextColumn Header="Phone No" Binding="{Binding Path=Phone}" Width="100"></DataGridTextColumn>
                 <DataGridTextColumn Header="Email" Binding="{Binding Path=Email}" Width="100"></DataGridTextColumn>
             </DataGrid.Columns>

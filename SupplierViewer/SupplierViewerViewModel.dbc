@@ -129,20 +129,7 @@ namespace SupplierViewer
 		endproperty
 		
 
-		
-		private mSelectedSupplier  ,@Supplier_Data
-		
-		public property SelectedSupplier, @Supplier_Data
-			method get
-			proc
-				mreturn mSelectedSupplier
-			endmethod
-			method set
-			proc
-				mSelectedSupplier = value
-				RaisePropertyChanged("SelectedSupplier")
-			endmethod
-		endproperty
+
 		
 
 		private mSearchCommand	,@GenericCommand

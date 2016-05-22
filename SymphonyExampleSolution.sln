@@ -25,6 +25,8 @@ Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "SupplierViewer", "SupplierV
 		{1C61E987-FBD9-49B8-B987-8A30D6EF3218} = {1C61E987-FBD9-49B8-B987-8A30D6EF3218}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewFolder1", "NewFolder1", "{398D2132-ED43-4720-9603-2F7A4CE2DB69}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,5 +52,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{398D2132-ED43-4720-9603-2F7A4CE2DB69} = {10036368-383E-4442-A84A-65827266025F}
 	EndGlobalSection
 EndGlobal

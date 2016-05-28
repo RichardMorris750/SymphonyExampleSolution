@@ -8,7 +8,7 @@
 ; </auto-generated>
 ;------------------------------------------------------------------------------
 
-namespace WPFApplication1
+namespace SFELauncher
        
     {System.Runtime.CompilerServices.CompilerGeneratedAttribute()}
     {System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "9.0.0.0")}

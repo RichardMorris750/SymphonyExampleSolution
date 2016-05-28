@@ -1,0 +1,49 @@
+﻿<Window x:Class="SFELauncher.MainWindow1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="SFE Launcher" Height="600" Width="500">
+
+    <Grid>
+        <!-- set up grid for menu buttons -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" ></RowDefinition>
+            <RowDefinition Height="1*" ></RowDefinition>
+            <RowDefinition Height="80" ></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1"></ColumnDefinition>
+        </Grid.ColumnDefinitions> 
+
+        <Button Grid.Row="0" Grid.Column="0" Name="SupplierViewerBTN" Background="LightBlue" BorderThickness="3">
+            <StackPanel Orientation="Vertical" Background="LightBlue">
+                <Image Source= "c:\SymphonySolutionsExample\AppImages\1464464270_suppliers.png" Stretch="Uniform" Height="108" Width="80"></Image>
+                <TextBox Text="Supplier Viewer" FontSize="20" Background="LightBlue" BorderThickness="0"></TextBox>
+            </StackPanel>
+        </Button>
+        <Button Grid.Row="0" Grid.Column="1" Name="ProductViewerBTN" Background="LightBlue" BorderThickness="3">
+            <StackPanel Orientation="Vertical" Background="LightBlue">
+                <Image Source= "c:\SymphonySolutionsExample\AppImages\1464464469_inventory-maintenance.png" Stretch="Uniform" Height="108" Width="80"></Image>
+                <TextBox Text="Product Viewer" FontSize="20" Background="LightBlue" BorderThickness="0"></TextBox>
+            </StackPanel>
+        </Button>
+        <Button Grid.Row="1" Grid.Column="0" Name="PrintSupplierBTN" Background="LightBlue" BorderThickness="3">
+            <StackPanel Orientation="Vertical" Background="LightBlue">
+                <Image Source= "c:\SymphonySolutionsExample\AppImages\1464464598_document.png" Stretch="Uniform" Height="108" Width="80"></Image>
+                <TextBox Text="Supplier List" FontSize="20" Background="LightBlue" BorderThickness="0"></TextBox>
+            </StackPanel>
+        </Button>
+        <Button Grid.Row="1" Grid.Column="1" Name="ProductPDFBTN" Background="LightBlue" BorderThickness="3">
+            <StackPanel Orientation="Vertical" Background="LightBlue">
+                <Image Source= "c:\SymphonySolutionsExample\AppImages\1464464651_1-02.png" Stretch="Uniform" Height="108" Width="80"></Image>
+                <TextBox Text="Product Catalogue (PDF)" FontSize="20" Background="LightBlue" BorderThickness="0"></TextBox>
+            </StackPanel>
+        </Button>
+
+        <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Name="ExitBTN" Background="Gray">
+            <Image Source= "c:\SymphonySolutionsExample\AppImages\1464464799_exit.png" Stretch="Uniform" Height="108" Width="80"></Image>      
+        </Button>        
+    </Grid>
+</Window>

@@ -25,7 +25,32 @@ Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "SupplierViewer", "SupplierV
 		{1C61E987-FBD9-49B8-B987-8A30D6EF3218} = {1C61E987-FBD9-49B8-B987-8A30D6EF3218}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewFolder1", "NewFolder1", "{398D2132-ED43-4720-9603-2F7A4CE2DB69}"
+Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "SFELauncher", "SFELauncher\SFELauncher.synproj", "{0F3B3A79-8A68-49C6-8363-FC20EE669AD6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Product Images", "Product Images", "{C7D3C82C-BE2B-4B11-9533-8E28EEA388B1}"
+	ProjectSection(SolutionItems) = preProject
+		ProductImages\7UP001.jpg = ProductImages\7UP001.jpg
+		ProductImages\7UP002.jpg = ProductImages\7UP002.jpg
+		ProductImages\7UP003.jpg = ProductImages\7UP003.jpg
+		ProductImages\COK001.jpg = ProductImages\COK001.jpg
+		ProductImages\COK002.jpg = ProductImages\COK002.jpg
+		ProductImages\COK003.jpg = ProductImages\COK003.jpg
+		ProductImages\COK004.jpg = ProductImages\COK004.jpg
+		ProductImages\COK005.jpg = ProductImages\COK005.jpg
+		ProductImages\COK006.jpg = ProductImages\COK006.jpg
+		ProductImages\CRISP1.jpg = ProductImages\CRISP1.jpg
+		ProductImages\CRISP2.jpg = ProductImages\CRISP2.jpg
+		ProductImages\CRISP3.jpg = ProductImages\CRISP3.jpg
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppImages", "AppImages", "{835BE6F7-80EA-4890-919B-64B3631501D8}"
+	ProjectSection(SolutionItems) = preProject
+		AppImages\1464464270_suppliers.png = AppImages\1464464270_suppliers.png
+		AppImages\1464464469_inventory-maintenance.png = AppImages\1464464469_inventory-maintenance.png
+		AppImages\1464464598_document.png = AppImages\1464464598_document.png
+		AppImages\1464464651_1-02.png = AppImages\1464464651_1-02.png
+		AppImages\1464464799_exit.png = AppImages\1464464799_exit.png
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,11 +74,12 @@ Global
 		{1DC18BDF-ED62-4C4F-8481-A2CE7A7D56F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DC18BDF-ED62-4C4F-8481-A2CE7A7D56F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DC18BDF-ED62-4C4F-8481-A2CE7A7D56F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F3B3A79-8A68-49C6-8363-FC20EE669AD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F3B3A79-8A68-49C6-8363-FC20EE669AD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F3B3A79-8A68-49C6-8363-FC20EE669AD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F3B3A79-8A68-49C6-8363-FC20EE669AD6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{398D2132-ED43-4720-9603-2F7A4CE2DB69} = {10036368-383E-4442-A84A-65827266025F}
 	EndGlobalSection
 EndGlobal

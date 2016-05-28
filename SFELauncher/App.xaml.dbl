@@ -6,7 +6,7 @@ import System.Configuration
 import System.Diagnostics
 
 
-namespace WPFApplication1
+namespace SFELauncher
 
     public partial class App extends System.Windows.Application
     

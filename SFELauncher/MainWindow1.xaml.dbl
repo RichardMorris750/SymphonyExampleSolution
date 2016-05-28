@@ -14,7 +14,7 @@ import System.Windows.Media.Imaging
 import System.Windows.Navigation
 
 
-namespace WPFApplication1
+namespace SFELauncher
 
     public partial class MainWindow1 extends Window
     

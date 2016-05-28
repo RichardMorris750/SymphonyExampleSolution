@@ -11,11 +11,11 @@ import System.Runtime.CompilerServices;
 ;; General Information about an assembly is controlled through the following
 ;; set of attributes. Change these attribute values to modify the information
 ;; associated with an assembly.
-{assembly: AssemblyTitle("WPFApplication1")}
+{assembly: AssemblyTitle("SFELauncher")}
 {assembly: AssemblyDescription("")}
 {assembly: AssemblyConfiguration("")}
 {assembly: AssemblyCompany("")}
-{assembly: AssemblyProduct("WPFApplication1")}
+{assembly: AssemblyProduct("SFELauncher")}
 {assembly: AssemblyCopyright("Copyright @  2016")}
 {assembly: AssemblyTrademark("")}
 {assembly: AssemblyCulture("")}

@@ -8,77 +8,29 @@
 ;;
 ;;***************************************************************************
 import System
-import System.Collections
 import System.Collections.Generic
-import System.Collections.ObjectModel
-import System.Collections.Specialized
 import System.Text
-import System.Runtime.InteropServices
-import System.IO
 
 import Symphony.Conductor.Model
-import Symphony.Conductor.Converters
-
-import System.Reflection
-import System.Runtime.Serialization
-import Newtonsoft.Json
-
 
 namespace AppData
 
     ;;define a structure that we can use around the applicaiton
 
-	structure STRProduct
-		.include 'product' repository  , norecord, prefix = "str_"
-	endstructure
+    .include 'product' repository  , structure = 'STRProduct', prefix = "str_", end
 
-	{JsonObject(MemberSerialization.OptIn)}
     public partial class Product_Data extends Symphony.Conductor.Model.DataObjectBase
 
-		private cls structure clsstrProduct
-.align
-			public csProd_code, String
-.align
-			public csProd_description, String
-.align
-			public csSupp_code, String
-.align
-			public csCost_price, Decimal
-.align
-			public csSell_price, Decimal
-.align
-			public csPack_size, String
-.align
-			public csVat_code, Int32
-.align
-			public csProd_group, String
-		endstructure
-		
-		public static SynergyMemberInfo, @List<System.Reflection.MemberInfo>
-
 		public const RPSStructureName	,String	,"PRODUCT"
-		public const RPSStructureSize	,Int32	,82
 
 		private product_main	,STRProduct
 
 		private mDoneSynergyRecordValue	,boolean
-		
-		;;use symphony converters
-		private mDateConveter   ,@SynergyDecimalDateConverter ,new SynergyDecimalDateConverter()
-		private mAlphaConveter	,@SynergyAlphaConverter ,new SynergyAlphaConverter()
-		private mDecimalConveter  ,@SynergyDecimalConverter ,new SynergyDecimalConverter()
-		private mImpliedDecimalConveter ,@SynergyImpliedDecimalConverter  ,new SynergyImpliedDecimalConverter()
-		private mIntegerConveter  ,@SynergyIntConverter ,new SynergyIntConverter()
+
 
 		static method Product_Data
 			endparams
 		proc
-			data objectType = ^typeof(Product_Data)
-			SynergyMemberInfo = new List<System.Reflection.MemberInfo>() {
-			&	^as(RuntimeReflectionExtensions.GetRuntimeProperty(objectType, "SerializableSynergyRecord"), @System.Reflection.MemberInfo)
-			& }
-			defineSerialiazableDataElements()
-
 			mStaticFieldList = new List<BaseFieldInformation>()
 			mStaticFieldDictionary = new Dictionary<string, int>()
 			mStaticFieldNameList = new List<String>()
@@ -152,9 +104,6 @@ namespace AppData
 			mStaticFieldHeadingList.Add("Product Group")
 
 			mreturn
-		endmethod
-		
-		private partial static method defineSerialiazableDataElements, void
 		endmethod
 
         ;;; <summary>
@@ -290,136 +239,128 @@ namespace AppData
         ;;Expose fields as properties for data binding
         
         ;;Prod_code
-		{JsonProperty}
 		public property Prod_code, a6
 			method get
 			proc
-				mreturn %atrim(product_main.STR_Prod_code)
+				mreturn %atrim(Product_main.STR_Prod_code)
             endmethod
 			method set
 			proc
-					if (product_main.STR_Prod_code .nes. value)
+					if (Product_main.STR_Prod_code .nes. value)
 				begin
-										product_main.STR_Prod_code = value
+										Product_main.STR_Prod_code = value
 					ValidateEnteredData(1)
 					RaisePropertyChanged("Prod_code")
 				end
 			endmethod
 		endproperty
         ;;Prod_description
-		{JsonProperty}
 		public property Prod_description, a40
 			method get
 			proc
-				mreturn %atrim(product_main.STR_Prod_description)
+				mreturn %atrim(Product_main.STR_Prod_description)
             endmethod
 			method set
 			proc
-					if (product_main.STR_Prod_description .nes. value)
+					if (Product_main.STR_Prod_description .nes. value)
 				begin
-										product_main.STR_Prod_description = value
+										Product_main.STR_Prod_description = value
 					ValidateEnteredData(2)
 					RaisePropertyChanged("Prod_description")
 				end
 			endmethod
 		endproperty
         ;;Supp_code
-		{JsonProperty}
 		public property Supp_code, a6
 			method get
 			proc
-				mreturn %atrim(product_main.STR_Supp_code)
+				mreturn %atrim(Product_main.STR_Supp_code)
             endmethod
 			method set
 			proc
-					if (product_main.STR_Supp_code .nes. value)
+					if (Product_main.STR_Supp_code .nes. value)
 				begin
-										product_main.STR_Supp_code = value
+										Product_main.STR_Supp_code = value
 					ValidateEnteredData(3)
 					RaisePropertyChanged("Supp_code")
 				end
 			endmethod
 		endproperty
         ;;Cost_price
-		{JsonProperty}
 		public property Cost_price, d8.2
 			method get
 			proc
-                mreturn product_main.STR_Cost_price
+                mreturn Product_main.STR_Cost_price
             endmethod
 			method set
 			proc
-				if (product_main.STR_Cost_price .ne. value)
+				if (Product_main.STR_Cost_price .ne. value)
 				begin
-										product_main.STR_Cost_price = value
+										Product_main.STR_Cost_price = value
 					ValidateEnteredData(4)
 					RaisePropertyChanged("Cost_price")
 				end
 			endmethod
 		endproperty
         ;;Sell_price
-		{JsonProperty}
 		public property Sell_price, d8.2
 			method get
 			proc
-                mreturn product_main.STR_Sell_price
+                mreturn Product_main.STR_Sell_price
             endmethod
 			method set
 			proc
-				if (product_main.STR_Sell_price .ne. value)
+				if (Product_main.STR_Sell_price .ne. value)
 				begin
-										product_main.STR_Sell_price = value
+										Product_main.STR_Sell_price = value
 					ValidateEnteredData(5)
 					RaisePropertyChanged("Sell_price")
 				end
 			endmethod
 		endproperty
         ;;Pack_size
-		{JsonProperty}
 		public property Pack_size, a10
 			method get
 			proc
-				mreturn %atrim(product_main.STR_Pack_size)
+				mreturn %atrim(Product_main.STR_Pack_size)
             endmethod
 			method set
 			proc
-					if (product_main.STR_Pack_size .nes. value)
+					if (Product_main.STR_Pack_size .nes. value)
 				begin
-										product_main.STR_Pack_size = value
+										Product_main.STR_Pack_size = value
 					ValidateEnteredData(6)
 					RaisePropertyChanged("Pack_size")
 				end
 			endmethod
 		endproperty
         ;;Vat_code
-		{JsonProperty}
 		public property Vat_code, d1
 			method get
 			proc
-                mreturn product_main.STR_Vat_code
+                mreturn Product_main.STR_Vat_code
             endmethod
 			method set
 			proc
-				if (product_main.STR_Vat_code .ne. value)
+				if (Product_main.STR_Vat_code .ne. value)
 				begin
-										product_main.STR_Vat_code = value
+										Product_main.STR_Vat_code = value
 					ValidateEnteredData(7)
 					RaisePropertyChanged("Vat_code")
 				end
 			endmethod
 		endproperty
         ;;Prod_group
-		{JsonProperty}
 		public property Prod_group, a3
 			method get
 			proc
-				mreturn %atrim(product_main.STR_Prod_group)
+				mreturn %atrim(Product_main.STR_Prod_group)
             endmethod
 			method set
 			proc
-					if (product_main.STR_Prod_group .nes. value)
+					if (Product_main.STR_Prod_group .nes. value)
 				begin
-										product_main.STR_Prod_group = value
+										Product_main.STR_Prod_group = value
 					ValidateEnteredData(8)
 					RaisePropertyChanged("Prod_group")
 				end
@@ -1117,93 +1058,7 @@ namespace AppData
 
 			mreturn result
 		endmethod
-		
-.region "Serialization over Symphony Bridge"
-		
-		
-		{JsonProperty}
-		public property SerializableSynergyRecord, [#]byte
-			method get
-			proc
-				data tmpSTR	,clsstrProduct
-				tmpSTR.csProd_code = (string)mAlphaConveter.Convert(product_main.STR_prod_code, ^null, ^null, ^null)
-				tmpSTR.csProd_description = (string)mAlphaConveter.Convert(product_main.STR_prod_description, ^null, ^null, ^null)
-				tmpSTR.csSupp_code = (string)mAlphaConveter.Convert(product_main.STR_supp_code, ^null, ^null, ^null)
-				tmpSTR.csCost_price = (decimal)mImpliedDecimalConveter.Convert(product_main.STR_cost_price, ^null, ^null, ^null)
-				tmpSTR.csSell_price = (decimal)mImpliedDecimalConveter.Convert(product_main.STR_sell_price, ^null, ^null, ^null)
-				tmpSTR.csPack_size = (string)mAlphaConveter.Convert(product_main.STR_pack_size, ^null, ^null, ^null)
-				tmpSTR.csVat_code = (int32)mIntegerConveter.Convert(product_main.STR_vat_code, ^null, ^null, ^null)
-				tmpSTR.csProd_group = (string)mAlphaConveter.Convert(product_main.STR_prod_group, ^null, ^null, ^null)
-				mreturn structureToByteArray(tmpSTR)
-			endmethod
-			method set
-			proc
-				data tmpSTR	,clsstrProduct
-				tmpSTR = byteArrayToStructure(value)
-				product_main.STR_Prod_code = (a)mAlphaConveter.ConvertBack(tmpSTR.csProd_code, ^null, ^null, ^null)
-				product_main.STR_Prod_description = (a)mAlphaConveter.ConvertBack(tmpSTR.csProd_description, ^null, ^null, ^null)
-				product_main.STR_Supp_code = (a)mAlphaConveter.ConvertBack(tmpSTR.csSupp_code, ^null, ^null, ^null)
-				product_main.STR_Cost_price = (id)mImpliedDecimalConveter.ConvertBack(tmpSTR.csCost_price, ^null, ^null, ^null)
-				product_main.STR_Sell_price = (id)mImpliedDecimalConveter.ConvertBack(tmpSTR.csSell_price, ^null, ^null, ^null)
-				product_main.STR_Pack_size = (a)mAlphaConveter.ConvertBack(tmpSTR.csPack_size, ^null, ^null, ^null)
-				product_main.STR_Vat_code = (d)((i)mIntegerConveter.ConvertBack(tmpSTR.csVat_code, ^null, ^null, ^null))
-				product_main.STR_Prod_group = (a)mAlphaConveter.ConvertBack(tmpSTR.csProd_group, ^null, ^null, ^null)
-			endmethod
-		endproperty
-			
-		private static method structureToByteArray	,[#]byte
-			tmpSTRUCT				,clsstrProduct
-			endparams
-		proc
-			data stream	,@MemoryStream , new MemoryStream()
-			begin
-				disposable data writer ,@BinaryWriter , new BinaryWriter(stream)
-				writer.Write(tmpSTRUCT.csProd_code)
-				writer.Write(tmpSTRUCT.csProd_description)
-				writer.Write(tmpSTRUCT.csSupp_code)
-				writer.Write(tmpSTRUCT.csCost_price.ToString())
-				writer.Write(tmpSTRUCT.csSell_price.ToString())
-				writer.Write(tmpSTRUCT.csPack_size)
-				writer.Write(tmpSTRUCT.csVat_code.ToString())
-				writer.Write(tmpSTRUCT.csProd_group)
-			end
-			mreturn stream.ToArray()
-		endmethod
-		
-		private static method byteArrayToStructure	,clsstrProduct
-			bytearray, [#]byte  
-			endparams
-		proc
-			data tmpString	,string
-			data tmpSTRUCT	,clsstrProduct
-			data stream	,@MemoryStream	,new MemoryStream(byteArray)
-			begin
-				disposable data reader	,@BinaryReader	,new BinaryReader(stream)
-				tmpSTRUCT.csProd_code = reader.ReadString()
-				tmpSTRUCT.csProd_description = reader.ReadString()
-				tmpSTRUCT.csSupp_code = reader.ReadString()
-				tmpString = reader.ReadString()
-				tmpSTRUCT.csCost_price = Convert.ToDecimal(tmpString)
-				tmpString = reader.ReadString()
-				tmpSTRUCT.csSell_price = Convert.ToDecimal(tmpString)
-				tmpSTRUCT.csPack_size = reader.ReadString()
-				tmpString = reader.ReadString()
-				tmpSTRUCT.csVat_code = Convert.ToInt32(tmpString)
-				tmpSTRUCT.csProd_group = reader.ReadString()
-			end
 
-			mreturn tmpSTRUCT
-		endmethod
-		
-		public override property StructureSize	,Int32
-			method get
-			proc
-				mreturn RPSStructureSize
-			endmethod
-		endproperty
-
-.endregion
-		
 	endclass
 endnamespace
 

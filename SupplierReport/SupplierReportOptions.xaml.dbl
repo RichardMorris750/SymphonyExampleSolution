@@ -14,23 +14,24 @@ import System.Windows.Media.Imaging
 import System.Windows.Navigation
 
 
+namespace SupplierReport
 
-namespace SupplierViewer
-
-    public partial class MainWindow1 extends Window
+    public partial class SupplierReportOptions extends Window
     
-        public method MainWindow1
+        public method SupplierReportOptions
             endparams
         proc
             this.InitializeComponent()
         endmethod
 
+		
 		private method Window_Loaded, void
 			sender, @object 
 			e, @System.Windows.RoutedEventArgs 
 			endparams
 		proc
-			this.DataContext = new SupplierViewerViewModel(this)
+			this.DataContext = new SupplierReportViewModel(this)
 		endmethod
+
     endclass
 endnamespace

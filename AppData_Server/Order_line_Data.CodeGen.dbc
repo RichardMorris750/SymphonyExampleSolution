@@ -8,79 +8,29 @@
 ;;
 ;;***************************************************************************
 import System
-import System.Collections
 import System.Collections.Generic
-import System.Collections.ObjectModel
-import System.Collections.Specialized
 import System.Text
-import System.Runtime.InteropServices
-import System.IO
 
 import Symphony.Conductor.Model
-import Symphony.Conductor.Converters
-
-import System.Reflection
-import System.Runtime.Serialization
-import Newtonsoft.Json
-
 
 namespace AppData
 
     ;;define a structure that we can use around the applicaiton
 
-	structure STROrder_line
-		.include 'order_line' repository  , norecord, prefix = "str_"
-	endstructure
+    .include 'order_line' repository  , structure = 'STROrder_line', prefix = "str_", end
 
-	{JsonObject(MemberSerialization.OptIn)}
     public partial class Order_line_Data extends Symphony.Conductor.Model.DataObjectBase
 
-		private cls structure clsstrOrder_line
-.align
-			public csOrder_no, Int32
-.align
-			public csLine_no, Int32
-.align
-			public csProd_code, String
-.align
-			public csProd_description, String
-.align
-			public csQty, Int32
-.align
-			public csPrice, Decimal
-.align
-			public csLine_value, Decimal
-.align
-			public csVat_rate, Decimal
-.align
-			public csVat_value, Decimal
-		endstructure
-		
-		public static SynergyMemberInfo, @List<System.Reflection.MemberInfo>
-
 		public const RPSStructureName	,String	,"ORDER_LINE"
-		public const RPSStructureSize	,Int32	,100
 
 		private order_line_main	,STROrder_line
 
 		private mDoneSynergyRecordValue	,boolean
-		
-		;;use symphony converters
-		private mDateConveter   ,@SynergyDecimalDateConverter ,new SynergyDecimalDateConverter()
-		private mAlphaConveter	,@SynergyAlphaConverter ,new SynergyAlphaConverter()
-		private mDecimalConveter  ,@SynergyDecimalConverter ,new SynergyDecimalConverter()
-		private mImpliedDecimalConveter ,@SynergyImpliedDecimalConverter  ,new SynergyImpliedDecimalConverter()
-		private mIntegerConveter  ,@SynergyIntConverter ,new SynergyIntConverter()
+
 
 		static method Order_line_Data
 			endparams
 		proc
-			data objectType = ^typeof(Order_line_Data)
-			SynergyMemberInfo = new List<System.Reflection.MemberInfo>() {
-			&	^as(RuntimeReflectionExtensions.GetRuntimeProperty(objectType, "SerializableSynergyRecord"), @System.Reflection.MemberInfo)
-			& }
-			defineSerialiazableDataElements()
-
 			mStaticFieldList = new List<BaseFieldInformation>()
 			mStaticFieldDictionary = new Dictionary<string, int>()
 			mStaticFieldNameList = new List<String>()
@@ -162,9 +112,6 @@ namespace AppData
 			mStaticFieldHeadingList.Add("VAT Value")
 
 			mreturn
-		endmethod
-		
-		private partial static method defineSerialiazableDataElements, void
 		endmethod
 
         ;;; <summary>
@@ -300,153 +247,144 @@ namespace AppData
         ;;Expose fields as properties for data binding
         
         ;;Order_no
-		{JsonProperty}
 		public property Order_no, d6
 			method get
 			proc
-                mreturn order_line_main.STR_Order_no
+                mreturn Order_line_main.STR_Order_no
             endmethod
 			method set
 			proc
-				if (order_line_main.STR_Order_no .ne. value)
+				if (Order_line_main.STR_Order_no .ne. value)
 				begin
-										order_line_main.STR_Order_no = value
+										Order_line_main.STR_Order_no = value
 					ValidateEnteredData(1)
 					RaisePropertyChanged("Order_no")
 				end
 			endmethod
 		endproperty
         ;;Line_no
-		{JsonProperty}
 		public property Line_no, d5
 			method get
 			proc
-                mreturn order_line_main.STR_Line_no
+                mreturn Order_line_main.STR_Line_no
             endmethod
 			method set
 			proc
-				if (order_line_main.STR_Line_no .ne. value)
+				if (Order_line_main.STR_Line_no .ne. value)
 				begin
-										order_line_main.STR_Line_no = value
+										Order_line_main.STR_Line_no = value
 					ValidateEnteredData(2)
 					RaisePropertyChanged("Line_no")
 				end
 			endmethod
 		endproperty
         ;;Prod_code
-		{JsonProperty}
 		public property Prod_code, a10
 			method get
 			proc
-				mreturn %atrim(order_line_main.STR_Prod_code)
+				mreturn %atrim(Order_line_main.STR_Prod_code)
             endmethod
 			method set
 			proc
-					if (order_line_main.STR_Prod_code .nes. value)
+					if (Order_line_main.STR_Prod_code .nes. value)
 				begin
-										order_line_main.STR_Prod_code = value
+										Order_line_main.STR_Prod_code = value
 					ValidateEnteredData(3)
 					RaisePropertyChanged("Prod_code")
 				end
 			endmethod
 		endproperty
         ;;Prod_description
-		{JsonProperty}
 		public property Prod_description, a40
 			method get
 			proc
-				mreturn %atrim(order_line_main.STR_Prod_description)
+				mreturn %atrim(Order_line_main.STR_Prod_description)
             endmethod
 			method set
 			proc
-					if (order_line_main.STR_Prod_description .nes. value)
+					if (Order_line_main.STR_Prod_description .nes. value)
 				begin
-										order_line_main.STR_Prod_description = value
+										Order_line_main.STR_Prod_description = value
 					ValidateEnteredData(4)
 					RaisePropertyChanged("Prod_description")
 				end
 			endmethod
 		endproperty
         ;;Qty
-		{JsonProperty}
 		public property Qty, d6
 			method get
 			proc
-                mreturn order_line_main.STR_Qty
+                mreturn Order_line_main.STR_Qty
             endmethod
 			method set
 			proc
-				if (order_line_main.STR_Qty .ne. value)
+				if (Order_line_main.STR_Qty .ne. value)
 				begin
-										order_line_main.STR_Qty = value
+										Order_line_main.STR_Qty = value
 					ValidateEnteredData(5)
 					RaisePropertyChanged("Qty")
 				end
 			endmethod
 		endproperty
         ;;Price
-		{JsonProperty}
 		public property Price, d8.2
 			method get
 			proc
-                mreturn order_line_main.STR_Price
+                mreturn Order_line_main.STR_Price
             endmethod
 			method set
 			proc
-				if (order_line_main.STR_Price .ne. value)
+				if (Order_line_main.STR_Price .ne. value)
 				begin
-										order_line_main.STR_Price = value
+										Order_line_main.STR_Price = value
 					ValidateEnteredData(6)
 					RaisePropertyChanged("Price")
 				end
 			endmethod
 		endproperty
         ;;Line_value
-		{JsonProperty}
 		public property Line_value, d10.2
 			method get
 			proc
-                mreturn order_line_main.STR_Line_value
+                mreturn Order_line_main.STR_Line_value
             endmethod
 			method set
 			proc
-				if (order_line_main.STR_Line_value .ne. value)
+				if (Order_line_main.STR_Line_value .ne. value)
 				begin
-										order_line_main.STR_Line_value = value
+										Order_line_main.STR_Line_value = value
 					ValidateEnteredData(7)
 					RaisePropertyChanged("Line_value")
 				end
 			endmethod
 		endproperty
         ;;Vat_rate
-		{JsonProperty}
 		public property Vat_rate, d5.2
 			method get
 			proc
-                mreturn order_line_main.STR_Vat_rate
+                mreturn Order_line_main.STR_Vat_rate
             endmethod
 			method set
 			proc
-				if (order_line_main.STR_Vat_rate .ne. value)
+				if (Order_line_main.STR_Vat_rate .ne. value)
 				begin
-										order_line_main.STR_Vat_rate = value
+										Order_line_main.STR_Vat_rate = value
 					ValidateEnteredData(8)
 					RaisePropertyChanged("Vat_rate")
 				end
 			endmethod
 		endproperty
         ;;Vat_value
-		{JsonProperty}
 		public property Vat_value, d10.2
 			method get
 			proc
-                mreturn order_line_main.STR_Vat_value
+                mreturn Order_line_main.STR_Vat_value
             endmethod
 			method set
 			proc
-				if (order_line_main.STR_Vat_value .ne. value)
+				if (Order_line_main.STR_Vat_value .ne. value)
 				begin
-										order_line_main.STR_Vat_value = value
+										Order_line_main.STR_Vat_value = value
 					ValidateEnteredData(9)
 					RaisePropertyChanged("Vat_value")
 				end
@@ -1214,101 +1152,7 @@ namespace AppData
 
 			mreturn result
 		endmethod
-		
-.region "Serialization over Symphony Bridge"
-		
-		
-		{JsonProperty}
-		public property SerializableSynergyRecord, [#]byte
-			method get
-			proc
-				data tmpSTR	,clsstrOrder_line
-				tmpSTR.csOrder_no = (int32)mIntegerConveter.Convert(order_line_main.STR_order_no, ^null, ^null, ^null)
-				tmpSTR.csLine_no = (int32)mIntegerConveter.Convert(order_line_main.STR_line_no, ^null, ^null, ^null)
-				tmpSTR.csProd_code = (string)mAlphaConveter.Convert(order_line_main.STR_prod_code, ^null, ^null, ^null)
-				tmpSTR.csProd_description = (string)mAlphaConveter.Convert(order_line_main.STR_prod_description, ^null, ^null, ^null)
-				tmpSTR.csQty = (int32)mIntegerConveter.Convert(order_line_main.STR_qty, ^null, ^null, ^null)
-				tmpSTR.csPrice = (decimal)mImpliedDecimalConveter.Convert(order_line_main.STR_price, ^null, ^null, ^null)
-				tmpSTR.csLine_value = (decimal)mImpliedDecimalConveter.Convert(order_line_main.STR_line_value, ^null, ^null, ^null)
-				tmpSTR.csVat_rate = (decimal)mImpliedDecimalConveter.Convert(order_line_main.STR_vat_rate, ^null, ^null, ^null)
-				tmpSTR.csVat_value = (decimal)mImpliedDecimalConveter.Convert(order_line_main.STR_vat_value, ^null, ^null, ^null)
-				mreturn structureToByteArray(tmpSTR)
-			endmethod
-			method set
-			proc
-				data tmpSTR	,clsstrOrder_line
-				tmpSTR = byteArrayToStructure(value)
-				order_line_main.STR_Order_no = (d)((i)mIntegerConveter.ConvertBack(tmpSTR.csOrder_no, ^null, ^null, ^null))
-				order_line_main.STR_Line_no = (d)((i)mIntegerConveter.ConvertBack(tmpSTR.csLine_no, ^null, ^null, ^null))
-				order_line_main.STR_Prod_code = (a)mAlphaConveter.ConvertBack(tmpSTR.csProd_code, ^null, ^null, ^null)
-				order_line_main.STR_Prod_description = (a)mAlphaConveter.ConvertBack(tmpSTR.csProd_description, ^null, ^null, ^null)
-				order_line_main.STR_Qty = (d)((i)mIntegerConveter.ConvertBack(tmpSTR.csQty, ^null, ^null, ^null))
-				order_line_main.STR_Price = (id)mImpliedDecimalConveter.ConvertBack(tmpSTR.csPrice, ^null, ^null, ^null)
-				order_line_main.STR_Line_value = (id)mImpliedDecimalConveter.ConvertBack(tmpSTR.csLine_value, ^null, ^null, ^null)
-				order_line_main.STR_Vat_rate = (id)mImpliedDecimalConveter.ConvertBack(tmpSTR.csVat_rate, ^null, ^null, ^null)
-				order_line_main.STR_Vat_value = (id)mImpliedDecimalConveter.ConvertBack(tmpSTR.csVat_value, ^null, ^null, ^null)
-			endmethod
-		endproperty
-			
-		private static method structureToByteArray	,[#]byte
-			tmpSTRUCT				,clsstrOrder_line
-			endparams
-		proc
-			data stream	,@MemoryStream , new MemoryStream()
-			begin
-				disposable data writer ,@BinaryWriter , new BinaryWriter(stream)
-				writer.Write(tmpSTRUCT.csOrder_no.ToString())
-				writer.Write(tmpSTRUCT.csLine_no.ToString())
-				writer.Write(tmpSTRUCT.csProd_code)
-				writer.Write(tmpSTRUCT.csProd_description)
-				writer.Write(tmpSTRUCT.csQty.ToString())
-				writer.Write(tmpSTRUCT.csPrice.ToString())
-				writer.Write(tmpSTRUCT.csLine_value.ToString())
-				writer.Write(tmpSTRUCT.csVat_rate.ToString())
-				writer.Write(tmpSTRUCT.csVat_value.ToString())
-			end
-			mreturn stream.ToArray()
-		endmethod
-		
-		private static method byteArrayToStructure	,clsstrOrder_line
-			bytearray, [#]byte  
-			endparams
-		proc
-			data tmpString	,string
-			data tmpSTRUCT	,clsstrOrder_line
-			data stream	,@MemoryStream	,new MemoryStream(byteArray)
-			begin
-				disposable data reader	,@BinaryReader	,new BinaryReader(stream)
-				tmpString = reader.ReadString()
-				tmpSTRUCT.csOrder_no = Convert.ToInt32(tmpString)
-				tmpString = reader.ReadString()
-				tmpSTRUCT.csLine_no = Convert.ToInt32(tmpString)
-				tmpSTRUCT.csProd_code = reader.ReadString()
-				tmpSTRUCT.csProd_description = reader.ReadString()
-				tmpString = reader.ReadString()
-				tmpSTRUCT.csQty = Convert.ToInt32(tmpString)
-				tmpString = reader.ReadString()
-				tmpSTRUCT.csPrice = Convert.ToDecimal(tmpString)
-				tmpString = reader.ReadString()
-				tmpSTRUCT.csLine_value = Convert.ToDecimal(tmpString)
-				tmpString = reader.ReadString()
-				tmpSTRUCT.csVat_rate = Convert.ToDecimal(tmpString)
-				tmpString = reader.ReadString()
-				tmpSTRUCT.csVat_value = Convert.ToDecimal(tmpString)
-			end
 
-			mreturn tmpSTRUCT
-		endmethod
-		
-		public override property StructureSize	,Int32
-			method get
-			proc
-				mreturn RPSStructureSize
-			endmethod
-		endproperty
-
-.endregion
-		
 	endclass
 endnamespace
 

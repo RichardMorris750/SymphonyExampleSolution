@@ -17,18 +17,18 @@ namespace AppData
 
     ;;define a structure that we can use around the applicaiton
 
-    .include 'product_group' repository  , structure = 'STRProduct_group', prefix = "str_", end
+    .include 'local_criteria' repository  , structure = 'STRLocal_criteria', prefix = "str_", end
 
-    public partial class Product_group_Data extends Symphony.Conductor.Model.DataObjectBase
+    public partial class Local_criteria_Data extends Symphony.Conductor.Model.DataObjectBase
 
-		public const RPSStructureName	,String	,"PRODUCT_GROUP"
+		public const RPSStructureName	,String	,"LOCAL_CRITERIA"
 
-		private product_group_main	,STRProduct_group
+		private local_criteria_main	,STRLocal_criteria
 
 		private mDoneSynergyRecordValue	,boolean
 
 
-		static method Product_group_Data
+		static method Local_criteria_Data
 			endparams
 		proc
 			mStaticFieldList = new List<BaseFieldInformation>()
@@ -38,22 +38,30 @@ namespace AppData
 
 			
 			
-			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "PROD_GROUP", "Prod_group",  "", "",
-			&	"", "PROD_GROUP", 1, 3,
+			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "START_SUPP", "Start_supp",  "", "",
+			&	"", "START_SUPP", 1, 6,
 			&	0, 0, 0, 0,
 			&	"ALPHA", false, 0, 0)
 
 			
-			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "GROUP_DESC", "Group_desc",  "", "",
-			&	"", "GROUP_DESC", 4, 20,
+			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "KEY_WORD", "Key_word",  "", "",
+			&	"", "KEY_WORD", 7, 30,
+			&	0, 0, 0, 0,
+			&	"ALPHA", false, 0, 0)
+
+			
+			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "END_SUPP", "End_supp",  "", "",
+			&	"", "END_SUPP", 37, 6,
 			&	0, 0, 0, 0,
 			&	"ALPHA", false, 0, 0)
 
 
-			mStaticFieldNameList.Add("Prod_group")
-			mStaticFieldHeadingList.Add("Group Code")
-			mStaticFieldNameList.Add("Group_desc")
-			mStaticFieldHeadingList.Add("Description")
+			mStaticFieldNameList.Add("Start_supp")
+			mStaticFieldHeadingList.Add("Start Supplier")
+			mStaticFieldNameList.Add("Key_word")
+			mStaticFieldHeadingList.Add("Key Word")
+			mStaticFieldNameList.Add("End_supp")
+			mStaticFieldHeadingList.Add("End Supplier")
 
 			mreturn
 		endmethod
@@ -61,7 +69,7 @@ namespace AppData
         ;;; <summary>
         ;;;  Constructor, initialise the base fields
         ;;; </summary>
-        public method Product_group_Data
+        public method Local_criteria_Data
             endparams
             parent()
         proc
@@ -79,7 +87,7 @@ namespace AppData
         ;;; Alternate constructor, accepts the inital value to assign to the object
         ;;; </summary>
         ;;; <param name="synRec">Provide the data to load into the _DATAOBJECT_</param>
-        public method Product_group_Data
+        public method Local_criteria_Data
             in req synRec       ,String
             endparams
             parent()
@@ -90,7 +98,7 @@ namespace AppData
 			mIsNew = false
 			configureFieldInfo()
 			setFieldNames()
-			product_group_main = synRec
+			local_criteria_main = synRec
 			;OriginalSynergyRecord = synRec
 			extendedConstructor()
         endmethod
@@ -99,8 +107,8 @@ namespace AppData
 		;;; Alternate constructor, accepts the inital value to assign to the object
 		;;; </summary>
 		;;; <param name="synRec">Provide the data to load into the _DATAOBJECT_</param>
-		public method Product_group_Data
-			in req synRec       ,STRProduct_group
+		public method Local_criteria_Data
+			in req synRec       ,STRLocal_criteria
 			endparams
 			parent()
 		proc
@@ -110,7 +118,7 @@ namespace AppData
 			mIsNew = false
 			configureFieldInfo()
 			setFieldNames()
-			product_group_main = synRec
+			local_criteria_main = synRec
 			;OriginalSynergyRecord = synRec
 			extendedConstructor()
 		endmethod
@@ -121,7 +129,7 @@ namespace AppData
 		;;; </summary>
 		;;; <param name="synRec">Provide the data to load into the _DATAOBJECT_</param>
 		;;; <param name="notifyUI">values passed onto the ObjectRaisesPropertyChanged property.</param>
-		public method Product_group_Data
+		public method Local_criteria_Data
 			in req synRec       ,String
 			in req notifyUI		,DataObjectNotificationState
 			endparams
@@ -134,7 +142,7 @@ namespace AppData
 			mIsNew = false
 			configureFieldInfo()
 			setFieldNames()
-			product_group_main = synRec
+			local_criteria_main = synRec
 			;OriginalSynergyRecord = synRec
 			extendedConstructor()
 		endmethod
@@ -145,8 +153,8 @@ namespace AppData
 		;;; </summary>
 		;;; <param name="synRec">Provide the data to load into the _DATAOBJECT_</param>
 		;;; <param name="notifyUI">values passed onto the ObjectRaisesPropertyChanged property.</param>
-		public method Product_group_Data
-			in req synRec       ,STRProduct_group
+		public method Local_criteria_Data
+			in req synRec       ,STRLocal_criteria
 			in req notifyUI		,DataObjectNotificationState
 			endparams
 			parent()
@@ -158,7 +166,7 @@ namespace AppData
 			mIsNew = false
 			configureFieldInfo()
 			setFieldNames()
-			product_group_main = synRec
+			local_criteria_main = synRec
 ;			OriginalSynergyRecord = synRec
 			extendedConstructor()
 		endmethod
@@ -190,35 +198,51 @@ namespace AppData
 
         ;;Expose fields as properties for data binding
         
-        ;;Prod_group
-		public property Prod_group, a3
+        ;;Start_supp
+		public property Start_supp, a6
 			method get
 			proc
-				mreturn %atrim(Product_group_main.STR_Prod_group)
+				mreturn %atrim(Local_criteria_main.STR_Start_supp)
             endmethod
 			method set
 			proc
-					if (Product_group_main.STR_Prod_group .nes. value)
+					if (Local_criteria_main.STR_Start_supp .nes. value)
 				begin
-										Product_group_main.STR_Prod_group = value
+										Local_criteria_main.STR_Start_supp = value
 					ValidateEnteredData(1)
-					RaisePropertyChanged("Prod_group")
+					RaisePropertyChanged("Start_supp")
 				end
 			endmethod
 		endproperty
-        ;;Group_desc
-		public property Group_desc, a20
+        ;;Key_word
+		public property Key_word, a30
 			method get
 			proc
-				mreturn %atrim(Product_group_main.STR_Group_desc)
+				mreturn %atrim(Local_criteria_main.STR_Key_word)
             endmethod
 			method set
 			proc
-					if (Product_group_main.STR_Group_desc .nes. value)
+					if (Local_criteria_main.STR_Key_word .nes. value)
 				begin
-										Product_group_main.STR_Group_desc = value
+										Local_criteria_main.STR_Key_word = value
 					ValidateEnteredData(2)
-					RaisePropertyChanged("Group_desc")
+					RaisePropertyChanged("Key_word")
+				end
+			endmethod
+		endproperty
+        ;;End_supp
+		public property End_supp, a6
+			method get
+			proc
+				mreturn %atrim(Local_criteria_main.STR_End_supp)
+            endmethod
+			method set
+			proc
+					if (Local_criteria_main.STR_End_supp .nes. value)
+				begin
+										Local_criteria_main.STR_End_supp = value
+					ValidateEnteredData(3)
+					RaisePropertyChanged("End_supp")
 				end
 			endmethod
 		endproperty
@@ -229,7 +253,7 @@ namespace AppData
 		public override property SynergyRecord, String
             method get
             proc
-                mreturn (String)Product_group_main
+                mreturn (String)Local_criteria_main
             endmethod
             method set
             proc
@@ -239,14 +263,16 @@ namespace AppData
 				mDoneSynergyRecordValue = true
 				
 				setUsed()
-                Product_group_main = value
+                Local_criteria_main = value
 
                 ;;Signal that all fields have changed
                 
-				SetFieldValid("Prod_group")
+				SetFieldValid("Start_supp")
 									if (mValidateSynergyData) ValidateEnteredData(1)
-				SetFieldValid("Group_desc")
+				SetFieldValid("Key_word")
 									if (mValidateSynergyData) ValidateEnteredData(2)
+				SetFieldValid("End_supp")
+									if (mValidateSynergyData) ValidateEnteredData(3)
 				RaisePropertyChanged(^null)
 				RaiseSynergyRecordChanged()
             endmethod
@@ -257,7 +283,7 @@ namespace AppData
         ;;; </summary>
         public override method InitData ,void
         proc
-			init Product_group_main
+			init Local_criteria_main
 			RaisePropertyChanged(^null)
 			parent.InitData()
         endmethod
@@ -270,9 +296,11 @@ namespace AppData
         proc
 			
 				            ValidateEnteredData(1)
-            RaisePropertyChanged("Prod_group")
+            RaisePropertyChanged("Start_supp")
 				            ValidateEnteredData(2)
-            RaisePropertyChanged("Group_desc")
+            RaisePropertyChanged("Key_word")
+				            ValidateEnteredData(3)
+            RaisePropertyChanged("End_supp")
 
         endmethod
 
@@ -288,9 +316,11 @@ namespace AppData
             using fieldName select
 			
 			
-            ("PROD_GROUP"), mCurrentField = 1
+            ("START_SUPP"), mCurrentField = 1
 			
-            ("GROUP_DESC"), mCurrentField = 2
+            ("KEY_WORD"), mCurrentField = 2
+			
+            ("END_SUPP"), mCurrentField = 3
             (),
                 mCurrentField = 0
             endusing
@@ -310,6 +340,8 @@ namespace AppData
                 (1),    mreturn ""
 				
                 (2),    mreturn ""
+				
+                (3),    mreturn ""
 				(), mreturn ""  ;;if incorrect field value or not configured, ensure we clear the return value
                 endusing
             endmethod
@@ -319,7 +351,7 @@ namespace AppData
         
 		
 
-        public property Prod_groupIsEnabled, Boolean
+        public property Start_suppIsEnabled, Boolean
             method get
             proc
                 mreturn GetFieldEnabledState(1)
@@ -327,12 +359,12 @@ namespace AppData
             method set
             proc
                 SetFieldEnabledState(1, value)
-                RaiseNonRPSPropertyChanged("Prod_groupIsEnabled")
+                RaiseNonRPSPropertyChanged("Start_suppIsEnabled")
             endmethod
         endproperty
 		
 
-        public property Group_descIsEnabled, Boolean
+        public property Key_wordIsEnabled, Boolean
             method get
             proc
                 mreturn GetFieldEnabledState(2)
@@ -340,35 +372,61 @@ namespace AppData
             method set
             proc
                 SetFieldEnabledState(2, value)
-                RaiseNonRPSPropertyChanged("Group_descIsEnabled")
+                RaiseNonRPSPropertyChanged("Key_wordIsEnabled")
+            endmethod
+        endproperty
+		
+
+        public property End_suppIsEnabled, Boolean
+            method get
+            proc
+                mreturn GetFieldEnabledState(3)
+            endmethod
+            method set
+            proc
+                SetFieldEnabledState(3, value)
+                RaiseNonRPSPropertyChanged("End_suppIsEnabled")
             endmethod
         endproperty
 
         ;;Expose properties to indicate whether fields are focussed
-		private mProd_groupIsFocused	,Boolean
-		public property Prod_groupIsFocused, Boolean
+		private mStart_suppIsFocused	,Boolean
+		public property Start_suppIsFocused, Boolean
 			method get
 			proc
-				mreturn mProd_groupIsFocused
+				mreturn mStart_suppIsFocused
 			endmethod
 			method set
 			proc
 				clearFocus()
-				mProd_groupIsFocused = value
-				RaiseNonRPSPropertyChanged("Prod_groupIsFocused")
+				mStart_suppIsFocused = value
+				RaiseNonRPSPropertyChanged("Start_suppIsFocused")
 			endmethod
 		endproperty
-		private mGroup_descIsFocused	,Boolean
-		public property Group_descIsFocused, Boolean
+		private mKey_wordIsFocused	,Boolean
+		public property Key_wordIsFocused, Boolean
 			method get
 			proc
-				mreturn mGroup_descIsFocused
+				mreturn mKey_wordIsFocused
 			endmethod
 			method set
 			proc
 				clearFocus()
-				mGroup_descIsFocused = value
-				RaiseNonRPSPropertyChanged("Group_descIsFocused")
+				mKey_wordIsFocused = value
+				RaiseNonRPSPropertyChanged("Key_wordIsFocused")
+			endmethod
+		endproperty
+		private mEnd_suppIsFocused	,Boolean
+		public property End_suppIsFocused, Boolean
+			method get
+			proc
+				mreturn mEnd_suppIsFocused
+			endmethod
+			method set
+			proc
+				clearFocus()
+				mEnd_suppIsFocused = value
+				RaiseNonRPSPropertyChanged("End_suppIsFocused")
 			endmethod
 		endproperty
 
@@ -376,7 +434,7 @@ namespace AppData
 		
 		
 
-		public property Prod_groupIsReadOnly, Boolean
+		public property Start_suppIsReadOnly, Boolean
 			method get
 			proc
 				mreturn GetFieldReadOnlyState(1)
@@ -384,12 +442,12 @@ namespace AppData
 			method set
 			proc
 				SetFieldReadOnlyState(1, value)
-				RaiseNonRPSPropertyChanged("Prod_groupIsReadOnly")
+				RaiseNonRPSPropertyChanged("Start_suppIsReadOnly")
 			endmethod
 		endproperty
 		
 
-		public property Group_descIsReadOnly, Boolean
+		public property Key_wordIsReadOnly, Boolean
 			method get
 			proc
 				mreturn GetFieldReadOnlyState(2)
@@ -397,7 +455,20 @@ namespace AppData
 			method set
 			proc
 				SetFieldReadOnlyState(2, value)
-				RaiseNonRPSPropertyChanged("Group_descIsReadOnly")
+				RaiseNonRPSPropertyChanged("Key_wordIsReadOnly")
+			endmethod
+		endproperty
+		
+
+		public property End_suppIsReadOnly, Boolean
+			method get
+			proc
+				mreturn GetFieldReadOnlyState(3)
+			endmethod
+			method set
+			proc
+				SetFieldReadOnlyState(3, value)
+				RaiseNonRPSPropertyChanged("End_suppIsReadOnly")
 			endmethod
 		endproperty
 
@@ -409,8 +480,9 @@ namespace AppData
 			if (!doingClearFocus)
 			begin
 				doingClearFocus = true
-				if (Prod_groupIsFocused) Prod_groupIsFocused = false
-				if (Group_descIsFocused) Group_descIsFocused = false
+				if (Start_suppIsFocused) Start_suppIsFocused = false
+				if (Key_wordIsFocused) Key_wordIsFocused = false
+				if (End_suppIsFocused) End_suppIsFocused = false
 				doingClearFocus = false
 			end
 		endmethod
@@ -444,13 +516,13 @@ namespace AppData
 			endrecord
 		proc
 			using colName select
-			("Prod_group"),
+			("Start_supp"),
 			begin
-				if (((Product_group_Data)obj1).Prod_group == ((Product_group_Data)obj2).Prod_group) then
+				if (((Local_criteria_Data)obj1).Start_supp == ((Local_criteria_Data)obj2).Start_supp) then
 					result = 0
 				else
 				begin
-					if (((Product_group_Data)obj1).Prod_group > ((Product_group_Data)obj2).Prod_group) then
+					if (((Local_criteria_Data)obj1).Start_supp > ((Local_criteria_Data)obj2).Start_supp) then
 					begin
 						if (sortDir == Symphony.Conductor.Framework.SynergySortOrder.Ascending) then
 							result = -1
@@ -466,13 +538,35 @@ namespace AppData
 					end
 				end
 			end
-			("Group_desc"),
+			("Key_word"),
 			begin
-				if (((Product_group_Data)obj1).Group_desc == ((Product_group_Data)obj2).Group_desc) then
+				if (((Local_criteria_Data)obj1).Key_word == ((Local_criteria_Data)obj2).Key_word) then
 					result = 0
 				else
 				begin
-					if (((Product_group_Data)obj1).Group_desc > ((Product_group_Data)obj2).Group_desc) then
+					if (((Local_criteria_Data)obj1).Key_word > ((Local_criteria_Data)obj2).Key_word) then
+					begin
+						if (sortDir == Symphony.Conductor.Framework.SynergySortOrder.Ascending) then
+							result = -1
+						else
+							result = 1
+					end
+					else
+					begin
+						if (sortDir == Symphony.Conductor.Framework.SynergySortOrder.Descending) then
+							result = -1
+						else
+							result = 1
+					end
+				end
+			end
+			("End_supp"),
+			begin
+				if (((Local_criteria_Data)obj1).End_supp == ((Local_criteria_Data)obj2).End_supp) then
+					result = 0
+				else
+				begin
+					if (((Local_criteria_Data)obj1).End_supp > ((Local_criteria_Data)obj2).End_supp) then
 					begin
 						if (sortDir == Symphony.Conductor.Framework.SynergySortOrder.Ascending) then
 							result = -1

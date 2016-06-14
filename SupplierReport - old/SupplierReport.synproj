@@ -2,46 +2,51 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Name>"AppData_Server"</Name>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{1c61e987-fbd9-49b8-b987-8a30d6ef3218}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>AppData</RootNamespace>
-    <AssemblyName>AppData</AssemblyName>
-    <MainFile>Class.dbl</MainFile>
+    <ProjectGuid>{f615c92e-b098-46d5-94c5-7b8b32059435}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SupplierReport</RootNamespace>
+    <AssemblyName>SupplierReport</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <TargetPlatform>v452</TargetPlatform>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <Language>Synergy</Language>
+    <ProjectTypeGuids>{339B3E77-97E9-4f6d-9151-E6D103EA4D4A};{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{BBD0F5D1-1CC4-42fd-BA4C-A96779C64378}</ProjectTypeGuids>
     <DBL_qWarnLevel>3 - Don't display warning levels higher than 3</DBL_qWarnLevel>
     <DBL_qWarn>True</DBL_qWarn>
     <DBLCmdOptions> -W3 -qstack</DBLCmdOptions>
-    <Language>Synergy</Language>
     <DBL_unQulRecStm>Stack</DBL_unQulRecStm>
     <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
-    <StartupObject>(Not set)</StartupObject>
-    <ApplicationIcon />
-    <ResourceType>Icon</ResourceType>
-    <ResourceName />
-    <NoWin32Manifest />
-    <ProjEnvVars>RPSMFIL=$(SolutionDir)Rps\rpsmain.ism;RPSTFIL=$(SolutionDir)Rps\rpstext.ism</ProjEnvVars>
+    <Name>SupplierReport</Name>
+    <TargetPlatform>v452</TargetPlatform>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <IncludeDebugInformation>true</IncludeDebugInformation>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
     <DebugOptimize>Debug</DebugOptimize>
-    <DocumentationFile>bin\Debug\AppData_Server.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\SupplierReport.xml</DocumentationFile>
     <Prefer32Bit Condition=" '$(TargetFrameworkVersion)'  != 'v4.0' AND '$(Prefer32Bit)' != 'false' ">true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <IncludeDebugInformation>true</IncludeDebugInformation>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
     <DebugOptimize>Optimize</DebugOptimize>
-    <DocumentationFile>bin\Release\AppData_Server.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\SupplierReport.xml</DocumentationFile>
     <Prefer32Bit Condition=" '$(TargetFrameworkVersion)'  != 'v4.0' AND '$(Prefer32Bit)' != 'false' ">true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
@@ -62,7 +67,7 @@
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyAdapter, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.4\lib\net45\SymphonyAdapter.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.5\lib\net45\SymphonyAdapter.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
@@ -72,7 +77,7 @@
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyConductorWPF, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.4\lib\net45\SymphonyConductorWPF.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.5\lib\net45\SymphonyConductorWPF.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
@@ -82,7 +87,7 @@
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyCrescendo, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.4\lib\net45\SymphonyCrescendo.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.5\lib\net45\SymphonyCrescendo.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
@@ -92,7 +97,7 @@
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyUIToolkit, Version=3.2.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\SymphonyFramework.3.2.4\lib\net45\SymphonyUIToolkit.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.5\lib\net45\SymphonyUIToolkit.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
@@ -100,7 +105,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
@@ -109,35 +114,68 @@
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Local_criteria_Data.CodeGen.dbc" />
-    <Compile Include="Local_criteria_DFM.CodeGen.dbc" />
-    <Compile Include="Order_header_Data.CodeGen.dbc" />
-    <Compile Include="Order_header_DFM.CodeGen.dbc" />
-    <Compile Include="Order_header_FileIO.CodeGen.dbc" />
-    <Compile Include="Order_line_Data.CodeGen.dbc" />
-    <Compile Include="Order_line_DFM.CodeGen.dbc" />
-    <Compile Include="Order_line_FileIO.CodeGen.dbc" />
-    <Compile Include="Parameter_Data.CodeGen.dbc" />
-    <Compile Include="Parameter_FileIO.dbc" />
-    <Compile Include="Product_Data.CodeGen.dbc" />
-    <Compile Include="Product_DFM.CodeGen.dbc" />
-    <Compile Include="Product_FileIO.CodeGen.dbc" />
-    <Compile Include="Product_group_Data.CodeGen.dbc" />
-    <Compile Include="Product_group_DFM.CodeGen.dbc" />
-    <Compile Include="Product_group_FileIO.CodeGen.dbc" />
-    <Compile Include="Properties\AssemblyInfo.dbl" />
-    <Compile Include="Supplier_Data.CodeGen.dbc" />
-    <Compile Include="Supplier_DFM.CodeGen.dbc" />
-    <Compile Include="Supplier_FileIO.CodeGen.dbc" />
-    <Compile Include="TableMapper.dbc" />
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </ApplicationDefinition>
+    <Compile Include="SupplierReportViewModel.dbc" />
+    <Page Include="SupplierReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.dbl">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SupplierReport.xaml.dbl">
+      <DependentUpon>SupplierReport.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.dbl">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.dbl</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.dbl">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Properties\Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.dbl</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.dbl">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Properties\Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\AppData_Server\AppData_Server.synproj">
+      <Name>AppData_Server</Name>
+      <Project>{1c61e987-fbd9-49b8-b987-8a30d6ef3218}</Project>
+      <Private>True</Private>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Synergex\VS2010\Synergex.SynergyDE.targets" />
   <PropertyGroup>

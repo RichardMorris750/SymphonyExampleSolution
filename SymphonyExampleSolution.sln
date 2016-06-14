@@ -20,11 +20,6 @@ Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "AppData_Server", "AppData_S
 EndProject
 Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "ProductViewer", "ProductViewer\ProductViewer.synproj", "{8B9F7D33-3D3B-423E-8004-9B504D3F3BC3}"
 EndProject
-Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "SupplierViewer", "SupplierViewer\SupplierViewer.synproj", "{1DC18BDF-ED62-4C4F-8481-A2CE7A7D56F2}"
-	ProjectSection(ProjectDependencies) = postProject
-		{1C61E987-FBD9-49B8-B987-8A30D6EF3218} = {1C61E987-FBD9-49B8-B987-8A30D6EF3218}
-	EndProjectSection
-EndProject
 Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "SFELauncher", "SFELauncher\SFELauncher.synproj", "{0F3B3A79-8A68-49C6-8363-FC20EE669AD6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Product Images", "Product Images", "{C7D3C82C-BE2B-4B11-9533-8E28EEA388B1}"
@@ -52,6 +47,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppImages", "AppImages", "{
 		AppImages\1464464799_exit.png = AppImages\1464464799_exit.png
 	EndProjectSection
 EndProject
+Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "SupplierViewer", "SupplierViewer\SupplierViewer.synproj", "{1DC18BDF-ED62-4C4F-8481-A2CE7A7D56F2}"
+EndProject
+Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "SupplierReport", "SupplierReport\SupplierReport.synproj", "{14590B9B-85D1-46A0-B3D0-88A823AF00EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,14 +69,18 @@ Global
 		{8B9F7D33-3D3B-423E-8004-9B504D3F3BC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B9F7D33-3D3B-423E-8004-9B504D3F3BC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B9F7D33-3D3B-423E-8004-9B504D3F3BC3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1DC18BDF-ED62-4C4F-8481-A2CE7A7D56F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1DC18BDF-ED62-4C4F-8481-A2CE7A7D56F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1DC18BDF-ED62-4C4F-8481-A2CE7A7D56F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1DC18BDF-ED62-4C4F-8481-A2CE7A7D56F2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0F3B3A79-8A68-49C6-8363-FC20EE669AD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0F3B3A79-8A68-49C6-8363-FC20EE669AD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F3B3A79-8A68-49C6-8363-FC20EE669AD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F3B3A79-8A68-49C6-8363-FC20EE669AD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DC18BDF-ED62-4C4F-8481-A2CE7A7D56F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DC18BDF-ED62-4C4F-8481-A2CE7A7D56F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DC18BDF-ED62-4C4F-8481-A2CE7A7D56F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DC18BDF-ED62-4C4F-8481-A2CE7A7D56F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14590B9B-85D1-46A0-B3D0-88A823AF00EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14590B9B-85D1-46A0-B3D0-88A823AF00EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14590B9B-85D1-46A0-B3D0-88A823AF00EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14590B9B-85D1-46A0-B3D0-88A823AF00EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

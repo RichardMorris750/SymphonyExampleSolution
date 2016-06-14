@@ -1,0 +1,36 @@
+﻿import System
+import System.Collections
+import System.Collections.Generic
+import System.Diagnostics
+import System.Text
+import System.Windows
+import System.Windows.Controls
+import System.Windows.Data
+import System.Windows.Documents
+import System.Windows.Input
+import System.Windows.Shapes
+import System.Windows.Media
+import System.Windows.Media.Imaging
+import System.Windows.Navigation
+
+
+
+namespace SupplierReport
+	
+	public partial class SupplierReportWindow1 extends Window
+		
+		public method SupplierReportWindow1
+			endparams
+		proc
+			this.InitializeComponent()
+		endmethod
+		
+		private method Window_Loaded, void
+			sender, @object 
+			e, @System.Windows.RoutedEventArgs 
+			endparams
+		proc
+			this.DataContext = new SupplierReportViewModel(this)
+		endmethod
+	endclass
+endnamespace

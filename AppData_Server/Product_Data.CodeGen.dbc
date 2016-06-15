@@ -29,7 +29,7 @@ namespace AppData
     ;;define a structure that we can use around the applicaiton
 
 	structure STRProduct
-		.include 'product' repository  , norecord, prefix = "str_"
+		.include 'product' repository  , norecord
 	endstructure
 
 	{JsonObject(MemberSerialization.OptIn)}
@@ -294,13 +294,13 @@ namespace AppData
 		public property Prod_code, a6
 			method get
 			proc
-				mreturn %atrim(product_main.STR_Prod_code)
+				mreturn %atrim(product_main.Prod_code)
             endmethod
 			method set
 			proc
-					if (product_main.STR_Prod_code .nes. value)
+					if (product_main.Prod_code .nes. value)
 				begin
-										product_main.STR_Prod_code = value
+										product_main.Prod_code = value
 					ValidateEnteredData(1)
 					RaisePropertyChanged("Prod_code")
 				end
@@ -311,13 +311,13 @@ namespace AppData
 		public property Prod_description, a40
 			method get
 			proc
-				mreturn %atrim(product_main.STR_Prod_description)
+				mreturn %atrim(product_main.Prod_description)
             endmethod
 			method set
 			proc
-					if (product_main.STR_Prod_description .nes. value)
+					if (product_main.Prod_description .nes. value)
 				begin
-										product_main.STR_Prod_description = value
+										product_main.Prod_description = value
 					ValidateEnteredData(2)
 					RaisePropertyChanged("Prod_description")
 				end
@@ -328,13 +328,13 @@ namespace AppData
 		public property Supp_code, a6
 			method get
 			proc
-				mreturn %atrim(product_main.STR_Supp_code)
+				mreturn %atrim(product_main.Supp_code)
             endmethod
 			method set
 			proc
-					if (product_main.STR_Supp_code .nes. value)
+					if (product_main.Supp_code .nes. value)
 				begin
-										product_main.STR_Supp_code = value
+										product_main.Supp_code = value
 					ValidateEnteredData(3)
 					RaisePropertyChanged("Supp_code")
 				end
@@ -345,13 +345,13 @@ namespace AppData
 		public property Cost_price, d8.2
 			method get
 			proc
-                mreturn product_main.STR_Cost_price
+                mreturn product_main.Cost_price
             endmethod
 			method set
 			proc
-				if (product_main.STR_Cost_price .ne. value)
+				if (product_main.Cost_price .ne. value)
 				begin
-										product_main.STR_Cost_price = value
+										product_main.Cost_price = value
 					ValidateEnteredData(4)
 					RaisePropertyChanged("Cost_price")
 				end
@@ -362,13 +362,13 @@ namespace AppData
 		public property Sell_price, d8.2
 			method get
 			proc
-                mreturn product_main.STR_Sell_price
+                mreturn product_main.Sell_price
             endmethod
 			method set
 			proc
-				if (product_main.STR_Sell_price .ne. value)
+				if (product_main.Sell_price .ne. value)
 				begin
-										product_main.STR_Sell_price = value
+										product_main.Sell_price = value
 					ValidateEnteredData(5)
 					RaisePropertyChanged("Sell_price")
 				end
@@ -379,13 +379,13 @@ namespace AppData
 		public property Pack_size, a10
 			method get
 			proc
-				mreturn %atrim(product_main.STR_Pack_size)
+				mreturn %atrim(product_main.Pack_size)
             endmethod
 			method set
 			proc
-					if (product_main.STR_Pack_size .nes. value)
+					if (product_main.Pack_size .nes. value)
 				begin
-										product_main.STR_Pack_size = value
+										product_main.Pack_size = value
 					ValidateEnteredData(6)
 					RaisePropertyChanged("Pack_size")
 				end
@@ -396,13 +396,13 @@ namespace AppData
 		public property Vat_code, d1
 			method get
 			proc
-                mreturn product_main.STR_Vat_code
+                mreturn product_main.Vat_code
             endmethod
 			method set
 			proc
-				if (product_main.STR_Vat_code .ne. value)
+				if (product_main.Vat_code .ne. value)
 				begin
-										product_main.STR_Vat_code = value
+										product_main.Vat_code = value
 					ValidateEnteredData(7)
 					RaisePropertyChanged("Vat_code")
 				end
@@ -413,13 +413,13 @@ namespace AppData
 		public property Prod_group, a3
 			method get
 			proc
-				mreturn %atrim(product_main.STR_Prod_group)
+				mreturn %atrim(product_main.Prod_group)
             endmethod
 			method set
 			proc
-					if (product_main.STR_Prod_group .nes. value)
+					if (product_main.Prod_group .nes. value)
 				begin
-										product_main.STR_Prod_group = value
+										product_main.Prod_group = value
 					ValidateEnteredData(8)
 					RaisePropertyChanged("Prod_group")
 				end
@@ -1126,28 +1126,28 @@ namespace AppData
 			method get
 			proc
 				data tmpSTR	,clsstrProduct
-				tmpSTR.csProd_code = (string)mAlphaConveter.Convert(product_main.STR_prod_code, ^null, ^null, ^null)
-				tmpSTR.csProd_description = (string)mAlphaConveter.Convert(product_main.STR_prod_description, ^null, ^null, ^null)
-				tmpSTR.csSupp_code = (string)mAlphaConveter.Convert(product_main.STR_supp_code, ^null, ^null, ^null)
-				tmpSTR.csCost_price = (decimal)mImpliedDecimalConveter.Convert(product_main.STR_cost_price, ^null, ^null, ^null)
-				tmpSTR.csSell_price = (decimal)mImpliedDecimalConveter.Convert(product_main.STR_sell_price, ^null, ^null, ^null)
-				tmpSTR.csPack_size = (string)mAlphaConveter.Convert(product_main.STR_pack_size, ^null, ^null, ^null)
-				tmpSTR.csVat_code = (int32)mIntegerConveter.Convert(product_main.STR_vat_code, ^null, ^null, ^null)
-				tmpSTR.csProd_group = (string)mAlphaConveter.Convert(product_main.STR_prod_group, ^null, ^null, ^null)
+				tmpSTR.csProd_code = (string)mAlphaConveter.Convert(product_main.prod_code, ^null, ^null, ^null)
+				tmpSTR.csProd_description = (string)mAlphaConveter.Convert(product_main.prod_description, ^null, ^null, ^null)
+				tmpSTR.csSupp_code = (string)mAlphaConveter.Convert(product_main.supp_code, ^null, ^null, ^null)
+				tmpSTR.csCost_price = (decimal)mImpliedDecimalConveter.Convert(product_main.cost_price, ^null, ^null, ^null)
+				tmpSTR.csSell_price = (decimal)mImpliedDecimalConveter.Convert(product_main.sell_price, ^null, ^null, ^null)
+				tmpSTR.csPack_size = (string)mAlphaConveter.Convert(product_main.pack_size, ^null, ^null, ^null)
+				tmpSTR.csVat_code = (int32)mIntegerConveter.Convert(product_main.vat_code, ^null, ^null, ^null)
+				tmpSTR.csProd_group = (string)mAlphaConveter.Convert(product_main.prod_group, ^null, ^null, ^null)
 				mreturn structureToByteArray(tmpSTR)
 			endmethod
 			method set
 			proc
 				data tmpSTR	,clsstrProduct
 				tmpSTR = byteArrayToStructure(value)
-				product_main.STR_Prod_code = (a)mAlphaConveter.ConvertBack(tmpSTR.csProd_code, ^null, ^null, ^null)
-				product_main.STR_Prod_description = (a)mAlphaConveter.ConvertBack(tmpSTR.csProd_description, ^null, ^null, ^null)
-				product_main.STR_Supp_code = (a)mAlphaConveter.ConvertBack(tmpSTR.csSupp_code, ^null, ^null, ^null)
-				product_main.STR_Cost_price = (id)mImpliedDecimalConveter.ConvertBack(tmpSTR.csCost_price, ^null, ^null, ^null)
-				product_main.STR_Sell_price = (id)mImpliedDecimalConveter.ConvertBack(tmpSTR.csSell_price, ^null, ^null, ^null)
-				product_main.STR_Pack_size = (a)mAlphaConveter.ConvertBack(tmpSTR.csPack_size, ^null, ^null, ^null)
-				product_main.STR_Vat_code = (d)((i)mIntegerConveter.ConvertBack(tmpSTR.csVat_code, ^null, ^null, ^null))
-				product_main.STR_Prod_group = (a)mAlphaConveter.ConvertBack(tmpSTR.csProd_group, ^null, ^null, ^null)
+				product_main.Prod_code = (a)mAlphaConveter.ConvertBack(tmpSTR.csProd_code, ^null, ^null, ^null)
+				product_main.Prod_description = (a)mAlphaConveter.ConvertBack(tmpSTR.csProd_description, ^null, ^null, ^null)
+				product_main.Supp_code = (a)mAlphaConveter.ConvertBack(tmpSTR.csSupp_code, ^null, ^null, ^null)
+				product_main.Cost_price = (id)mImpliedDecimalConveter.ConvertBack(tmpSTR.csCost_price, ^null, ^null, ^null)
+				product_main.Sell_price = (id)mImpliedDecimalConveter.ConvertBack(tmpSTR.csSell_price, ^null, ^null, ^null)
+				product_main.Pack_size = (a)mAlphaConveter.ConvertBack(tmpSTR.csPack_size, ^null, ^null, ^null)
+				product_main.Vat_code = (d)((i)mIntegerConveter.ConvertBack(tmpSTR.csVat_code, ^null, ^null, ^null))
+				product_main.Prod_group = (a)mAlphaConveter.ConvertBack(tmpSTR.csProd_group, ^null, ^null, ^null)
 			endmethod
 		endproperty
 			

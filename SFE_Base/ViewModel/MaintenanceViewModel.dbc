@@ -1,0 +1,128 @@
+import System
+import System.Collections.Generic
+import System.Text
+import Symphony.Conductor.ViewModel
+import System.Windows
+import Symphony.Conductor.Model
+import Symphony.Conductor.DataIO
+import System.Collections.ObjectModel
+import System.Reflection
+import System.Linq
+import Symphony.Conductor.Types
+
+
+namespace SFE_Base.ViewModel
+	
+	public class MaintenanceViewModel extends BaseViewModel
+		
+		public method MaintenanceViewModel
+			sender							,@FrameworkElement
+			dataItem						,@Type
+			fileAccess						,@FileIO
+			endparams
+			parent(sender)
+		proc
+			mDataObjectItem = dataItem
+			mFileAccessObject = fileAccess
+
+			loadBaseItemCollection()
+		endmethod
+		
+.region "private class members"
+		
+		private mDataObjectItem			,@Type
+		private mFileAccessObject		,@FileIO
+		
+.endregion
+		
+.region "load base item list"
+		
+		private method loadBaseItemCollection, void
+			endparams
+		proc
+			DataObjectColleciton = new AsyncObservableCollection<DataObjectBase>()
+
+			data firstTime	,boolean	,true
+
+			data classTypeInfo		,@TypeInfo			,IntrospectionExtensions.GetTypeInfo(mDataObjectItem)
+			if (classTypeInfo != ^null)
+			begin
+				data classConstructor	,@ConstructorInfo
+				
+				data item	,@ConstructorInfo
+				foreach item in classTypeInfo.DeclaredConstructors
+				begin
+					classConstructor = item
+					if (classConstructor.ToString() == "Void .ctor(System.String)")
+						exitloop
+				end
+				
+				data ctorArgs			,[#]@Object	,new Object[1]
+				ctorArgs[1] = ""
+
+				mDataObjectEntryItem = (DataObjectBase)classConstructor.Invoke(ctorArgs)
+
+				data status	,FileAccessResults	,FileAccessResults.Success
+				while (status == FileAccessResults.Success)
+				begin
+					data classInstance = classConstructor.Invoke(ctorArgs)
+
+					if (firstTime) then
+						status = mFileAccessObject.ReadFirstRecord((DataObjectBase)classInstance)
+					else
+						status = mFileAccessObject.ReadNextRecord((DataObjectBase)classInstance)
+
+					firstTime = false
+
+					if (status == FileAccessResults.Success)
+					begin
+						
+						DataObjectColleciton.AddToCollection((DataObjectBase)classInstance)
+					end
+				end
+			end
+		endmethod
+		
+		public property DataObjectColleciton, @AsyncObservableCollection<DataObjectBase>
+			method get
+			endmethod
+			method set
+			endmethod
+		endproperty
+
+		private mSelectedCollectionItem	,@DataObjectBase
+
+		public property SelectedCollectionItem, @DataObjectBase
+			method get
+			proc
+				mreturn mSelectedCollectionItem
+			endmethod
+			method set
+			proc
+				mSelectedCollectionItem = value
+				mDataObjectEntryItem.SynergyRecord = mSelectedCollectionItem.SynergyRecord
+			endmethod
+		endproperty
+		
+		private mDataObjectEntryItem	,@DataObjectBase
+		
+		public property DataObjectEntryItem, @DataObjectBase
+			method get
+			proc
+				mreturn mDataObjectEntryItem
+			endmethod
+			method set
+			proc
+				mDataObjectEntryItem = value
+			endmethod
+		endproperty
+		
+		
+		
+		
+		
+.endregion
+		
+	endclass
+	
+endnamespace

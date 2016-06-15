@@ -241,135 +241,135 @@ namespace SystemSetup
 		
 		data product	,STRproduct
 
-		product.str_prod_code			=	'COK001'
-		product.str_prod_description	=	'Coke Cans'
-		product.str_sell_price			=	8.00	
-		product.str_cost_price			=	6.00
-		product.str_prod_group	=	'SD'
-		product.str_supp_code	=	'D00001'
-		product.str_vat_code			=	1
-		product.str_pack_size			=	'330ML'
+		product.prod_code			=	'COK001'
+		product.prod_description	=	'Coke Cans'
+		product.sell_price			=	8.00	
+		product.cost_price			=	6.00
+		product.prod_group	=	'SD'
+		product.supp_code	=	'D00001'
+		product.vat_code			=	1
+		product.pack_size			=	'330ML'
 		call addproduct
 
-		product.str_prod_code			=	'COK002'
-		product.str_prod_description	=	'Coke 1ltr bottles'
-		product.str_sell_price			=	12.00	
-		product.str_cost_price			=	10.00
-		product.str_prod_group	=	'SD'
-		product.str_supp_code	=	'D00001'
-		product.str_vat_code			=	1
-		product.str_pack_size			=	'12 x 1ltr'
+		product.prod_code			=	'COK002'
+		product.prod_description	=	'Coke 1ltr bottles'
+		product.sell_price			=	12.00	
+		product.cost_price			=	10.00
+		product.prod_group	=	'SD'
+		product.supp_code	=	'D00001'
+		product.vat_code			=	1
+		product.pack_size			=	'12 x 1ltr'
 		call addproduct
 		
-		product.str_prod_code			=	'COK003'
-		product.str_prod_description	=	'Coke 2Ltr Bottles'
-		product.str_sell_price			=	14.00	
-		product.str_cost_price			=	10.00
-		product.str_prod_group	=	'SD'
-		product.str_supp_code	=	'D00001'
-		product.str_vat_code			=	1
-		product.str_pack_size			=	'6 x 2Ltr'
+		product.prod_code			=	'COK003'
+		product.prod_description	=	'Coke 2Ltr Bottles'
+		product.sell_price			=	14.00	
+		product.cost_price			=	10.00
+		product.prod_group	=	'SD'
+		product.supp_code	=	'D00001'
+		product.vat_code			=	1
+		product.pack_size			=	'6 x 2Ltr'
 		call addproduct
 		
-		product.str_prod_code			=	'COK004'
-		product.str_prod_description	=	'Diet Coke Cans'
-		product.str_sell_price			=	8.00	
-		product.str_cost_price			=	6.00
-		product.str_prod_group	=	'SD'
-		product.str_supp_code	=	'D00001'
-		product.str_vat_code			=	1
-		product.str_pack_size			=	'330ML'
+		product.prod_code			=	'COK004'
+		product.prod_description	=	'Diet Coke Cans'
+		product.sell_price			=	8.00	
+		product.cost_price			=	6.00
+		product.prod_group	=	'SD'
+		product.supp_code	=	'D00001'
+		product.vat_code			=	1
+		product.pack_size			=	'330ML'
 		call addproduct
 		
-		product.str_prod_code			=	'COK005'
-		product.str_prod_description	=	'Diet Coke 1ltr bottle'
-		product.str_sell_price			=	12.00	
-		product.str_cost_price			=	10.00
-		product.str_prod_group	=	'SD'
-		product.str_supp_code	=	'D00001'
-		product.str_vat_code			=	1
-		product.str_pack_size			=	'12 x 1ltr'
+		product.prod_code			=	'COK005'
+		product.prod_description	=	'Diet Coke 1ltr bottle'
+		product.sell_price			=	12.00	
+		product.cost_price			=	10.00
+		product.prod_group	=	'SD'
+		product.supp_code	=	'D00001'
+		product.vat_code			=	1
+		product.pack_size			=	'12 x 1ltr'
 		call addproduct
 		
-		product.str_prod_code			=	'COK006'
-		product.str_prod_description	=	'Diet Coke 2Ltr Bottles'
-		product.str_sell_price			=	14.00	
-		product.str_cost_price			=	10.00
-		product.str_prod_group	=	'SD'
-		product.str_supp_code	=	'D00001'
-		product.str_vat_code			=	1
-		product.str_pack_size			=	'6 x 2Ltr'
+		product.prod_code			=	'COK006'
+		product.prod_description	=	'Diet Coke 2Ltr Bottles'
+		product.sell_price			=	14.00	
+		product.cost_price			=	10.00
+		product.prod_group	=	'SD'
+		product.supp_code	=	'D00001'
+		product.vat_code			=	1
+		product.pack_size			=	'6 x 2Ltr'
 		call addproduct		
 		
-		product.str_prod_code			=	'7UP001'
-		product.str_prod_description	=	'7UP Cans'
-		product.str_sell_price			=	8.50	
-		product.str_cost_price			=	11.00
-		product.str_prod_group	=	'SD'
-		product.str_supp_code	=	'D00001'
-		product.str_vat_code			=	1
-		product.str_pack_size			=	'330ML'
+		product.prod_code			=	'7UP001'
+		product.prod_description	=	'7UP Cans'
+		product.sell_price			=	8.50	
+		product.cost_price			=	11.00
+		product.prod_group	=	'SD'
+		product.supp_code	=	'D00001'
+		product.vat_code			=	1
+		product.pack_size			=	'330ML'
 		call addproduct
 		
-		product.str_prod_code			=	'7UP002'
-		product.str_prod_description	=	'7UP 1 Litre Bottles'
-		product.str_sell_price			=	12.00	
-		product.str_cost_price			=	9.00
-		product.str_prod_group	=	'SD'
-		product.str_supp_code	=	'D00001'
-		product.str_vat_code			=	1
-		product.str_pack_size			=	'12 x 1 Ltr'
+		product.prod_code			=	'7UP002'
+		product.prod_description	=	'7UP 1 Litre Bottles'
+		product.sell_price			=	12.00	
+		product.cost_price			=	9.00
+		product.prod_group	=	'SD'
+		product.supp_code	=	'D00001'
+		product.vat_code			=	1
+		product.pack_size			=	'12 x 1 Ltr'
 		call addproduct
 		
-		product.str_prod_code			=	'7UP003'
-		product.str_prod_description	=	'7UP 2 Litre Bottles'
-		product.str_sell_price			=	13.00	
-		product.str_cost_price			=	10.50
-		product.str_prod_group	=	'SD'
-		product.str_supp_code	=	'D00001'
-		product.str_vat_code			=	1
-		product.str_pack_size			=	'6 x 2 Ltr'
+		product.prod_code			=	'7UP003'
+		product.prod_description	=	'7UP 2 Litre Bottles'
+		product.sell_price			=	13.00	
+		product.cost_price			=	10.50
+		product.prod_group	=	'SD'
+		product.supp_code	=	'D00001'
+		product.vat_code			=	1
+		product.pack_size			=	'6 x 2 Ltr'
 		call addproduct
 		
-		product.str_prod_code			=	'CRISP1'
-		product.str_prod_description	=	'Ready Salted Crisps'
-		product.str_sell_price			=	13.00	
-		product.str_cost_price			=	10.50
-		product.str_prod_group	=	'CR'
-		product.str_supp_code	=	'C00001'
-		product.str_vat_code			=	1
-		product.str_pack_size			=	'Box of 48'
+		product.prod_code			=	'CRISP1'
+		product.prod_description	=	'Ready Salted Crisps'
+		product.sell_price			=	13.00	
+		product.cost_price			=	10.50
+		product.prod_group	=	'CR'
+		product.supp_code	=	'C00001'
+		product.vat_code			=	1
+		product.pack_size			=	'Box of 48'
 		call addproduct
 		
-		product.str_prod_code			=	'CRISP1'
-		product.str_prod_description	=	'Ready Salted Crisps'
-		product.str_sell_price			=	6.00	
-		product.str_cost_price			=	4.00
-		product.str_prod_group	=	'CR'
-		product.str_supp_code	=	'C00001'
-		product.str_vat_code			=	1
-		product.str_pack_size			=	'Box of 48'
+		product.prod_code			=	'CRISP1'
+		product.prod_description	=	'Ready Salted Crisps'
+		product.sell_price			=	6.00	
+		product.cost_price			=	4.00
+		product.prod_group	=	'CR'
+		product.supp_code	=	'C00001'
+		product.vat_code			=	1
+		product.pack_size			=	'Box of 48'
 		call addproduct
 		;gi - I got my duiplicate key error here, as expected
 		
-		product.str_prod_code			=	'CRISP2'
-		product.str_prod_description	=	'Salt and Vinegar Crisps'
-		product.str_sell_price			=	6.00	
-		product.str_cost_price			=	4.00
-		product.str_prod_group	=	'CR'
-		product.str_supp_code	=	'C00001'
-		product.str_vat_code			=	1
-		product.str_pack_size			=	'Box of 48'
+		product.prod_code			=	'CRISP2'
+		product.prod_description	=	'Salt and Vinegar Crisps'
+		product.sell_price			=	6.00	
+		product.cost_price			=	4.00
+		product.prod_group	=	'CR'
+		product.supp_code	=	'C00001'
+		product.vat_code			=	1
+		product.pack_size			=	'Box of 48'
 		call addproduct
 		
-		product.str_prod_code			=	'CRISP3'
-		product.str_prod_description	=	'Cheese and Onion Crisps'
-		product.str_sell_price			=	6.00	
-		product.str_cost_price			=	4.00
-		product.str_prod_group	=	'CR'
-		product.str_supp_code	=	'C00001'
-		product.str_vat_code			=	1
-		product.str_pack_size			=	'Box of 48'
+		product.prod_code			=	'CRISP3'
+		product.prod_description	=	'Cheese and Onion Crisps'
+		product.sell_price			=	6.00	
+		product.cost_price			=	4.00
+		product.prod_group	=	'CR'
+		product.supp_code	=	'C00001'
+		product.vat_code			=	1
+		product.pack_size			=	'Box of 48'
 
 		call addproduct
 
@@ -394,7 +394,7 @@ namespace SystemSetup
 ;------------------------------------------------------------------------------------
 	addproduct,
 		if (productIO.CreateRecord(new Product_Data(product)) != FileAccessResults.Success)
-			writes(ttChn, 'Error adding product record for ' + product.str_prod_code + ' : ' + productIO.LastSynergyError.ToString())
+			writes(ttChn, 'Error adding product record for ' + product.prod_code + ' : ' + productIO.LastSynergyError.ToString())
 		return
 
 
@@ -443,26 +443,26 @@ namespace SystemSetup
 		data supplier	,STRSupplier
 
 		; gi - i use a structure instead fo a record to hold the data I want to add to the file
-		supplier.str_supp_code	=	'D00001'
-		supplier.str_name				=	'Drinks Company'
-		supplier.str_address1			=	'123 Main Road'
-		supplier.str_address2			=	'Anytown'
-		supplier.str_address3			=
-		supplier.str_postcode			=	'UK1 7TH'
-		supplier.str_phone				=	'028 91123765'
-		supplier.str_contact				=	'Mr T Jones'
-		supplier.str_email				=	'Tjones@drinksco.com'
+		supplier.supp_code	=	'D00001'
+		supplier.name				=	'Drinks Company'
+		supplier.address1			=	'123 Main Road'
+		supplier.address2			=	'Anytown'
+		supplier.address3			=
+		supplier.postcode			=	'UK1 7TH'
+		supplier.phone				=	'028 91123765'
+		supplier.contact				=	'Mr T Jones'
+		supplier.email				=	'Tjones@drinksco.com'
 		call addsupplier
 		
-		supplier.str_supp_code	=	'C00001'
-		supplier.str_name				=	'Crisp Company'
-		supplier.str_address1			=	'456 Main Road'
-		supplier.str_address2			=	'Othertown'
-		supplier.str_address3			=
-		supplier.str_postcode			=	'UK1 1TS'
-		supplier.str_phone				=	'0108 6726155'
-		supplier.str_contact				=	'Mr B Moore'
-		supplier.str_email				=	'BMoore@crisps.com'
+		supplier.supp_code	=	'C00001'
+		supplier.name				=	'Crisp Company'
+		supplier.address1			=	'456 Main Road'
+		supplier.address2			=	'Othertown'
+		supplier.address3			=
+		supplier.postcode			=	'UK1 1TS'
+		supplier.phone				=	'0108 6726155'
+		supplier.contact				=	'Mr B Moore'
+		supplier.email				=	'BMoore@crisps.com'
 		call addsupplier
 
 		;;let's display the records to the screen
@@ -548,7 +548,7 @@ namespace SystemSetup
 	addsupplier,
 		; gi - this creates an object from the structure and passes it to the file obejct.  It has a return value which can be checked
 		if (supplierIO.CreateRecord(new Supplier_Data(supplier)) != FileAccessResults.Success)
-			writes(ttChn, 'Error adding supplier record for ' + supplier.str_supp_code + ' : ' + supplierIO.LastSynergyError.ToString())
+			writes(ttChn, 'Error adding supplier record for ' + supplier.supp_code + ' : ' + supplierIO.LastSynergyError.ToString())
 		; gi - this replaces the try / catch logic, and uses properties of the data obejct and teh file object for the error message
 		; gi - Q - does this object exist after it is created ?  If so, do we need to dispose of it ?
 
@@ -567,20 +567,20 @@ namespace SystemSetup
 		writes(ttChn, 'loading groups')
 
 
-		product_group.str_prod_group	= 'SD'
-		product_group.str_group_desc	= 'Soft Drinks'
+		product_group.prod_group	= 'SD'
+		product_group.group_desc	= 'Soft Drinks'
 		call addgroup
 		
-		product_group.str_prod_group	= 'CRI'
-		product_group.str_group_desc	= 'Crisps'
+		product_group.prod_group	= 'CRI'
+		product_group.group_desc	= 'Crisps'
 		call addgroup
 		
-		product_group.str_prod_group	= 'NUT'
-		product_group.str_group_desc	= 'Nuts'
+		product_group.prod_group	= 'NUT'
+		product_group.group_desc	= 'Nuts'
 		call addgroup
 		
-		product_group.str_prod_group	= 'CHO'
-		product_group.str_group_desc	= 'Chocolate'
+		product_group.prod_group	= 'CHO'
+		product_group.group_desc	= 'Chocolate'
 		call addgroup
 
 		data product_groupObject = new Product_group_Data()
@@ -603,7 +603,7 @@ namespace SystemSetup
 ;---------------------------------------------------------
 	addgroup,
 		if (product_groupIO.CreateRecord(new Product_group_Data(product_group)) != FileAccessResults.Success)
-			writes(ttChn, 'Error adding product group record for ' + product_group.str_prod_group + ' : ' + product_groupIO.LastSynergyError.ToString())
+			writes(ttChn, 'Error adding product group record for ' + product_group.prod_group + ' : ' + product_groupIO.LastSynergyError.ToString())
 		return
 		
 		

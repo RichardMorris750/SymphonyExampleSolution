@@ -29,7 +29,7 @@ namespace AppData
     ;;define a structure that we can use around the applicaiton
 
 	structure STRProduct_group
-		.include 'product_group' repository  , norecord, prefix = "str_"
+		.include 'product_group' repository  , norecord
 	endstructure
 
 	{JsonObject(MemberSerialization.OptIn)}
@@ -234,13 +234,13 @@ namespace AppData
 		public property Prod_group, a3
 			method get
 			proc
-				mreturn %atrim(product_group_main.STR_Prod_group)
+				mreturn %atrim(product_group_main.Prod_group)
             endmethod
 			method set
 			proc
-					if (product_group_main.STR_Prod_group .nes. value)
+					if (product_group_main.Prod_group .nes. value)
 				begin
-										product_group_main.STR_Prod_group = value
+										product_group_main.Prod_group = value
 					ValidateEnteredData(1)
 					RaisePropertyChanged("Prod_group")
 				end
@@ -251,13 +251,13 @@ namespace AppData
 		public property Group_desc, a20
 			method get
 			proc
-				mreturn %atrim(product_group_main.STR_Group_desc)
+				mreturn %atrim(product_group_main.Group_desc)
             endmethod
 			method set
 			proc
-					if (product_group_main.STR_Group_desc .nes. value)
+					if (product_group_main.Group_desc .nes. value)
 				begin
-										product_group_main.STR_Group_desc = value
+										product_group_main.Group_desc = value
 					ValidateEnteredData(2)
 					RaisePropertyChanged("Group_desc")
 				end
@@ -544,16 +544,16 @@ namespace AppData
 			method get
 			proc
 				data tmpSTR	,clsstrProduct_group
-				tmpSTR.csProd_group = (string)mAlphaConveter.Convert(product_group_main.STR_prod_group, ^null, ^null, ^null)
-				tmpSTR.csGroup_desc = (string)mAlphaConveter.Convert(product_group_main.STR_group_desc, ^null, ^null, ^null)
+				tmpSTR.csProd_group = (string)mAlphaConveter.Convert(product_group_main.prod_group, ^null, ^null, ^null)
+				tmpSTR.csGroup_desc = (string)mAlphaConveter.Convert(product_group_main.group_desc, ^null, ^null, ^null)
 				mreturn structureToByteArray(tmpSTR)
 			endmethod
 			method set
 			proc
 				data tmpSTR	,clsstrProduct_group
 				tmpSTR = byteArrayToStructure(value)
-				product_group_main.STR_Prod_group = (a)mAlphaConveter.ConvertBack(tmpSTR.csProd_group, ^null, ^null, ^null)
-				product_group_main.STR_Group_desc = (a)mAlphaConveter.ConvertBack(tmpSTR.csGroup_desc, ^null, ^null, ^null)
+				product_group_main.Prod_group = (a)mAlphaConveter.ConvertBack(tmpSTR.csProd_group, ^null, ^null, ^null)
+				product_group_main.Group_desc = (a)mAlphaConveter.ConvertBack(tmpSTR.csGroup_desc, ^null, ^null, ^null)
 			endmethod
 		endproperty
 			

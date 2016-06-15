@@ -1,0 +1,88 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:symphonyControls="clr-namespace:Symphony.Conductor.Controls;assembly=SymphonyConductor">
+
+    <Color x:Key="GreyColour">#5F5F5F</Color>
+    <Color x:Key="BlackColour">#000000</Color>
+    <Color x:Key="BlueColour" >#0070DF</Color>
+    <Color x:Key="BrightBlueColour" >#42A0FF</Color>
+    <Color x:Key="WhiteColour">#F0F0F0</Color>
+    <Color x:Key="OrangeColour">#D7BA7D</Color>
+
+    <SolidColorBrush x:Key="BackgroundPrimaryBrush" Color="{StaticResource GreyColour}"></SolidColorBrush>
+    <SolidColorBrush x:Key="BackgroundSecondaryBrush" Color="{StaticResource BlackColour}"></SolidColorBrush>
+    <SolidColorBrush x:Key="GridHeaderBackgroundBrush" Color="{StaticResource GreyColour}"></SolidColorBrush>
+    <SolidColorBrush x:Key="GridHeaderForegroundBrush" Color="{StaticResource BrightBlueColour}"></SolidColorBrush>
+    <SolidColorBrush x:Key="GridItemBackgroundBrush" Color="{StaticResource GreyColour}"></SolidColorBrush>
+    <SolidColorBrush x:Key="GridItemForegroundBrush" Color="{StaticResource OrangeColour}"></SolidColorBrush>
+    <SolidColorBrush x:Key="LabelColorBrush" Color="{StaticResource WhiteColour}"></SolidColorBrush>
+    <SolidColorBrush x:Key="InputBackgroundBrush" Color="{StaticResource GreyColour}"></SolidColorBrush>
+    <SolidColorBrush x:Key="InputForegroundBrush" Color="{StaticResource BlueColour}"></SolidColorBrush>
+    <SolidColorBrush x:Key="StatusBarItemBackgroundBrush" Color="Transparent"></SolidColorBrush>
+    <SolidColorBrush x:Key="StatusBarItemForegroundBrush" Color="{StaticResource OrangeColour}"></SolidColorBrush>
+    <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource BlueColour}"></SolidColorBrush>
+
+    <!-- standard styling solid colors -->
+    <Style x:Key="TransperentButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="Transparent">
+                        <ContentPresenter/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type Label}">
+        <Setter Property="FontSize" Value="12"></Setter>
+        <Setter Property="Foreground" Value="{StaticResource LabelColorBrush}"></Setter>
+        <Setter Property="Background" Value="Transparent"></Setter>
+    </Style>
+
+    <Style TargetType="{x:Type TextBox}">
+        <Setter Property="FontSize" Value="20"></Setter>
+        <Setter Property="Foreground" Value="{StaticResource InputForegroundBrush}"></Setter>
+        <Setter Property="Background" Value="Transparent"></Setter>
+    </Style>
+
+    <Style TargetType="{x:Type Grid}">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="1,1">
+                    <LinearGradientBrush.GradientStops>
+                        <GradientStop Offset="0.0" Color="{StaticResource BlackColour}" />
+                    </LinearGradientBrush.GradientStops>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type DataGrid}">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="1,1">
+                    <LinearGradientBrush.GradientStops>
+                        <GradientStop Offset="0.0" Color="{StaticResource BlackColour}" />
+                        <GradientStop Offset="1.0" Color="{StaticResource GreyColour}" />
+                    </LinearGradientBrush.GradientStops>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style TargetType="{x:Type DataGridRow}">
+        <Setter Property="Background" Value="{StaticResource GridItemBackgroundBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource GridItemForegroundBrush}"/>
+    </Style>
+    
+
+    <Style TargetType="{x:Type DataGridColumnHeader}">
+        <Setter Property="Background" Value="{StaticResource GridHeaderBackgroundBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource GridHeaderForegroundBrush}" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+    </Style>
+
+</ResourceDictionary>

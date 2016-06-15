@@ -29,7 +29,7 @@ namespace AppData
     ;;define a structure that we can use around the applicaiton
 
 	structure STRParameter
-		.include 'parameter' repository  , norecord, prefix = "str_"
+		.include 'parameter' repository  , norecord
 	endstructure
 
 	{JsonObject(MemberSerialization.OptIn)}
@@ -224,13 +224,13 @@ namespace AppData
 		public property Last_order_no, d6
 			method get
 			proc
-                mreturn parameter_main.STR_Last_order_no
+                mreturn parameter_main.Last_order_no
             endmethod
 			method set
 			proc
-				if (parameter_main.STR_Last_order_no .ne. value)
+				if (parameter_main.Last_order_no .ne. value)
 				begin
-										parameter_main.STR_Last_order_no = value
+										parameter_main.Last_order_no = value
 					ValidateEnteredData(1)
 					RaisePropertyChanged("Last_order_no")
 				end
@@ -447,14 +447,14 @@ namespace AppData
 			method get
 			proc
 				data tmpSTR	,clsstrParameter
-				tmpSTR.csLast_order_no = (int32)mIntegerConveter.Convert(parameter_main.STR_last_order_no, ^null, ^null, ^null)
+				tmpSTR.csLast_order_no = (int32)mIntegerConveter.Convert(parameter_main.last_order_no, ^null, ^null, ^null)
 				mreturn structureToByteArray(tmpSTR)
 			endmethod
 			method set
 			proc
 				data tmpSTR	,clsstrParameter
 				tmpSTR = byteArrayToStructure(value)
-				parameter_main.STR_Last_order_no = (d)((i)mIntegerConveter.ConvertBack(tmpSTR.csLast_order_no, ^null, ^null, ^null))
+				parameter_main.Last_order_no = (d)((i)mIntegerConveter.ConvertBack(tmpSTR.csLast_order_no, ^null, ^null, ^null))
 			endmethod
 		endproperty
 			

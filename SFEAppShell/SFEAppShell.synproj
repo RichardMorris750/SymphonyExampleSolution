@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{1dc18bdf-ed62-4c4f-8481-a2ce7a7d56f2}</ProjectGuid>
+    <ProjectGuid>{6f55d996-58f7-4b8b-82ee-164137f93daa}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SupplierViewer</RootNamespace>
-    <AssemblyName>SupplierViewer</AssemblyName>
+    <RootNamespace>SFEAppShell</RootNamespace>
+    <AssemblyName>SFEAppShell</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -21,22 +21,8 @@
     <DBLCmdOptions> -W3 -qstack</DBLCmdOptions>
     <DBL_unQulRecStm>Stack</DBL_unQulRecStm>
     <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
-    <Name>SupplierViewer</Name>
+    <Name>SFEAppShell</Name>
     <TargetPlatform>v452</TargetPlatform>
-    <Install>True</Install>
-    <ApplicationVersion>1.0.0.*</ApplicationVersion>
-    <ApplicationRevision>0</ApplicationRevision>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>False</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>False</UpdatePeriodically>
-    <UpdateRequired>False</UpdateRequired>
-    <MapFileExtensions>True</MapFileExtensions>
-    <IsWebBootstrapper>False</IsWebBootstrapper>
-    <UseApplicationTrust>False</UseApplicationTrust>
-    <BootstrapperEnabled>True</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,7 +34,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DebugOptimize>Debug</DebugOptimize>
-    <DocumentationFile>bin\Debug\SupplierViewer.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\SFEAppShell.xml</DocumentationFile>
     <Prefer32Bit Condition=" '$(TargetFrameworkVersion)'  != 'v4.0' AND '$(Prefer32Bit)' != 'false' ">true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -60,7 +46,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DebugOptimize>Optimize</DebugOptimize>
-    <DocumentationFile>bin\Release\SupplierViewer.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\SFEAppShell.xml</DocumentationFile>
     <Prefer32Bit Condition=" '$(TargetFrameworkVersion)'  != 'v4.0' AND '$(Prefer32Bit)' != 'false' ">true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
@@ -81,37 +67,37 @@
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyAdapter, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.4\lib\net45\SymphonyAdapter.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.5\lib\net45\SymphonyAdapter.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyConductor, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.4\lib\net45\SymphonyConductor.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.5\lib\net45\SymphonyConductor.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyConductorWPF, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.4\lib\net45\SymphonyConductorWPF.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.5\lib\net45\SymphonyConductorWPF.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyCore, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.4\lib\net45\SymphonyCore.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.5\lib\net45\SymphonyCore.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyCrescendo, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.4\lib\net45\SymphonyCrescendo.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.5\lib\net45\SymphonyCrescendo.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyHarmony, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.4\lib\net45\SymphonyHarmony.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.5\lib\net45\SymphonyHarmony.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyUIToolkit, Version=3.2.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\SymphonyFramework.3.2.4\lib\net45\SymphonyUIToolkit.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.5\lib\net45\SymphonyUIToolkit.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
@@ -134,6 +120,7 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -142,7 +129,6 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-    <Compile Include="SupplierViewerViewModel.dbc" />
     <Page Include="MainWindow1.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -183,26 +169,25 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Properties\" />
+    <Folder Include="Images" />
+    <Folder Include="Images\Icons" />
+    <Folder Include="Properties" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AppData_Server\AppData_Server.synproj">
-      <Name>AppData_Server</Name>
-      <Project>{1c61e987-fbd9-49b8-b987-8a30d6ef3218}</Project>
+    <Resource Include="Images\Icons\Menu-64.png" />
+    <Resource Include="Images\Icons\Menu-64_mouseOver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SEF_Supplier\SEF_Supplier.synproj">
+      <Name>SEF_Supplier</Name>
+      <Project>{f3550f65-c577-48b4-a126-e375b144916f}</Project>
       <Private>True</Private>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
-      <Install>True</Install>
-      <ProductName>Microsoft .NET Framework 4.5.2 (x86 and x64)</ProductName>
-      <Visible>False</Visible>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Install>False</Install>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Visible>False</Visible>
-    </BootstrapperPackage>
+    <ProjectReference Include="..\SFE_UI\SFE_UI.synproj">
+      <Name>SFE_UI</Name>
+      <Project>{042c6fdf-2e91-4cba-a1ac-336122022826}</Project>
+      <Private>True</Private>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Synergex\VS2010\Synergex.SynergyDE.targets" />
   <PropertyGroup>

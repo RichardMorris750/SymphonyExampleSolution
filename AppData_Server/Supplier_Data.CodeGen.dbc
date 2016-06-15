@@ -29,7 +29,7 @@ namespace AppData
     ;;define a structure that we can use around the applicaiton
 
 	structure STRSupplier
-		.include 'supplier' repository  , norecord, prefix = "str_"
+		.include 'supplier' repository  , norecord
 	endstructure
 
 	{JsonObject(MemberSerialization.OptIn)}
@@ -304,13 +304,13 @@ namespace AppData
 		public property Supp_code, a6
 			method get
 			proc
-				mreturn %atrim(supplier_main.STR_Supp_code)
+				mreturn %atrim(supplier_main.Supp_code)
             endmethod
 			method set
 			proc
-					if (supplier_main.STR_Supp_code .nes. value)
+					if (supplier_main.Supp_code .nes. value)
 				begin
-										supplier_main.STR_Supp_code = value
+										supplier_main.Supp_code = value
 					ValidateEnteredData(1)
 					RaisePropertyChanged("Supp_code")
 				end
@@ -321,13 +321,13 @@ namespace AppData
 		public property Name, a30
 			method get
 			proc
-				mreturn %atrim(supplier_main.STR_Name)
+				mreturn %atrim(supplier_main.Name)
             endmethod
 			method set
 			proc
-					if (supplier_main.STR_Name .nes. value)
+					if (supplier_main.Name .nes. value)
 				begin
-										supplier_main.STR_Name = value
+										supplier_main.Name = value
 					ValidateEnteredData(2)
 					RaisePropertyChanged("Name")
 				end
@@ -338,13 +338,13 @@ namespace AppData
 		public property Address1, a30
 			method get
 			proc
-				mreturn %atrim(supplier_main.STR_Address1)
+				mreturn %atrim(supplier_main.Address1)
             endmethod
 			method set
 			proc
-					if (supplier_main.STR_Address1 .nes. value)
+					if (supplier_main.Address1 .nes. value)
 				begin
-										supplier_main.STR_Address1 = value
+										supplier_main.Address1 = value
 					ValidateEnteredData(3)
 					RaisePropertyChanged("Address1")
 				end
@@ -355,13 +355,13 @@ namespace AppData
 		public property Address2, a30
 			method get
 			proc
-				mreturn %atrim(supplier_main.STR_Address2)
+				mreturn %atrim(supplier_main.Address2)
             endmethod
 			method set
 			proc
-					if (supplier_main.STR_Address2 .nes. value)
+					if (supplier_main.Address2 .nes. value)
 				begin
-										supplier_main.STR_Address2 = value
+										supplier_main.Address2 = value
 					ValidateEnteredData(4)
 					RaisePropertyChanged("Address2")
 				end
@@ -372,13 +372,13 @@ namespace AppData
 		public property Address3, a30
 			method get
 			proc
-				mreturn %atrim(supplier_main.STR_Address3)
+				mreturn %atrim(supplier_main.Address3)
             endmethod
 			method set
 			proc
-					if (supplier_main.STR_Address3 .nes. value)
+					if (supplier_main.Address3 .nes. value)
 				begin
-										supplier_main.STR_Address3 = value
+										supplier_main.Address3 = value
 					ValidateEnteredData(5)
 					RaisePropertyChanged("Address3")
 				end
@@ -389,13 +389,13 @@ namespace AppData
 		public property Postcode, a10
 			method get
 			proc
-				mreturn %atrim(supplier_main.STR_Postcode)
+				mreturn %atrim(supplier_main.Postcode)
             endmethod
 			method set
 			proc
-					if (supplier_main.STR_Postcode .nes. value)
+					if (supplier_main.Postcode .nes. value)
 				begin
-										supplier_main.STR_Postcode = value
+										supplier_main.Postcode = value
 					ValidateEnteredData(6)
 					RaisePropertyChanged("Postcode")
 				end
@@ -406,13 +406,13 @@ namespace AppData
 		public property Phone, a20
 			method get
 			proc
-				mreturn %atrim(supplier_main.STR_Phone)
+				mreturn %atrim(supplier_main.Phone)
             endmethod
 			method set
 			proc
-					if (supplier_main.STR_Phone .nes. value)
+					if (supplier_main.Phone .nes. value)
 				begin
-										supplier_main.STR_Phone = value
+										supplier_main.Phone = value
 					ValidateEnteredData(7)
 					RaisePropertyChanged("Phone")
 				end
@@ -423,13 +423,13 @@ namespace AppData
 		public property Contact, a30
 			method get
 			proc
-				mreturn %atrim(supplier_main.STR_Contact)
+				mreturn %atrim(supplier_main.Contact)
             endmethod
 			method set
 			proc
-					if (supplier_main.STR_Contact .nes. value)
+					if (supplier_main.Contact .nes. value)
 				begin
-										supplier_main.STR_Contact = value
+										supplier_main.Contact = value
 					ValidateEnteredData(8)
 					RaisePropertyChanged("Contact")
 				end
@@ -440,13 +440,13 @@ namespace AppData
 		public property Email, a50
 			method get
 			proc
-				mreturn %atrim(supplier_main.STR_Email)
+				mreturn %atrim(supplier_main.Email)
             endmethod
 			method set
 			proc
-					if (supplier_main.STR_Email .nes. value)
+					if (supplier_main.Email .nes. value)
 				begin
-										supplier_main.STR_Email = value
+										supplier_main.Email = value
 					ValidateEnteredData(9)
 					RaisePropertyChanged("Email")
 				end
@@ -1223,30 +1223,30 @@ namespace AppData
 			method get
 			proc
 				data tmpSTR	,clsstrSupplier
-				tmpSTR.csSupp_code = (string)mAlphaConveter.Convert(supplier_main.STR_supp_code, ^null, ^null, ^null)
-				tmpSTR.csName = (string)mAlphaConveter.Convert(supplier_main.STR_name, ^null, ^null, ^null)
-				tmpSTR.csAddress1 = (string)mAlphaConveter.Convert(supplier_main.STR_address1, ^null, ^null, ^null)
-				tmpSTR.csAddress2 = (string)mAlphaConveter.Convert(supplier_main.STR_address2, ^null, ^null, ^null)
-				tmpSTR.csAddress3 = (string)mAlphaConveter.Convert(supplier_main.STR_address3, ^null, ^null, ^null)
-				tmpSTR.csPostcode = (string)mAlphaConveter.Convert(supplier_main.STR_postcode, ^null, ^null, ^null)
-				tmpSTR.csPhone = (string)mAlphaConveter.Convert(supplier_main.STR_phone, ^null, ^null, ^null)
-				tmpSTR.csContact = (string)mAlphaConveter.Convert(supplier_main.STR_contact, ^null, ^null, ^null)
-				tmpSTR.csEmail = (string)mAlphaConveter.Convert(supplier_main.STR_email, ^null, ^null, ^null)
+				tmpSTR.csSupp_code = (string)mAlphaConveter.Convert(supplier_main.supp_code, ^null, ^null, ^null)
+				tmpSTR.csName = (string)mAlphaConveter.Convert(supplier_main.name, ^null, ^null, ^null)
+				tmpSTR.csAddress1 = (string)mAlphaConveter.Convert(supplier_main.address1, ^null, ^null, ^null)
+				tmpSTR.csAddress2 = (string)mAlphaConveter.Convert(supplier_main.address2, ^null, ^null, ^null)
+				tmpSTR.csAddress3 = (string)mAlphaConveter.Convert(supplier_main.address3, ^null, ^null, ^null)
+				tmpSTR.csPostcode = (string)mAlphaConveter.Convert(supplier_main.postcode, ^null, ^null, ^null)
+				tmpSTR.csPhone = (string)mAlphaConveter.Convert(supplier_main.phone, ^null, ^null, ^null)
+				tmpSTR.csContact = (string)mAlphaConveter.Convert(supplier_main.contact, ^null, ^null, ^null)
+				tmpSTR.csEmail = (string)mAlphaConveter.Convert(supplier_main.email, ^null, ^null, ^null)
 				mreturn structureToByteArray(tmpSTR)
 			endmethod
 			method set
 			proc
 				data tmpSTR	,clsstrSupplier
 				tmpSTR = byteArrayToStructure(value)
-				supplier_main.STR_Supp_code = (a)mAlphaConveter.ConvertBack(tmpSTR.csSupp_code, ^null, ^null, ^null)
-				supplier_main.STR_Name = (a)mAlphaConveter.ConvertBack(tmpSTR.csName, ^null, ^null, ^null)
-				supplier_main.STR_Address1 = (a)mAlphaConveter.ConvertBack(tmpSTR.csAddress1, ^null, ^null, ^null)
-				supplier_main.STR_Address2 = (a)mAlphaConveter.ConvertBack(tmpSTR.csAddress2, ^null, ^null, ^null)
-				supplier_main.STR_Address3 = (a)mAlphaConveter.ConvertBack(tmpSTR.csAddress3, ^null, ^null, ^null)
-				supplier_main.STR_Postcode = (a)mAlphaConveter.ConvertBack(tmpSTR.csPostcode, ^null, ^null, ^null)
-				supplier_main.STR_Phone = (a)mAlphaConveter.ConvertBack(tmpSTR.csPhone, ^null, ^null, ^null)
-				supplier_main.STR_Contact = (a)mAlphaConveter.ConvertBack(tmpSTR.csContact, ^null, ^null, ^null)
-				supplier_main.STR_Email = (a)mAlphaConveter.ConvertBack(tmpSTR.csEmail, ^null, ^null, ^null)
+				supplier_main.Supp_code = (a)mAlphaConveter.ConvertBack(tmpSTR.csSupp_code, ^null, ^null, ^null)
+				supplier_main.Name = (a)mAlphaConveter.ConvertBack(tmpSTR.csName, ^null, ^null, ^null)
+				supplier_main.Address1 = (a)mAlphaConveter.ConvertBack(tmpSTR.csAddress1, ^null, ^null, ^null)
+				supplier_main.Address2 = (a)mAlphaConveter.ConvertBack(tmpSTR.csAddress2, ^null, ^null, ^null)
+				supplier_main.Address3 = (a)mAlphaConveter.ConvertBack(tmpSTR.csAddress3, ^null, ^null, ^null)
+				supplier_main.Postcode = (a)mAlphaConveter.ConvertBack(tmpSTR.csPostcode, ^null, ^null, ^null)
+				supplier_main.Phone = (a)mAlphaConveter.ConvertBack(tmpSTR.csPhone, ^null, ^null, ^null)
+				supplier_main.Contact = (a)mAlphaConveter.ConvertBack(tmpSTR.csContact, ^null, ^null, ^null)
+				supplier_main.Email = (a)mAlphaConveter.ConvertBack(tmpSTR.csEmail, ^null, ^null, ^null)
 			endmethod
 		endproperty
 			

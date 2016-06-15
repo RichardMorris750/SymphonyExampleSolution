@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="SEF_Supplier.View.OverviewList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:symTrigger="clr-namespace:Symphony.Conductor.Triggers;assembly=SymphonyConductor"
+             xmlns:sfeuiCommon="clr-namespace:SFE_UI.Common;assembly=SFE_UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/SFE_UI;component/Resources/AppStyling.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <sfeuiCommon:Toolbar Grid.Row="0"></sfeuiCommon:Toolbar>
+
+        <Border Grid.Row="1" Margin="4" Padding="4" BorderThickness="1" CornerRadius="5" BorderBrush="{StaticResource BorderBrush}">
+
+            <DataGrid ItemsSource="{Binding Path=DataObjectColleciton}" AutoGenerateColumns="False" IsReadOnly="True"
+                  SelectedItem="{Binding Path=SelectedCollectionItem}" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False"
+                  CanUserResizeRows="False" CanUserSortColumns="True" RowHeaderWidth="0">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Sorting">
+                        <symTrigger:DataGridCustomerSorting ItemsSource="{Binding Path=DataObjectColleciton}"></symTrigger:DataGridCustomerSorting>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Code" Binding="{Binding Path=Supp_code}" Width="50"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Contact" Binding="{Binding Path=Contact}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Phone No" Binding="{Binding Path=Phone}" Width="100"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Email" Binding="{Binding Path=Email}" Width="*"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </Border>
+
+    </Grid>
+</UserControl>

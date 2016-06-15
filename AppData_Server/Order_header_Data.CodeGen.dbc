@@ -29,7 +29,7 @@ namespace AppData
     ;;define a structure that we can use around the applicaiton
 
 	structure STROrder_header
-		.include 'order_header' repository  , norecord, prefix = "str_"
+		.include 'order_header' repository  , norecord
 	endstructure
 
 	{JsonObject(MemberSerialization.OptIn)}
@@ -304,13 +304,13 @@ namespace AppData
 		public property Order_no, d6
 			method get
 			proc
-                mreturn order_header_main.STR_Order_no
+                mreturn order_header_main.Order_no
             endmethod
 			method set
 			proc
-				if (order_header_main.STR_Order_no .ne. value)
+				if (order_header_main.Order_no .ne. value)
 				begin
-										order_header_main.STR_Order_no = value
+										order_header_main.Order_no = value
 					ValidateEnteredData(1)
 					RaisePropertyChanged("Order_no")
 				end
@@ -321,13 +321,13 @@ namespace AppData
 		public property Supp_code, a6
 			method get
 			proc
-				mreturn %atrim(order_header_main.STR_Supp_code)
+				mreturn %atrim(order_header_main.Supp_code)
             endmethod
 			method set
 			proc
-					if (order_header_main.STR_Supp_code .nes. value)
+					if (order_header_main.Supp_code .nes. value)
 				begin
-										order_header_main.STR_Supp_code = value
+										order_header_main.Supp_code = value
 					ValidateEnteredData(2)
 					RaisePropertyChanged("Supp_code")
 				end
@@ -338,13 +338,13 @@ namespace AppData
 		public property Order_date, d8
 			method get
 			proc
-                mreturn order_header_main.STR_Order_date
+                mreturn order_header_main.Order_date
             endmethod
 			method set
 			proc
-				if (order_header_main.STR_Order_date .ne. value)
+				if (order_header_main.Order_date .ne. value)
 				begin
-										order_header_main.STR_Order_date = value
+										order_header_main.Order_date = value
 					ValidateEnteredData(3)
 					RaisePropertyChanged("Order_date")
 				end
@@ -355,13 +355,13 @@ namespace AppData
 		public property Reqd_date, d8
 			method get
 			proc
-                mreturn order_header_main.STR_Reqd_date
+                mreturn order_header_main.Reqd_date
             endmethod
 			method set
 			proc
-				if (order_header_main.STR_Reqd_date .ne. value)
+				if (order_header_main.Reqd_date .ne. value)
 				begin
-										order_header_main.STR_Reqd_date = value
+										order_header_main.Reqd_date = value
 					ValidateEnteredData(4)
 					RaisePropertyChanged("Reqd_date")
 				end
@@ -372,13 +372,13 @@ namespace AppData
 		public property Comments, a100
 			method get
 			proc
-				mreturn %atrim(order_header_main.STR_Comments)
+				mreturn %atrim(order_header_main.Comments)
             endmethod
 			method set
 			proc
-					if (order_header_main.STR_Comments .nes. value)
+					if (order_header_main.Comments .nes. value)
 				begin
-										order_header_main.STR_Comments = value
+										order_header_main.Comments = value
 					ValidateEnteredData(5)
 					RaisePropertyChanged("Comments")
 				end
@@ -389,13 +389,13 @@ namespace AppData
 		public property Line_count, d5
 			method get
 			proc
-                mreturn order_header_main.STR_Line_count
+                mreturn order_header_main.Line_count
             endmethod
 			method set
 			proc
-				if (order_header_main.STR_Line_count .ne. value)
+				if (order_header_main.Line_count .ne. value)
 				begin
-										order_header_main.STR_Line_count = value
+										order_header_main.Line_count = value
 					ValidateEnteredData(6)
 					RaisePropertyChanged("Line_count")
 				end
@@ -406,13 +406,13 @@ namespace AppData
 		public property Tot_value, d10.2
 			method get
 			proc
-                mreturn order_header_main.STR_Tot_value
+                mreturn order_header_main.Tot_value
             endmethod
 			method set
 			proc
-				if (order_header_main.STR_Tot_value .ne. value)
+				if (order_header_main.Tot_value .ne. value)
 				begin
-										order_header_main.STR_Tot_value = value
+										order_header_main.Tot_value = value
 					ValidateEnteredData(7)
 					RaisePropertyChanged("Tot_value")
 				end
@@ -423,13 +423,13 @@ namespace AppData
 		public property Tot_vat, d10.2
 			method get
 			proc
-                mreturn order_header_main.STR_Tot_vat
+                mreturn order_header_main.Tot_vat
             endmethod
 			method set
 			proc
-				if (order_header_main.STR_Tot_vat .ne. value)
+				if (order_header_main.Tot_vat .ne. value)
 				begin
-										order_header_main.STR_Tot_vat = value
+										order_header_main.Tot_vat = value
 					ValidateEnteredData(8)
 					RaisePropertyChanged("Tot_vat")
 				end
@@ -440,13 +440,13 @@ namespace AppData
 		public property Tot_qty, d6
 			method get
 			proc
-                mreturn order_header_main.STR_Tot_qty
+                mreturn order_header_main.Tot_qty
             endmethod
 			method set
 			proc
-				if (order_header_main.STR_Tot_qty .ne. value)
+				if (order_header_main.Tot_qty .ne. value)
 				begin
-										order_header_main.STR_Tot_qty = value
+										order_header_main.Tot_qty = value
 					ValidateEnteredData(9)
 					RaisePropertyChanged("Tot_qty")
 				end
@@ -1223,32 +1223,32 @@ namespace AppData
 			method get
 			proc
 				data tmpSTR	,clsstrOrder_header
-				tmpSTR.csOrder_no = (int32)mIntegerConveter.Convert(order_header_main.STR_order_no, ^null, ^null, ^null)
-				tmpSTR.csSupp_code = (string)mAlphaConveter.Convert(order_header_main.STR_supp_code, ^null, ^null, ^null)
-				if (order_header_main.STR_order_date)
-					tmpSTR.csOrder_date = (datetime?)mDateConveter.Convert(order_header_main.STR_order_date, ^null, "FORMAT:YYYYMMDD|NODEFAULTODAY", ^null)
-				if (order_header_main.STR_reqd_date)
-					tmpSTR.csReqd_date = (datetime?)mDateConveter.Convert(order_header_main.STR_reqd_date, ^null, "FORMAT:YYYYMMDD|NODEFAULTODAY", ^null)
-				tmpSTR.csComments = (string)mAlphaConveter.Convert(order_header_main.STR_comments, ^null, ^null, ^null)
-				tmpSTR.csLine_count = (int32)mIntegerConveter.Convert(order_header_main.STR_line_count, ^null, ^null, ^null)
-				tmpSTR.csTot_value = (decimal)mImpliedDecimalConveter.Convert(order_header_main.STR_tot_value, ^null, ^null, ^null)
-				tmpSTR.csTot_vat = (decimal)mImpliedDecimalConveter.Convert(order_header_main.STR_tot_vat, ^null, ^null, ^null)
-				tmpSTR.csTot_qty = (int32)mIntegerConveter.Convert(order_header_main.STR_tot_qty, ^null, ^null, ^null)
+				tmpSTR.csOrder_no = (int32)mIntegerConveter.Convert(order_header_main.order_no, ^null, ^null, ^null)
+				tmpSTR.csSupp_code = (string)mAlphaConveter.Convert(order_header_main.supp_code, ^null, ^null, ^null)
+				if (order_header_main.order_date)
+					tmpSTR.csOrder_date = (datetime?)mDateConveter.Convert(order_header_main.order_date, ^null, "FORMAT:YYYYMMDD|NODEFAULTODAY", ^null)
+				if (order_header_main.reqd_date)
+					tmpSTR.csReqd_date = (datetime?)mDateConveter.Convert(order_header_main.reqd_date, ^null, "FORMAT:YYYYMMDD|NODEFAULTODAY", ^null)
+				tmpSTR.csComments = (string)mAlphaConveter.Convert(order_header_main.comments, ^null, ^null, ^null)
+				tmpSTR.csLine_count = (int32)mIntegerConveter.Convert(order_header_main.line_count, ^null, ^null, ^null)
+				tmpSTR.csTot_value = (decimal)mImpliedDecimalConveter.Convert(order_header_main.tot_value, ^null, ^null, ^null)
+				tmpSTR.csTot_vat = (decimal)mImpliedDecimalConveter.Convert(order_header_main.tot_vat, ^null, ^null, ^null)
+				tmpSTR.csTot_qty = (int32)mIntegerConveter.Convert(order_header_main.tot_qty, ^null, ^null, ^null)
 				mreturn structureToByteArray(tmpSTR)
 			endmethod
 			method set
 			proc
 				data tmpSTR	,clsstrOrder_header
 				tmpSTR = byteArrayToStructure(value)
-				order_header_main.STR_Order_no = (d)((i)mIntegerConveter.ConvertBack(tmpSTR.csOrder_no, ^null, ^null, ^null))
-				order_header_main.STR_Supp_code = (a)mAlphaConveter.ConvertBack(tmpSTR.csSupp_code, ^null, ^null, ^null)
-				order_header_main.STR_Order_date = (d)mDateConveter.ConvertBack(tmpSTR.csOrder_date, ^null, "FORMAT:YYYYMMDD|NODEFAULTODAY", ^null)
-				order_header_main.STR_Reqd_date = (d)mDateConveter.ConvertBack(tmpSTR.csReqd_date, ^null, "FORMAT:YYYYMMDD|NODEFAULTODAY", ^null)
-				order_header_main.STR_Comments = (a)mAlphaConveter.ConvertBack(tmpSTR.csComments, ^null, ^null, ^null)
-				order_header_main.STR_Line_count = (d)((i)mIntegerConveter.ConvertBack(tmpSTR.csLine_count, ^null, ^null, ^null))
-				order_header_main.STR_Tot_value = (id)mImpliedDecimalConveter.ConvertBack(tmpSTR.csTot_value, ^null, ^null, ^null)
-				order_header_main.STR_Tot_vat = (id)mImpliedDecimalConveter.ConvertBack(tmpSTR.csTot_vat, ^null, ^null, ^null)
-				order_header_main.STR_Tot_qty = (d)((i)mIntegerConveter.ConvertBack(tmpSTR.csTot_qty, ^null, ^null, ^null))
+				order_header_main.Order_no = (d)((i)mIntegerConveter.ConvertBack(tmpSTR.csOrder_no, ^null, ^null, ^null))
+				order_header_main.Supp_code = (a)mAlphaConveter.ConvertBack(tmpSTR.csSupp_code, ^null, ^null, ^null)
+				order_header_main.Order_date = (d)mDateConveter.ConvertBack(tmpSTR.csOrder_date, ^null, "FORMAT:YYYYMMDD|NODEFAULTODAY", ^null)
+				order_header_main.Reqd_date = (d)mDateConveter.ConvertBack(tmpSTR.csReqd_date, ^null, "FORMAT:YYYYMMDD|NODEFAULTODAY", ^null)
+				order_header_main.Comments = (a)mAlphaConveter.ConvertBack(tmpSTR.csComments, ^null, ^null, ^null)
+				order_header_main.Line_count = (d)((i)mIntegerConveter.ConvertBack(tmpSTR.csLine_count, ^null, ^null, ^null))
+				order_header_main.Tot_value = (id)mImpliedDecimalConveter.ConvertBack(tmpSTR.csTot_value, ^null, ^null, ^null)
+				order_header_main.Tot_vat = (id)mImpliedDecimalConveter.ConvertBack(tmpSTR.csTot_vat, ^null, ^null, ^null)
+				order_header_main.Tot_qty = (d)((i)mIntegerConveter.ConvertBack(tmpSTR.csTot_qty, ^null, ^null, ^null))
 			endmethod
 		endproperty
 			

@@ -1,0 +1,26 @@
+import System
+import System.Collections.Generic
+import System.Text
+import SFE_Base.ViewModel
+import System.Windows
+import AppData
+import Symphony.Conductor.DataIO
+
+
+namespace SEF_Supplier.ViewModel
+
+	public class SupplierMaintentanceViewModel extends MaintenanceViewModel
+
+		private static mSupplier	,@Supplier_Data	,new Supplier_Data()
+
+		public method SupplierMaintentanceViewModel
+			sender									,@FrameworkElement
+			endparams
+			parent(sender, mSupplier.GetType(), new Supplier_FileIO(FileOpenMode.UpdateIndexed))
+		proc
+			
+		endmethod
+	
+	endclass
+
+endnamespace

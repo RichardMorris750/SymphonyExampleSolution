@@ -8,29 +8,68 @@
 ;;
 ;;***************************************************************************
 import System
+import System.Collections
 import System.Collections.Generic
+import System.Collections.ObjectModel
+import System.Collections.Specialized
 import System.Text
+import System.Runtime.InteropServices
+import System.IO
 
 import Symphony.Conductor.Model
+import Symphony.Conductor.Converters
+
+import System.Reflection
+import System.Runtime.Serialization
+import Newtonsoft.Json
+
 
 namespace AppData
 
     ;;define a structure that we can use around the applicaiton
 
-    .include 'local_criteria' repository  , structure = 'STRLocal_criteria', prefix = "str_", end
+	structure STRLocal_criteria
+		.include 'local_criteria' repository  , norecord, prefix = "str_"
+	endstructure
 
+	{JsonObject(MemberSerialization.OptIn)}
     public partial class Local_criteria_Data extends Symphony.Conductor.Model.DataObjectBase
 
+		private cls structure clsstrLocal_criteria
+.align
+			public csStart_supp, String
+.align
+			public csKey_word, String
+.align
+			public csEnd_supp, String
+		endstructure
+		
+		public static SynergyMemberInfo, @List<System.Reflection.MemberInfo>
+
 		public const RPSStructureName	,String	,"LOCAL_CRITERIA"
+		public const RPSStructureSize	,Int32	,42
 
 		private local_criteria_main	,STRLocal_criteria
 
 		private mDoneSynergyRecordValue	,boolean
-
+		
+		;;use symphony converters
+		private mDateConveter   ,@SynergyDecimalDateConverter ,new SynergyDecimalDateConverter()
+		private mAlphaConveter	,@SynergyAlphaConverter ,new SynergyAlphaConverter()
+		private mDecimalConveter  ,@SynergyDecimalConverter ,new SynergyDecimalConverter()
+		private mImpliedDecimalConveter ,@SynergyImpliedDecimalConverter  ,new SynergyImpliedDecimalConverter()
+		private mIntegerConveter  ,@SynergyIntConverter ,new SynergyIntConverter()
+		private mAlphaYNConveter	,@SynergyAlphaYNConverter, new SynergyAlphaYNConverter()
 
 		static method Local_criteria_Data
 			endparams
 		proc
+			data objectType = ^typeof(Local_criteria_Data)
+			SynergyMemberInfo = new List<System.Reflection.MemberInfo>() {
+			&	^as(RuntimeReflectionExtensions.GetRuntimeProperty(objectType, "SerializableSynergyRecord"), @System.Reflection.MemberInfo)
+			& }
+			defineSerialiazableDataElements()
+
 			mStaticFieldList = new List<BaseFieldInformation>()
 			mStaticFieldDictionary = new Dictionary<string, int>()
 			mStaticFieldNameList = new List<String>()
@@ -64,6 +103,9 @@ namespace AppData
 			mStaticFieldHeadingList.Add("End Supplier")
 
 			mreturn
+		endmethod
+		
+		private partial static method defineSerialiazableDataElements, void
 		endmethod
 
         ;;; <summary>
@@ -199,48 +241,51 @@ namespace AppData
         ;;Expose fields as properties for data binding
         
         ;;Start_supp
+		{JsonProperty}
 		public property Start_supp, a6
 			method get
 			proc
-				mreturn %atrim(Local_criteria_main.STR_Start_supp)
+				mreturn %atrim(local_criteria_main.STR_Start_supp)
             endmethod
 			method set
 			proc
-					if (Local_criteria_main.STR_Start_supp .nes. value)
+					if (local_criteria_main.STR_Start_supp .nes. value)
 				begin
-										Local_criteria_main.STR_Start_supp = value
+										local_criteria_main.STR_Start_supp = value
 					ValidateEnteredData(1)
 					RaisePropertyChanged("Start_supp")
 				end
 			endmethod
 		endproperty
         ;;Key_word
+		{JsonProperty}
 		public property Key_word, a30
 			method get
 			proc
-				mreturn %atrim(Local_criteria_main.STR_Key_word)
+				mreturn %atrim(local_criteria_main.STR_Key_word)
             endmethod
 			method set
 			proc
-					if (Local_criteria_main.STR_Key_word .nes. value)
+					if (local_criteria_main.STR_Key_word .nes. value)
 				begin
-										Local_criteria_main.STR_Key_word = value
+										local_criteria_main.STR_Key_word = value
 					ValidateEnteredData(2)
 					RaisePropertyChanged("Key_word")
 				end
 			endmethod
 		endproperty
         ;;End_supp
+		{JsonProperty}
 		public property End_supp, a6
 			method get
 			proc
-				mreturn %atrim(Local_criteria_main.STR_End_supp)
+				mreturn %atrim(local_criteria_main.STR_End_supp)
             endmethod
 			method set
 			proc
-					if (Local_criteria_main.STR_End_supp .nes. value)
+					if (local_criteria_main.STR_End_supp .nes. value)
 				begin
-										Local_criteria_main.STR_End_supp = value
+										local_criteria_main.STR_End_supp = value
 					ValidateEnteredData(3)
 					RaisePropertyChanged("End_supp")
 				end
@@ -284,6 +329,7 @@ namespace AppData
         public override method InitData ,void
         proc
 			init Local_criteria_main
+
 			RaisePropertyChanged(^null)
 			parent.InitData()
         endmethod
@@ -588,7 +634,70 @@ namespace AppData
 
 			mreturn result
 		endmethod
+		
+.region "Serialization over Symphony Bridge"
+		
+		
+		{JsonProperty}
+		public property SerializableSynergyRecord, [#]byte
+			method get
+			proc
+				data tmpSTR	,clsstrLocal_criteria
+				tmpSTR.csStart_supp = (string)mAlphaConveter.Convert(local_criteria_main.STR_start_supp, ^null, ^null, ^null)
+				tmpSTR.csKey_word = (string)mAlphaConveter.Convert(local_criteria_main.STR_key_word, ^null, ^null, ^null)
+				tmpSTR.csEnd_supp = (string)mAlphaConveter.Convert(local_criteria_main.STR_end_supp, ^null, ^null, ^null)
+				mreturn structureToByteArray(tmpSTR)
+			endmethod
+			method set
+			proc
+				data tmpSTR	,clsstrLocal_criteria
+				tmpSTR = byteArrayToStructure(value)
+				local_criteria_main.STR_Start_supp = (a)mAlphaConveter.ConvertBack(tmpSTR.csStart_supp, ^null, ^null, ^null)
+				local_criteria_main.STR_Key_word = (a)mAlphaConveter.ConvertBack(tmpSTR.csKey_word, ^null, ^null, ^null)
+				local_criteria_main.STR_End_supp = (a)mAlphaConveter.ConvertBack(tmpSTR.csEnd_supp, ^null, ^null, ^null)
+			endmethod
+		endproperty
+			
+		private static method structureToByteArray	,[#]byte
+			tmpSTRUCT				,clsstrLocal_criteria
+			endparams
+		proc
+			data stream	,@MemoryStream , new MemoryStream()
+			begin
+				disposable data writer ,@BinaryWriter , new BinaryWriter(stream)
+				writer.Write(tmpSTRUCT.csStart_supp)
+				writer.Write(tmpSTRUCT.csKey_word)
+				writer.Write(tmpSTRUCT.csEnd_supp)
+			end
+			mreturn stream.ToArray()
+		endmethod
+		
+		private static method byteArrayToStructure	,clsstrLocal_criteria
+			bytearray, [#]byte  
+			endparams
+		proc
+			data tmpString	,string
+			data tmpSTRUCT	,clsstrLocal_criteria
+			data stream	,@MemoryStream	,new MemoryStream(byteArray)
+			begin
+				disposable data reader	,@BinaryReader	,new BinaryReader(stream)
+				tmpSTRUCT.csStart_supp = reader.ReadString()
+				tmpSTRUCT.csKey_word = reader.ReadString()
+				tmpSTRUCT.csEnd_supp = reader.ReadString()
+			end
 
+			mreturn tmpSTRUCT
+		endmethod
+		
+		public override property StructureSize	,Int32
+			method get
+			proc
+				mreturn RPSStructureSize
+			endmethod
+		endproperty
+
+.endregion
+		
 	endclass
 endnamespace
 

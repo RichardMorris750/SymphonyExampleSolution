@@ -8,29 +8,64 @@
 ;;
 ;;***************************************************************************
 import System
+import System.Collections
 import System.Collections.Generic
+import System.Collections.ObjectModel
+import System.Collections.Specialized
 import System.Text
+import System.Runtime.InteropServices
+import System.IO
 
 import Symphony.Conductor.Model
+import Symphony.Conductor.Converters
+
+import System.Reflection
+import System.Runtime.Serialization
+import Newtonsoft.Json
+
 
 namespace AppData
 
     ;;define a structure that we can use around the applicaiton
 
-    .include 'parameter' repository  , structure = 'STRParameter', prefix = "str_", end
+	structure STRParameter
+		.include 'parameter' repository  , norecord, prefix = "str_"
+	endstructure
 
+	{JsonObject(MemberSerialization.OptIn)}
     public partial class Parameter_Data extends Symphony.Conductor.Model.DataObjectBase
 
+		private cls structure clsstrParameter
+.align
+			public csLast_order_no, Int32
+		endstructure
+		
+		public static SynergyMemberInfo, @List<System.Reflection.MemberInfo>
+
 		public const RPSStructureName	,String	,"PARAMETER"
+		public const RPSStructureSize	,Int32	,100
 
 		private parameter_main	,STRParameter
 
 		private mDoneSynergyRecordValue	,boolean
-
+		
+		;;use symphony converters
+		private mDateConveter   ,@SynergyDecimalDateConverter ,new SynergyDecimalDateConverter()
+		private mAlphaConveter	,@SynergyAlphaConverter ,new SynergyAlphaConverter()
+		private mDecimalConveter  ,@SynergyDecimalConverter ,new SynergyDecimalConverter()
+		private mImpliedDecimalConveter ,@SynergyImpliedDecimalConverter  ,new SynergyImpliedDecimalConverter()
+		private mIntegerConveter  ,@SynergyIntConverter ,new SynergyIntConverter()
+		private mAlphaYNConveter	,@SynergyAlphaYNConverter, new SynergyAlphaYNConverter()
 
 		static method Parameter_Data
 			endparams
 		proc
+			data objectType = ^typeof(Parameter_Data)
+			SynergyMemberInfo = new List<System.Reflection.MemberInfo>() {
+			&	^as(RuntimeReflectionExtensions.GetRuntimeProperty(objectType, "SerializableSynergyRecord"), @System.Reflection.MemberInfo)
+			& }
+			defineSerialiazableDataElements()
+
 			mStaticFieldList = new List<BaseFieldInformation>()
 			mStaticFieldDictionary = new Dictionary<string, int>()
 			mStaticFieldNameList = new List<String>()
@@ -48,6 +83,9 @@ namespace AppData
 			mStaticFieldHeadingList.Add("Last Order No")
 
 			mreturn
+		endmethod
+		
+		private partial static method defineSerialiazableDataElements, void
 		endmethod
 
         ;;; <summary>
@@ -183,16 +221,17 @@ namespace AppData
         ;;Expose fields as properties for data binding
         
         ;;Last_order_no
+		{JsonProperty}
 		public property Last_order_no, d6
 			method get
 			proc
-                mreturn Parameter_main.STR_Last_order_no
+                mreturn parameter_main.STR_Last_order_no
             endmethod
 			method set
 			proc
-				if (Parameter_main.STR_Last_order_no .ne. value)
+				if (parameter_main.STR_Last_order_no .ne. value)
 				begin
-										Parameter_main.STR_Last_order_no = value
+										parameter_main.STR_Last_order_no = value
 					ValidateEnteredData(1)
 					RaisePropertyChanged("Last_order_no")
 				end
@@ -232,6 +271,7 @@ namespace AppData
         public override method InitData ,void
         proc
 			init Parameter_main
+
 			RaisePropertyChanged(^null)
 			parent.InitData()
         endmethod
@@ -400,7 +440,63 @@ namespace AppData
 
 			mreturn result
 		endmethod
+		
+.region "Serialization over Symphony Bridge"
+		
+		
+		{JsonProperty}
+		public property SerializableSynergyRecord, [#]byte
+			method get
+			proc
+				data tmpSTR	,clsstrParameter
+				tmpSTR.csLast_order_no = (int32)mIntegerConveter.Convert(parameter_main.STR_last_order_no, ^null, ^null, ^null)
+				mreturn structureToByteArray(tmpSTR)
+			endmethod
+			method set
+			proc
+				data tmpSTR	,clsstrParameter
+				tmpSTR = byteArrayToStructure(value)
+				parameter_main.STR_Last_order_no = (d)((i)mIntegerConveter.ConvertBack(tmpSTR.csLast_order_no, ^null, ^null, ^null))
+			endmethod
+		endproperty
+			
+		private static method structureToByteArray	,[#]byte
+			tmpSTRUCT				,clsstrParameter
+			endparams
+		proc
+			data stream	,@MemoryStream , new MemoryStream()
+			begin
+				disposable data writer ,@BinaryWriter , new BinaryWriter(stream)
+				writer.Write(tmpSTRUCT.csLast_order_no.ToString())
+			end
+			mreturn stream.ToArray()
+		endmethod
+		
+		private static method byteArrayToStructure	,clsstrParameter
+			bytearray, [#]byte  
+			endparams
+		proc
+			data tmpString	,string
+			data tmpSTRUCT	,clsstrParameter
+			data stream	,@MemoryStream	,new MemoryStream(byteArray)
+			begin
+				disposable data reader	,@BinaryReader	,new BinaryReader(stream)
+				tmpString = reader.ReadString()
+				tmpSTRUCT.csLast_order_no = Convert.ToInt32(tmpString)
+			end
 
+			mreturn tmpSTRUCT
+		endmethod
+		
+		public override property StructureSize	,Int32
+			method get
+			proc
+				mreturn RPSStructureSize
+			endmethod
+		endproperty
+
+.endregion
+		
 	endclass
 endnamespace
 

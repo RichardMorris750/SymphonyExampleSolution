@@ -8,29 +8,66 @@
 ;;
 ;;***************************************************************************
 import System
+import System.Collections
 import System.Collections.Generic
+import System.Collections.ObjectModel
+import System.Collections.Specialized
 import System.Text
+import System.Runtime.InteropServices
+import System.IO
 
 import Symphony.Conductor.Model
+import Symphony.Conductor.Converters
+
+import System.Reflection
+import System.Runtime.Serialization
+import Newtonsoft.Json
+
 
 namespace AppData
 
     ;;define a structure that we can use around the applicaiton
 
-    .include 'product_group' repository  , structure = 'STRProduct_group', prefix = "str_", end
+	structure STRProduct_group
+		.include 'product_group' repository  , norecord, prefix = "str_"
+	endstructure
 
+	{JsonObject(MemberSerialization.OptIn)}
     public partial class Product_group_Data extends Symphony.Conductor.Model.DataObjectBase
 
+		private cls structure clsstrProduct_group
+.align
+			public csProd_group, String
+.align
+			public csGroup_desc, String
+		endstructure
+		
+		public static SynergyMemberInfo, @List<System.Reflection.MemberInfo>
+
 		public const RPSStructureName	,String	,"PRODUCT_GROUP"
+		public const RPSStructureSize	,Int32	,23
 
 		private product_group_main	,STRProduct_group
 
 		private mDoneSynergyRecordValue	,boolean
-
+		
+		;;use symphony converters
+		private mDateConveter   ,@SynergyDecimalDateConverter ,new SynergyDecimalDateConverter()
+		private mAlphaConveter	,@SynergyAlphaConverter ,new SynergyAlphaConverter()
+		private mDecimalConveter  ,@SynergyDecimalConverter ,new SynergyDecimalConverter()
+		private mImpliedDecimalConveter ,@SynergyImpliedDecimalConverter  ,new SynergyImpliedDecimalConverter()
+		private mIntegerConveter  ,@SynergyIntConverter ,new SynergyIntConverter()
+		private mAlphaYNConveter	,@SynergyAlphaYNConverter, new SynergyAlphaYNConverter()
 
 		static method Product_group_Data
 			endparams
 		proc
+			data objectType = ^typeof(Product_group_Data)
+			SynergyMemberInfo = new List<System.Reflection.MemberInfo>() {
+			&	^as(RuntimeReflectionExtensions.GetRuntimeProperty(objectType, "SerializableSynergyRecord"), @System.Reflection.MemberInfo)
+			& }
+			defineSerialiazableDataElements()
+
 			mStaticFieldList = new List<BaseFieldInformation>()
 			mStaticFieldDictionary = new Dictionary<string, int>()
 			mStaticFieldNameList = new List<String>()
@@ -56,6 +93,9 @@ namespace AppData
 			mStaticFieldHeadingList.Add("Description")
 
 			mreturn
+		endmethod
+		
+		private partial static method defineSerialiazableDataElements, void
 		endmethod
 
         ;;; <summary>
@@ -191,32 +231,34 @@ namespace AppData
         ;;Expose fields as properties for data binding
         
         ;;Prod_group
+		{JsonProperty}
 		public property Prod_group, a3
 			method get
 			proc
-				mreturn %atrim(Product_group_main.STR_Prod_group)
+				mreturn %atrim(product_group_main.STR_Prod_group)
             endmethod
 			method set
 			proc
-					if (Product_group_main.STR_Prod_group .nes. value)
+					if (product_group_main.STR_Prod_group .nes. value)
 				begin
-										Product_group_main.STR_Prod_group = value
+										product_group_main.STR_Prod_group = value
 					ValidateEnteredData(1)
 					RaisePropertyChanged("Prod_group")
 				end
 			endmethod
 		endproperty
         ;;Group_desc
+		{JsonProperty}
 		public property Group_desc, a20
 			method get
 			proc
-				mreturn %atrim(Product_group_main.STR_Group_desc)
+				mreturn %atrim(product_group_main.STR_Group_desc)
             endmethod
 			method set
 			proc
-					if (Product_group_main.STR_Group_desc .nes. value)
+					if (product_group_main.STR_Group_desc .nes. value)
 				begin
-										Product_group_main.STR_Group_desc = value
+										product_group_main.STR_Group_desc = value
 					ValidateEnteredData(2)
 					RaisePropertyChanged("Group_desc")
 				end
@@ -258,6 +300,7 @@ namespace AppData
         public override method InitData ,void
         proc
 			init Product_group_main
+
 			RaisePropertyChanged(^null)
 			parent.InitData()
         endmethod
@@ -494,7 +537,66 @@ namespace AppData
 
 			mreturn result
 		endmethod
+		
+.region "Serialization over Symphony Bridge"
+		
+		
+		{JsonProperty}
+		public property SerializableSynergyRecord, [#]byte
+			method get
+			proc
+				data tmpSTR	,clsstrProduct_group
+				tmpSTR.csProd_group = (string)mAlphaConveter.Convert(product_group_main.STR_prod_group, ^null, ^null, ^null)
+				tmpSTR.csGroup_desc = (string)mAlphaConveter.Convert(product_group_main.STR_group_desc, ^null, ^null, ^null)
+				mreturn structureToByteArray(tmpSTR)
+			endmethod
+			method set
+			proc
+				data tmpSTR	,clsstrProduct_group
+				tmpSTR = byteArrayToStructure(value)
+				product_group_main.STR_Prod_group = (a)mAlphaConveter.ConvertBack(tmpSTR.csProd_group, ^null, ^null, ^null)
+				product_group_main.STR_Group_desc = (a)mAlphaConveter.ConvertBack(tmpSTR.csGroup_desc, ^null, ^null, ^null)
+			endmethod
+		endproperty
+			
+		private static method structureToByteArray	,[#]byte
+			tmpSTRUCT				,clsstrProduct_group
+			endparams
+		proc
+			data stream	,@MemoryStream , new MemoryStream()
+			begin
+				disposable data writer ,@BinaryWriter , new BinaryWriter(stream)
+				writer.Write(tmpSTRUCT.csProd_group)
+				writer.Write(tmpSTRUCT.csGroup_desc)
+			end
+			mreturn stream.ToArray()
+		endmethod
+		
+		private static method byteArrayToStructure	,clsstrProduct_group
+			bytearray, [#]byte  
+			endparams
+		proc
+			data tmpString	,string
+			data tmpSTRUCT	,clsstrProduct_group
+			data stream	,@MemoryStream	,new MemoryStream(byteArray)
+			begin
+				disposable data reader	,@BinaryReader	,new BinaryReader(stream)
+				tmpSTRUCT.csProd_group = reader.ReadString()
+				tmpSTRUCT.csGroup_desc = reader.ReadString()
+			end
 
+			mreturn tmpSTRUCT
+		endmethod
+		
+		public override property StructureSize	,Int32
+			method get
+			proc
+				mreturn RPSStructureSize
+			endmethod
+		endproperty
+
+.endregion
+		
 	endclass
 endnamespace
 

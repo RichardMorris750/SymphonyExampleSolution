@@ -8,29 +8,80 @@
 ;;
 ;;***************************************************************************
 import System
+import System.Collections
 import System.Collections.Generic
+import System.Collections.ObjectModel
+import System.Collections.Specialized
 import System.Text
+import System.Runtime.InteropServices
+import System.IO
 
 import Symphony.Conductor.Model
+import Symphony.Conductor.Converters
+
+import System.Reflection
+import System.Runtime.Serialization
+import Newtonsoft.Json
+
 
 namespace AppData
 
     ;;define a structure that we can use around the applicaiton
 
-    .include 'order_header' repository  , structure = 'STROrder_header', prefix = "str_", end
+	structure STROrder_header
+		.include 'order_header' repository  , norecord, prefix = "str_"
+	endstructure
 
+	{JsonObject(MemberSerialization.OptIn)}
     public partial class Order_header_Data extends Symphony.Conductor.Model.DataObjectBase
 
+		private cls structure clsstrOrder_header
+.align
+			public csOrder_no, Int32
+.align
+			public csSupp_code, String
+.align
+			public csOrder_date, DateTime
+.align
+			public csReqd_date, DateTime
+.align
+			public csComments, String
+.align
+			public csLine_count, Int32
+.align
+			public csTot_value, Decimal
+.align
+			public csTot_vat, Decimal
+.align
+			public csTot_qty, Int32
+		endstructure
+		
+		public static SynergyMemberInfo, @List<System.Reflection.MemberInfo>
+
 		public const RPSStructureName	,String	,"ORDER_HEADER"
+		public const RPSStructureSize	,Int32	,159
 
 		private order_header_main	,STROrder_header
 
 		private mDoneSynergyRecordValue	,boolean
-
+		
+		;;use symphony converters
+		private mDateConveter   ,@SynergyDecimalDateConverter ,new SynergyDecimalDateConverter()
+		private mAlphaConveter	,@SynergyAlphaConverter ,new SynergyAlphaConverter()
+		private mDecimalConveter  ,@SynergyDecimalConverter ,new SynergyDecimalConverter()
+		private mImpliedDecimalConveter ,@SynergyImpliedDecimalConverter  ,new SynergyImpliedDecimalConverter()
+		private mIntegerConveter  ,@SynergyIntConverter ,new SynergyIntConverter()
+		private mAlphaYNConveter	,@SynergyAlphaYNConverter, new SynergyAlphaYNConverter()
 
 		static method Order_header_Data
 			endparams
 		proc
+			data objectType = ^typeof(Order_header_Data)
+			SynergyMemberInfo = new List<System.Reflection.MemberInfo>() {
+			&	^as(RuntimeReflectionExtensions.GetRuntimeProperty(objectType, "SerializableSynergyRecord"), @System.Reflection.MemberInfo)
+			& }
+			defineSerialiazableDataElements()
+
 			mStaticFieldList = new List<BaseFieldInformation>()
 			mStaticFieldDictionary = new Dictionary<string, int>()
 			mStaticFieldNameList = new List<String>()
@@ -112,6 +163,9 @@ namespace AppData
 			mStaticFieldHeadingList.Add("Total Quantity")
 
 			mreturn
+		endmethod
+		
+		private partial static method defineSerialiazableDataElements, void
 		endmethod
 
         ;;; <summary>
@@ -247,144 +301,153 @@ namespace AppData
         ;;Expose fields as properties for data binding
         
         ;;Order_no
+		{JsonProperty}
 		public property Order_no, d6
 			method get
 			proc
-                mreturn Order_header_main.STR_Order_no
+                mreturn order_header_main.STR_Order_no
             endmethod
 			method set
 			proc
-				if (Order_header_main.STR_Order_no .ne. value)
+				if (order_header_main.STR_Order_no .ne. value)
 				begin
-										Order_header_main.STR_Order_no = value
+										order_header_main.STR_Order_no = value
 					ValidateEnteredData(1)
 					RaisePropertyChanged("Order_no")
 				end
 			endmethod
 		endproperty
         ;;Supp_code
+		{JsonProperty}
 		public property Supp_code, a6
 			method get
 			proc
-				mreturn %atrim(Order_header_main.STR_Supp_code)
+				mreturn %atrim(order_header_main.STR_Supp_code)
             endmethod
 			method set
 			proc
-					if (Order_header_main.STR_Supp_code .nes. value)
+					if (order_header_main.STR_Supp_code .nes. value)
 				begin
-										Order_header_main.STR_Supp_code = value
+										order_header_main.STR_Supp_code = value
 					ValidateEnteredData(2)
 					RaisePropertyChanged("Supp_code")
 				end
 			endmethod
 		endproperty
         ;;Order_date
+		{JsonProperty}
 		public property Order_date, d8
 			method get
 			proc
-                mreturn Order_header_main.STR_Order_date
+                mreturn order_header_main.STR_Order_date
             endmethod
 			method set
 			proc
-				if (Order_header_main.STR_Order_date .ne. value)
+				if (order_header_main.STR_Order_date .ne. value)
 				begin
-										Order_header_main.STR_Order_date = value
+										order_header_main.STR_Order_date = value
 					ValidateEnteredData(3)
 					RaisePropertyChanged("Order_date")
 				end
 			endmethod
 		endproperty
         ;;Reqd_date
+		{JsonProperty}
 		public property Reqd_date, d8
 			method get
 			proc
-                mreturn Order_header_main.STR_Reqd_date
+                mreturn order_header_main.STR_Reqd_date
             endmethod
 			method set
 			proc
-				if (Order_header_main.STR_Reqd_date .ne. value)
+				if (order_header_main.STR_Reqd_date .ne. value)
 				begin
-										Order_header_main.STR_Reqd_date = value
+										order_header_main.STR_Reqd_date = value
 					ValidateEnteredData(4)
 					RaisePropertyChanged("Reqd_date")
 				end
 			endmethod
 		endproperty
         ;;Comments
+		{JsonProperty}
 		public property Comments, a100
 			method get
 			proc
-				mreturn %atrim(Order_header_main.STR_Comments)
+				mreturn %atrim(order_header_main.STR_Comments)
             endmethod
 			method set
 			proc
-					if (Order_header_main.STR_Comments .nes. value)
+					if (order_header_main.STR_Comments .nes. value)
 				begin
-										Order_header_main.STR_Comments = value
+										order_header_main.STR_Comments = value
 					ValidateEnteredData(5)
 					RaisePropertyChanged("Comments")
 				end
 			endmethod
 		endproperty
         ;;Line_count
+		{JsonProperty}
 		public property Line_count, d5
 			method get
 			proc
-                mreturn Order_header_main.STR_Line_count
+                mreturn order_header_main.STR_Line_count
             endmethod
 			method set
 			proc
-				if (Order_header_main.STR_Line_count .ne. value)
+				if (order_header_main.STR_Line_count .ne. value)
 				begin
-										Order_header_main.STR_Line_count = value
+										order_header_main.STR_Line_count = value
 					ValidateEnteredData(6)
 					RaisePropertyChanged("Line_count")
 				end
 			endmethod
 		endproperty
         ;;Tot_value
+		{JsonProperty}
 		public property Tot_value, d10.2
 			method get
 			proc
-                mreturn Order_header_main.STR_Tot_value
+                mreturn order_header_main.STR_Tot_value
             endmethod
 			method set
 			proc
-				if (Order_header_main.STR_Tot_value .ne. value)
+				if (order_header_main.STR_Tot_value .ne. value)
 				begin
-										Order_header_main.STR_Tot_value = value
+										order_header_main.STR_Tot_value = value
 					ValidateEnteredData(7)
 					RaisePropertyChanged("Tot_value")
 				end
 			endmethod
 		endproperty
         ;;Tot_vat
+		{JsonProperty}
 		public property Tot_vat, d10.2
 			method get
 			proc
-                mreturn Order_header_main.STR_Tot_vat
+                mreturn order_header_main.STR_Tot_vat
             endmethod
 			method set
 			proc
-				if (Order_header_main.STR_Tot_vat .ne. value)
+				if (order_header_main.STR_Tot_vat .ne. value)
 				begin
-										Order_header_main.STR_Tot_vat = value
+										order_header_main.STR_Tot_vat = value
 					ValidateEnteredData(8)
 					RaisePropertyChanged("Tot_vat")
 				end
 			endmethod
 		endproperty
         ;;Tot_qty
+		{JsonProperty}
 		public property Tot_qty, d6
 			method get
 			proc
-                mreturn Order_header_main.STR_Tot_qty
+                mreturn order_header_main.STR_Tot_qty
             endmethod
 			method set
 			proc
-				if (Order_header_main.STR_Tot_qty .ne. value)
+				if (order_header_main.STR_Tot_qty .ne. value)
 				begin
-										Order_header_main.STR_Tot_qty = value
+										order_header_main.STR_Tot_qty = value
 					ValidateEnteredData(9)
 					RaisePropertyChanged("Tot_qty")
 				end
@@ -440,6 +503,7 @@ namespace AppData
         public override method InitData ,void
         proc
 			init Order_header_main
+
 			RaisePropertyChanged(^null)
 			parent.InitData()
         endmethod
@@ -1152,7 +1216,109 @@ namespace AppData
 
 			mreturn result
 		endmethod
+		
+.region "Serialization over Symphony Bridge"
+		
+		
+		{JsonProperty}
+		public property SerializableSynergyRecord, [#]byte
+			method get
+			proc
+				data tmpSTR	,clsstrOrder_header
+				tmpSTR.csOrder_no = (int32)mIntegerConveter.Convert(order_header_main.STR_order_no, ^null, ^null, ^null)
+				tmpSTR.csSupp_code = (string)mAlphaConveter.Convert(order_header_main.STR_supp_code, ^null, ^null, ^null)
+				if (order_header_main.STR_order_date)
+					tmpSTR.csOrder_date = (datetime?)mDateConveter.Convert(order_header_main.STR_order_date, ^null, "FORMAT:YYYYMMDD|NODEFAULTODAY", ^null)
+				if (order_header_main.STR_reqd_date)
+					tmpSTR.csReqd_date = (datetime?)mDateConveter.Convert(order_header_main.STR_reqd_date, ^null, "FORMAT:YYYYMMDD|NODEFAULTODAY", ^null)
+				tmpSTR.csComments = (string)mAlphaConveter.Convert(order_header_main.STR_comments, ^null, ^null, ^null)
+				tmpSTR.csLine_count = (int32)mIntegerConveter.Convert(order_header_main.STR_line_count, ^null, ^null, ^null)
+				tmpSTR.csTot_value = (decimal)mImpliedDecimalConveter.Convert(order_header_main.STR_tot_value, ^null, ^null, ^null)
+				tmpSTR.csTot_vat = (decimal)mImpliedDecimalConveter.Convert(order_header_main.STR_tot_vat, ^null, ^null, ^null)
+				tmpSTR.csTot_qty = (int32)mIntegerConveter.Convert(order_header_main.STR_tot_qty, ^null, ^null, ^null)
+				mreturn structureToByteArray(tmpSTR)
+			endmethod
+			method set
+			proc
+				data tmpSTR	,clsstrOrder_header
+				tmpSTR = byteArrayToStructure(value)
+				order_header_main.STR_Order_no = (d)((i)mIntegerConveter.ConvertBack(tmpSTR.csOrder_no, ^null, ^null, ^null))
+				order_header_main.STR_Supp_code = (a)mAlphaConveter.ConvertBack(tmpSTR.csSupp_code, ^null, ^null, ^null)
+				order_header_main.STR_Order_date = (d)mDateConveter.ConvertBack(tmpSTR.csOrder_date, ^null, "FORMAT:YYYYMMDD|NODEFAULTODAY", ^null)
+				order_header_main.STR_Reqd_date = (d)mDateConveter.ConvertBack(tmpSTR.csReqd_date, ^null, "FORMAT:YYYYMMDD|NODEFAULTODAY", ^null)
+				order_header_main.STR_Comments = (a)mAlphaConveter.ConvertBack(tmpSTR.csComments, ^null, ^null, ^null)
+				order_header_main.STR_Line_count = (d)((i)mIntegerConveter.ConvertBack(tmpSTR.csLine_count, ^null, ^null, ^null))
+				order_header_main.STR_Tot_value = (id)mImpliedDecimalConveter.ConvertBack(tmpSTR.csTot_value, ^null, ^null, ^null)
+				order_header_main.STR_Tot_vat = (id)mImpliedDecimalConveter.ConvertBack(tmpSTR.csTot_vat, ^null, ^null, ^null)
+				order_header_main.STR_Tot_qty = (d)((i)mIntegerConveter.ConvertBack(tmpSTR.csTot_qty, ^null, ^null, ^null))
+			endmethod
+		endproperty
+			
+		private static method structureToByteArray	,[#]byte
+			tmpSTRUCT				,clsstrOrder_header
+			endparams
+		proc
+			data stream	,@MemoryStream , new MemoryStream()
+			begin
+				disposable data writer ,@BinaryWriter , new BinaryWriter(stream)
+				writer.Write(tmpSTRUCT.csOrder_no.ToString())
+				writer.Write(tmpSTRUCT.csSupp_code)
+				if (tmpSTRUCT.csOrder_date.Ticks >= DateTime.MinValue.Ticks && tmpSTRUCT.csOrder_date.Ticks <= DateTime.MaxValue.Ticks) then
+					writer.Write(tmpSTRUCT.csOrder_date.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'"))
+				else
+					writer.Write("")
+				if (tmpSTRUCT.csReqd_date.Ticks >= DateTime.MinValue.Ticks && tmpSTRUCT.csReqd_date.Ticks <= DateTime.MaxValue.Ticks) then
+					writer.Write(tmpSTRUCT.csReqd_date.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'"))
+				else
+					writer.Write("")
+				writer.Write(tmpSTRUCT.csComments)
+				writer.Write(tmpSTRUCT.csLine_count.ToString())
+				writer.Write(tmpSTRUCT.csTot_value.ToString())
+				writer.Write(tmpSTRUCT.csTot_vat.ToString())
+				writer.Write(tmpSTRUCT.csTot_qty.ToString())
+			end
+			mreturn stream.ToArray()
+		endmethod
+		
+		private static method byteArrayToStructure	,clsstrOrder_header
+			bytearray, [#]byte  
+			endparams
+		proc
+			data tmpString	,string
+			data tmpSTRUCT	,clsstrOrder_header
+			data stream	,@MemoryStream	,new MemoryStream(byteArray)
+			begin
+				disposable data reader	,@BinaryReader	,new BinaryReader(stream)
+				tmpString = reader.ReadString()
+				tmpSTRUCT.csOrder_no = Convert.ToInt32(tmpString)
+				tmpSTRUCT.csSupp_code = reader.ReadString()
+				tmpString = reader.ReadString()
+				if (tmpString.Length > 0) tmpSTRUCT.csOrder_date = Convert.ToDateTime(tmpString)
+				tmpString = reader.ReadString()
+				if (tmpString.Length > 0) tmpSTRUCT.csReqd_date = Convert.ToDateTime(tmpString)
+				tmpSTRUCT.csComments = reader.ReadString()
+				tmpString = reader.ReadString()
+				tmpSTRUCT.csLine_count = Convert.ToInt32(tmpString)
+				tmpString = reader.ReadString()
+				tmpSTRUCT.csTot_value = Convert.ToDecimal(tmpString)
+				tmpString = reader.ReadString()
+				tmpSTRUCT.csTot_vat = Convert.ToDecimal(tmpString)
+				tmpString = reader.ReadString()
+				tmpSTRUCT.csTot_qty = Convert.ToInt32(tmpString)
+			end
 
+			mreturn tmpSTRUCT
+		endmethod
+		
+		public override property StructureSize	,Int32
+			method get
+			proc
+				mreturn RPSStructureSize
+			endmethod
+		endproperty
+
+.endregion
+		
 	endclass
 endnamespace
 

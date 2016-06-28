@@ -25,6 +25,20 @@
     <ResourceName />
     <NoWin32Manifest />
     <ProjEnvVars>RPSMFIL=$(SolutionDir)Rps\rpsmain.ism;RPSTFIL=$(SolutionDir)Rps\rpstext.ism</ProjEnvVars>
+    <Install>True</Install>
+    <ApplicationVersion>1.0.0.*</ApplicationVersion>
+    <ApplicationRevision>0</ApplicationRevision>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>False</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>False</UpdatePeriodically>
+    <UpdateRequired>False</UpdateRequired>
+    <MapFileExtensions>True</MapFileExtensions>
+    <IsWebBootstrapper>False</IsWebBootstrapper>
+    <UseApplicationTrust>False</UseApplicationTrust>
+    <BootstrapperEnabled>True</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <IncludeDebugInformation>true</IncludeDebugInformation>
@@ -61,6 +75,8 @@
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="SymphonyAdapter, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
       <HintPath>..\packages\SymphonyFramework.3.2.4\lib\net45\SymphonyAdapter.dll</HintPath>
       <Private>True</Private>
@@ -103,16 +119,16 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>..\packages\Blend.Interctivity.WPF.v4.0.1.0.3\lib\net40\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Local_criteria_Data.CodeGen.dbc" />
-    <Compile Include="Local_criteria_DFM.CodeGen.dbc" />
     <Compile Include="Order_header_Data.CodeGen.dbc" />
     <Compile Include="Order_header_DFM.CodeGen.dbc" />
     <Compile Include="Order_header_FileIO.CodeGen.dbc" />
@@ -128,6 +144,7 @@
     <Compile Include="Product_group_DFM.CodeGen.dbc" />
     <Compile Include="Product_group_FileIO.CodeGen.dbc" />
     <Compile Include="Properties\AssemblyInfo.dbl" />
+    <Compile Include="Selections_Data.CodeGen.dbc" />
     <Compile Include="Supplier_Data.CodeGen.dbc" />
     <Compile Include="Supplier_DFM.CodeGen.dbc" />
     <Compile Include="Supplier_FileIO.CodeGen.dbc" />
@@ -138,6 +155,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Install>True</Install>
+      <ProductName>Microsoft .NET Framework 4.5.2 (x86 and x64)</ProductName>
+      <Visible>False</Visible>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Install>False</Install>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Visible>False</Visible>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Synergex\VS2010\Synergex.SynergyDE.targets" />
   <PropertyGroup>

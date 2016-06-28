@@ -15,6 +15,8 @@ import Symphony.Conductor.Commands
 import Symphony.Conductor.DataIO
 import Symphony.Conductor.Types
 
+import SFEBusinessLogic
+
 
 namespace SupplierReport
 
@@ -29,30 +31,67 @@ namespace SupplierReport
 	
 		proc
 
-			mlocal_criteria = new Local_Criteria_Data()
-;			addhandler(mlocal_criteria.IsDataValidChanged, dataChanged_event)
+			mSelections = new Selections_Data()
+			addhandler(mSelections.IsDataValidChanged, dataChanged_event)
+
+			mSelections.Start_supp = 'A'
+			mSelections.End_supp = 'Z'
 		endmethod
 		
 		;;what for changes
 		
-;		private method dataChanged_event, void
-;			endparams
-;		proc
-;			mDorReportCommand.ExecuteState = (mLocal_criteria.start_supp <= mLocal_criteria.end_Supp )
-;		endmethod
+		private method dataChanged_event, void
+			endparams
+		proc
+			mDoReportCommand.ExecuteState = (mStartSupp <= mEndSupp )
+		endmethod
 		
 		;;data field bindings
 		
-		private mLocal_criteria	,@Local_Criteria_Data
-		
-		public property ProgramOptions, @Local_Criteria_Data
+		private mStartSupp	,string
+		private mEndSupp	, string
+
+
+		private mSelections	,@Selections_Data
+
+		public property StartSupp, string
 			method get
 			proc
-				mreturn mLocal_criteria
+				mreturn mStartSupp
+;				mreturn mSelections.Start_supp
 			endmethod
 			method set
 			proc
-				mLocal_criteria = value
+				mStartSupp = value
+;				mSelections.Start_supp = value
+				RaisePropertyChanged("StartSupp")
+			endmethod
+		endproperty
+		
+
+		public property EndSupp, string
+			method get
+			proc
+;				mreturn mSelections.End_supp
+				mreturn mEndSupp
+			endmethod
+			method set
+				proc
+;				mSelections.End_supp = value
+				RaisePropertyChanged("EndSupp")
+				mEndSupp = value
+			endmethod
+		endproperty
+
+
+		public property ProgramOptions, @Selections_Data
+			method get
+			proc
+				mreturn mSelections
+			endmethod
+			method set
+			proc
+				mSelections = value
 			endmethod
 		endproperty
 		
@@ -67,12 +106,12 @@ namespace SupplierReport
 				begin
 					lambda doCommand(sender, param)
 					begin
-						data repData	,STRlocal_criteria
-						repData = mLocal_Criteria.SynergyRecord
-;						BuildReport(repData)
+						data repData	,STRSelections
+;						repData = mSelections.SynergyRecord
+						SFEBusinessLogic.SupplierReport.Print(mStartSupp,mEndSupp,'R')
 					end
 					mDoReportCommand = new GenericCommand("REPORT", doCommand)
-;					dataChanged_event()
+					dataChanged_event()
 				end
 				mreturn mDoReportCommand
 			endmethod

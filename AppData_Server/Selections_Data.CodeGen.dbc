@@ -28,28 +28,34 @@ namespace AppData
 
     ;;define a structure that we can use around the applicaiton
 
-	structure STRLocal_criteria
-		.include 'local_criteria' repository  , norecord, prefix = "str_"
+	structure STRSelections
+		.include 'selections' repository  , norecord, prefix = "str_"
 	endstructure
 
 	{JsonObject(MemberSerialization.OptIn)}
-    public partial class Local_criteria_Data extends Symphony.Conductor.Model.DataObjectBase
+    public partial class Selections_Data extends Symphony.Conductor.Model.DataObjectBase
 
-		private cls structure clsstrLocal_criteria
+		private cls structure clsstrSelections
 .align
 			public csStart_supp, String
 .align
-			public csKey_word, String
+			public csStart_prod, String
 .align
 			public csEnd_supp, String
+.align
+			public csEnd_prod, String
+.align
+			public csKeyword, String
+.align
+			public csReport_type, String
 		endstructure
 		
 		public static SynergyMemberInfo, @List<System.Reflection.MemberInfo>
 
-		public const RPSStructureName	,String	,"LOCAL_CRITERIA"
-		public const RPSStructureSize	,Int32	,42
+		public const RPSStructureName	,String	,"SELECTIONS"
+		public const RPSStructureSize	,Int32	,45
 
-		private local_criteria_main	,STRLocal_criteria
+		private selections_main	,STRSelections
 
 		private mDoneSynergyRecordValue	,boolean
 		
@@ -61,10 +67,10 @@ namespace AppData
 		private mIntegerConveter  ,@SynergyIntConverter ,new SynergyIntConverter()
 		private mAlphaYNConveter	,@SynergyAlphaYNConverter, new SynergyAlphaYNConverter()
 
-		static method Local_criteria_Data
+		static method Selections_Data
 			endparams
 		proc
-			data objectType = ^typeof(Local_criteria_Data)
+			data objectType = ^typeof(Selections_Data)
 			SynergyMemberInfo = new List<System.Reflection.MemberInfo>() {
 			&	^as(RuntimeReflectionExtensions.GetRuntimeProperty(objectType, "SerializableSynergyRecord"), @System.Reflection.MemberInfo)
 			& }
@@ -83,24 +89,48 @@ namespace AppData
 			&	"ALPHA", false, 0, 0)
 
 			
-			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "KEY_WORD", "Key_word",  "", "",
-			&	"", "KEY_WORD", 7, 30,
+			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "START_PROD", "Start_prod",  "", "",
+			&	"", "START_PROD", 7, 6,
 			&	0, 0, 0, 0,
 			&	"ALPHA", false, 0, 0)
 
 			
 			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "END_SUPP", "End_supp",  "", "",
-			&	"", "END_SUPP", 37, 6,
+			&	"", "END_SUPP", 13, 6,
+			&	0, 0, 0, 0,
+			&	"ALPHA", false, 0, 0)
+
+			
+			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "END_PROD", "End_prod",  "", "",
+			&	"", "END_PROD", 19, 6,
+			&	0, 0, 0, 0,
+			&	"ALPHA", false, 0, 0)
+
+			
+			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "KEYWORD", "Keyword",  "", "",
+			&	"", "KEYWORD", 25, 20,
+			&	0, 0, 0, 0,
+			&	"ALPHA", false, 0, 0)
+
+			
+			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "REPORT_TYPE", "Report_type",  "", "",
+			&	"", "REPORT_TYPE", 45, 1,
 			&	0, 0, 0, 0,
 			&	"ALPHA", false, 0, 0)
 
 
 			mStaticFieldNameList.Add("Start_supp")
-			mStaticFieldHeadingList.Add("Start Supplier")
-			mStaticFieldNameList.Add("Key_word")
-			mStaticFieldHeadingList.Add("Key Word")
+			mStaticFieldHeadingList.Add("First Supplier")
+			mStaticFieldNameList.Add("Start_prod")
+			mStaticFieldHeadingList.Add("First Product")
 			mStaticFieldNameList.Add("End_supp")
-			mStaticFieldHeadingList.Add("End Supplier")
+			mStaticFieldHeadingList.Add("Last Supplier")
+			mStaticFieldNameList.Add("End_prod")
+			mStaticFieldHeadingList.Add("Last Product")
+			mStaticFieldNameList.Add("Keyword")
+			mStaticFieldHeadingList.Add("Key Word")
+			mStaticFieldNameList.Add("Report_type")
+			mStaticFieldHeadingList.Add("Report Type")
 
 			mreturn
 		endmethod
@@ -111,7 +141,7 @@ namespace AppData
         ;;; <summary>
         ;;;  Constructor, initialise the base fields
         ;;; </summary>
-        public method Local_criteria_Data
+        public method Selections_Data
             endparams
             parent()
         proc
@@ -129,7 +159,7 @@ namespace AppData
         ;;; Alternate constructor, accepts the inital value to assign to the object
         ;;; </summary>
         ;;; <param name="synRec">Provide the data to load into the _DATAOBJECT_</param>
-        public method Local_criteria_Data
+        public method Selections_Data
             in req synRec       ,String
             endparams
             parent()
@@ -140,7 +170,7 @@ namespace AppData
 			mIsNew = false
 			configureFieldInfo()
 			setFieldNames()
-			local_criteria_main = synRec
+			selections_main = synRec
 			;OriginalSynergyRecord = synRec
 			extendedConstructor()
         endmethod
@@ -149,8 +179,8 @@ namespace AppData
 		;;; Alternate constructor, accepts the inital value to assign to the object
 		;;; </summary>
 		;;; <param name="synRec">Provide the data to load into the _DATAOBJECT_</param>
-		public method Local_criteria_Data
-			in req synRec       ,STRLocal_criteria
+		public method Selections_Data
+			in req synRec       ,STRSelections
 			endparams
 			parent()
 		proc
@@ -160,7 +190,7 @@ namespace AppData
 			mIsNew = false
 			configureFieldInfo()
 			setFieldNames()
-			local_criteria_main = synRec
+			selections_main = synRec
 			;OriginalSynergyRecord = synRec
 			extendedConstructor()
 		endmethod
@@ -171,7 +201,7 @@ namespace AppData
 		;;; </summary>
 		;;; <param name="synRec">Provide the data to load into the _DATAOBJECT_</param>
 		;;; <param name="notifyUI">values passed onto the ObjectRaisesPropertyChanged property.</param>
-		public method Local_criteria_Data
+		public method Selections_Data
 			in req synRec       ,String
 			in req notifyUI		,DataObjectNotificationState
 			endparams
@@ -184,7 +214,7 @@ namespace AppData
 			mIsNew = false
 			configureFieldInfo()
 			setFieldNames()
-			local_criteria_main = synRec
+			selections_main = synRec
 			;OriginalSynergyRecord = synRec
 			extendedConstructor()
 		endmethod
@@ -195,8 +225,8 @@ namespace AppData
 		;;; </summary>
 		;;; <param name="synRec">Provide the data to load into the _DATAOBJECT_</param>
 		;;; <param name="notifyUI">values passed onto the ObjectRaisesPropertyChanged property.</param>
-		public method Local_criteria_Data
-			in req synRec       ,STRLocal_criteria
+		public method Selections_Data
+			in req synRec       ,STRSelections
 			in req notifyUI		,DataObjectNotificationState
 			endparams
 			parent()
@@ -208,7 +238,7 @@ namespace AppData
 			mIsNew = false
 			configureFieldInfo()
 			setFieldNames()
-			local_criteria_main = synRec
+			selections_main = synRec
 ;			OriginalSynergyRecord = synRec
 			extendedConstructor()
 		endmethod
@@ -245,32 +275,32 @@ namespace AppData
 		public property Start_supp, a6
 			method get
 			proc
-				mreturn %atrim(local_criteria_main.STR_Start_supp)
+				mreturn %atrim(selections_main.STR_Start_supp)
             endmethod
 			method set
 			proc
-					if (local_criteria_main.STR_Start_supp .nes. value)
+					if (selections_main.STR_Start_supp .nes. value)
 				begin
-										local_criteria_main.STR_Start_supp = value
+										selections_main.STR_Start_supp = value
 					ValidateEnteredData(1)
 					RaisePropertyChanged("Start_supp")
 				end
 			endmethod
 		endproperty
-        ;;Key_word
+        ;;Start_prod
 		{JsonProperty}
-		public property Key_word, a30
+		public property Start_prod, a6
 			method get
 			proc
-				mreturn %atrim(local_criteria_main.STR_Key_word)
+				mreturn %atrim(selections_main.STR_Start_prod)
             endmethod
 			method set
 			proc
-					if (local_criteria_main.STR_Key_word .nes. value)
+					if (selections_main.STR_Start_prod .nes. value)
 				begin
-										local_criteria_main.STR_Key_word = value
+										selections_main.STR_Start_prod = value
 					ValidateEnteredData(2)
-					RaisePropertyChanged("Key_word")
+					RaisePropertyChanged("Start_prod")
 				end
 			endmethod
 		endproperty
@@ -279,15 +309,66 @@ namespace AppData
 		public property End_supp, a6
 			method get
 			proc
-				mreturn %atrim(local_criteria_main.STR_End_supp)
+				mreturn %atrim(selections_main.STR_End_supp)
             endmethod
 			method set
 			proc
-					if (local_criteria_main.STR_End_supp .nes. value)
+					if (selections_main.STR_End_supp .nes. value)
 				begin
-										local_criteria_main.STR_End_supp = value
+										selections_main.STR_End_supp = value
 					ValidateEnteredData(3)
 					RaisePropertyChanged("End_supp")
+				end
+			endmethod
+		endproperty
+        ;;End_prod
+		{JsonProperty}
+		public property End_prod, a6
+			method get
+			proc
+				mreturn %atrim(selections_main.STR_End_prod)
+            endmethod
+			method set
+			proc
+					if (selections_main.STR_End_prod .nes. value)
+				begin
+										selections_main.STR_End_prod = value
+					ValidateEnteredData(4)
+					RaisePropertyChanged("End_prod")
+				end
+			endmethod
+		endproperty
+        ;;Keyword
+		{JsonProperty}
+		public property Keyword, a20
+			method get
+			proc
+				mreturn %atrim(selections_main.STR_Keyword)
+            endmethod
+			method set
+			proc
+					if (selections_main.STR_Keyword .nes. value)
+				begin
+										selections_main.STR_Keyword = value
+					ValidateEnteredData(5)
+					RaisePropertyChanged("Keyword")
+				end
+			endmethod
+		endproperty
+        ;;Report_type
+		{JsonProperty}
+		public property Report_type, a1
+			method get
+			proc
+				mreturn %atrim(selections_main.STR_Report_type)
+            endmethod
+			method set
+			proc
+					if (selections_main.STR_Report_type .nes. value)
+				begin
+										selections_main.STR_Report_type = value
+					ValidateEnteredData(6)
+					RaisePropertyChanged("Report_type")
 				end
 			endmethod
 		endproperty
@@ -298,7 +379,7 @@ namespace AppData
 		public override property SynergyRecord, String
             method get
             proc
-                mreturn (String)Local_criteria_main
+                mreturn (String)Selections_main
             endmethod
             method set
             proc
@@ -308,16 +389,22 @@ namespace AppData
 				mDoneSynergyRecordValue = true
 				
 				setUsed()
-                Local_criteria_main = value
+                Selections_main = value
 
                 ;;Signal that all fields have changed
                 
 				SetFieldValid("Start_supp")
 									if (mValidateSynergyData) ValidateEnteredData(1)
-				SetFieldValid("Key_word")
+				SetFieldValid("Start_prod")
 									if (mValidateSynergyData) ValidateEnteredData(2)
 				SetFieldValid("End_supp")
 									if (mValidateSynergyData) ValidateEnteredData(3)
+				SetFieldValid("End_prod")
+									if (mValidateSynergyData) ValidateEnteredData(4)
+				SetFieldValid("Keyword")
+									if (mValidateSynergyData) ValidateEnteredData(5)
+				SetFieldValid("Report_type")
+									if (mValidateSynergyData) ValidateEnteredData(6)
 				RaisePropertyChanged(^null)
 				RaiseSynergyRecordChanged()
             endmethod
@@ -328,7 +415,7 @@ namespace AppData
         ;;; </summary>
         public override method InitData ,void
         proc
-			init Local_criteria_main
+			init Selections_main
 
 			RaisePropertyChanged(^null)
 			parent.InitData()
@@ -344,9 +431,15 @@ namespace AppData
 				            ValidateEnteredData(1)
             RaisePropertyChanged("Start_supp")
 				            ValidateEnteredData(2)
-            RaisePropertyChanged("Key_word")
+            RaisePropertyChanged("Start_prod")
 				            ValidateEnteredData(3)
             RaisePropertyChanged("End_supp")
+				            ValidateEnteredData(4)
+            RaisePropertyChanged("End_prod")
+				            ValidateEnteredData(5)
+            RaisePropertyChanged("Keyword")
+				            ValidateEnteredData(6)
+            RaisePropertyChanged("Report_type")
 
         endmethod
 
@@ -364,9 +457,15 @@ namespace AppData
 			
             ("START_SUPP"), mCurrentField = 1
 			
-            ("KEY_WORD"), mCurrentField = 2
+            ("START_PROD"), mCurrentField = 2
 			
             ("END_SUPP"), mCurrentField = 3
+			
+            ("END_PROD"), mCurrentField = 4
+			
+            ("KEYWORD"), mCurrentField = 5
+			
+            ("REPORT_TYPE"), mCurrentField = 6
             (),
                 mCurrentField = 0
             endusing
@@ -388,6 +487,12 @@ namespace AppData
                 (2),    mreturn ""
 				
                 (3),    mreturn ""
+				
+                (4),    mreturn ""
+				
+                (5),    mreturn ""
+				
+                (6),    mreturn ""
 				(), mreturn ""  ;;if incorrect field value or not configured, ensure we clear the return value
                 endusing
             endmethod
@@ -410,7 +515,7 @@ namespace AppData
         endproperty
 		
 
-        public property Key_wordIsEnabled, Boolean
+        public property Start_prodIsEnabled, Boolean
             method get
             proc
                 mreturn GetFieldEnabledState(2)
@@ -418,7 +523,7 @@ namespace AppData
             method set
             proc
                 SetFieldEnabledState(2, value)
-                RaiseNonRPSPropertyChanged("Key_wordIsEnabled")
+                RaiseNonRPSPropertyChanged("Start_prodIsEnabled")
             endmethod
         endproperty
 		
@@ -432,6 +537,45 @@ namespace AppData
             proc
                 SetFieldEnabledState(3, value)
                 RaiseNonRPSPropertyChanged("End_suppIsEnabled")
+            endmethod
+        endproperty
+		
+
+        public property End_prodIsEnabled, Boolean
+            method get
+            proc
+                mreturn GetFieldEnabledState(4)
+            endmethod
+            method set
+            proc
+                SetFieldEnabledState(4, value)
+                RaiseNonRPSPropertyChanged("End_prodIsEnabled")
+            endmethod
+        endproperty
+		
+
+        public property KeywordIsEnabled, Boolean
+            method get
+            proc
+                mreturn GetFieldEnabledState(5)
+            endmethod
+            method set
+            proc
+                SetFieldEnabledState(5, value)
+                RaiseNonRPSPropertyChanged("KeywordIsEnabled")
+            endmethod
+        endproperty
+		
+
+        public property Report_typeIsEnabled, Boolean
+            method get
+            proc
+                mreturn GetFieldEnabledState(6)
+            endmethod
+            method set
+            proc
+                SetFieldEnabledState(6, value)
+                RaiseNonRPSPropertyChanged("Report_typeIsEnabled")
             endmethod
         endproperty
 
@@ -449,17 +593,17 @@ namespace AppData
 				RaiseNonRPSPropertyChanged("Start_suppIsFocused")
 			endmethod
 		endproperty
-		private mKey_wordIsFocused	,Boolean
-		public property Key_wordIsFocused, Boolean
+		private mStart_prodIsFocused	,Boolean
+		public property Start_prodIsFocused, Boolean
 			method get
 			proc
-				mreturn mKey_wordIsFocused
+				mreturn mStart_prodIsFocused
 			endmethod
 			method set
 			proc
 				clearFocus()
-				mKey_wordIsFocused = value
-				RaiseNonRPSPropertyChanged("Key_wordIsFocused")
+				mStart_prodIsFocused = value
+				RaiseNonRPSPropertyChanged("Start_prodIsFocused")
 			endmethod
 		endproperty
 		private mEnd_suppIsFocused	,Boolean
@@ -473,6 +617,45 @@ namespace AppData
 				clearFocus()
 				mEnd_suppIsFocused = value
 				RaiseNonRPSPropertyChanged("End_suppIsFocused")
+			endmethod
+		endproperty
+		private mEnd_prodIsFocused	,Boolean
+		public property End_prodIsFocused, Boolean
+			method get
+			proc
+				mreturn mEnd_prodIsFocused
+			endmethod
+			method set
+			proc
+				clearFocus()
+				mEnd_prodIsFocused = value
+				RaiseNonRPSPropertyChanged("End_prodIsFocused")
+			endmethod
+		endproperty
+		private mKeywordIsFocused	,Boolean
+		public property KeywordIsFocused, Boolean
+			method get
+			proc
+				mreturn mKeywordIsFocused
+			endmethod
+			method set
+			proc
+				clearFocus()
+				mKeywordIsFocused = value
+				RaiseNonRPSPropertyChanged("KeywordIsFocused")
+			endmethod
+		endproperty
+		private mReport_typeIsFocused	,Boolean
+		public property Report_typeIsFocused, Boolean
+			method get
+			proc
+				mreturn mReport_typeIsFocused
+			endmethod
+			method set
+			proc
+				clearFocus()
+				mReport_typeIsFocused = value
+				RaiseNonRPSPropertyChanged("Report_typeIsFocused")
 			endmethod
 		endproperty
 
@@ -493,7 +676,7 @@ namespace AppData
 		endproperty
 		
 
-		public property Key_wordIsReadOnly, Boolean
+		public property Start_prodIsReadOnly, Boolean
 			method get
 			proc
 				mreturn GetFieldReadOnlyState(2)
@@ -501,7 +684,7 @@ namespace AppData
 			method set
 			proc
 				SetFieldReadOnlyState(2, value)
-				RaiseNonRPSPropertyChanged("Key_wordIsReadOnly")
+				RaiseNonRPSPropertyChanged("Start_prodIsReadOnly")
 			endmethod
 		endproperty
 		
@@ -517,6 +700,45 @@ namespace AppData
 				RaiseNonRPSPropertyChanged("End_suppIsReadOnly")
 			endmethod
 		endproperty
+		
+
+		public property End_prodIsReadOnly, Boolean
+			method get
+			proc
+				mreturn GetFieldReadOnlyState(4)
+			endmethod
+			method set
+			proc
+				SetFieldReadOnlyState(4, value)
+				RaiseNonRPSPropertyChanged("End_prodIsReadOnly")
+			endmethod
+		endproperty
+		
+
+		public property KeywordIsReadOnly, Boolean
+			method get
+			proc
+				mreturn GetFieldReadOnlyState(5)
+			endmethod
+			method set
+			proc
+				SetFieldReadOnlyState(5, value)
+				RaiseNonRPSPropertyChanged("KeywordIsReadOnly")
+			endmethod
+		endproperty
+		
+
+		public property Report_typeIsReadOnly, Boolean
+			method get
+			proc
+				mreturn GetFieldReadOnlyState(6)
+			endmethod
+			method set
+			proc
+				SetFieldReadOnlyState(6, value)
+				RaiseNonRPSPropertyChanged("Report_typeIsReadOnly")
+			endmethod
+		endproperty
 
 		private doingClearFocus	,Boolean
 
@@ -527,8 +749,11 @@ namespace AppData
 			begin
 				doingClearFocus = true
 				if (Start_suppIsFocused) Start_suppIsFocused = false
-				if (Key_wordIsFocused) Key_wordIsFocused = false
+				if (Start_prodIsFocused) Start_prodIsFocused = false
 				if (End_suppIsFocused) End_suppIsFocused = false
+				if (End_prodIsFocused) End_prodIsFocused = false
+				if (KeywordIsFocused) KeywordIsFocused = false
+				if (Report_typeIsFocused) Report_typeIsFocused = false
 				doingClearFocus = false
 			end
 		endmethod
@@ -564,11 +789,11 @@ namespace AppData
 			using colName select
 			("Start_supp"),
 			begin
-				if (((Local_criteria_Data)obj1).Start_supp == ((Local_criteria_Data)obj2).Start_supp) then
+				if (((Selections_Data)obj1).Start_supp == ((Selections_Data)obj2).Start_supp) then
 					result = 0
 				else
 				begin
-					if (((Local_criteria_Data)obj1).Start_supp > ((Local_criteria_Data)obj2).Start_supp) then
+					if (((Selections_Data)obj1).Start_supp > ((Selections_Data)obj2).Start_supp) then
 					begin
 						if (sortDir == Symphony.Conductor.Framework.SynergySortOrder.Ascending) then
 							result = -1
@@ -584,13 +809,13 @@ namespace AppData
 					end
 				end
 			end
-			("Key_word"),
+			("Start_prod"),
 			begin
-				if (((Local_criteria_Data)obj1).Key_word == ((Local_criteria_Data)obj2).Key_word) then
+				if (((Selections_Data)obj1).Start_prod == ((Selections_Data)obj2).Start_prod) then
 					result = 0
 				else
 				begin
-					if (((Local_criteria_Data)obj1).Key_word > ((Local_criteria_Data)obj2).Key_word) then
+					if (((Selections_Data)obj1).Start_prod > ((Selections_Data)obj2).Start_prod) then
 					begin
 						if (sortDir == Symphony.Conductor.Framework.SynergySortOrder.Ascending) then
 							result = -1
@@ -608,11 +833,77 @@ namespace AppData
 			end
 			("End_supp"),
 			begin
-				if (((Local_criteria_Data)obj1).End_supp == ((Local_criteria_Data)obj2).End_supp) then
+				if (((Selections_Data)obj1).End_supp == ((Selections_Data)obj2).End_supp) then
 					result = 0
 				else
 				begin
-					if (((Local_criteria_Data)obj1).End_supp > ((Local_criteria_Data)obj2).End_supp) then
+					if (((Selections_Data)obj1).End_supp > ((Selections_Data)obj2).End_supp) then
+					begin
+						if (sortDir == Symphony.Conductor.Framework.SynergySortOrder.Ascending) then
+							result = -1
+						else
+							result = 1
+					end
+					else
+					begin
+						if (sortDir == Symphony.Conductor.Framework.SynergySortOrder.Descending) then
+							result = -1
+						else
+							result = 1
+					end
+				end
+			end
+			("End_prod"),
+			begin
+				if (((Selections_Data)obj1).End_prod == ((Selections_Data)obj2).End_prod) then
+					result = 0
+				else
+				begin
+					if (((Selections_Data)obj1).End_prod > ((Selections_Data)obj2).End_prod) then
+					begin
+						if (sortDir == Symphony.Conductor.Framework.SynergySortOrder.Ascending) then
+							result = -1
+						else
+							result = 1
+					end
+					else
+					begin
+						if (sortDir == Symphony.Conductor.Framework.SynergySortOrder.Descending) then
+							result = -1
+						else
+							result = 1
+					end
+				end
+			end
+			("Keyword"),
+			begin
+				if (((Selections_Data)obj1).Keyword == ((Selections_Data)obj2).Keyword) then
+					result = 0
+				else
+				begin
+					if (((Selections_Data)obj1).Keyword > ((Selections_Data)obj2).Keyword) then
+					begin
+						if (sortDir == Symphony.Conductor.Framework.SynergySortOrder.Ascending) then
+							result = -1
+						else
+							result = 1
+					end
+					else
+					begin
+						if (sortDir == Symphony.Conductor.Framework.SynergySortOrder.Descending) then
+							result = -1
+						else
+							result = 1
+					end
+				end
+			end
+			("Report_type"),
+			begin
+				if (((Selections_Data)obj1).Report_type == ((Selections_Data)obj2).Report_type) then
+					result = 0
+				else
+				begin
+					if (((Selections_Data)obj1).Report_type > ((Selections_Data)obj2).Report_type) then
 					begin
 						if (sortDir == Symphony.Conductor.Framework.SynergySortOrder.Ascending) then
 							result = -1
@@ -642,48 +933,60 @@ namespace AppData
 		public property SerializableSynergyRecord, [#]byte
 			method get
 			proc
-				data tmpSTR	,clsstrLocal_criteria
-				tmpSTR.csStart_supp = (string)mAlphaConveter.Convert(local_criteria_main.STR_start_supp, ^null, ^null, ^null)
-				tmpSTR.csKey_word = (string)mAlphaConveter.Convert(local_criteria_main.STR_key_word, ^null, ^null, ^null)
-				tmpSTR.csEnd_supp = (string)mAlphaConveter.Convert(local_criteria_main.STR_end_supp, ^null, ^null, ^null)
+				data tmpSTR	,clsstrSelections
+				tmpSTR.csStart_supp = (string)mAlphaConveter.Convert(selections_main.STR_start_supp, ^null, ^null, ^null)
+				tmpSTR.csStart_prod = (string)mAlphaConveter.Convert(selections_main.STR_start_prod, ^null, ^null, ^null)
+				tmpSTR.csEnd_supp = (string)mAlphaConveter.Convert(selections_main.STR_end_supp, ^null, ^null, ^null)
+				tmpSTR.csEnd_prod = (string)mAlphaConveter.Convert(selections_main.STR_end_prod, ^null, ^null, ^null)
+				tmpSTR.csKeyword = (string)mAlphaConveter.Convert(selections_main.STR_keyword, ^null, ^null, ^null)
+				tmpSTR.csReport_type = (string)mAlphaConveter.Convert(selections_main.STR_report_type, ^null, ^null, ^null)
 				mreturn structureToByteArray(tmpSTR)
 			endmethod
 			method set
 			proc
-				data tmpSTR	,clsstrLocal_criteria
+				data tmpSTR	,clsstrSelections
 				tmpSTR = byteArrayToStructure(value)
-				local_criteria_main.STR_Start_supp = (a)mAlphaConveter.ConvertBack(tmpSTR.csStart_supp, ^null, ^null, ^null)
-				local_criteria_main.STR_Key_word = (a)mAlphaConveter.ConvertBack(tmpSTR.csKey_word, ^null, ^null, ^null)
-				local_criteria_main.STR_End_supp = (a)mAlphaConveter.ConvertBack(tmpSTR.csEnd_supp, ^null, ^null, ^null)
+				selections_main.STR_Start_supp = (a)mAlphaConveter.ConvertBack(tmpSTR.csStart_supp, ^null, ^null, ^null)
+				selections_main.STR_Start_prod = (a)mAlphaConveter.ConvertBack(tmpSTR.csStart_prod, ^null, ^null, ^null)
+				selections_main.STR_End_supp = (a)mAlphaConveter.ConvertBack(tmpSTR.csEnd_supp, ^null, ^null, ^null)
+				selections_main.STR_End_prod = (a)mAlphaConveter.ConvertBack(tmpSTR.csEnd_prod, ^null, ^null, ^null)
+				selections_main.STR_Keyword = (a)mAlphaConveter.ConvertBack(tmpSTR.csKeyword, ^null, ^null, ^null)
+				selections_main.STR_Report_type = (a)mAlphaConveter.ConvertBack(tmpSTR.csReport_type, ^null, ^null, ^null)
 			endmethod
 		endproperty
 			
 		private static method structureToByteArray	,[#]byte
-			tmpSTRUCT				,clsstrLocal_criteria
+			tmpSTRUCT				,clsstrSelections
 			endparams
 		proc
 			data stream	,@MemoryStream , new MemoryStream()
 			begin
 				disposable data writer ,@BinaryWriter , new BinaryWriter(stream)
 				writer.Write(tmpSTRUCT.csStart_supp)
-				writer.Write(tmpSTRUCT.csKey_word)
+				writer.Write(tmpSTRUCT.csStart_prod)
 				writer.Write(tmpSTRUCT.csEnd_supp)
+				writer.Write(tmpSTRUCT.csEnd_prod)
+				writer.Write(tmpSTRUCT.csKeyword)
+				writer.Write(tmpSTRUCT.csReport_type)
 			end
 			mreturn stream.ToArray()
 		endmethod
 		
-		private static method byteArrayToStructure	,clsstrLocal_criteria
+		private static method byteArrayToStructure	,clsstrSelections
 			bytearray, [#]byte  
 			endparams
 		proc
 			data tmpString	,string
-			data tmpSTRUCT	,clsstrLocal_criteria
+			data tmpSTRUCT	,clsstrSelections
 			data stream	,@MemoryStream	,new MemoryStream(byteArray)
 			begin
 				disposable data reader	,@BinaryReader	,new BinaryReader(stream)
 				tmpSTRUCT.csStart_supp = reader.ReadString()
-				tmpSTRUCT.csKey_word = reader.ReadString()
+				tmpSTRUCT.csStart_prod = reader.ReadString()
 				tmpSTRUCT.csEnd_supp = reader.ReadString()
+				tmpSTRUCT.csEnd_prod = reader.ReadString()
+				tmpSTRUCT.csKeyword = reader.ReadString()
+				tmpSTRUCT.csReport_type = reader.ReadString()
 			end
 
 			mreturn tmpSTRUCT

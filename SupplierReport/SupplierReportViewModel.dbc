@@ -34,8 +34,8 @@ namespace SupplierReport
 			mSelections = new Selections_Data()
 			addhandler(mSelections.IsDataValidChanged, dataChanged_event)
 
-			mSelections.Start_supp = 'A'
-			mSelections.End_supp = 'Z'
+			mReportType = 'R'
+
 		endmethod
 		
 		;;what for changes
@@ -50,6 +50,8 @@ namespace SupplierReport
 		
 		private mStartSupp	,string
 		private mEndSupp	, string
+
+		private mReportType	,string
 
 
 		private mSelections	,@Selections_Data
@@ -83,6 +85,21 @@ namespace SupplierReport
 			endmethod
 		endproperty
 
+		
+		public property ReportType, string
+			method get
+			proc
+				mreturn mReportType
+
+			endmethod
+			method set
+				proc
+;				mSelections.End_supp = value
+				RaisePropertyChanged("ReportType")
+				mreportType = value
+			endmethod
+		endproperty
+		
 
 		public property ProgramOptions, @Selections_Data
 			method get
@@ -106,9 +123,14 @@ namespace SupplierReport
 				begin
 					lambda doCommand(sender, param)
 					begin
-						data repData	,STRSelections
+;						data repData	,STRSelections
 ;						repData = mSelections.SynergyRecord
-						SFEBusinessLogic.SupplierReport.Print(mStartSupp,mEndSupp,'R')
+						if !mStartSupp && !mEndSupp
+							mEndSupp = '~~~~~~'
+						if mStartSupp .ne.'      ' .and. mEndSupp .eq.'      '
+							mEndSupp = mStartSupp
+
+						SFEBusinessLogic.SupplierReport.Print(mStartSupp,mEndSupp,mReportType)
 					end
 					mDoReportCommand = new GenericCommand("REPORT", doCommand)
 					dataChanged_event()

@@ -22,7 +22,7 @@ namespace SFEBusinessLogic
 	public class SupplierReport
 		
 		private static mConnector		,@DBConnector
-
+		
 		public static method Print		, void
 			in req StartSupp	,a		; starting supplier
 			in req EndSupp		,a		; ending supplier
@@ -30,8 +30,8 @@ namespace SFEBusinessLogic
 			endparams
 			
 			.include 'DBLDIR:winprint.def'
-
-
+			
+			
 		proc
 			;;let's load the supplier using Symphony Harmony and a local connection
 			
@@ -40,8 +40,11 @@ namespace SFEBusinessLogic
 			;;To enable case insensitive comparisons:
 			mConnector.SetCaseSensitivity(false)
 			
-			SFEUtilities.SFEPrinting.PrinterOpen(false)
-
+			if ReportType .eq. 'P' then
+				SFEUtilities.SFEPrinting.createPDF(false)
+			else			
+				SFEUtilities.SFEPrinting.PrinterOpen(false)
+				
 			SFEUtilities.SFEPrinting.SetFont("Optima",12)
 			
 			data suppObj	,@Supplier_Data	,new Supplier_Data()
@@ -60,7 +63,7 @@ namespace SFEBusinessLogic
 				begin
 					if lineCount .ne.99
 						SFEUtilities.SFEPrinting.FormFeed()
-
+						
 					SFEUtilities.SFEPrinting.SetFont("Optima",12)
 					SFEUtilities.SFEPrinting.Write(1,1,"Supplier Listing Report")
 					
@@ -70,11 +73,12 @@ namespace SFEBusinessLogic
 ;					SFEUtilities.SFEPrinting.WriteLine(pline)
 					
 ;					SFEUtilities.SFEPrinting.LineFeed(1)
-
+					
 					
 					SFEUtilities.SFEPrinting.SetFont("Calibri",10,DWPFW_BOLD)
 ;					pline = 'Code      Name & Address                        Phone no         Email'
 ;					SFEUtilities.SFEPrinting.WriteLine(pline,1)
+					SFEUtilities.SFEPrinting.Write(3,0," ")			;; just in case it needs to print something to get the next fields to line up
 					SFEUtilities.SFEPrinting.Write(3,1,"Code")
 					SFEUtilities.SFEPrinting.Write(3,10,"Name & Address")
 					SFEUtilities.SFEPrinting.Write(3,42,"Phone No")
@@ -101,8 +105,8 @@ namespace SFEBusinessLogic
 ;					pline(10:30) = suppObj.address1
 ;					SFEUtilities.SFEPrinting.WriteLine(pline)
 					incr lineCount
-				SFEUtilities.SFEPrinting.Write(lineCount,10,suppObj.Address1)			
-			end
+					SFEUtilities.SFEPrinting.Write(lineCount,10,suppObj.Address1)			
+				end
 				
 				if suppObj.address2
 				begin

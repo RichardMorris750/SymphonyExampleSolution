@@ -2,6 +2,9 @@ import System
 import System.Collections.Generic
 import System.Text
 
+import SynPSG.PDF
+
+
 .define D_TOP_MARGIN_SPACE	8
 .define D_TOP_MARGIN_SPACE_WITH_HEAD	,6
 .define D_LEFT_MARGIN,	50
@@ -31,7 +34,11 @@ namespace SFEUtilities
 		private static mPrintHeading	,boolean
 		
 		private static mPrintStart		,i4		
-		
+
+		private static mPDF			,@PdfFile
+
+		private static mReportType		,string
+				
 		public static method PrinterOpen	,void
 			in req landscapeMode			,boolean
 			in opt printerName				,a 		
@@ -49,7 +56,7 @@ namespace SFEUtilities
 			
 			mPrintHeading = true				
 			mDoDeferedFormFeed = false	
-			
+			mReportType = 'R'
 			
 			
 			data result	,a10
@@ -106,7 +113,31 @@ namespace SFEUtilities
 			
 		endmethod
 		
+		public static method createPDF,	void
+			in req landscapeMode		,boolean
+			in opt PDFName				,a 	
+			endparams
+
+		.proc
+
+			
+			mPDF = new PdfFile(,,,,,,,,,,,"SFEPDFfiles:")
+
+			mReportType = 'P'
+			
+			;;Override default name to suppress date/time prefix, and and ask reader
+			;;apps to display the file in full page view.
+			if ^passed (PDFName) then
+				mPDF.FileName = %atrim(PDFName) + ".pdf"
+			else
+				mPDF.FileName = %syn_uname + ".pdf"
+
+			mPDF.PageLayout = PdfPageLayout.Single
+					
+			endmethod			
 		
+
+
 		private static method doHeading, void
 			endparams
 
@@ -185,6 +216,15 @@ namespace SFEUtilities
 			endparams
 			
 		proc
+
+			if mReportType == 'P' then
+			begin
+				mPdf.SelectFont(mfontName,mfontSize)
+				mPdf.DrawTextRC(%atrim(printData),row,col)
+			end
+			else
+			begin
+
 			if (mDoDeferedFormFeed)
 				FormFeed()		
 			
@@ -199,7 +239,8 @@ namespace SFEUtilities
 ;			data tmpY	,i4	,mPosY * -1
 			printText(PCol,PRow, mfontSize, mfontName, mfontWeight, %atrim(printData))
 ;			mPosY = tmpY	
-			
+			end
+
 		endmethod
 		
 		
@@ -391,6 +432,9 @@ namespace SFEUtilities
 			endparams
 			
 		proc
+			if mReportType == 'P'
+				mPdf.preview()
+
 			if (mHandle)
 			begin
 				doFooter()

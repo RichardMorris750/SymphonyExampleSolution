@@ -17,7 +17,7 @@
             <RowDefinition Height="1*" ></RowDefinition>
             <RowDefinition Height="1*" ></RowDefinition>
             <RowDefinition Height="1*" ></RowDefinition>
-            <RowDefinition Height="1*" ></RowDefinition>
+            <RowDefinition Height="2*" ></RowDefinition>
             <RowDefinition Height="40" ></RowDefinition>
         </Grid.RowDefinitions>
 
@@ -26,61 +26,67 @@
             <ColumnDefinition Width="1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
+
         <Border Grid.Row="0" Grid.Column="0">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text=""></TextBlock>
-            </StackPanel>
-        </Border>
-
-        <Border Grid.Row="0" Grid.Column="1">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text=""></TextBlock>
-            </StackPanel>
-        </Border>
-
-        <Border Grid.Row="1" Grid.Column="0">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Starting Supplier " Margin="5,10,10,5" VerticalAlignment="Center"  ></TextBlock>
             </StackPanel>
         </Border>
 
-        <Border Grid.Row="1" Grid.Column="1">
+        <Border Grid.Row="0" Grid.Column="1">
             <StackPanel Orientation="Horizontal">
                 <TextBox Text="{Binding Path=StartSupp}" 
-                             Width="100" Margin="0,20,0,5" VerticalAlignment="Center" MaxLength="10" CharacterCasing="Upper">
+                             Width="100" Margin="5,10,10,5" VerticalAlignment="Center" MaxLength="10" CharacterCasing="Upper">
+                </TextBox>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="1" Grid.Column="0">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Ending Supplier " Margin="5,10,10,5" VerticalAlignment="Center"  ></TextBlock>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="1" Grid.Column="1">
+            <StackPanel Orientation="Horizontal">
+                <TextBox Text="{Binding Path=EndSupp}" 
+                             Width="100" Margin="5,10,10,5" VerticalAlignment="Center" MaxLength="10" CharacterCasing="Upper">
                 </TextBox>
             </StackPanel>
         </Border>
 
         <Border Grid.Row="2" Grid.Column="0">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Ending Supplier " Margin="5,10,10,5" VerticalAlignment="Center"  ></TextBlock>
+                <TextBlock Text="Report Type" Margin="5,10,10,5" VerticalAlignment="Center"></TextBlock>
             </StackPanel>
         </Border>
 
         <Border Grid.Row="2" Grid.Column="1">
             <StackPanel Orientation="Horizontal">
-                <TextBox Text="{Binding Path=EndSupp}" 
-                             Width="100" Margin="0,20,0,5" VerticalAlignment="Center" MaxLength="10" CharacterCasing="Upper">
+                <TextBox Text="{Binding Path=ReportType}" 
+                             Width="100" Margin="5,10,10,5" VerticalAlignment="Center" MaxLength="10" CharacterCasing="Upper">
                 </TextBox>
-            </StackPanel>
-        </Border>
 
-        <Border Grid.Row="3" Grid.Column="0">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text=""></TextBlock>
-            </StackPanel>
-        </Border>
 
-        <Border Grid.Row="3" Grid.Column="1">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text=""></TextBlock>
+
             </StackPanel>
         </Border>
 
         <Border Grid.Row="4" Grid.Column="0">
             <Button Content="Print Report"  
                 Command="{Binding Path=DoReportCommand}"></Button>
+        </Border>
+
+        <Border Grid.Row="3" Grid.Column="0">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="" Margin="0,20,0,5" VerticalAlignment="Center"></TextBlock>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="3" Grid.Column="1">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="" Margin="0,20,0,5" VerticalAlignment="Center"></TextBlock>
+            </StackPanel>
         </Border>
 
         <Border Grid.Row="4" Grid.Column="1">

@@ -1,6 +1,7 @@
 import System
 import System.Collections.Generic
 import System.Text
+import System.IO
 
 import SynPSG.PDF
 
@@ -34,11 +35,18 @@ namespace SFEUtilities
 		private static mPrintHeading	,boolean
 		
 		private static mPrintStart		,i4		
-
+		
 		private static mPDF			,@PdfFile
-
+		
 		private static mReportType		,string
-				
+		
+		private static mCambriaFont		,string
+		private static mConsolasFont	,string
+		private static mCalibriFont		,string
+		private static mArialNFont		,string
+		private static mArialNBFont		, string
+		
+		
 		public static method PrinterOpen	,void
 			in req landscapeMode			,boolean
 			in opt printerName				,a 		
@@ -117,12 +125,14 @@ namespace SFEUtilities
 			in req landscapeMode		,boolean
 			in opt PDFName				,a 	
 			endparams
-
+			
+			
+			
 		.proc
-
+			
 			
 			mPDF = new PdfFile(,,,,,,,,,,,"SFEPDFfiles:")
-
+			
 			mReportType = 'P'
 			
 			;;Override default name to suppress date/time prefix, and and ask reader
@@ -131,35 +141,41 @@ namespace SFEUtilities
 				mPDF.FileName = %atrim(PDFName) + ".pdf"
 			else
 				mPDF.FileName = %syn_uname + ".pdf"
-
+			
 			mPDF.PageLayout = PdfPageLayout.Single
-					
-			endmethod			
+			
+			
+			
+			
+			
+			
+		endmethod			
 		
-
-
+		
+		;---------------------------------------------------------------------------
+			
 		private static method doHeading, void
 			endparams
-
+			
 			.include 'DBLDIR:winprint.def'
-
+			
 		proc
 			
 			if (mPrintHeading == true)
 			begin
 				data penHandle	,i4
-
+				
 				penHandle = %wpr_info(mHandle,DWP_GETPEN)
-
+				
 				printText(mPosX = -1, mPosY, 14, "Times new Roman", DWPFW_BOLD, "SFE Demo Company")
 				printText(mPosX = -1, mPosY, 6, "Times new Roman", DWPFW_BOLD, "Spiffing Lane, Spiffingly, UK")
 				printText(mPosX = -1, mPosY, 6, "Times new Roman", DWPFW_BOLD, "TEL: 020-8843 5400  FAX: 020-8574 1716/020-8571 7214")
 				mPosY += 5
 				wpr_print(mHandle,DWP_LINE, penHandle, 1, mPosY ,mPageWidth, mPosY+2)
 				mPosY += (wpr_info(mHandle, DWP_TEXTHEIGHT, "X"))
-
+				
 				mPrintStart = mPosY
-
+				
 				wpr_info(mHandle,DWP_DELPEN,penHandle)				
 			end
 			nop
@@ -186,7 +202,7 @@ namespace SFEUtilities
 		endmethod
 		
 		
-		
+	;-------------------------------------------------------------------------------------------	
 		public static method SetFont	,void
 			
 			in opt fontName					,a
@@ -204,6 +220,48 @@ namespace SFEUtilities
 			
 			if ^passed(fontWeight)
 				mfontWeight = fontWeight
+			
+			if mReportType == 'P'
+			begin
+				using fontName select
+				('Cambria'), 	begin
+					if !mCambriaFont
+						mCambriaFont		= mPDF.LoadTrueTypeFont("fonts:cambriab.ttf")
+					mPDF.SelectFont(mCambriaFont,fontsize)
+				end
+				('Consolas'), 
+				begin
+					if !mConsolasFont
+						mConsolasFont	= mPDF.LoadTrueTypeFont("fonts:Consola.ttf")
+					mPDF.SelectFont(mConsolasFont,fontsize)
+				end
+				
+				('Calibri'), 	
+				begin
+					if !mCalibriFont
+						mCalibriFont	= mPDF.LoadTrueTypeFont("fonts:Calibri.ttf")
+					mPDF.SelectFont(mCalibriFont,fontsize)
+				end
+				
+				('Arialn'),
+				begin
+					if !mArialNFont
+						mArialNFont		= mPDF.LoadTrueTypeFont("fonts:arialn.ttf")
+					mPDF.SelectFont(mArialNFont,fontsize)
+				end
+					
+				('Arialb'),
+				begin
+					if !mArialNBFont
+						mArialNBFont		= mPDF.LoadTrueTypeFont("fonts:arialb.ttf")
+					mPDF.SelectFont(mArialNBFont,fontsize)
+				end				
+				endusing
+			end
+			
+			
+			
+			
 			nop
 		endmethod
 		
@@ -216,31 +274,31 @@ namespace SFEUtilities
 			endparams
 			
 		proc
-
+			
 			if mReportType == 'P' then
 			begin
-				mPdf.SelectFont(mfontName,mfontSize)
+;				mPdf.SelectFont(mfontName,mfontSize)
 				mPdf.DrawTextRC(%atrim(printData),row,col)
 			end
 			else
 			begin
-
-			if (mDoDeferedFormFeed)
-				FormFeed()		
-			
-			mDonePrinting = true
-	
-			data pCol	,i4
-			data pRow	,i4		
-			pCol = %wpr_info(mHandle, DWP_X_FROM_COL, col)
-			pRow = %wpr_info(mHandle, DWP_Y_FROM_ROW, row) + mPrintStart
-
-
+				
+				if (mDoDeferedFormFeed)
+					FormFeed()		
+				
+				mDonePrinting = true
+				
+				data pCol	,i4
+				data pRow	,i4		
+				pCol = %wpr_info(mHandle, DWP_X_FROM_COL, col)
+				pRow = %wpr_info(mHandle, DWP_Y_FROM_ROW, row) + mPrintStart
+				
+				
 ;			data tmpY	,i4	,mPosY * -1
-			printText(PCol,PRow, mfontSize, mfontName, mfontWeight, %atrim(printData))
+				printText(PCol,PRow, mfontSize, mfontName, mfontWeight, %atrim(printData))
 ;			mPosY = tmpY	
 			end
-
+			
 		endmethod
 		
 		
@@ -434,7 +492,7 @@ namespace SFEUtilities
 		proc
 			if mReportType == 'P'
 				mPdf.preview()
-
+			
 			if (mHandle)
 			begin
 				doFooter()

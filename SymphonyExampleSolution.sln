@@ -57,6 +57,21 @@ Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "SFEUtilities", "SFEUtilitie
 EndProject
 Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "synPDF", "synPDF\synPDF.synproj", "{8E9FD290-EB76-487A-B920-1894456BFE30}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fonts", "Fonts", "{27B31BFF-ADBF-4F29-A914-F0CD52B6B067}"
+	ProjectSection(SolutionItems) = preProject
+		Fonts\calibri.ttf = Fonts\calibri.ttf
+		Fonts\calibrib.ttf = Fonts\calibrib.ttf
+		Fonts\calibrii.ttf = Fonts\calibrii.ttf
+		Fonts\calibril.ttf = Fonts\calibril.ttf
+		Fonts\calibrili.ttf = Fonts\calibrili.ttf
+		Fonts\calibriz.ttf = Fonts\calibriz.ttf
+		Fonts\consola.ttf = Fonts\consola.ttf
+		Fonts\consolab.ttf = Fonts\consolab.ttf
+		Fonts\consolai.ttf = Fonts\consolai.ttf
+		Fonts\consolaz.ttf = Fonts\consolaz.ttf
+		Fonts\Optima Bold Oblique.ttf = Fonts\Optima Bold Oblique.ttf
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

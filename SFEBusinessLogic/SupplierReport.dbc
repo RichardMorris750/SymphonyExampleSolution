@@ -31,7 +31,8 @@ namespace SFEBusinessLogic
 			
 			.include 'DBLDIR:winprint.def'
 			
-			
+
+				
 		proc
 			;;let's load the supplier using Symphony Harmony and a local connection
 			
@@ -40,44 +41,37 @@ namespace SFEBusinessLogic
 			;;To enable case insensitive comparisons:
 			mConnector.SetCaseSensitivity(false)
 			
-			if ReportType .eq. 'P' then
+			if ReportType == 'P' then
+			begin	
 				SFEUtilities.SFEPrinting.createPDF(false)
+			end
 			else			
 				SFEUtilities.SFEPrinting.PrinterOpen(false)
-				
+			
 			SFEUtilities.SFEPrinting.SetFont("Optima",12)
 			
 			data suppObj	,@Supplier_Data	,new Supplier_Data()
 			
-			data typeOfSearch	,@DataSelect
+			data dataSearch	,@DataSelect
 			
 			data pline	,a132
 			data lineCount,	i4	,99
 			data lineMax	,i4	,60
 			
-			typeOfSearch = new DataSelect(mConnector, "select * from supplier where supp_code >=:1 and supp_code <= :2", new Supplier_Data(), StartSupp,EndSupp)
+			dataSearch = new DataSelect(mConnector, "select * from supplier where supp_code >=:1 and supp_code <= :2", new Supplier_Data(), StartSupp,EndSupp)
 			
-			foreach suppObj in typeOfSearch
+			foreach suppObj in dataSearch
 			begin
 				if lineCount .ge. lineMax
 				begin
 					if lineCount .ne.99
 						SFEUtilities.SFEPrinting.FormFeed()
-						
-					SFEUtilities.SFEPrinting.SetFont("Optima",12)
+					
+					SFEUtilities.SFEPrinting.SetFont("Cambria",12)
 					SFEUtilities.SFEPrinting.Write(1,1,"Supplier Listing Report")
-					
-;					pline = 'Supplier Listing Report'
-;					
-;					SFEUtilities.SFEPrinting.SetFont("Optima",12)
-;					SFEUtilities.SFEPrinting.WriteLine(pline)
-					
-;					SFEUtilities.SFEPrinting.LineFeed(1)
-					
-					
+
 					SFEUtilities.SFEPrinting.SetFont("Calibri",10,DWPFW_BOLD)
-;					pline = 'Code      Name & Address                        Phone no         Email'
-;					SFEUtilities.SFEPrinting.WriteLine(pline,1)
+
 					SFEUtilities.SFEPrinting.Write(3,0," ")			;; just in case it needs to print something to get the next fields to line up
 					SFEUtilities.SFEPrinting.Write(3,1,"Code")
 					SFEUtilities.SFEPrinting.Write(3,10,"Name & Address")
@@ -87,12 +81,7 @@ namespace SFEBusinessLogic
 					SFEUtilities.SFEPrinting.SetFont("Calibri",10,DWPFW_NORMAL)
 				end
 				
-				clear pline 
-;				pline (1:6)		= suppObj.supp_code
-;				pline (10:30)	= suppObj.name
-;				pline(43:15)	= suppObj.phone
-;				pline(60:30)	= suppObj.email
-;				SFEUtilities.SFEPrinting.WriteLine(pline)
+
 				incr lineCount
 				SFEUtilities.SFEPrinting.Write(lineCount,1,suppObj.Supp_code)
 				SFEUtilities.SFEPrinting.Write(lineCount,10,suppObj.Name)
@@ -101,44 +90,30 @@ namespace SFEBusinessLogic
 				
 				if suppObj.address1
 				begin
-;					clear pline
-;					pline(10:30) = suppObj.address1
-;					SFEUtilities.SFEPrinting.WriteLine(pline)
 					incr lineCount
 					SFEUtilities.SFEPrinting.Write(lineCount,10,suppObj.Address1)			
 				end
 				
 				if suppObj.address2
 				begin
-;					clear pline
-;					pline(10:30) = suppObj.address2
-;					SFEUtilities.SFEPrinting.WriteLine(pline)
 					incr lineCount
 					SFEUtilities.SFEPrinting.Write(lineCount,10,suppObj.Address2)		
 				end
 				
 				if suppObj.address3
 				begin
-;					clear pline
-;					pline(10:30) = suppObj.address3
-;					SFEUtilities.SFEPrinting.WriteLine(pline)
 					incr lineCount
 					SFEUtilities.SFEPrinting.Write(lineCount,10,suppObj.Address3)		
 				end
 				
 				if suppObj.postcode
-				begin
-;					clear pline
-;					pline(10:10) = suppObj.postcode
-;					SFEUtilities.SFEPrinting.WriteLine(pline)				
+				begin				
 					incr lineCount
 					SFEUtilities.SFEPrinting.Write(lineCount,10,suppObj.Postcode)		
 				end
-				
-;				SFEUtilities.SFEPrinting.LineFeed(1)
+		
 				incr lineCount
-				
-				
+		
 			end
 			
 			SFEUtilities.SFEPrinting.PrinterClose()

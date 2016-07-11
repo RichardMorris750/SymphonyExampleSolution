@@ -220,6 +220,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="NewFolder1" />
     <Folder Include="Properties" />
   </ItemGroup>
   <ItemGroup>

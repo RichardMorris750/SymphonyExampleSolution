@@ -48,7 +48,7 @@ namespace SFEBusinessLogic
 			else			
 				SFEUtilities.SFEPrinting.PrinterOpen(false)
 			
-			SFEUtilities.SFEPrinting.SetFont("Optima",12)
+			SFEUtilities.SFEPrinting.SetFont("Cambria",12)
 			
 			data suppObj	,@Supplier_Data	,new Supplier_Data()
 			

@@ -31,8 +31,8 @@ namespace SFEBusinessLogic
 			
 			.include 'DBLDIR:winprint.def'
 			
-
-				
+			
+			
 		proc
 			;;let's load the supplier using Symphony Harmony and a local connection
 			
@@ -40,13 +40,8 @@ namespace SFEBusinessLogic
 			
 			;;To enable case insensitive comparisons:
 			mConnector.SetCaseSensitivity(false)
-			
-			if ReportType == 'P' then
-			begin	
-				SFEUtilities.SFEPrinting.createPDF(false)
-			end
-			else			
-				SFEUtilities.SFEPrinting.PrinterOpen(false)
+						
+			SFEUtilities.SFEPrinting.PrinterOpen(ReportType,false,80)
 			
 			SFEUtilities.SFEPrinting.SetFont("Cambria",12)
 			
@@ -67,21 +62,17 @@ namespace SFEBusinessLogic
 					if lineCount .ne.99
 						SFEUtilities.SFEPrinting.FormFeed()
 					
-					SFEUtilities.SFEPrinting.SetFont("Cambria",12)
+					SFEUtilities.SFEPrinting.SetFont("Cambria",14)
 					SFEUtilities.SFEPrinting.Write(1,1,"Supplier Listing Report")
-
-					SFEUtilities.SFEPrinting.SetFont("Calibri",10,DWPFW_BOLD)
-
-					SFEUtilities.SFEPrinting.Write(3,0," ")			;; just in case it needs to print something to get the next fields to line up
 					SFEUtilities.SFEPrinting.Write(3,1,"Code")
 					SFEUtilities.SFEPrinting.Write(3,10,"Name & Address")
-					SFEUtilities.SFEPrinting.Write(3,42,"Phone No")
-					SFEUtilities.SFEPrinting.Write(3,59,"Email")
+					SFEUtilities.SFEPrinting.Write(3,43,"Phone No")
+					SFEUtilities.SFEPrinting.Write(3,60,"Email")
 					lineCount = 4					
-					SFEUtilities.SFEPrinting.SetFont("Calibri",10,DWPFW_NORMAL)
+					SFEUtilities.SFEPrinting.SetFont("Calibri",10)
 				end
 				
-
+				
 				incr lineCount
 				SFEUtilities.SFEPrinting.Write(lineCount,1,suppObj.Supp_code)
 				SFEUtilities.SFEPrinting.Write(lineCount,10,suppObj.Name)
@@ -111,9 +102,12 @@ namespace SFEBusinessLogic
 					incr lineCount
 					SFEUtilities.SFEPrinting.Write(lineCount,10,suppObj.Postcode)		
 				end
-		
+				
 				incr lineCount
-		
+				SFEUtilities.SFEPrinting.SetFont(,12)
+				SFEUtilities.SFEPrinting.Write(lineCount,1,'END OF SUPPLIER')
+;				incr lineCount
+				SFEUtilities.SFEPrinting.SetFont(,10)
 			end
 			
 			SFEUtilities.SFEPrinting.PrinterClose()

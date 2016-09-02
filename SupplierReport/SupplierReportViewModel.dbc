@@ -1,0 +1,87 @@
+import System
+import System.Collections.Generic
+import System.Text
+
+import Symphony.Conductor.ViewModel
+import System.Windows
+import System.Collections.ObjectModel
+import AppData
+import Symphony.Harmony
+
+;;use the extension methods
+import System.Linq
+import Symphony.Conductor.Model
+import Symphony.Conductor.Commands
+import Symphony.Conductor.DataIO
+import Symphony.Conductor.Types
+
+
+namespace SupplierReport
+
+	public class SupplierReportViewModel extends BaseViewModel
+
+		
+		public method SupplierReportViewModel 
+			in req sender				,@FrameworkElement
+			endparams
+
+			parent(sender)
+	
+		proc
+
+			mlocal_criteria = new Local_Criteria_Data()
+;			addhandler(mlocal_criteria.IsDataValidChanged, dataChanged_event)
+		endmethod
+		
+		;;what for changes
+		
+;		private method dataChanged_event, void
+;			endparams
+;		proc
+;			mDorReportCommand.ExecuteState = (mLocal_criteria.start_supp <= mLocal_criteria.end_Supp )
+;		endmethod
+		
+		;;data field bindings
+		
+		private mLocal_criteria	,@Local_Criteria_Data
+		
+		public property ProgramOptions, @Local_Criteria_Data
+			method get
+			proc
+				mreturn mLocal_criteria
+			endmethod
+			method set
+			proc
+				mLocal_criteria = value
+			endmethod
+		endproperty
+		
+		;;button binding command code
+		
+		private mDoReportCommand	,@GenericCommand
+		
+		public property DoReportCommand, @GenericCommand
+			method get
+			proc
+				if (mDoReportCommand == ^null)
+				begin
+					lambda doCommand(sender, param)
+					begin
+						data repData	,STRlocal_criteria
+						repData = mLocal_Criteria.SynergyRecord
+;						BuildReport(repData)
+					end
+					mDoReportCommand = new GenericCommand("REPORT", doCommand)
+;					dataChanged_event()
+				end
+				mreturn mDoReportCommand
+			endmethod
+		endproperty
+
+	
+	endclass
+
+endnamespace
+
+
+

@@ -1,0 +1,65 @@
+﻿<Window x:Class="SupplierReport.SupplierReportOptions"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Supplier Report" Height="300" Width="300"  Loaded="Window_Loaded">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/SymphonyConductor;component/Resources/Converters.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SymphonyConductor;component/Resources/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" ></RowDefinition>
+            <RowDefinition Height="1*" ></RowDefinition>
+            <RowDefinition Height="2*" ></RowDefinition>
+            <RowDefinition Height="80" ></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Row="0" Grid.Column="0">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Starting Supplier " Margin="5,10,10,5" VerticalAlignment="Center"  ></TextBlock>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="0" Grid.Column="1">
+            <StackPanel Orientation="Horizontal">
+                <TextBox Text="{Binding Path=Start_supp, Converter={StaticResource alphaConverter}}" 
+                             Width="100" Margin="0,20,0,5" VerticalAlignment="Center" MaxLength="10" CharacterCasing="Upper">
+                </TextBox>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="1" Grid.Column="0">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Ending Supplier " Margin="5,10,10,5" VerticalAlignment="Center"  ></TextBlock>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="1" Grid.Column="1">
+            <StackPanel Orientation="Horizontal">
+                <TextBox Text="{Binding Path=End_supp, Converter={StaticResource alphaConverter}}" 
+                             Width="100" Margin="0,20,0,5" VerticalAlignment="Center" MaxLength="10" CharacterCasing="Upper">
+                </TextBox>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="3" Grid.Column="0">
+            <Button Content="Print Report" HorizontalAlignment="Center"
+                Command="{Binding Path=DoReportCommand}"></Button>
+        </Border>
+
+        <Border Grid.Row="3" Grid.Column="1">
+            <Button>Back to Menu</Button>
+        </Border>
+    </Grid>
+</Window>

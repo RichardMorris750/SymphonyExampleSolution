@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{1dc18bdf-ed62-4c4f-8481-a2ce7a7d56f2}</ProjectGuid>
+    <ProjectGuid>{f615c92e-b098-46d5-94c5-7b8b32059435}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SupplierViewer</RootNamespace>
-    <AssemblyName>SupplierViewer</AssemblyName>
+    <RootNamespace>SupplierReport</RootNamespace>
+    <AssemblyName>SupplierReport</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -21,22 +21,8 @@
     <DBLCmdOptions> -W3 -qstack</DBLCmdOptions>
     <DBL_unQulRecStm>Stack</DBL_unQulRecStm>
     <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
-    <Name>SupplierViewer</Name>
+    <Name>SupplierReport</Name>
     <TargetPlatform>v452</TargetPlatform>
-    <Install>True</Install>
-    <ApplicationVersion>1.0.0.*</ApplicationVersion>
-    <ApplicationRevision>0</ApplicationRevision>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>False</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>False</UpdatePeriodically>
-    <UpdateRequired>False</UpdateRequired>
-    <MapFileExtensions>True</MapFileExtensions>
-    <IsWebBootstrapper>False</IsWebBootstrapper>
-    <UseApplicationTrust>False</UseApplicationTrust>
-    <BootstrapperEnabled>True</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,7 +34,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DebugOptimize>Debug</DebugOptimize>
-    <DocumentationFile>bin\Debug\SupplierViewer.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\SupplierReport.xml</DocumentationFile>
     <Prefer32Bit Condition=" '$(TargetFrameworkVersion)'  != 'v4.0' AND '$(Prefer32Bit)' != 'false' ">true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -60,7 +46,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DebugOptimize>Optimize</DebugOptimize>
-    <DocumentationFile>bin\Release\SupplierViewer.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\SupplierReport.xml</DocumentationFile>
     <Prefer32Bit Condition=" '$(TargetFrameworkVersion)'  != 'v4.0' AND '$(Prefer32Bit)' != 'false' ">true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
@@ -86,7 +72,7 @@
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyConductor, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.5\lib\net45\SymphonyConductor.dll</HintPath>
+      <HintPath>..\packages\SymphonyHarmony.3.2.5\lib\net45\SymphonyConductor.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
@@ -96,7 +82,7 @@
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyCore, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.5\lib\net45\SymphonyCore.dll</HintPath>
+      <HintPath>..\packages\SymphonyHarmony.3.2.5\lib\net45\SymphonyCore.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
@@ -106,7 +92,7 @@
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyHarmony, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.5\lib\net45\SymphonyHarmony.dll</HintPath>
+      <HintPath>..\packages\SymphonyHarmony.3.2.5\lib\net45\SymphonyHarmony.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
@@ -142,8 +128,8 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-    <Compile Include="SupplierViewerViewModel.dbc" />
-    <Page Include="SupplierViewerWindow1.xaml">
+    <Compile Include="SupplierReportViewModel.dbc" />
+    <Page Include="SupplierReport.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -151,8 +137,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="SupplierViewerWindow1.xaml.dbl">
-      <DependentUpon>SupplierViewerWindow1.xaml</DependentUpon>
+    <Compile Include="SupplierReport.xaml.dbl">
+      <DependentUpon>SupplierReport.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -169,7 +155,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Properties\Resources.resx</DependentUpon>
     </Compile>
-    <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -183,7 +168,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Properties\" />
+    <Folder Include="Properties" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AppData_Server\AppData_Server.synproj">
@@ -191,18 +176,6 @@
       <Project>{1c61e987-fbd9-49b8-b987-8a30d6ef3218}</Project>
       <Private>True</Private>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
-      <Install>True</Install>
-      <ProductName>Microsoft .NET Framework 4.5.2 (x86 and x64)</ProductName>
-      <Visible>False</Visible>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Install>False</Install>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Visible>False</Visible>
-    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Synergex\VS2010\Synergex.SynergyDE.targets" />
   <PropertyGroup>

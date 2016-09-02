@@ -107,7 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.dbl" />
-    <Compile Include="Program.dbl" />
+    <Compile Include="SystemSetup.dbl" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties" />

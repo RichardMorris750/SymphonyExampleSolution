@@ -12,7 +12,7 @@ import System.Windows.Shapes
 import System.Windows.Media
 import System.Windows.Media.Imaging
 import System.Windows.Navigation
-
+import SFEAppShell.ViewModel
 
 namespace SFEAppShell
 
@@ -23,6 +23,15 @@ namespace SFEAppShell
         proc
             this.InitializeComponent()
         endmethod
+		
+		
+		private method Window_Loaded, void
+			sender, @object 
+			e, @System.Windows.RoutedEventArgs 
+			endparams
+		proc
+			this.DataContext = new ApplicationViewModel(this)
+		endmethod
 		
     endclass
 endnamespace

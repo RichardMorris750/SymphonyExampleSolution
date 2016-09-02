@@ -23,12 +23,13 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <sfeuiCommon:Toolbar Grid.Row="0"></sfeuiCommon:Toolbar>
+        <!--<sfeuiCommon:Toolbar Grid.Row="0"></sfeuiCommon:Toolbar>-->
 
         <Border Grid.Row="1" Margin="4" Padding="4" BorderThickness="1" CornerRadius="5" BorderBrush="{StaticResource BorderBrush}">
 
-            <DataGrid ItemsSource="{Binding Path=DataObjectColleciton}" AutoGenerateColumns="False" IsReadOnly="True"
-                  SelectedItem="{Binding Path=SelectedCollectionItem}" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False"
+            <DataGrid ItemsSource="{Binding Path=DataObjectColleciton}" AutoGenerateColumns="False" IsReadOnly="True" IsEnabled="{Binding Path=GridIsEnabled}"
+                  SelectedItem="{Binding Path=SelectedCollectionItem}" SelectedIndex="{Binding Path=SelectedItemIndex}"
+                  SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False"
                   CanUserResizeRows="False" CanUserSortColumns="True" RowHeaderWidth="0">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Sorting">

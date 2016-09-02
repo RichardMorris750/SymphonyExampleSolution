@@ -1,19 +1,12 @@
 ﻿<Window x:Class="SFEAppShell.MainWindow1"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:symControl="clr-namespace:Symphony.Conductor.Controls;assembly=SymphonyConductor"
+    xmlns:localUI="clr-namespace:SFEAppShell.View"
     xmlns:sfeuiCommon="clr-namespace:SFE_UI.Common;assembly=SFE_UI"
     xmlns:sfeuiSupplier="clr-namespace:SEF_Supplier.View;assembly=SEF_Supplier"
-    Height="300" Width="300" WindowStyle="None">
-    <Window.Background>
-        <LinearGradientBrush StartPoint="0.5,0" EndPoint="1,1">
-            <LinearGradientBrush.GradientStops>
-                <GradientStop Offset="0.0" Color="{StaticResource GreyColour}" />
-                <GradientStop Offset="1.0" Color="{StaticResource BlackColour}" />
-            </LinearGradientBrush.GradientStops>
-        </LinearGradientBrush>
-
-    </Window.Background>
-
+    Loaded="Window_Loaded" WindowStartupLocation="CenterScreen"
+    Height="600" Width="900" WindowStyle="ToolWindow">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -21,6 +14,74 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+
+    <!-- visual states -->
+    <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup x:Name="ApplicationStates">
+
+            <VisualState x:Name="MenuViewState">
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="launcherView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0" To="1" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="launcherView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="launcherView" Storyboard.TargetProperty="(Panel.ZIndex)" To="1" />
+
+                    <DoubleAnimation Storyboard.TargetName="supplierMaintView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0" To="0" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="supplierMaintView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="supplierMaintView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+
+                </Storyboard>
+            </VisualState>
+
+            <VisualState x:Name="SupplierMaintState">
+                <Storyboard>
+
+                    <DoubleAnimation Storyboard.TargetName="launcherView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.2" To="0" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="launcherView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="launcherView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="supplierMaintView" Storyboard.TargetProperty="(Visibility)" Duration="0:0:0">
+                        <DiscreteObjectKeyFrame Value="{x:Static Visibility.Visible}"/>
+                    </ObjectAnimationUsingKeyFrames>
+
+                    <DoubleAnimation Storyboard.TargetName="supplierMaintView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.2" To="1" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="supplierMaintView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="supplierMaintView" Storyboard.TargetProperty="(Panel.ZIndex)" To="1" />
+
+                </Storyboard>
+            </VisualState>
+
+            <VisualState x:Name="ProductMaintState">
+                <Storyboard>
+
+                    <DoubleAnimation Storyboard.TargetName="launcherView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.2" To="0" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="launcherView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="launcherView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="productMaintView" Storyboard.TargetProperty="(Visibility)" Duration="0:0:0">
+                        <DiscreteObjectKeyFrame Value="{x:Static Visibility.Visible}"/>
+                    </ObjectAnimationUsingKeyFrames>
+
+                    <DoubleAnimation Storyboard.TargetName="productMaintView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.2" To="1" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="productMaintView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="productMaintView" Storyboard.TargetProperty="(Panel.ZIndex)" To="1" />
+
+                </Storyboard>
+            </VisualState>
+
+        </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -30,8 +91,32 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        
-        <sfeuiSupplier:Maintenance Grid.Row="0"></sfeuiSupplier:Maintenance>
+        <!-- visual areas -->
+
+        <Border Name="launcherView" Grid.Row="0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <localUI:MenuSelection></localUI:MenuSelection>
+        </Border>
+
+        <Border Name="supplierMaintView" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Opacity="1" Visibility="Collapsed">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <sfeuiCommon:Toolbar Grid.Row="0"></sfeuiCommon:Toolbar>
+                <sfeuiSupplier:Maintenance Grid.Row="1"></sfeuiSupplier:Maintenance>
+            </Grid>
+        </Border>
+
+        <Border Name="productMaintView" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Opacity="1" Visibility="Collapsed">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <sfeuiCommon:Toolbar Grid.Row="0"></sfeuiCommon:Toolbar>
+            </Grid>
+        </Border>
 
         <StackPanel Grid.Row="1">
             <Grid>
@@ -40,7 +125,7 @@
                     <ColumnDefinition Width="auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <StatusBarItem Grid.Column="1">
-                    <TextBlock Foreground="{StaticResource StatusBarItemForegroundBrush}" Background="{StaticResource StatusBarItemBackgroundBrush}">Icons provided by www.icon8.com</TextBlock>
+                    <TextBlock Foreground="{StaticResource StatusBarItemForegroundBrush}" Background="{StaticResource StatusBarItemBackgroundBrush}">Icons provided by www.icons8.com</TextBlock>
                 </StatusBarItem>
             </Grid>
         </StackPanel>

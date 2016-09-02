@@ -1,0 +1,465 @@
+;;**********************************************************************
+;;
+;; Title:       FileMaintViewModel.dbc
+;;
+;; Type:        Class
+;;
+;; Description: Base/generic Maintenance View Model
+;;
+;; Author:      Richard C. Morris, Synergex Technology Evangelist
+;;
+;; Copyright (c) 2012, Synergex International, Inc. All rights reserved.
+;;
+;; Redistribution and use in source and binary forms, with or without
+;; modification, are permitted provided that the following conditions are met:
+;;
+;; * Redistributions of source code must retain the above copyright notice,
+;;   this list of conditions and the following disclaimer.
+;;
+;; * Redistributions in binary form must reproduce the above copyright notice,
+;;   this list of conditions and the following disclaimer in the documentation
+;;   and/or other materials provided with the distribution.
+;;
+;; THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+;; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+;; IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+;; ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+;; LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+;; CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+;; SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+;; INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+;; CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+;; ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+;; POSSIBILITY OF SUCH DAMAGE.
+;;
+;;*****************************************************************************
+import System
+import System.Collections.Generic
+import System.Text
+import Symphony.Conductor.ViewModel
+import System.Windows
+import Symphony.Conductor.Model
+import Symphony.Conductor.DataIO
+import System.Collections.ObjectModel
+import System.Reflection
+import System.Linq
+import Symphony.Conductor.Types
+import Symphony.Conductor.Commands
+
+
+namespace SFE_Base.ViewModel
+	
+	public class FileMaintViewModel extends BaseViewModel
+		
+		public method FileMaintViewModel
+			in req sender					,@FrameworkElement
+			in req dataItem					,@Type
+			in req fileAccess				,@FileIO
+			endparams
+			parent(sender)
+		proc
+			;mLastProgramMode = ProgramMode.Enquiry
+			
+			;;store the passed info
+			mDataObjectItem = dataItem
+			mFileAccessObject = fileAccess
+			
+		endmethod
+
+.region "List controlling and loading methods"
+		
+		public method LoadDetailList, void
+			endparams
+		proc
+			;;if we have a valid file object let's load the initial list
+			if (!mFileAccessObject.LastSynergyError)
+				loadBaseItemCollection()
+		endmethod
+
+.endregion
+		
+.region "Event processing"
+		
+		public delegate ProgramModeChangedEventandler	,void
+			in req currentMode							,ProgramMode
+		enddelegate
+		
+		public event ProgramModeChanged	,@ProgramModeChangedEventandler
+		
+		private method raiseProgramModeChanged	,void
+			endparams
+		proc
+			if (mLastProgramMode != mProgramMode)
+			begin
+				mLastProgramMode = mProgramMode
+				raiseevent(ProgramModeChanged, mProgramMode)
+			end
+		endmethod
+		
+.endregion
+		
+.region "private class members"
+		
+		private mDataObjectItem			,@Type
+		private mFileAccessObject		,@FileIO
+		
+.endregion
+		
+.region "load base item list"
+		
+		private mClassConstructor	,@ConstructorInfo
+		private mCTORArgs			,[#]@Object	,new Object[1]
+
+		private method loadBaseItemCollection, void
+			endparams
+		proc
+			DataObjectColleciton = new AsyncObservableCollection<DataObjectBase>()
+			
+			data firstTime	,boolean	,true
+			
+			data classTypeInfo		,@TypeInfo			,IntrospectionExtensions.GetTypeInfo(mDataObjectItem)
+			if (classTypeInfo != ^null)
+			begin
+				data item	,@ConstructorInfo
+				foreach item in classTypeInfo.DeclaredConstructors
+				begin
+					mClassConstructor = item
+					if (mClassConstructor.ToString() == "Void .ctor(System.String)")
+						exitloop
+				end
+				
+;				data ctorArgs			,[#]@Object	,new Object[1]
+				mCTORArgs[1] = ""
+				
+				mDataObjectEntryItem = (DataObjectBase)mClassConstructor.Invoke(mCTORArgs)
+				
+				;;bind the required handlers
+				mDataObjectEntryItem.IsDataModifiedChanged += doIsDataModified
+				
+				
+				data status	,FileAccessResults	,FileAccessResults.Success
+				while (status == FileAccessResults.Success)
+				begin
+					data classInstance = mClassConstructor.Invoke(mCTORArgs)
+					
+					if (firstTime) then
+						status = mFileAccessObject.ReadFirstRecord((DataObjectBase)classInstance)
+					else
+						status = mFileAccessObject.ReadNextRecord((DataObjectBase)classInstance)
+					
+					firstTime = false
+					
+					if (status == FileAccessResults.Success)
+					begin
+						
+						DataObjectColleciton.AddToCollection((DataObjectBase)classInstance)
+					end
+				end
+			end
+		endmethod
+		
+		public property DataObjectColleciton, @AsyncObservableCollection<DataObjectBase>
+			method get
+			endmethod
+			method set
+			endmethod
+		endproperty
+		
+		private mSelectedItemIndex	,int
+		
+		public property SelectedItemIndex, int
+			method get
+			proc
+				mreturn mSelectedItemIndex
+			endmethod
+			method set
+			proc
+				mSelectedItemIndex = value
+				RaisePropertyChanged("SelectedItemIndex")
+			endmethod
+		endproperty
+		
+		
+		private mSelectedCollectionItem	,@DataObjectBase
+		
+		public property SelectedCollectionItem, @DataObjectBase
+			method get
+			proc
+				mreturn mSelectedCollectionItem
+			endmethod
+			method set
+			proc
+				mProgramMode = ProgramMode.Enquiry
+				if (value != ^null) then
+				begin
+					mSelectedCollectionItem = value
+					mDataObjectEntryItem.SynergyRecord = mSelectedCollectionItem.SynergyRecord
+					mDataObjectEntryItem.OriginalSynergyRecord = mSelectedCollectionItem.SynergyRecord
+					raiseProgramModeChanged()
+				end
+				else
+				begin
+					mSelectedCollectionItem = value
+					NewCommand.ExecuteState = true
+					SaveCommand.ExecuteState = false
+					CancelCommand.ExecuteState = false
+					DeleteCommand.ExecuteState = false
+					raiseProgramModeChanged()
+				end
+
+				RaisePropertyChanged("SelectedCollectionItem")
+
+			endmethod
+		endproperty
+		
+		private mDataObjectEntryItem	,@DataObjectBase
+		
+		public property DataObjectEntryItem, @DataObjectBase
+			method get
+			proc
+				mreturn mDataObjectEntryItem
+			endmethod
+			method set
+			proc
+				mDataObjectEntryItem = value
+			endmethod
+		endproperty
+		
+.endregion
+		
+.region "Data entry event handlers"
+		
+		private mProgramMode		,ProgramMode
+		private mLastProgramMode		,ProgramMode
+		
+		private method doIsDataModified, void
+			endparams
+		proc
+			GridIsEnabled = !mDataObjectEntryItem.IsDataModified
+			SaveCommand.ExecuteState = mDataObjectEntryItem.IsDataModified && mDataObjectEntryItem.IsDataValid
+			CancelCommand.ExecuteState = mDataObjectEntryItem.IsDataModified
+			DeleteCommand.ExecuteState = SelectedCollectionItem != ^null && !mDataObjectEntryItem.IsDataModified
+			NewCommand.ExecuteState = !mDataObjectEntryItem.IsDataModified
+			if (mDataObjectEntryItem.IsDataModified && mDataObjectEntryItem.IsDataValid && mProgramMode == ProgramMode.Enquiry)
+			begin
+				mProgramMode = ProgramMode.Modify
+				raiseProgramModeChanged()
+			end
+		endmethod
+.endregion
+		
+.region "Standard commands"
+		
+		private mNewCommand	,@GenericCommand
+		
+		public property NewCommand, @GenericCommand
+			method get
+			proc
+				if (mNewCommand == ^null)
+				begin
+					mNewCommand = new GenericCommand("NEW", doNewCommand)
+					mNewCommand.ExecuteState = true
+				end
+				mreturn mNewCommand
+			endmethod
+		endproperty
+		
+		private method doNewCommand, void
+			sender						,@Object
+			param						,string
+			endparams
+		proc
+			SelectedCollectionItem = ^null
+			DataObjectEntryItem.InitData()
+			DataObjectEntryItem.InitDataPlus()
+			DataObjectEntryItem.InitialValidateData()
+			NewCommand.ExecuteState = false
+			mProgramMode = ProgramMode.Add
+			raiseProgramModeChanged()
+		endmethod
+		
+		private mSaveCommand	,@GenericCommand
+		
+		public property SaveCommand, @GenericCommand
+			method get
+			proc
+				if (mSaveCommand == ^null)
+				begin
+					mSaveCommand = new GenericCommand("SAVE", doSaveCommand)
+					mSaveCommand.ExecuteState = false
+				end
+				mreturn mSaveCommand
+			endmethod
+		endproperty
+		
+		private method doSaveCommand, void
+			sender						,@Object
+			param						,string
+			endparams
+		proc
+			using mProgramMode select
+			(ProgramMode.Modify),
+			begin
+				;;restore the data to the colleciton item and update the file.
+				SelectedCollectionItem.SynergyRecord = DataObjectEntryItem.SynergyRecord
+				if (mFileAccessObject.UpdateRecordUsingGRFA(SelectedCollectionItem) != FileAccessResults.Success)
+				begin
+					mDataObjectEntryItem.RestoreOriginalData()
+					ErrorInfo = "Synergy error : " + %string(mFileAccessObject.LastSynergyError)
+					MoveToState("ShowErrorState")
+				end
+				DataObjectEntryItem.OriginalSynergyRecord = SelectedCollectionItem.SynergyRecord 
+				mDataObjectEntryItem.RestoreOriginalData()
+			end
+			(ProgramMode.Add),
+			begin
+				data tmpObj	,@DataObjectBase
+				mCTORArgs[1] = DataObjectEntryItem.SynergyRecord
+				tmpObj = (DataObjectBase)mClassConstructor.Invoke(mCTORArgs)
+				if (mFileAccessObject.CreateRecord(tmpObj) != FileAccessResults.Success) then
+				begin
+					mDataObjectEntryItem.InitData()
+					mDataObjectEntryItem.InitDataPlus()
+					mDataObjectEntryItem.InitialValidateData()
+					DataObjectEntryItem.OriginalSynergyRecord = DataObjectEntryItem.SynergyRecord 
+					mDataObjectEntryItem.RestoreOriginalData()
+					ErrorInfo = "Synergy error : " + %string(mFileAccessObject.LastSynergyError)
+					MoveToState("ShowErrorState")
+				end
+				else
+				begin
+					DataObjectColleciton.AddToCollection(tmpObj)
+					DataObjectEntryItem.OriginalSynergyRecord = DataObjectEntryItem.SynergyRecord 
+					mDataObjectEntryItem.RestoreOriginalData()
+					SelectedCollectionItem = tmpObj
+				end
+			end
+			endusing
+			NewCommand.ExecuteState = true
+			SaveCommand.ExecuteState = false
+			CancelCommand.ExecuteState = false
+			DeleteCommand.ExecuteState = true
+			mProgramMode = ProgramMode.Enquiry
+			raiseProgramModeChanged()
+			GridIsEnabled = true
+		endmethod
+		
+		private mCancelCommand	,@GenericCommand
+		
+		public property CancelCommand, @GenericCommand
+			method get
+			proc
+				if (mCancelCommand == ^null)
+				begin
+					mCancelCommand = new GenericCommand("CANCEL", doCancelCommand)
+					mCancelCommand.ExecuteState = false
+				end
+				mreturn mCancelCommand
+			endmethod
+		endproperty
+		
+		private method doCancelCommand, void
+			sender						,@Object
+			param						,string
+			endparams
+		proc
+			mDataObjectEntryItem.RestoreOriginalData()
+			SaveCommand.ExecuteState = false
+			CancelCommand.ExecuteState = false
+			GridIsEnabled = true
+			mProgramMode = ProgramMode.Enquiry
+			raiseProgramModeChanged()
+		endmethod
+		
+		private mDeleteCommand	,@GenericCommand
+		
+		public property DeleteCommand, @GenericCommand
+			method get
+			proc
+				if (mDeleteCommand == ^null)
+				begin
+					mDeleteCommand = new GenericCommand("DELETE", doDeleteCommand)
+					mDeleteCommand.ExecuteState = false
+				end
+				mreturn mDeleteCommand
+			endmethod
+		endproperty
+		
+		private method doDeleteCommand, void
+			sender						,@Object
+			param						,string
+			endparams
+		proc
+			if (SelectedCollectionItem != ^null)
+			begin
+				if (mFileAccessObject.DeleteRecordUsingGRFA(SelectedCollectionItem) != FileAccessResults.Success) then
+				begin
+					ErrorInfo = "Synergy error : " + %string(mFileAccessObject.LastSynergyError)
+					MoveToState("ShowErrorState")
+				end
+				else
+				begin
+					;;remove the item from the list
+					DataObjectColleciton.Remove(SelectedCollectionItem)
+					SelectedCollectionItem  = ^null
+					
+					;;init the entry object
+					DataObjectEntryItem.InitData()
+					GridIsEnabled = true
+				end
+				SaveCommand.ExecuteState = false
+				CancelCommand.ExecuteState = false
+				DeleteCommand.ExecuteState = false
+				NewCommand.ExecuteState = true
+				mProgramMode = ProgramMode.Enquiry
+				raiseProgramModeChanged()
+			end
+		endmethod
+		
+		
+		
+.endregion
+		
+.region "list/grid options"
+		
+		private mGridIsEnabled	,boolean	,true
+		
+		public property GridIsEnabled, boolean
+			method get
+			proc
+				mreturn mGridIsEnabled
+			endmethod
+			method set
+			proc
+				if (mGridIsEnabled != value)
+				begin
+					mGridIsEnabled = value
+					RaisePropertyChanged("GridIsEnabled")
+				end
+			endmethod
+		endproperty
+		
+		
+.endregion
+		
+.region "Error information"
+		
+		private mErrorInfo	,string
+		
+		public property ErrorInfo, string
+			method get
+			proc
+				mreturn mErrorInfo
+			endmethod
+			method set
+			proc
+				mErrorInfo = value
+				RaisePropertyChanged("ErrorInfo")
+			endmethod
+		endproperty
+		
+		
+.endregion
+	endclass
+	
+endnamespace

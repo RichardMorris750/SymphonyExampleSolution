@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="SFEAppShell.View.MenuSelection"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+            <Button Style="{StaticResource MenuButtonStyle}" Command="{Binding Path=NavigateState}" CommandParameter="SupplierMaintState">
+                <Button.Content>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Image Grid.Row="0" Source="pack://application:,,,/SFEAppShell;component/Images/Icons/Supplier.png"></Image>
+                        <TextBlock Grid.Row="1" Text="Suppliers" HorizontalAlignment="Center"></TextBlock>
+                    </Grid>
+                </Button.Content>
+            </Button>
+
+            <Button Style="{StaticResource MenuButtonStyle}" Command="{Binding Path=NavigateState}" CommandParameter="ProductMaintState">
+                <Button.Content>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Image Grid.Row="0" Source="pack://application:,,,/SFEAppShell;component/Images/Icons/Product.png"></Image>
+                        <TextBlock Grid.Row="1" Text="Products" HorizontalAlignment="Center"></TextBlock>
+                    </Grid>
+                </Button.Content>
+            </Button>
+
+            
+        </StackPanel>
+
+    </Grid>
+</UserControl>

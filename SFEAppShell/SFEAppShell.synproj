@@ -67,37 +67,37 @@
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyAdapter, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.5\lib\net45\SymphonyAdapter.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.7\lib\net45\SymphonyAdapter.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyConductor, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.5\lib\net45\SymphonyConductor.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.7\lib\net45\SymphonyConductor.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyConductorWPF, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.5\lib\net45\SymphonyConductorWPF.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.7\lib\net45\SymphonyConductorWPF.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyCore, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.5\lib\net45\SymphonyCore.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.7\lib\net45\SymphonyCore.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyCrescendo, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.5\lib\net45\SymphonyCrescendo.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.7\lib\net45\SymphonyCrescendo.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyHarmony, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.5\lib\net45\SymphonyHarmony.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.7\lib\net45\SymphonyHarmony.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyUIToolkit, Version=3.2.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\SymphonyFramework.3.2.5\lib\net45\SymphonyUIToolkit.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.7\lib\net45\SymphonyUIToolkit.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
@@ -129,6 +129,10 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Compile Include="ViewModel\ApplicationViewModel.dbc" />
+    <Compile Include="View\MenuSelection.xaml.dbl">
+      <DependentUpon>View\MenuSelection.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow1.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -141,6 +145,10 @@
       <DependentUpon>MainWindow1.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\MenuSelection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.dbl">
@@ -171,11 +179,15 @@
   <ItemGroup>
     <Folder Include="Images" />
     <Folder Include="Images\Icons" />
+    <Folder Include="ViewModel" />
+    <Folder Include="View" />
     <Folder Include="Properties" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Icons\Menu-64.png" />
     <Resource Include="Images\Icons\Menu-64_mouseOver.png" />
+    <Resource Include="Images\Icons\Product.png" />
+    <Resource Include="Images\Icons\Supplier.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SEF_Supplier\SEF_Supplier.synproj">

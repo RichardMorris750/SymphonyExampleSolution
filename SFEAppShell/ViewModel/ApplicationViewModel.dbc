@@ -1,0 +1,21 @@
+import System
+import System.Collections.Generic
+import System.Text
+import Symphony.Conductor.ViewModel
+import System.Windows
+
+namespace SFEAppShell.ViewModel
+
+	public class ApplicationViewModel extends BaseViewModel
+
+		public method ApplicationViewModel
+			in req sender					,@FrameworkElement
+			endparams
+			parent(sender)
+		proc
+			
+		endmethod
+	
+	endclass
+
+endnamespace

@@ -25,47 +25,75 @@
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <sfeuiCommon:Toolbar Grid.Row="0"></sfeuiCommon:Toolbar>
+        <!--<sfeuiCommon:Toolbar Grid.Row="0"></sfeuiCommon:Toolbar>-->
 
         <Border Grid.Row="1" Margin="4" Padding="4" BorderThickness="1" CornerRadius="5" BorderBrush="{StaticResource BorderBrush}">
 
-            <Grid DataContext="{Binding Path=DataObjectEntryItem}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="4" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+            <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
                 </Grid.RowDefinitions>
+                <Grid Grid.Row="0" DataContext="{Binding Path=DataObjectEntryItem}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="4" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource Supplier_Supp_code_prompt}"></Label>
-                <symControl:FieldControl Grid.Row="0" Grid.Column="2" Style="{StaticResource Supplier_Supp_code_style}"></symControl:FieldControl>
+                    <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource Supplier_Supp_code_prompt}"></Label>
+                    <symControl:FieldControl Grid.Row="0" Grid.Column="2" Style="{StaticResource Supplier_Supp_code_style}"></symControl:FieldControl>
 
-                <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource Supplier_Name_prompt}"></Label>
-                <symControl:FieldControl Grid.Row="1" Grid.Column="2" Style="{StaticResource Supplier_Name_style}"></symControl:FieldControl>
+                    <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource Supplier_Name_prompt}"></Label>
+                    <symControl:FieldControl Grid.Row="1" Grid.Column="2" Style="{StaticResource Supplier_Name_style}"></symControl:FieldControl>
 
-                <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource Supplier_Address1_prompt}"></Label>
-                <symControl:FieldControl Grid.Row="2" Grid.Column="2" Style="{StaticResource Supplier_Address1_style}"></symControl:FieldControl>
+                    <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource Supplier_Address1_prompt}"></Label>
+                    <symControl:FieldControl Grid.Row="2" Grid.Column="2" Style="{StaticResource Supplier_Address1_style}"></symControl:FieldControl>
 
-                <symControl:FieldControl Grid.Row="3" Grid.Column="2" Style="{StaticResource Supplier_Address2_style}"></symControl:FieldControl>
+                    <symControl:FieldControl Grid.Row="3" Grid.Column="2" Style="{StaticResource Supplier_Address2_style}"></symControl:FieldControl>
 
-                <symControl:FieldControl Grid.Row="4" Grid.Column="2" Style="{StaticResource Supplier_Address3_style}"></symControl:FieldControl>
+                    <symControl:FieldControl Grid.Row="4" Grid.Column="2" Style="{StaticResource Supplier_Address3_style}"></symControl:FieldControl>
 
-                <symControl:FieldControl Grid.Row="5" Grid.Column="2" Style="{StaticResource Supplier_Postcode_style}"></symControl:FieldControl>
+                    <symControl:FieldControl Grid.Row="5" Grid.Column="2" Style="{StaticResource Supplier_Postcode_style}"></symControl:FieldControl>
 
-                <Label Grid.Row="6" Grid.Column="0" Style="{StaticResource Supplier_Contact_prompt}"></Label>
-                <symControl:FieldControl Grid.Row="6" Grid.Column="2" Style="{StaticResource Supplier_Contact_style}"></symControl:FieldControl>
+                    <Label Grid.Row="6" Grid.Column="0" Style="{StaticResource Supplier_Phone_prompt}"></Label>
+                    <symControl:FieldControl Grid.Row="6" Grid.Column="2" Style="{StaticResource Supplier_Phone_style}"></symControl:FieldControl>
 
-                <Label Grid.Row="7" Grid.Column="0" Style="{StaticResource Supplier_Email_prompt}"></Label>
-                <symControl:FieldControl Grid.Row="7" Grid.Column="2" Style="{StaticResource Supplier_Email_style}"></symControl:FieldControl>
+                    <Label Grid.Row="7" Grid.Column="0" Style="{StaticResource Supplier_Contact_prompt}"></Label>
+                    <symControl:FieldControl Grid.Row="7" Grid.Column="2" Style="{StaticResource Supplier_Contact_style}"></symControl:FieldControl>
+
+                    <Label Grid.Row="8" Grid.Column="0" Style="{StaticResource Supplier_Email_prompt}"></Label>
+                    <symControl:FieldControl Grid.Row="8" Grid.Column="2" Style="{StaticResource Supplier_Email_style}"></symControl:FieldControl>
+
+                </Grid>
+
+                <!-- button options -->
+                <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="1" Style="{StaticResource StandardButtonStyle}" Command="{Binding Path=NewCommand}">New</Button>
+                    <Button Grid.Column="2" Style="{StaticResource StandardButtonStyle}" Command="{Binding Path=SaveCommand}">Save</Button>
+                    <Button Grid.Column="3" Style="{StaticResource StandardButtonStyle}" Command="{Binding Path=CancelCommand}">Cancel</Button>
+                    <Button Grid.Column="4" Style="{StaticResource StandardButtonStyle}" Command="{Binding Path=DeleteCommand}">Delete</Button>
+
+                </Grid>
 
             </Grid>
 

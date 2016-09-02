@@ -26,10 +26,10 @@
                 <!-- form options -->
 
                 <!-- standard options -->
-                <Button Grid.Column="2" Style="{StaticResource TransperentButtonStyle}" HorizontalAlignment="Right" Margin="2"
-                        Command="{Binding Path=MenuButtonCommand}">
+                <Button Grid.Column="0" Style="{StaticResource TransperentButtonStyle}" HorizontalAlignment="Right" Margin="2"
+                        Command="{Binding Path=QuitState}">
                     <Button.Content>
-                        <Image Height="34" Width="40" Source="pack://application:,,,/SFEAppShell;component/Images/Icons/menu-64.png">
+                        <Image Height="34" Width="40" Source="pack://application:,,,/SFE_UI;component/Images/Icons/Exit-52.png">
                             <Image.Style>
                                 <Style>
                                     <Style.Triggers>

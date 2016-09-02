@@ -1,3 +1,38 @@
+;;**********************************************************************
+;;
+;; Title:       SupplierMaintentanceViewModel.dbc
+;;
+;; Type:        Class
+;;
+;; Description: Supplier maintenance
+;;
+;; Author:      Richard C. Morris, Synergex Technology Evangelist
+;;
+;; Copyright (c) 2012, Synergex International, Inc. All rights reserved.
+;;
+;; Redistribution and use in source and binary forms, with or without
+;; modification, are permitted provided that the following conditions are met:
+;;
+;; * Redistributions of source code must retain the above copyright notice,
+;;   this list of conditions and the following disclaimer.
+;;
+;; * Redistributions in binary form must reproduce the above copyright notice,
+;;   this list of conditions and the following disclaimer in the documentation
+;;   and/or other materials provided with the distribution.
+;;
+;; THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+;; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+;; IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+;; ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+;; LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+;; CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+;; SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+;; INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+;; CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+;; ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+;; POSSIBILITY OF SUCH DAMAGE.
+;;
+;;*****************************************************************************
 import System
 import System.Collections.Generic
 import System.Text
@@ -5,11 +40,12 @@ import SFE_Base.ViewModel
 import System.Windows
 import AppData
 import Symphony.Conductor.DataIO
+import Symphony.Conductor.ViewModel
 
 
 namespace SEF_Supplier.ViewModel
 
-	public class SupplierMaintentanceViewModel extends MaintenanceViewModel
+	public class SupplierMaintentanceViewModel extends FileMaintViewModel
 
 		private static mSupplier	,@Supplier_Data	,new Supplier_Data()
 
@@ -18,7 +54,34 @@ namespace SEF_Supplier.ViewModel
 			endparams
 			parent(sender, mSupplier.GetType(), new Supplier_FileIO(FileOpenMode.UpdateIndexed))
 		proc
-			
+			this.ProgramModeChanged += doProgramModeChanged
+
+			;;we can use the stndard list loding method built into the base class or
+			;;load the list ourselves
+			this.LoadDetailList()
+		endmethod
+
+		private method doProgramModeChanged	,void
+			in req currentMode				,ProgramMode
+			endparams
+		proc
+			;;this event handler allows us to prevent the user from being able to change field
+			;;that would break the data integrity - for example the key fields when in amend mode.
+
+			using currentMode select
+			(ProgramMode.Modify),
+			begin
+				DataObjectEntryItem.SetFieldReadOnlyStatus(true, "SUPP_CODE")
+			end
+			(ProgramMode.Add),
+			begin
+				DataObjectEntryItem.SetFieldReadOnlyStatus(false, "SUPP_CODE")
+			end
+			(ProgramMode.Enquiry),
+			begin
+				DataObjectEntryItem.SetFieldReadOnlyStatus(true, "SUPP_CODE")
+			end
+			endusing
 		endmethod
 	
 	endclass

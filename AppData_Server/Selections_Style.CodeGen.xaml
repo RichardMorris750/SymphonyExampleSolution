@@ -51,6 +51,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type symphonyControls:FieldControl}">
                     <TextBox
+						
                         Name="ctlSelections_Start_supp"
                         Text="{Binding Path=Start_supp, Converter={StaticResource alphaConverter}, UpdateSourceTrigger=Default,
                                 ValidatesOnDataErrors=True}"
@@ -120,6 +121,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type symphonyControls:FieldControl}">
                     <TextBox
+						
                         Name="ctlSelections_Start_prod"
                         Text="{Binding Path=Start_prod, Converter={StaticResource alphaConverter}, UpdateSourceTrigger=Default,
                                 ValidatesOnDataErrors=True}"
@@ -189,6 +191,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type symphonyControls:FieldControl}">
                     <TextBox
+						
                         Name="ctlSelections_End_supp"
                         Text="{Binding Path=End_supp, Converter={StaticResource alphaConverter}, UpdateSourceTrigger=Default,
                                 ValidatesOnDataErrors=True}"
@@ -258,6 +261,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type symphonyControls:FieldControl}">
                     <TextBox
+						
                         Name="ctlSelections_End_prod"
                         Text="{Binding Path=End_prod, Converter={StaticResource alphaConverter}, UpdateSourceTrigger=Default,
                                 ValidatesOnDataErrors=True}"
@@ -327,6 +331,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type symphonyControls:FieldControl}">
                     <TextBox
+						
                         Name="ctlSelections_Keyword"
                         Text="{Binding Path=Keyword, Converter={StaticResource alphaConverter}, UpdateSourceTrigger=Default,
                                 ValidatesOnDataErrors=True}"
@@ -399,6 +404,7 @@
 							<RowDefinition Height="auto"></RowDefinition>
 						</Grid.RowDefinitions>
 						<ComboBox Grid.Row="0"
+							
 							Visibility="{Binding Path=Report_typeIsReadOnly, Converter={StaticResource reverseBooleanToVisibilityConverter}}"
 							HorizontalAlignment="Left"
 							VerticalAlignment="Center"
@@ -437,6 +443,7 @@
 							</ComboBox.Style>
 						</ComboBox>
 						<TextBox Grid.Row="0"
+								
                                  Width="300"
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Center"

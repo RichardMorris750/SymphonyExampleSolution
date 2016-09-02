@@ -71,6 +71,7 @@ namespace AppData
 		private mDecimalConveter  ,@SynergyDecimalConverter ,new SynergyDecimalConverter()
 		private mImpliedDecimalConveter ,@SynergyImpliedDecimalConverter  ,new SynergyImpliedDecimalConverter()
 		private mIntegerConveter  ,@SynergyIntConverter ,new SynergyIntConverter()
+		private mAlphaYNConveter	,@SynergyAlphaYNConverter, new SynergyAlphaYNConverter()
 
 		static method Order_header_Data
 			endparams
@@ -502,6 +503,7 @@ namespace AppData
         public override method InitData ,void
         proc
 			init Order_header_main
+
 			RaisePropertyChanged(^null)
 			parent.InitData()
         endmethod

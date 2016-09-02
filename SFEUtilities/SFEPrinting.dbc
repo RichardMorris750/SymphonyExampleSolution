@@ -1,0 +1,627 @@
+import System
+import System.Collections.Generic
+import System.Text
+import System.IO
+
+import SynPSG.PDF
+
+
+.define D_TOP_MARGIN_SPACE	8
+.define D_TOP_MARGIN_SPACE_WITH_HEAD	,6
+.define D_LEFT_MARGIN,	50
+
+namespace SFEUtilities
+	
+	public class SFEPrinting
+		
+		private static mHandle			,i4
+		private static mPosY			,i4
+		private static mPosX			,i4
+		
+		private static mDonePrinting		,boolean
+		private static mDoDeferedFormFeed	,boolean
+		
+		private static mPageNumber		,i1
+		
+		private static mPageWidth		,i4
+		private static mPageLength		,i4
+		
+		private static mfontSize		,i4
+		private static mfontName		,a50
+		private static mfontWeight		,i4
+		private static mUnderline		,boolean
+		
+		private static mPrinterName		,a100
+		private static mPrintHeader		,boolean
+		private static mPrintFooter		,boolean
+		
+		private static mPrintStart		,i4		
+		
+		private static mPDF			,@PdfFile
+		
+		private static mReportType		,string
+		
+		private static mCambriaFont		,string
+		private static mConsolasFont	,string
+		private static mCalibriFont		,string
+		private static mArialNFont		,string
+		private static mArialNBFont		,string
+		
+		private static mColumnsperLine	,int
+		private static mTopMargin		,int
+		private static mBottomMargin	,int
+		private static mLeftMargin		,int
+		private static mRightMargin		,int
+		
+		private static mHighestRow		,int
+		
+;-------------------------------------------------------------------------------
+		; caters for creating a PDF and using print API
+		
+		public static method PrinterOpen	,void
+			in req reportType				,a		; R for Report or P for PDF
+			in opt landscapeMode			,n		; t/f
+			in opt columnsPerLine			,n		
+			in opt topMargin				,n		; in pixels
+			in opt bottomMargin				,n		; in pixels
+			in opt leftMargin				,n		; in pixels
+			in opt rightMargin				,n		; in pixels
+			in opt printHeader				,n		; t/f
+			in opt printFooter				,n		; t/f
+			in opt printerName				,a 		; printer anme for print API or PDF name for PDF
+			endparams
+			
+			.include 'DBLDIR:winprint.def'
+			
+			
+			record 
+				landscape		,boolean	
+		proc
+			
+			if mHandle
+			begin
+				wpr_info(mHandle, DWP_DELPRINTER)
+				clear mHandle
+			end
+			
+			mReportType = reportType
+			
+			if ^passed(landscapeMode) then
+				landscape = landscapeMode
+			else
+				landscape= false
+			
+			if ^passed(ColumnsperLine) then
+				mColumnsperLine = columnsPerLine
+			else
+				mColumnsperLine = 80
+			
+			if ^passed(topMargin)then
+				mTopMargin = topMargin
+			else
+				mTopMargin = 50
+			
+			if ^passed(bottomMargin) then
+				mBottomMargin = bottomMargin
+			else
+				mBottomMargin = 50
+			
+			if ^passed(leftMargin) then
+				mLeftMargin = leftMargin
+			else
+				mLeftMargin = 25
+			
+			if ^passed(rightMargin) then
+				mRightMargin = rightMargin
+			else
+				mRightMargin = 25
+			
+			if ^passed(printHeader) then
+				mPrintHeader = printHeader
+			else
+				mPrintHeader = false
+			
+			
+			if ^passed(printFooter) then
+				mPrintFooter = printFooter
+			else
+				mPrintFooter = false
+			
+			if .not.mfontName			
+				mfontName = "Courier"
+			
+			if .not.mfontSize
+				mfontSize = 9
+			
+			mfontWeight = DWPFW_NORMAL
+			
+			
+			
+			if mReportType == 'P' then
+			begin
+				mPDF = new PdfFile(,,,,,,,,,,,"SFEPDFfiles:")
+				
+				;;Override default name to suppress date/time prefix, and and ask reader
+				;;apps to display the file in full page view.
+				if ^passed (printerName) then
+					mPDF.FileName = %atrim(printerName) + ".pdf"
+				else
+					mPDF.FileName = %syn_uname + ".pdf"
+				
+				mPDF.PageLayout = PdfPageLayout.Single
+				
+				mPosY = mPDF.Height	
+				mPosX = 1		
+			end
+			else
+			begin
+				data result	,a10
+				data length	,i4
+				getlog("USE_XPS_PRINTER", result, length)
+				if (length>0 && result == "YES") then
+					xcall wpr_info(mHandle, DWP_GETPRINTER, "Microsoft XPS Document Writer")
+				else
+				begin
+					if (mPrinterName == "       ") then
+						xcall wpr_info(mHandle, DWP_GETPRINTER)	;;this will use the user default printer
+					else
+					begin
+						xcall wpr_info(mHandle, DWP_GETPRINTER, mPrinterName)	;;this will use the passed printer.
+					end
+				end
+				
+				wpr_setdevice(mHandle, DWP_PAPERSIZE, DWPP_A4)
+				
+				if (landscapeMode == true) then
+				begin
+					if .not.mfontSize
+						mfontSize = 7
+					wpr_setdevice(mHandle, DWP_ORIENTATION, DWPO_PORTRAIT)
+				end
+				else
+				begin
+					if .not. mFontsize
+						mfontSize = 11
+					wpr_setdevice(mHandle, DWP_ORIENTATION, DWPO_PORTRAIT)
+				end
+				
+				mPosX = mLeftMargin
+				mPosY = 1
+				
+				
+				wpr_print(mHandle, DWP_BEGINJOB) ;Create the metafile
+				
+				wpr_print(mHandle, DWP_BEGINPAGE)
+				
+				wpr_getdevice(mHandle, DWP_PIXELWIDTH, mPageWidth)
+				wpr_getdevice(mHandle, DWP_PIXELHEIGHT, mPageLength)
+			end
+			
+			clear mHighestRow
+			
+			if mPrintHeader
+				doHeading()
+			
+			
+		endmethod
+		
+		
+		
+		;---------------------------------------------------------------------------
+		public static method setColumnsPerLine	,void
+			in req columnsPerLine	,n
+			endparams
+		proc
+			mColumnsperLine = columnsPerLine
+		endmethod 
+		
+		
+		;---------------------------------------------------------------------------
+		
+		private static method doHeading, void
+			endparams
+			
+			.include 'DBLDIR:winprint.def'
+			
+		proc
+			
+			if mReportType =='P' then
+			begin
+			end
+			else
+			begin
+				data penHandle	,i4
+				
+				penHandle = %wpr_info(mHandle,DWP_GETPEN)
+				
+				printText(mPosX = -1, mPosY, 14, "Times new Roman", DWPFW_BOLD, "SFE Demo Company")
+				printText(mPosX = -1, mPosY, 6, "Times new Roman", DWPFW_BOLD, "Spiffing Lane, Spiffingly, UK")
+				printText(mPosX = -1, mPosY, 6, "Times new Roman", DWPFW_BOLD, "TEL: 020-8843 5400  FAX: 020-8574 1716/020-8571 7214")
+				mPosY += 5
+				wpr_print(mHandle,DWP_LINE, penHandle, 1, mPosY ,mPageWidth, mPosY+2)
+				mPosY += (wpr_info(mHandle, DWP_TEXTHEIGHT, "X"))
+				
+				mPrintStart = mPosY
+				
+				wpr_info(mHandle,DWP_DELPEN,penHandle)				
+			end
+			
+		endmethod
+		
+		
+		;------------------------------------------------------------------------
+		private static method doFooter, void
+			endparams
+		proc
+			
+			if mReportType =='P' then
+			begin
+			end
+			else
+			begin
+				
+				mPosY = mPageLength - (wpr_info(mHandle, DWP_TEXTHEIGHT, "X"))
+				
+				begin
+					mPosY = mPosY - 104
+					printText(mPosX = -1, mPosY, 4, "Times new Roman", DWPFW_BOLD, "Symphony Solutions Example")
+				end
+			end
+			
+			
+		endmethod
+		
+		
+		;-------------------------------------------------------------------------------------------	
+		public static method SetFont	,void
+			
+			in opt fontName					,a
+			in opt fontSize					,n
+			in opt fontWeight				,n
+			in opt columnsPerLine			,n
+			endparams
+			
+		proc
+			
+			if ^passed(fontName)
+				mfontName = fontName
+			
+			if ^passed(fontSize)
+				mfontSize = fontSize
+			
+			if ^passed(fontWeight)
+				mfontWeight = fontWeight
+			
+			if ^passed (ColumnsperLine)
+				mColumnsperLine = columnsPerLine
+			
+			
+			if mReportType == 'P'
+			begin
+				using mfontName select
+				('Cambria'), 	begin
+					if !mCambriaFont
+						mCambriaFont		= mPDF.LoadTrueTypeFont("fonts:cambriab.ttf")
+					mPDF.SelectFont(mCambriaFont,fontsize)
+				end
+				('Consolas'), 
+				begin
+					if !mConsolasFont
+						mConsolasFont	= mPDF.LoadTrueTypeFont("fonts:Consola.ttf")
+					mPDF.SelectFont(mConsolasFont,fontsize)
+				end
+				
+				('Calibri'), 	
+				begin
+					if !mCalibriFont
+						mCalibriFont	= mPDF.LoadTrueTypeFont("fonts:Calibri.ttf")
+					mPDF.SelectFont(mCalibriFont,fontsize)
+				end
+				
+				('Arialn'),
+				begin
+					if !mArialNFont
+						mArialNFont		= mPDF.LoadTrueTypeFont("fonts:arialn.ttf")
+					mPDF.SelectFont(mArialNFont,fontsize)
+				end
+				
+				('Arialb'),
+				begin
+					if !mArialNBFont
+						mArialNBFont		= mPDF.LoadTrueTypeFont("fonts:arialb.ttf")
+					mPDF.SelectFont(mArialNBFont,fontsize)
+				end				
+				endusing
+			end
+			
+			nop
+		endmethod
+		
+;-------------------------------------------------------------------------------------------		
+;; prints by row and column		
+		public static method Write	,void
+			in req row									,i
+			in req col									,i
+			in req printData							,a
+			endparams
+			
+		proc
+			
+			mDonePrinting = true
+
+			if mReportType == 'P' then
+				;; note - allows for printing based on row and relative column based on declared number of columns
+				;; does not allow printing back to a row already printed, but can print multiple fields on same
+				;; line, and can skip lines.   Assumes same font size used on each print line.
+			begin
+				if row .gt. mHighestRow
+				begin
+					mPosY -= mfontSize * (row-mHighestRow)
+					mHighestRow = row
+				end
+				
+				mPosX = mPDF.width * col/mColumnsperLine
+				mPdf.DrawText(%atrim(printData),mPosX,mPosY)
+			end
+			else
+			begin
+				if row .gt.mHighestRow
+				begin
+					mPosY += (wpr_info(mHandle, DWP_TEXTHEIGHT, %atrim(printdata))) * (row -mHighestRow)
+					mHighestRow = row
+					end
+
+				mPosX = mPageWidth * col/mColumnsperLine
+				
+;				data pCol	,i4
+;				data pRow	,i4		
+;				pCol = %wpr_info(mHandle, DWP_X_FROM_COL, col)
+;				pRow = %wpr_info(mHandle, DWP_Y_FROM_ROW, row) + mPrintStart
+				
+				
+;			data tmpY	,i4	,mPosY * -1
+				printText(mPosX,mPosY, mfontSize, mfontName, mfontWeight, %atrim(printData))
+;			mPosY = tmpY	
+			end
+			
+		endmethod
+		
+		;-------------------------------------------------------------------------------------
+		public static method WriteLine	,void
+			in req printData							,a
+			in opt lineFeedCount						,i
+			endparams
+			
+			
+		proc
+			mDonePrinting = true	
+			if mReportType == 'P' then
+			begin
+				
+			end
+			else
+				printText(mPosX = D_LEFT_MARGIN, mPosY, mfontSize, mfontName, mfontWeight, %atrim(printData))
+			
+			
+			if (^passed(lineFeedCount) && lineFeedCount)
+				LineFeed(lineFeedCount)
+
+		endmethod
+		
+		;-------------------------------------------------------------------------------------------
+		public static method FormFeed, void
+			endparams
+		proc
+			
+			
+			if mPrintFooter .and. mDonePrinting
+				dofooter()
+			
+			if mReportType == 'P' then
+			begin
+				mPosY = mPDF.Height		
+				clear mHighestRow 
+				mPDF.NewPage() 
+			end
+			else
+			begin
+				wpr_print(mHandle, DWP_ENDPAGE)
+				wpr_print(mHandle, DWP_BEGINPAGE)
+				
+				mPosY = 1
+				mPosX = mLeftMargin
+				
+			end
+			
+			
+			if mPrintHeader
+				doHeading()
+			
+		endmethod
+		
+		;-----------------------------------------------------------------------------	
+		public static method LineFeed	,void
+			in opt numberOfLines				,i
+			endparams
+			
+			record
+				tCount	,i4
+				lCount	,i4	
+			endrecord
+			
+		proc
+			
+			tCount = 1
+			if (^passed(numberOfLines) && numberOfLines)
+				tCount = numberOfLines
+			
+			if mReportType == 'P' then
+			begin
+				
+			end
+			else
+			begin
+				for lCount from 1 thru tCount by 1
+					printText(mPosX = D_LEFT_MARGIN, mPosY, mfontSize, mfontName, mfontWeight, "")
+			end
+			
+			mDonePrinting = true
+			
+		endmethod
+		
+		;----------------------------------------------------------------------------------------
+		
+		private static method printText, void
+			inout req	posX		,i4
+			inout req	posY		,i4
+			in req		fontSize	,i4
+			in req		fontName	,a50
+			in req		fontWeight	,i4
+			in req		pString		,a500
+			endparams
+			
+			.include 'DBLDIR:winprint.def'
+			
+			record
+				printX		,i4
+				printY		,i4
+				tmpFont    	,font_specs
+			endrecord
+			
+		proc
+			
+			
+			PrintY = posY
+			if (printY < 0)
+				printY = printY * -1
+			
+			init tmpFont
+			wpr_getdevice(mHandle, DWP_FONT, tmpFont)
+			tmpFont.facename = fontName
+			tmpFont.weight = fontWeight
+			if (mUnderline) then
+				tmpFont.underline = 1
+			else
+				tmpFont.underline = 0
+			
+			tmpFont.pointsize = fontSize
+			tmpFont.fixed = true
+			wpr_setdevice(mHandle, DWP_FONT, tmpFont)
+			
+			if (posx == -1) then
+			begin
+				;;center of the page
+				data textWidth	,i4
+				textWidth += wpr_info(mHandle, DWP_TEXTWIDTH, pString)
+				printX = (mPageWidth / 2 ) - (textWidth / 2 )
+			end
+			else
+			begin
+				printX = posX
+			end
+			
+			if (%trim(pString) != 0) then
+			begin
+				wpr_print(mHandle, DWP_WRITEOUT, printX, printY, pString)
+;				posX += wpr_info(mHandle, DWP_TEXTWIDTH, pString)
+;				if (fontWeight == DWPFW_BOLD)
+;				begin
+;					posX += (wpr_info(mHandle, DWP_TEXTWIDTH, pString) * 0.1)
+;				end
+;			if (posY > 0) then
+;				begin
+;					
+;					posY += (wpr_info(mHandle, DWP_TEXTHEIGHT, pString))
+;					
+;				end									
+;				else
+;					posY = posY * -1
+			end
+			else
+			begin
+;				if (posY > 0) then
+;					posY += wpr_info(mHandle, DWP_TEXTHEIGHT, " ")
+;				else
+;					posY = posY * -1
+			end
+			
+		endmethod
+		
+		;-------------------------------------------------------------------------------
+		
+		public static method PrinterClose	,void
+			endparams
+			
+		proc
+			if mReportType == 'P' then
+				mPdf.preview()
+			else
+				if (mHandle)
+				begin
+					doFooter()
+					wpr_print(mHandle, DWP_ENDPAGE)
+					wpr_print(mHandle, DWP_ENDJOB)
+					
+					data length	,i4
+					data result	,a50
+					getlog("FORCE_PRINT", result, length)
+					if (length && result.eqs."YES") then
+					begin
+						try
+						begin
+							wpr_execute(mHandle, DWP_PRINT)
+						end
+						catch (e, @Exception)
+						begin
+							nop	;they aborted
+						end
+						endtry
+					end
+					else
+					begin
+						if (wpr_execute(mHandle, DWP_PREVIEW) == DWP_PREVIEW_PRINT)
+						begin
+							try
+							begin
+								wpr_execute(mHandle, DWP_PRINT)
+							end
+							catch (e, @Exception)
+							begin
+								nop	;they aborted
+							end
+							endtry
+						end
+					end
+					
+					wpr_info(mHandle, DWP_DELPRINTER)
+					mDoDeferedFormFeed=false
+					clear(mHandle)	
+				end
+			
+		endmethod
+		
+		;-----------------------------------------------------------------------------------
+		public static method SetLandscapeMode, void
+			endparams
+		proc
+			
+			wpr_setdevice(mHandle, DWP_ORIENTATION, DWPO_LANDSCAPE)
+			wpr_getdevice(mHandle, DWP_PIXELWIDTH, mPageWidth)
+			wpr_getdevice(mHandle, DWP_PIXELHEIGHT, mPageLength)
+			
+		endmethod
+		
+		;-----------------------------------------------------------------------------------
+		public static method SetPortraitMode, void
+			endparams
+		proc
+			wpr_setdevice(mHandle, DWP_ORIENTATION, DWPO_PORTRAIT)
+			wpr_getdevice(mHandle, DWP_PIXELWIDTH, mPageWidth)
+			wpr_getdevice(mHandle, DWP_PIXELHEIGHT, mPageLength)
+			
+		endmethod
+		
+		
+	endclass
+	
+endnamespace

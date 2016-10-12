@@ -27,13 +27,13 @@
 
         <Border Grid.Row="1" Margin="4" Padding="4" BorderThickness="1" CornerRadius="5" BorderBrush="{StaticResource BorderBrush}">
 
-            <DataGrid ItemsSource="{Binding Path=DataObjectColleciton}" AutoGenerateColumns="False" IsReadOnly="True" IsEnabled="{Binding Path=GridIsEnabled}"
+            <DataGrid ItemsSource="{Binding Path=DataObjectCollection}" AutoGenerateColumns="False" IsReadOnly="True" IsEnabled="{Binding Path=GridIsEnabled}"
                   SelectedItem="{Binding Path=SelectedCollectionItem}" SelectedIndex="{Binding Path=SelectedItemIndex}"
                   SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False"
                   CanUserResizeRows="False" CanUserSortColumns="True" RowHeaderWidth="0">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Sorting">
-                        <symTrigger:DataGridCustomerSorting ItemsSource="{Binding Path=DataObjectColleciton}"></symTrigger:DataGridCustomerSorting>
+                        <symTrigger:DataGridCustomerSorting ItemsSource="{Binding Path=DataObjectCollection}"></symTrigger:DataGridCustomerSorting>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
 

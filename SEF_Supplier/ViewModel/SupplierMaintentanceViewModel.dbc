@@ -52,7 +52,7 @@ namespace SEF_Supplier.ViewModel
 		public method SupplierMaintentanceViewModel
 			sender									,@FrameworkElement
 			endparams
-			parent(sender, mSupplier.GetType(), new Supplier_FileIO(FileOpenMode.UpdateIndexed))
+			parent(sender, mSupplier.GetType(), new Supplier_FileIO(FileOpenMode.UpdateIndexed), "ShowErrorState")
 		proc
 			this.ProgramModeChanged += doProgramModeChanged
 

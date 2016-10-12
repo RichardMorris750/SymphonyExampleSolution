@@ -55,15 +55,18 @@ namespace SFE_Base.ViewModel
 			in req sender					,@FrameworkElement
 			in req dataItem					,@Type
 			in req fileAccess				,@FileIO
+			in req errorVisualState			,string
 			endparams
 			parent(sender)
 		proc
-			;mLastProgramMode = ProgramMode.Enquiry
 			
 			;;store the passed info
 			mDataObjectItem = dataItem
 			mFileAccessObject = fileAccess
+			mErrorVisualState = errorVisualState
 			
+			this.AfterNavigateState += doAfterStateNavigation
+
 		endmethod
 
 .region "List controlling and loading methods"
@@ -74,6 +77,22 @@ namespace SFE_Base.ViewModel
 			;;if we have a valid file object let's load the initial list
 			if (!mFileAccessObject.LastSynergyError)
 				loadBaseItemCollection()
+		endmethod
+
+.endregion
+
+.region "Visual state details"
+		
+		private mErrorVisualState	,string
+
+		private method doAfterStateNavigation, void
+			eArgs, @Symphony.Conductor.ViewModel.NavigateFromStateEventArgs 
+			endparams
+		proc
+			if (eArgs.CurrentStateName == mErrorVisualState)
+			begin
+				doCancelCommand(^null, "")
+			end
 		endmethod
 
 .endregion
@@ -113,7 +132,7 @@ namespace SFE_Base.ViewModel
 		private method loadBaseItemCollection, void
 			endparams
 		proc
-			DataObjectColleciton = new AsyncObservableCollection<DataObjectBase>()
+			DataObjectCollection = new AsyncObservableCollection<DataObjectBase>()
 			
 			data firstTime	,boolean	,true
 			
@@ -152,13 +171,13 @@ namespace SFE_Base.ViewModel
 					if (status == FileAccessResults.Success)
 					begin
 						
-						DataObjectColleciton.AddToCollection((DataObjectBase)classInstance)
+						DataObjectCollection.AddToCollection((DataObjectBase)classInstance)
 					end
 				end
 			end
 		endmethod
 		
-		public property DataObjectColleciton, @AsyncObservableCollection<DataObjectBase>
+		public property DataObjectCollection, @AsyncObservableCollection<DataObjectBase>
 			method get
 			endmethod
 			method set
@@ -269,7 +288,6 @@ namespace SFE_Base.ViewModel
 			param						,string
 			endparams
 		proc
-			SelectedCollectionItem = ^null
 			DataObjectEntryItem.InitData()
 			DataObjectEntryItem.InitDataPlus()
 			DataObjectEntryItem.InitialValidateData()
@@ -306,7 +324,7 @@ namespace SFE_Base.ViewModel
 				begin
 					mDataObjectEntryItem.RestoreOriginalData()
 					ErrorInfo = "Synergy error : " + %string(mFileAccessObject.LastSynergyError)
-					MoveToState("ShowErrorState")
+					MoveToState(mErrorVisualState)
 				end
 				DataObjectEntryItem.OriginalSynergyRecord = SelectedCollectionItem.SynergyRecord 
 				mDataObjectEntryItem.RestoreOriginalData()
@@ -318,17 +336,17 @@ namespace SFE_Base.ViewModel
 				tmpObj = (DataObjectBase)mClassConstructor.Invoke(mCTORArgs)
 				if (mFileAccessObject.CreateRecord(tmpObj) != FileAccessResults.Success) then
 				begin
-					mDataObjectEntryItem.InitData()
-					mDataObjectEntryItem.InitDataPlus()
-					mDataObjectEntryItem.InitialValidateData()
-					DataObjectEntryItem.OriginalSynergyRecord = DataObjectEntryItem.SynergyRecord 
-					mDataObjectEntryItem.RestoreOriginalData()
+;					mDataObjectEntryItem.InitData()
+;					mDataObjectEntryItem.InitDataPlus()
+;					mDataObjectEntryItem.InitialValidateData()
+;					DataObjectEntryItem.OriginalSynergyRecord = DataObjectEntryItem.SynergyRecord 
+;					mDataObjectEntryItem.RestoreOriginalData()
 					ErrorInfo = "Synergy error : " + %string(mFileAccessObject.LastSynergyError)
-					MoveToState("ShowErrorState")
+					MoveToState(mErrorVisualState)
 				end
 				else
 				begin
-					DataObjectColleciton.AddToCollection(tmpObj)
+					DataObjectCollection.AddToCollection(tmpObj)
 					DataObjectEntryItem.OriginalSynergyRecord = DataObjectEntryItem.SynergyRecord 
 					mDataObjectEntryItem.RestoreOriginalData()
 					SelectedCollectionItem = tmpObj
@@ -364,6 +382,8 @@ namespace SFE_Base.ViewModel
 			endparams
 		proc
 			mDataObjectEntryItem.RestoreOriginalData()
+			mDataObjectEntryItem.InitialValidateData()
+			mDataObjectEntryItem.RestoreOriginalData()
 			SaveCommand.ExecuteState = false
 			CancelCommand.ExecuteState = false
 			GridIsEnabled = true
@@ -395,12 +415,12 @@ namespace SFE_Base.ViewModel
 				if (mFileAccessObject.DeleteRecordUsingGRFA(SelectedCollectionItem) != FileAccessResults.Success) then
 				begin
 					ErrorInfo = "Synergy error : " + %string(mFileAccessObject.LastSynergyError)
-					MoveToState("ShowErrorState")
+					MoveToState(mErrorVisualState)
 				end
 				else
 				begin
 					;;remove the item from the list
-					DataObjectColleciton.Remove(SelectedCollectionItem)
+					DataObjectCollection.Remove(SelectedCollectionItem)
 					SelectedCollectionItem  = ^null
 					
 					;;init the entry object

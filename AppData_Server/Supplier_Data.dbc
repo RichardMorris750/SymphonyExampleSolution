@@ -1,0 +1,52 @@
+import System
+import System.Collections.Generic
+import System.Text
+import Symphony.Conductor.Model
+
+
+namespace AppData
+
+	public partial class Supplier_Data
+
+		protected override method extendedConstructor, void
+			endparams
+		proc
+			ValidateData += doDataChanged
+		endmethod
+	
+		private method doDataChanged, void
+			inout req message			,@DataChangedMessage
+			endparams
+		proc
+			using message.FieldName select
+			("NAME"),
+			if (%trim(Name) < 5)
+			begin
+				message.FailReason = "supplier name is not long enough, must be 5 character or more"
+				message.ValidationState = DataValidationState.Error
+			end
+	
+			(),
+			begin
+				incr TotalValue
+			end
+			endusing
+		endmethod
+
+		private mTotalValue	,double
+
+		public property TotalValue, double
+			method get
+			proc
+				mreturn mTotalValue
+			endmethod
+			method set
+			proc
+				mTotalValue = value
+				RaisePropertyChanged("TotalValue")
+			endmethod
+		endproperty
+		
+	endclass
+
+endnamespace

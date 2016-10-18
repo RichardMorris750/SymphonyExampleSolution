@@ -12,6 +12,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Rps\rpsmain.schema = Rps\rpsmain.schema
 		Rps\rpstext.is1 = Rps\rpstext.is1
 		Rps\rpstext.ism = Rps\rpstext.ism
+		Templates\Symphony_Content.tpl = Templates\Symphony_Content.tpl
+		Templates\Symphony_Data_v3_2.tpl = Templates\Symphony_Data_v3_2.tpl
+		Templates\Symphony_DataFieldMapper.tpl = Templates\Symphony_DataFieldMapper.tpl
+		Templates\Symphony_FileIO.tpl = Templates\Symphony_FileIO.tpl
+		Templates\Symphony_Style_V3_2.tpl = Templates\Symphony_Style_V3_2.tpl
 		SymphonyExampleSolution.symproj = SymphonyExampleSolution.symproj
 		SymphonyExampleSolution.symprojDefaults = SymphonyExampleSolution.symprojDefaults
 	EndProjectSection

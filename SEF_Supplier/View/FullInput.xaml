@@ -11,8 +11,8 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/SymphonyConductor;component/Resources/Converters.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/SFE_UI;component/Resources/AppStyling.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SymphonyConductor;component/Resources/Converters.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/SFE_UI;component/Resources/Supplier_Style.CodeGen.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

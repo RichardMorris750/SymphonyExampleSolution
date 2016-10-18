@@ -114,12 +114,15 @@
     <Compile Include="Common\Toolbar.xaml.dbl">
       <DependentUpon>Common\Toolbar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Content\Order_header_Collection.CodeGen.dbc" />
+    <Compile Include="Content\Supplier_Collection.CodeGen.dbc" />
     <Compile Include="Properties\AssemblyInfo.dbl" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Common" />
     <Folder Include="Images" />
     <Folder Include="Images\Icons" />
+    <Folder Include="Content" />
     <Folder Include="Resources" />
     <Folder Include="Properties\" />
   </ItemGroup>
@@ -132,26 +135,26 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\AppStyling.xaml">
+    <Resource Include="Resources\AppStyling.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Resources\Order_header_Content.CodeGen.xaml">
+    </Resource>
+    <Resource Include="Resources\Order_header_Content.CodeGen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Resources\Order_header_Style.CodeGen.xaml">
+    </Resource>
+    <Resource Include="Resources\Order_header_Style.CodeGen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Resources\Supplier_Content.CodeGen.xaml">
+    </Resource>
+    <Resource Include="Resources\Supplier_Content.CodeGen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Resources\Supplier_Style.CodeGen.xaml">
+    </Resource>
+    <Resource Include="Resources\Supplier_Style.CodeGen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

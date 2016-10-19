@@ -82,7 +82,7 @@
 											<Setter.Value>
 												<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
 													<LinearGradientBrush.GradientStops>
-														<GradientStop Offset="0.2" Color="Transparent" />
+														<GradientStop Offset="0.2" Color="Gray" />
 														<GradientStop Offset="3" Color="Red" />
 													</LinearGradientBrush.GradientStops>
 												</LinearGradientBrush>
@@ -157,7 +157,7 @@
 											<Setter.Value>
 												<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
 													<LinearGradientBrush.GradientStops>
-														<GradientStop Offset="0.2" Color="Transparent" />
+														<GradientStop Offset="0.2" Color="Gray" />
 														<GradientStop Offset="3" Color="Red" />
 													</LinearGradientBrush.GradientStops>
 												</LinearGradientBrush>
@@ -232,7 +232,7 @@
 											<Setter.Value>
 												<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
 													<LinearGradientBrush.GradientStops>
-														<GradientStop Offset="0.2" Color="Transparent" />
+														<GradientStop Offset="0.2" Color="Gray" />
 														<GradientStop Offset="3" Color="Red" />
 													</LinearGradientBrush.GradientStops>
 												</LinearGradientBrush>
@@ -307,7 +307,7 @@
 											<Setter.Value>
 												<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
 													<LinearGradientBrush.GradientStops>
-														<GradientStop Offset="0.2" Color="Transparent" />
+														<GradientStop Offset="0.2" Color="Gray" />
 														<GradientStop Offset="3" Color="Red" />
 													</LinearGradientBrush.GradientStops>
 												</LinearGradientBrush>
@@ -382,7 +382,7 @@
 											<Setter.Value>
 												<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
 													<LinearGradientBrush.GradientStops>
-														<GradientStop Offset="0.2" Color="Transparent" />
+														<GradientStop Offset="0.2" Color="Gray" />
 														<GradientStop Offset="3" Color="Red" />
 													</LinearGradientBrush.GradientStops>
 												</LinearGradientBrush>
@@ -457,7 +457,7 @@
 											<Setter.Value>
 												<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
 													<LinearGradientBrush.GradientStops>
-														<GradientStop Offset="0.2" Color="Transparent" />
+														<GradientStop Offset="0.2" Color="Gray" />
 														<GradientStop Offset="3" Color="Red" />
 													</LinearGradientBrush.GradientStops>
 												</LinearGradientBrush>
@@ -532,7 +532,7 @@
 											<Setter.Value>
 												<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
 													<LinearGradientBrush.GradientStops>
-														<GradientStop Offset="0.2" Color="Transparent" />
+														<GradientStop Offset="0.2" Color="Gray" />
 														<GradientStop Offset="3" Color="Red" />
 													</LinearGradientBrush.GradientStops>
 												</LinearGradientBrush>
@@ -607,7 +607,7 @@
 											<Setter.Value>
 												<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
 													<LinearGradientBrush.GradientStops>
-														<GradientStop Offset="0.2" Color="Transparent" />
+														<GradientStop Offset="0.2" Color="Gray" />
 														<GradientStop Offset="3" Color="Red" />
 													</LinearGradientBrush.GradientStops>
 												</LinearGradientBrush>
@@ -682,7 +682,7 @@
 											<Setter.Value>
 												<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
 													<LinearGradientBrush.GradientStops>
-														<GradientStop Offset="0.2" Color="Transparent" />
+														<GradientStop Offset="0.2" Color="Gray" />
 														<GradientStop Offset="3" Color="Red" />
 													</LinearGradientBrush.GradientStops>
 												</LinearGradientBrush>
@@ -697,6 +697,184 @@
                             </Style>
                         </TextBox.Style>
                     </TextBox>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+	
+
+	<clr:String x:Key="Supplier_Create_date_heading">Creation date</clr:String>
+
+
+	<Style x:Key="Supplier_Create_date_prompt" TargetType="{x:Type Label}">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Label}">
+					<Label
+						Content="Creation date"
+						IsEnabled="{Binding Path=Create_dateIsEnabled}">
+					</Label>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+
+
+    <Style x:Key="Supplier_Create_date_style" TargetType="{x:Type symphonyControls:FieldControl}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Focusable" Value="False"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type symphonyControls:FieldControl}">
+                    <DatePicker
+						
+						HorizontalAlignment="Left"
+                        Name="ctlSupplier_Create_date"
+                        SelectedDate="{Binding Path=Create_date, Converter={StaticResource decimalDateConverter}, UpdateSourceTrigger=Default,
+								ConverterParameter=FORMAT:YYYYMMDD,
+                                ValidatesOnDataErrors=True}"
+                                Validation.ErrorTemplate="{StaticResource validationTemplate}"
+                                IsEnabled="{Binding Path=Create_dateIsEnabled}"
+                                VerticalAlignment="Center"
+								ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
+                        <DatePicker.Style>
+                            <Style>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=Create_dateIsFocused}" Value="true">
+                                        <Setter Property="FocusManager.FocusedElement"
+                                                Value="{Binding ElementName=ctlSupplier_Create_date}"></Setter>
+                                    </DataTrigger>
+									<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
+										<Setter Property="DatePicker.Foreground" Value="{StaticResource InputInErrorForegroundBrush}" />
+										<Setter Property="DatePicker.Background">
+											<Setter.Value>
+												<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+													<LinearGradientBrush.GradientStops>
+														<GradientStop Offset="0.2" Color="Gray" />
+														<GradientStop Offset="3" Color="Red" />
+													</LinearGradientBrush.GradientStops>
+												</LinearGradientBrush>
+											</Setter.Value>
+										</Setter>
+									</DataTrigger>
+									<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="False">
+										<Setter Property="DatePicker.Foreground" Value="{StaticResource InputForegroundBrush}" />
+										<Setter Property="DatePicker.Background" Value="Transparent"/>
+									</DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DatePicker.Style>
+                    </DatePicker>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+	<Style x:Key="Supplier_Create_date_RO_style" TargetType="{x:Type symphonyControls:FieldControl}">
+		<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+		<Setter Property="Focusable" Value="False"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type symphonyControls:FieldControl}">
+                    <TextBox
+						
+						CaretBrush="{StaticResource CaretBrush}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        IsReadOnly="True"
+                        Text="{Binding Path=Create_date, Converter={StaticResource decimalDateConverter},
+						ConverterParameter=FORMAT:YYYYMMDD						, StringFormat=\{0:d\}}"
+                        Width="96">
+                    </TextBox>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	
+
+	<clr:String x:Key="Supplier_Account_status_heading">Account status</clr:String>
+
+
+	<Style x:Key="Supplier_Account_status_prompt" TargetType="{x:Type Label}">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Label}">
+					<Label
+						Content="Account status"
+						IsEnabled="{Binding Path=Account_statusIsEnabled}">
+					</Label>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+
+
+    <Style x:Key="Supplier_Account_status_style" TargetType="{x:Type symphonyControls:FieldControl}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Focusable" Value="False"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type symphonyControls:FieldControl}">
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="auto"></RowDefinition>
+						</Grid.RowDefinitions>
+						<ComboBox Grid.Row="0"
+							
+							Visibility="{Binding Path=Account_statusIsReadOnly, Converter={StaticResource reverseBooleanToVisibilityConverter}}"
+							HorizontalAlignment="Left"
+							VerticalAlignment="Center"
+							Name="ctlSupplier_Account_status"
+							ItemsSource="{Binding Source={StaticResource ACCOUNT_STATUSitems}}"
+							DisplayMemberPath="Description"
+							SelectedValue="{Binding Path=Account_status, Converter={StaticResource decimalConverter},
+							ValidatesOnDataErrors=True}"
+							Validation.ErrorTemplate="{StaticResource validationTemplate}"
+							SelectedValuePath="IndexValue"
+							IsEnabled="{Binding Path=Account_statusIsEnabled}"
+							Width="120"
+							Margin="0,1,0,1"
+							ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
+							<ComboBox.Style>
+								<Style>
+									<Style.Triggers>
+										<DataTrigger Binding="{Binding Path=Account_statusIsFocused}" Value="true">
+											<Setter Property="FocusManager.FocusedElement"
+													Value="{Binding ElementName=ctlSupplier_Account_status}"></Setter>
+										</DataTrigger>
+										<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
+											<Setter Property="ComboBox.Foreground" Value="{StaticResource InputInErrorForegroundBrush}" />
+											<Setter Property="ComboBox.Background">
+												<Setter.Value>
+													<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+														<LinearGradientBrush.GradientStops>
+															<GradientStop Offset="0.2" Color="Gray" />
+															<GradientStop Offset="3" Color="Red" />
+														</LinearGradientBrush.GradientStops>
+													</LinearGradientBrush>
+												</Setter.Value>
+											</Setter>
+										</DataTrigger>
+										<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="False">
+											<Setter Property="ComboBox.Foreground" Value="{StaticResource InputForegroundBrush}" />
+											<Setter Property="ComboBox.Background" Value="Transparent"/>
+										</DataTrigger>
+									</Style.Triggers>
+								</Style>
+							</ComboBox.Style>
+						</ComboBox>
+						<TextBox Grid.Row="0"
+								
+								 Width="120"
+								 HorizontalAlignment="Left"
+								 VerticalAlignment="Center"
+								 Margin="0,1,0,1"
+								 Text="{Binding ElementName=ctlSupplier_Account_status, Path=Text}"
+								 Visibility="{Binding Path=Account_statusIsReadOnly, Converter={StaticResource BooleanToVisibilityConverter}}"
+								 IsReadOnly="True">
+						</TextBox>
+					</Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

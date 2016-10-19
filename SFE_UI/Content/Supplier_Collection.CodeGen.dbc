@@ -24,6 +24,17 @@ namespace SFE_UI.Content
 		endmethod
 	endclass
 
+	public class ACCOUNT_STATUS_Collection extends SelectionItemList
+
+		public method ACCOUNT_STATUS_Collection
+			endparams
+		proc
+			this.add(new SelectionItem("Active", 1))
+			this.add(new SelectionItem("Dormant", 2))
+			this.add(new SelectionItem("Closed", 3))
+		endmethod
+
+	endclass
 endnamespace
 
 

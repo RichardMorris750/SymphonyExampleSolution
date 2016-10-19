@@ -1,11 +1,11 @@
  
 ;  SYNERGY DATA LANGUAGE OUTPUT
 ;
-;  REPOSITORY     : C:\SymphonyExampleSolution\\Rps\rpsmain.ism
-;                 : C:\SymphonyExampleSolution\\Rps\rpstext.ism
+;  REPOSITORY     : C:\SymphonyExampleSolution\Rps\rpsmain.ism
+;                 : C:\SymphonyExampleSolution\Rps\rpstext.ism
 ;                 : Version 10.3.1b
 ;
-;  GENERATED      : 19-OCT-2016, 07:54:41
+;  GENERATED      : 19-OCT-2016, 08:17:22
 ;                 : Version 10.3.3a
 ;  EXPORT OPTIONS : [ALL] 
  
@@ -189,7 +189,7 @@ Key PRIMARY   ACCESS   Order ASCENDING   Dups NO
    Segment FIELD   PROD_GROUP  SegType ALPHA  SegOrder ASCENDING
  
 Structure SELECTIONS   DBL ISAM
-   Description "Reeport selection fields"
+   Description "REeport selection fields"
  
 Field START_SUPP   Type ALPHA   Size 6
    Description "Start Supplier"
@@ -263,6 +263,16 @@ Field CONTACT   Type ALPHA   Size 30
 Field EMAIL   Type ALPHA   Size 50
    Description "Email Address"
    Prompt "Email Address"   Report Heading "Email"
+ 
+Field CREATE_DATE   Type DATE   Size 8   Stored YYYYMMDD
+   Prompt "Creation date"
+   Date Today
+ 
+Field ACCOUNT_STATUS   Type DECIMAL   Size 1
+   Prompt "Account status"
+   Default "1"
+   Selection List 0 0 0  Entries "Active", "Dormant", "Closed"
+   Enumerated 10 1 1
  
 Key PRIMARY   ACCESS   Order ASCENDING   Dups NO
    Description "Primary key - supplier code"

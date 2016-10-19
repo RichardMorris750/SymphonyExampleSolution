@@ -28,7 +28,7 @@ namespace AppData
 		;;; </summary>
 		public method Supplier_FileIO
 			endparams
-			parent(236)
+			parent(245)
 		proc
 			mOpenMode = FileOpenMode.Input
 			openTheFile("SFEDATA:supplier.ism")
@@ -40,7 +40,7 @@ namespace AppData
 		public method Supplier_FileIO
 			in req openMode		,FileOpenMode
 			endparams
-			parent(236)
+			parent(245)
 		proc
 			mOpenMode = openMode
 			openTheFile("SFEDATA:supplier.ism")

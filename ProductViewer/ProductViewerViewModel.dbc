@@ -154,7 +154,7 @@ namespace ProductViewer
 								if (mFullKeyMatch) then
 								begin
 									data tmpP	,STRProduct
-									prodIO.ForceKeyLength = ^size(tmpP.prod_group)
+									prodIO.ForceKeyLength = ^size(tmpP.str_prod_group)
 								end
 								else
 									prodIO.ForceKeyLength = %trimz(prodObj.Prod_group)

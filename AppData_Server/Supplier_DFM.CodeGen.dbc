@@ -59,6 +59,10 @@ namespace AppData
 			    ("8 "),	actualName = "CONTACT"
 			    
 			    ("9 "),	actualName = "EMAIL"
+			    
+			    ("10 "),	actualName = "CREATE_DATE"
+			    
+			    ("11 "),	actualName = "ACCOUNT_STATUS"
 			    endusing
 		    end
 		    else
@@ -137,6 +141,22 @@ namespace AppData
 			    fieldDescription.DataType = FieldDataType.AlphaField
 			    fieldDescription.ElementSize = 50
 			    fieldDescription.StructurePosition = 187
+			    fieldDescription.DecimalPrecision = 0
+		    end
+		    ("CREATE_DATE "),
+		    begin
+			    fieldDescription.LanguageName = "CREATE_DATE"
+			    fieldDescription.DataType = FieldDataType.DecimalField
+			    fieldDescription.ElementSize = 8
+			    fieldDescription.StructurePosition = 237
+			    fieldDescription.DecimalPrecision = 0
+		    end
+		    ("ACCOUNT_STATUS "),
+		    begin
+			    fieldDescription.LanguageName = "ACCOUNT_STATUS"
+			    fieldDescription.DataType = FieldDataType.DecimalField
+			    fieldDescription.ElementSize = 1
+			    fieldDescription.StructurePosition = 245
 			    fieldDescription.DecimalPrecision = 0
 		    end
 		    endusing

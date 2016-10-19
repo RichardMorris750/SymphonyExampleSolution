@@ -19,6 +19,7 @@
     <!-- create some local data objects for combo controls -->
 
 	
+	  <ObjectDataProvider x:Key="ACCOUNT_STATUSitems" ObjectType="{x:Type content:ACCOUNT_STATUS_Collection}"/>
 	
 </ResourceDictionary>
 

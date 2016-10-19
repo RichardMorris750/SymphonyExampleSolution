@@ -165,16 +165,21 @@
                                                 Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
                                     </DataTrigger>
 									<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
-										<Setter Property="TextBox.Background" >
+										<Setter Property="TextBox.Foreground" Value="{StaticResource InputInErrorForegroundBrush}" />
+										<Setter Property="TextBox.Background">
 											<Setter.Value>
 												<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
 													<LinearGradientBrush.GradientStops>
-														<GradientStop Offset="0.2" Color="WhiteSmoke" />
+														<GradientStop Offset="0.2" Color="Gray" />
 														<GradientStop Offset="3" Color="Red" />
 													</LinearGradientBrush.GradientStops>
 												</LinearGradientBrush>
 											</Setter.Value>
 										</Setter>
+									</DataTrigger>
+									<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="False">
+										<Setter Property="TextBox.Foreground" Value="{StaticResource InputForegroundBrush}" />
+										<Setter Property="TextBox.Background" Value="Transparent"/>
 									</DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -230,7 +235,7 @@
 											<Setter.Value>
 												<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
 													<LinearGradientBrush.GradientStops>
-                                                        <GradientStop Offset="0.2" Color="Transparent" />
+                                                        <GradientStop Offset="0.2" Color="Gray" />
 														<GradientStop Offset="3" Color="Red" />
 													</LinearGradientBrush.GradientStops>
 												</LinearGradientBrush>
@@ -297,7 +302,7 @@
 											<Setter.Value>
 												<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
 													<LinearGradientBrush.GradientStops>
-														<GradientStop Offset="0.2" Color="Transparent" />
+														<GradientStop Offset="0.2" Color="Gray" />
 														<GradientStop Offset="3" Color="Red" />
 													</LinearGradientBrush.GradientStops>
 												</LinearGradientBrush>
@@ -356,16 +361,21 @@
 													Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
 										</DataTrigger>
 										<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
+											<Setter Property="ComboBox.Foreground" Value="{StaticResource InputInErrorForegroundBrush}" />
 											<Setter Property="ComboBox.Background">
 												<Setter.Value>
 													<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
 														<LinearGradientBrush.GradientStops>
-															<GradientStop Offset="0.2" Color="WhiteSmoke" />
+															<GradientStop Offset="0.2" Color="Gray" />
 															<GradientStop Offset="3" Color="Red" />
 														</LinearGradientBrush.GradientStops>
 													</LinearGradientBrush>
 												</Setter.Value>
 											</Setter>
+										</DataTrigger>
+										<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="False">
+											<Setter Property="ComboBox.Foreground" Value="{StaticResource InputForegroundBrush}" />
+											<Setter Property="ComboBox.Background" Value="Transparent"/>
 										</DataTrigger>
 									</Style.Triggers>
 								</Style>
@@ -424,16 +434,21 @@
 													Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
 										</DataTrigger>
 										<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
+											<Setter Property="ComboBox.Foreground" Value="{StaticResource InputInErrorForegroundBrush}" />
 											<Setter Property="ComboBox.Background">
 												<Setter.Value>
 													<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
 														<LinearGradientBrush.GradientStops>
-															<GradientStop Offset="0.2" Color="WhiteSmoke" />
+															<GradientStop Offset="0.2" Color="Gray" />
 															<GradientStop Offset="3" Color="Red" />
 														</LinearGradientBrush.GradientStops>
 													</LinearGradientBrush>
 												</Setter.Value>
 											</Setter>
+										</DataTrigger>
+										<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="False">
+											<Setter Property="ComboBox.Foreground" Value="{StaticResource InputForegroundBrush}" />
+											<Setter Property="ComboBox.Background" Value="Transparent"/>
 										</DataTrigger>
 									</Style.Triggers>
 								</Style>
@@ -540,6 +555,7 @@
                 <ControlTemplate TargetType="{x:Type symphonyControls:FieldControl}">
                     <symphonyUI:SynergyDecimalBox
 						<CONTROLSETTINGS>
+						CaretBrush="{StaticResource CaretBrush}"
 						HorizontalAlignment="Left"
 						VerticalAlignment="Center"
                         Name="ctl<Structure_name>_<Field_sqlname>"
@@ -569,16 +585,21 @@
                                                 Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
                                     </DataTrigger>
 									<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
+										<Setter Property="TextBox.Foreground" Value="{StaticResource InputInErrorForegroundBrush}" />
 										<Setter Property="TextBox.Background">
 											<Setter.Value>
 												<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
 													<LinearGradientBrush.GradientStops>
-														<GradientStop Offset="0.2" Color="WhiteSmoke" />
+														<GradientStop Offset="0.2" Color="Gray" />
 														<GradientStop Offset="3" Color="Red" />
 													</LinearGradientBrush.GradientStops>
 												</LinearGradientBrush>
 											</Setter.Value>
 										</Setter>
+									</DataTrigger>
+									<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="False">
+										<Setter Property="TextBox.Foreground" Value="{StaticResource InputForegroundBrush}" />
+										<Setter Property="TextBox.Background" Value="Transparent"/>
 									</DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -627,16 +648,21 @@
 													Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
 										</DataTrigger>
 										<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
+											<Setter Property="ComboBox.Foreground" Value="{StaticResource InputInErrorForegroundBrush}" />
 											<Setter Property="ComboBox.Background">
 												<Setter.Value>
 													<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
 														<LinearGradientBrush.GradientStops>
-															<GradientStop Offset="0.2" Color="WhiteSmoke" />
+															<GradientStop Offset="0.2" Color="Gray" />
 															<GradientStop Offset="3" Color="Red" />
 														</LinearGradientBrush.GradientStops>
 													</LinearGradientBrush>
 												</Setter.Value>
 											</Setter>
+										</DataTrigger>
+										<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="False">
+											<Setter Property="ComboBox.Foreground" Value="{StaticResource InputForegroundBrush}" />
+											<Setter Property="ComboBox.Background" Value="Transparent"/>
 										</DataTrigger>
 									</Style.Triggers>
 								</Style>
@@ -695,16 +721,21 @@
 													Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
 										</DataTrigger>
 										<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
+											<Setter Property="ComboBox.Foreground" Value="{StaticResource InputInErrorForegroundBrush}" />
 											<Setter Property="ComboBox.Background">
 												<Setter.Value>
 													<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
 														<LinearGradientBrush.GradientStops>
-															<GradientStop Offset="0.2" Color="WhiteSmoke" />
+															<GradientStop Offset="0.2" Color="Gray" />
 															<GradientStop Offset="3" Color="Red" />
 														</LinearGradientBrush.GradientStops>
 													</LinearGradientBrush>
 												</Setter.Value>
 											</Setter>
+										</DataTrigger>
+										<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="False">
+											<Setter Property="ComboBox.Foreground" Value="{StaticResource InputForegroundBrush}" />
+											<Setter Property="ComboBox.Background" Value="Transparent"/>
 										</DataTrigger>
 									</Style.Triggers>
 								</Style>
@@ -811,6 +842,7 @@
                 <ControlTemplate TargetType="{x:Type symphonyControls:FieldControl}">
                     <symphonyUI:SynergyDecimalBox
 						<CONTROLSETTINGS>
+						CaretBrush="{StaticResource CaretBrush}"
 						HorizontalAlignment="Left"
 						VerticalAlignment="Center"
                         Name="ctl<Structure_name>_<Field_sqlname>"
@@ -841,16 +873,21 @@
                                                 Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
                                     </DataTrigger>
 									<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
+										<Setter Property="TextBox.Foreground" Value="{StaticResource InputInErrorForegroundBrush}" />
 										<Setter Property="TextBox.Background">
 											<Setter.Value>
 												<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
 													<LinearGradientBrush.GradientStops>
-														<GradientStop Offset="0.2" Color="WhiteSmoke" />
+														<GradientStop Offset="0.2" Color="Gray" />
 														<GradientStop Offset="3" Color="Red" />
 													</LinearGradientBrush.GradientStops>
 												</LinearGradientBrush>
 											</Setter.Value>
 										</Setter>
+									</DataTrigger>
+									<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="False">
+										<Setter Property="TextBox.Foreground" Value="{StaticResource InputForegroundBrush}" />
+										<Setter Property="TextBox.Background" Value="Transparent"/>
 									</DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -912,16 +949,21 @@
                                                 Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
                                     </DataTrigger>
 									<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
+										<Setter Property="DatePicker.Foreground" Value="{StaticResource InputInErrorForegroundBrush}" />
 										<Setter Property="DatePicker.Background">
 											<Setter.Value>
 												<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
 													<LinearGradientBrush.GradientStops>
-														<GradientStop Offset="0.2" Color="WhiteSmoke" />
+														<GradientStop Offset="0.2" Color="Gray" />
 														<GradientStop Offset="3" Color="Red" />
 													</LinearGradientBrush.GradientStops>
 												</LinearGradientBrush>
 											</Setter.Value>
 										</Setter>
+									</DataTrigger>
+									<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="False">
+										<Setter Property="DatePicker.Foreground" Value="{StaticResource InputForegroundBrush}" />
+										<Setter Property="DatePicker.Background" Value="Transparent"/>
 									</DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -940,6 +982,7 @@
 				<ControlTemplate TargetType="{x:Type symphonyControls:FieldControl}">
                     <TextBox
 						<CONTROLSETTINGS>
+						CaretBrush="{StaticResource CaretBrush}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
                         IsReadOnly="True"
@@ -979,16 +1022,21 @@
                                                 Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
                                     </DataTrigger>
 									<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
+										<Setter Property="DatePicker.Foreground" Value="{StaticResource InputInErrorForegroundBrush}" />
 										<Setter Property="DatePicker.Background">
 											<Setter.Value>
 												<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
 													<LinearGradientBrush.GradientStops>
-														<GradientStop Offset="0.2" Color="WhiteSmoke" />
+														<GradientStop Offset="0.2" Color="Gray" />
 														<GradientStop Offset="3" Color="Red" />
 													</LinearGradientBrush.GradientStops>
 												</LinearGradientBrush>
 											</Setter.Value>
 										</Setter>
+									</DataTrigger>
+									<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="False">
+										<Setter Property="DatePicker.Foreground" Value="{StaticResource InputForegroundBrush}" />
+										<Setter Property="DatePicker.Background" Value="Transparent"/>
 									</DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -1007,6 +1055,7 @@
 				<ControlTemplate TargetType="{x:Type symphonyControls:FieldControl}">
                     <TextBox
 						<CONTROLSETTINGS>
+						CaretBrush="{StaticResource CaretBrush}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
                         IsReadOnly="True"
@@ -1052,16 +1101,21 @@
 											  Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
 								  </DataTrigger>
 								  <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
+									  <Setter Property="DatePicker.Foreground" Value="{StaticResource InputInErrorForegroundBrush}" />
 									  <Setter Property="DatePicker.Background">
 										  <Setter.Value>
 											  <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
 												  <LinearGradientBrush.GradientStops>
-													  <GradientStop Offset="0.2" Color="WhiteSmoke" />
+													  <GradientStop Offset="0.2" Color="Gray" />
 													  <GradientStop Offset="3" Color="Red" />
 												  </LinearGradientBrush.GradientStops>
 											  </LinearGradientBrush>
 										  </Setter.Value>
 									  </Setter>
+								  </DataTrigger>
+								  <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="False">
+									  <Setter Property="DatePicker.Foreground" Value="{StaticResource InputForegroundBrush}" />
+									  <Setter Property="DatePicker.Background" Value="Transparent"/>
 								  </DataTrigger>
 							  </Style.Triggers>
 						  </Style>
@@ -1080,6 +1134,7 @@
 				<ControlTemplate TargetType="{x:Type symphonyControls:FieldControl}">
                     <TextBox
 						<CONTROLSETTINGS>
+						CaretBrush="{StaticResource CaretBrush}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
                         IsReadOnly="True"
@@ -1119,16 +1174,21 @@
 											  Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
 								  </DataTrigger>
 								  <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
+									  <Setter Property="DatePicker.Foreground" Value="{StaticResource InputInErrorForegroundBrush}" />
 									  <Setter Property="DatePicker.Background">
 										  <Setter.Value>
 											  <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
 												  <LinearGradientBrush.GradientStops>
-													  <GradientStop Offset="0.2" Color="WhiteSmoke" />
+													  <GradientStop Offset="0.2" Color="Gray" />
 													  <GradientStop Offset="3" Color="Red" />
 												  </LinearGradientBrush.GradientStops>
 											  </LinearGradientBrush>
 										  </Setter.Value>
 									  </Setter>
+								  </DataTrigger>
+								  <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="False">
+									  <Setter Property="DatePicker.Foreground" Value="{StaticResource InputForegroundBrush}" />
+									  <Setter Property="DatePicker.Background" Value="Transparent"/>
 								  </DataTrigger>
 							  </Style.Triggers>
 						  </Style>
@@ -1147,6 +1207,7 @@
 				<ControlTemplate TargetType="{x:Type symphonyControls:FieldControl}">
                     <TextBox
 						<CONTROLSETTINGS>
+						CaretBrush="{StaticResource CaretBrush}"
 						VerticalAlignment="Center"
                         HorizontalAlignment="Left"
                         IsReadOnly="True"
@@ -1199,6 +1260,7 @@
                 <ControlTemplate TargetType="{x:Type symphonyControls:FieldControl}">
                     <symphonyUI:SynergyIntBox
 						<CONTROLSETTINGS>
+						CaretBrush="{StaticResource CaretBrush}"
 						HorizontalAlignment="Left"
                         Name="ctl<Structure_name>_<Field_sqlname>"
                         Text="{Binding Path=<Field_sqlname>, Converter={StaticResource intConverter}<SYMPHONY_CONVERTER_PARAMETER>, UpdateSourceTrigger=<SYMPHONY_UPDATE_TRIGGER>,
@@ -1219,16 +1281,21 @@
                                                 Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
                                     </DataTrigger>
 									<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
+										<Setter Property="TextBox.Foreground" Value="{StaticResource InputInErrorForegroundBrush}" />
 										<Setter Property="TextBox.Background">
 											<Setter.Value>
 												<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
 													<LinearGradientBrush.GradientStops>
-														<GradientStop Offset="0.2" Color="WhiteSmoke" />
+														<GradientStop Offset="0.2" Color="Gray" />
 														<GradientStop Offset="3" Color="Red" />
 													</LinearGradientBrush.GradientStops>
 												</LinearGradientBrush>
 											</Setter.Value>
 										</Setter>
+									</DataTrigger>
+									<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="False">
+										<Setter Property="TextBox.Foreground" Value="{StaticResource InputForegroundBrush}" />
+										<Setter Property="TextBox.Background" Value="Transparent"/>
 									</DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -1277,16 +1344,21 @@
 													Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
 										</DataTrigger>
 										<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
+											<Setter Property="ComboBox.Foreground" Value="{StaticResource InputInErrorForegroundBrush}" />
 											<Setter Property="ComboBox.Background">
 												<Setter.Value>
 													<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
 														<LinearGradientBrush.GradientStops>
-															<GradientStop Offset="0.2" Color="WhiteSmoke" />
+															<GradientStop Offset="0.2" Color="Gray" />
 															<GradientStop Offset="3" Color="Red" />
 														</LinearGradientBrush.GradientStops>
 													</LinearGradientBrush>
 												</Setter.Value>
 											</Setter>
+										</DataTrigger>
+										<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="False">
+											<Setter Property="comboBox.Foreground" Value="{StaticResource InputForegroundBrush}" />
+											<Setter Property="comboBox.Background" Value="Transparent"/>
 										</DataTrigger>
 									</Style.Triggers>
 								</Style>
@@ -1345,16 +1417,21 @@
 													Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
 										</DataTrigger>
 										<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
+											<Setter Property="ComboBox.Foreground" Value="{StaticResource InputInErrorForegroundBrush}" />
 											<Setter Property="ComboBox.Background">
 												<Setter.Value>
 													<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
 														<LinearGradientBrush.GradientStops>
-															<GradientStop Offset="0.2" Color="WhiteSmoke" />
+															<GradientStop Offset="0.2" Color="Gray" />
 															<GradientStop Offset="3" Color="Red" />
 														</LinearGradientBrush.GradientStops>
 													</LinearGradientBrush>
 												</Setter.Value>
 											</Setter>
+										</DataTrigger>
+										<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="False">
+											<Setter Property="ComboBox.Foreground" Value="{StaticResource InputForegroundBrush}" />
+											<Setter Property="ComboBox.Background" Value="Transparent"/>
 										</DataTrigger>
 									</Style.Triggers>
 								</Style>
@@ -1496,6 +1573,7 @@
 				<ControlTemplate TargetType="{x:Type symphonyControls:FieldControl}">
 					<TextBox
 						<CONTROLSETTINGS>
+						CaretBrush="{StaticResource CaretBrush}"
 						Name="ctl<Structure_name>_<Field_sqlname>"
 						Text="{Binding Path=<Field_sqlname>, Converter={StaticResource alphaConverter}<SYMPHONY_CONVERTER_PARAMETER>, UpdateSourceTrigger=<SYMPHONY_UPDATE_TRIGGER>,
 								ValidatesOnDataErrors=True}"
@@ -1526,16 +1604,21 @@
 												Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
 									</DataTrigger>
 									<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
+										<Setter Property="TextBox.Foreground" Value="{StaticResource InputInErrorForegroundBrush}" />
 										<Setter Property="TextBox.Background">
 											<Setter.Value>
 												<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
 													<LinearGradientBrush.GradientStops>
-														<GradientStop Offset="0.2" Color="WhiteSmoke" />
+														<GradientStop Offset="0.2" Color="Gray" />
 														<GradientStop Offset="3" Color="Red" />
 													</LinearGradientBrush.GradientStops>
 												</LinearGradientBrush>
 											</Setter.Value>
 										</Setter>
+									</DataTrigger>
+									<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="False">
+										<Setter Property="TextBox.Foreground" Value="{StaticResource InputForegroundBrush}" />
+										<Setter Property="TextBox.Background" Value="Transparent"/>
 									</DataTrigger>
 								</Style.Triggers>
 							</Style>

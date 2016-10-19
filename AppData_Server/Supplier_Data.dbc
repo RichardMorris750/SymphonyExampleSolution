@@ -19,13 +19,12 @@ namespace AppData
 			endparams
 		proc
 			using message.FieldName select
-			("NAME"),
-			if (%trim(Name) < 5)
+			("NAME"),	;;supplier name must be valid and more than 5 characters long.
+			if (message.ValidationState == DataValidationState.OK && %trim(Name) < 5)
 			begin
-				message.FailReason = "supplier name is not long enough, must be 5 character or more"
+				message.FailReason = "supplier name is not long enough, must be 5 character or more."
 				message.ValidationState = DataValidationState.Error
 			end
-	
 			(),
 			begin
 				incr TotalValue

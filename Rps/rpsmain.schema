@@ -1,12 +1,12 @@
  
 ;  SYNERGY DATA LANGUAGE OUTPUT
 ;
-;  REPOSITORY     : C:\SymphonyExampleSolution\Rps\rpsmain.ism
-;                 : C:\SymphonyExampleSolution\Rps\rpstext.ism
+;  REPOSITORY     : C:\SymphonyExampleSolution\\Rps\rpsmain.ism
+;                 : C:\SymphonyExampleSolution\\Rps\rpstext.ism
 ;                 : Version 10.3.1b
 ;
-;  GENERATED      : 04-MAY-2016, 08:51:04
-;                 : Version 10.3.3
+;  GENERATED      : 19-OCT-2016, 07:54:41
+;                 : Version 10.3.3a
 ;  EXPORT OPTIONS : [ALL] 
  
  
@@ -188,6 +188,38 @@ Key PRIMARY   ACCESS   Order ASCENDING   Dups NO
    Description "Primary key - product group"
    Segment FIELD   PROD_GROUP  SegType ALPHA  SegOrder ASCENDING
  
+Structure SELECTIONS   DBL ISAM
+   Description "Reeport selection fields"
+ 
+Field START_SUPP   Type ALPHA   Size 6
+   Description "Start Supplier"
+   Prompt "First Supplier"   Report Heading "First Supplier"
+   Uppercase
+ 
+Field START_PROD   Type ALPHA   Size 6
+   Description "Start Product Code"
+   Prompt "Starting Product"   Report Heading "First Product"
+   Uppercase
+ 
+Field END_SUPP   Type ALPHA   Size 6
+   Description "Last Supplier"
+   Prompt "Last Supplier"   Report Heading "Last Supplier"
+   Uppercase
+ 
+Field END_PROD   Type ALPHA   Size 6
+   Description "Ending product Code"
+   Prompt "Last Product"   Report Heading "Last Product"
+   Uppercase
+ 
+Field KEYWORD   Type ALPHA   Size 20
+   Description "Keyword"
+   Prompt "Key Word"   Report Heading "Key Word"
+ 
+Field REPORT_TYPE   Type ALPHA   Size 1
+   Description "report type"
+   Prompt "Report Type"   Report Heading "Report Type"
+   Selection List 0 0 0  Entries "Report", "PDF"
+ 
 Structure SUPPLIER   DBL ISAM
    Description "Supplier Master File"
  
@@ -195,14 +227,17 @@ Field SUPP_CODE   Type ALPHA   Size 6
    Description "Supplier Code"
    Prompt "Supplier Code"   Report Heading "Supplier Code"
    Uppercase
+   Break   Required
  
 Field NAME   Type ALPHA   Size 30
    Description "Supplier name"
    Prompt "Supplier Name"   Report Heading "Supplier Name"
+   Break   Required
  
 Field ADDRESS1   Type ALPHA   Size 30
    Description "Address Line 1"
    Prompt "Address"   Report Heading "Address 1"
+   Break   Required
  
 Field ADDRESS2   Type ALPHA   Size 30
    Description "Address Line 2"
@@ -215,6 +250,7 @@ Field ADDRESS3   Type ALPHA   Size 30
 Field POSTCODE   Type ALPHA   Size 10
    Description "Post Code"
    Prompt "Post Code"   Report Heading "Post Code"
+   Break   Required
  
 Field PHONE   Type ALPHA   Size 20
    Description "Phone Number"

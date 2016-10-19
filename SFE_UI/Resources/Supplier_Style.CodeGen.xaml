@@ -55,7 +55,7 @@
 						
 						CaretBrush="{StaticResource CaretBrush}"
                         Name="ctlSupplier_Supp_code"
-                        Text="{Binding Path=Supp_code, Converter={StaticResource alphaConverter}, UpdateSourceTrigger=Default,
+                        Text="{Binding Path=Supp_code, Converter={StaticResource alphaConverter}, UpdateSourceTrigger=PropertyChanged,
                                 ValidatesOnDataErrors=True}"
                                 Validation.ErrorTemplate="{StaticResource validationTemplate}"
                         MaxLength="6"
@@ -131,7 +131,7 @@
 						
 						CaretBrush="{StaticResource CaretBrush}"
                         Name="ctlSupplier_Name"
-                        Text="{Binding Path=Name, Converter={StaticResource alphaConverter}, UpdateSourceTrigger=Default,
+                        Text="{Binding Path=Name, Converter={StaticResource alphaConverter}, UpdateSourceTrigger=PropertyChanged,
                                 ValidatesOnDataErrors=True}"
                                 Validation.ErrorTemplate="{StaticResource validationTemplate}"
                         MaxLength="30"
@@ -206,7 +206,7 @@
 						
 						CaretBrush="{StaticResource CaretBrush}"
                         Name="ctlSupplier_Address1"
-                        Text="{Binding Path=Address1, Converter={StaticResource alphaConverter}, UpdateSourceTrigger=Default,
+                        Text="{Binding Path=Address1, Converter={StaticResource alphaConverter}, UpdateSourceTrigger=PropertyChanged,
                                 ValidatesOnDataErrors=True}"
                                 Validation.ErrorTemplate="{StaticResource validationTemplate}"
                         MaxLength="30"
@@ -431,7 +431,7 @@
 						
 						CaretBrush="{StaticResource CaretBrush}"
                         Name="ctlSupplier_Postcode"
-                        Text="{Binding Path=Postcode, Converter={StaticResource alphaConverter}, UpdateSourceTrigger=Default,
+                        Text="{Binding Path=Postcode, Converter={StaticResource alphaConverter}, UpdateSourceTrigger=PropertyChanged,
                                 ValidatesOnDataErrors=True}"
                                 Validation.ErrorTemplate="{StaticResource validationTemplate}"
                         MaxLength="10"

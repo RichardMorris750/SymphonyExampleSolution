@@ -21,13 +21,13 @@
 
             <VisualState x:Name="MenuViewState">
                 <Storyboard>
-                    <DoubleAnimation Storyboard.TargetName="launcherView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0" To="1" />
+                    <DoubleAnimation Storyboard.TargetName="launcherView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.5" To="1" />
                     <BooleanAnimationUsingKeyFrames Storyboard.TargetName="launcherView" Storyboard.TargetProperty="(IsEnabled)">
                         <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True"/>
                     </BooleanAnimationUsingKeyFrames>
                     <Int32Animation Storyboard.TargetName="launcherView" Storyboard.TargetProperty="(Panel.ZIndex)" To="1" />
 
-                    <DoubleAnimation Storyboard.TargetName="supplierMaintView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0" To="0" />
+                    <DoubleAnimation Storyboard.TargetName="supplierMaintView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.5" To="0" />
                     <BooleanAnimationUsingKeyFrames Storyboard.TargetName="supplierMaintView" Storyboard.TargetProperty="(IsEnabled)">
                         <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
                     </BooleanAnimationUsingKeyFrames>
@@ -39,7 +39,7 @@
             <VisualState x:Name="SupplierMaintState">
                 <Storyboard>
 
-                    <DoubleAnimation Storyboard.TargetName="launcherView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.2" To="0" />
+                    <DoubleAnimation Storyboard.TargetName="launcherView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.5" To="0" />
                     <BooleanAnimationUsingKeyFrames Storyboard.TargetName="launcherView" Storyboard.TargetProperty="(IsEnabled)">
                         <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
                     </BooleanAnimationUsingKeyFrames>
@@ -49,7 +49,7 @@
                         <DiscreteObjectKeyFrame Value="{x:Static Visibility.Visible}"/>
                     </ObjectAnimationUsingKeyFrames>
 
-                    <DoubleAnimation Storyboard.TargetName="supplierMaintView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.2" To="1" />
+                    <DoubleAnimation Storyboard.TargetName="supplierMaintView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.5" To="1" />
                     <BooleanAnimationUsingKeyFrames Storyboard.TargetName="supplierMaintView" Storyboard.TargetProperty="(IsEnabled)">
                         <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True"/>
                     </BooleanAnimationUsingKeyFrames>

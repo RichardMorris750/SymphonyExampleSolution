@@ -3,13 +3,17 @@
     xmlns:symphonyControls="clr-namespace:Symphony.Conductor.Controls;assembly=SymphonyConductor">
 
 
-    <Color x:Key="GreyColour">#252525</Color>
-    <Color x:Key="BlackColour">#000000</Color>
-    <Color x:Key="BlueColour" >#0070DF</Color>
+    <Color x:Key="OldGreyColour">#252525</Color>
+    <Color x:Key="GreyColour">#52658f</Color>
+    <Color x:Key="BlackColour">#333a56</Color>
+    <Color x:Key="OldBlackColour">#000000</Color>
+    <Color x:Key="BlueColour" >#42A0FF</Color>
+    <Color x:Key="OldBlueColour" >#0070DF</Color>    
     <Color x:Key="BrightBlueColour" >#42A0FF</Color>
-    <Color x:Key="WhiteColour">#F0F0F0</Color>
-    <Color x:Key="OrangeColour">#D7BA7D</Color>
-    
+    <Color x:Key="OldWhiteColour">#F0F0F0</Color>
+    <Color x:Key="WhiteColour">#f7f5f6</Color>
+    <Color x:Key="OrangeColour">#f7f5e6</Color>
+    <Color x:Key="OldOrangeColour">#D7BA7D</Color>    
 
     <SolidColorBrush x:Key="BackgroundPrimaryBrush" Color="{StaticResource GreyColour}"></SolidColorBrush>
     <SolidColorBrush x:Key="BackgroundSecondaryBrush" Color="{StaticResource BlackColour}"></SolidColorBrush>

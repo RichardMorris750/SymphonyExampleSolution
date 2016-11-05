@@ -5,8 +5,9 @@
     xmlns:localUI="clr-namespace:SFEAppShell.View"
     xmlns:sfeuiCommon="clr-namespace:SFE_UI.Common;assembly=SFE_UI"
     xmlns:sfeuiSupplier="clr-namespace:SEF_Supplier.View;assembly=SEF_Supplier"
-    Loaded="Window_Loaded" WindowStartupLocation="CenterScreen"
-    Height="600" Width="900" WindowStyle="ToolWindow">
+    xmlns:sfeuiProduct="clr-namespace:SFE_Product.View;assembly=SFE_Product"
+        Loaded="Window_Loaded" WindowStartupLocation="CenterScreen"
+    Height="600" Width="900" WindowStyle="ToolWindow" Title="SFE Application">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -61,7 +62,7 @@
             <VisualState x:Name="ProductMaintState">
                 <Storyboard>
 
-                    <DoubleAnimation Storyboard.TargetName="launcherView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.2" To="0" />
+                    <DoubleAnimation Storyboard.TargetName="launcherView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.5" To="0" />
                     <BooleanAnimationUsingKeyFrames Storyboard.TargetName="launcherView" Storyboard.TargetProperty="(IsEnabled)">
                         <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
                     </BooleanAnimationUsingKeyFrames>
@@ -71,7 +72,7 @@
                         <DiscreteObjectKeyFrame Value="{x:Static Visibility.Visible}"/>
                     </ObjectAnimationUsingKeyFrames>
 
-                    <DoubleAnimation Storyboard.TargetName="productMaintView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.2" To="1" />
+                    <DoubleAnimation Storyboard.TargetName="productMaintView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.5" To="1" />
                     <BooleanAnimationUsingKeyFrames Storyboard.TargetName="productMaintView" Storyboard.TargetProperty="(IsEnabled)">
                         <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True"/>
                     </BooleanAnimationUsingKeyFrames>
@@ -115,6 +116,7 @@
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <sfeuiCommon:Toolbar Grid.Row="0"></sfeuiCommon:Toolbar>
+                <sfeuiProduct:Maintenance Grid.Row="1"></sfeuiProduct:Maintenance>
             </Grid>
         </Border>
 

@@ -1,0 +1,100 @@
+﻿<UserControl x:Class="SFE_Product.View.FullInput"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:sfeuiCommon="clr-namespace:SFE_UI.Common;assembly=SFE_UI"
+             xmlns:symControl="clr-namespace:Symphony.Conductor.Controls;assembly=SymphonyConductor"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/SFE_UI;component/Resources/AppStyling.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SymphonyConductor;component/Resources/Converters.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SFE_UI;component/Resources/Product_Style.CodeGen.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="1" Margin="4" Padding="4" BorderThickness="1" CornerRadius="5" BorderBrush="{StaticResource BorderBrush}">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" DataContext="{Binding Path=DataObjectEntryItem}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="4" />
+                        <ColumnDefinition Width="auto" />
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource Product_Prod_code_prompt}"></Label>
+                    <symControl:FieldControl Grid.Row="0" Grid.Column="2" Style="{StaticResource Product_Prod_code_style}"></symControl:FieldControl>
+
+                    <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource Product_Prod_description_prompt}"></Label>
+                    <symControl:FieldControl Grid.Row="1" Grid.Column="2" Style="{StaticResource Product_Prod_description_style}"></symControl:FieldControl>
+
+                    <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource Product_Pack_size_prompt}"></Label>
+                    <symControl:FieldControl Grid.Row="2" Grid.Column="2" Style="{StaticResource Product_Pack_size_style}"></symControl:FieldControl>
+                    
+                    <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource Product_Prod_group_prompt}"></Label>
+                    <symControl:FieldControl Grid.Row="3" Grid.Column="2" Style="{StaticResource Product_Prod_group_style}"></symControl:FieldControl>
+
+                    <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource Product_Supp_code_prompt}"></Label>
+                    <symControl:FieldControl Grid.Row="4" Grid.Column="2" Style="{StaticResource Product_Supp_code_style}"></symControl:FieldControl>
+                 
+                    <Label Grid.Row="5" Grid.Column="0" Style="{StaticResource Product_Sell_price_prompt}"></Label>
+                    <symControl:FieldControl Grid.Row="5" Grid.Column="2" Style="{StaticResource Product_Sell_price_style}"></symControl:FieldControl>
+
+                    <Label Grid.Row="6" Grid.Column="0" Style="{StaticResource Product_Cost_price_prompt}"></Label>
+                    <symControl:FieldControl Grid.Row="6" Grid.Column="2" Style="{StaticResource Product_Cost_price_style}"></symControl:FieldControl>
+<!--
+                    <Label Grid.Row="7" Grid.Column="0" Style="{StaticResource Product_Vat_code_prompt}"></Label>
+                    <symControl:FieldControl Grid.Row="7" Grid.Column="2" Style="{StaticResource Product_Vat_code_style}"></symControl:FieldControl>
+-->
+                </Grid>
+
+                <!-- button options -->
+                <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="1" Style="{StaticResource StandardButtonStyle}" Command="{Binding Path=NewCommand}">New</Button>
+                    <Button Grid.Column="2" Style="{StaticResource StandardButtonStyle}" Command="{Binding Path=SaveCommand}">Save</Button>
+                    <Button Grid.Column="3" Style="{StaticResource StandardButtonStyle}" Command="{Binding Path=CancelCommand}">Cancel</Button>
+                    <Button Grid.Column="4" Style="{StaticResource StandardButtonStyle}" Command="{Binding Path=DeleteCommand}">Delete</Button>
+
+                </Grid>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+</UserControl>

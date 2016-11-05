@@ -23,9 +23,11 @@
     <SolidColorBrush x:Key="GridItemBackgroundBrush" Color="{StaticResource GreyColour}"></SolidColorBrush>
     <SolidColorBrush x:Key="GridItemForegroundBrush" Color="{StaticResource OrangeColour}"></SolidColorBrush>
     <SolidColorBrush x:Key="GridItemDisabledForegroundBrush" Color="{StaticResource WhiteColour}"></SolidColorBrush>
-    <SolidColorBrush x:Key="LabelColorBrush" Color="{StaticResource WhiteColour}"></SolidColorBrush>
+    <!--<SolidColorBrush x:Key="LabelColorBrush" Color="{StaticResource WhiteColour}"></SolidColorBrush>  -->
+    <SolidColorBrush x:Key="LabelColorBrush" Color="{StaticResource BrightBlueColour}"></SolidColorBrush>
     <SolidColorBrush x:Key="InputBackgroundBrush" Color="{StaticResource GreyColour}"></SolidColorBrush>
-    <SolidColorBrush x:Key="InputForegroundBrush" Color="{StaticResource BlueColour}"></SolidColorBrush>
+    <!--<SolidColorBrush x:Key="InputForegroundBrush" Color="{StaticResource BlueColour}"></SolidColorBrush>  -->
+    <SolidColorBrush x:Key="InputForegroundBrush" Color="{StaticResource WhiteColour}"></SolidColorBrush>
     <SolidColorBrush x:Key="InputInErrorForegroundBrush" Color="Red"></SolidColorBrush>
     <SolidColorBrush x:Key="StatusBarItemBackgroundBrush" Color="Transparent"></SolidColorBrush>
     <SolidColorBrush x:Key="StatusBarItemForegroundBrush" Color="{StaticResource OrangeColour}"></SolidColorBrush>

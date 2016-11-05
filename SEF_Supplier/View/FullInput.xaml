@@ -42,15 +42,17 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                       <!-- <RowDefinition Height="auto" MinHeight="44" />  -->
+                       <!-- <RowDefinition Height="auto" MinHeight="18" />  -->
+                        <RowDefinition Height="25" /> 
+                         <RowDefinition Height="25" /> 
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
                     </Grid.RowDefinitions>
 
                     <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource Supplier_Supp_code_prompt}"></Label>

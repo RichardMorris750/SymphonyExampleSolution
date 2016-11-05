@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(SolutionDir)Common.props" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -23,6 +24,7 @@
     <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
     <Name>SFEAppShell</Name>
     <TargetPlatform>v452</TargetPlatform>
+    <EnableCommonProperties>True</EnableCommonProperties>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -190,9 +192,14 @@
     <Resource Include="Images\Icons\Supplier.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SEF_Supplier\SEF_Supplier.synproj">
-      <Name>SEF_Supplier</Name>
+    <ProjectReference Include="..\SEF_Supplier\SFE_Supplier.synproj">
+      <Name>SFE_Supplier</Name>
       <Project>{f3550f65-c577-48b4-a126-e375b144916f}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\SFE_Product\SFE_Product.synproj">
+      <Name>SFE_Product</Name>
+      <Project>{d8748127-708b-4505-8f5c-7373961cd210}</Project>
       <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\SFE_UI\SFE_UI.synproj">

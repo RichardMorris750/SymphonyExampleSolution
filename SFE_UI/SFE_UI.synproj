@@ -136,14 +136,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\Product_Content.CodeGen.xaml">
+    <Resource Include="Resources\Product_Content.CodeGen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Resources\Product_Style.CodeGen.xaml">
+    </Resource>
+    <Resource Include="Resources\Product_Style.CodeGen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
+    </Resource>
     <Resource Include="Images\Icons\Print_64px.png" />
     <Resource Include="Resources\AppStyling.xaml">
       <SubType>Designer</SubType>

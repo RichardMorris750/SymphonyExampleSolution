@@ -67,6 +67,9 @@ namespace SFE_Base.ViewModel
 			
 			this.AfterNavigateState += doAfterStateNavigation
 
+			;;create our base collection
+			DataObjectCollection = new AsyncObservableCollection<DataObjectBase>()
+
 		endmethod
 
 .region "List controlling and loading methods"
@@ -76,7 +79,7 @@ namespace SFE_Base.ViewModel
 		proc
 			;;if we have a valid file object let's load the initial list
 			if (!mFileAccessObject.LastSynergyError)
-				loadBaseItemCollection()
+				LoadBaseItemCollection()
 		endmethod
 
 .endregion
@@ -129,10 +132,9 @@ namespace SFE_Base.ViewModel
 		private mClassConstructor	,@ConstructorInfo
 		private mCTORArgs			,[#]@Object	,new Object[1]
 
-		private method loadBaseItemCollection, void
+		public virtual method LoadBaseItemCollection, void
 			endparams
 		proc
-			DataObjectCollection = new AsyncObservableCollection<DataObjectBase>()
 			
 			data firstTime	,boolean	,true
 			
@@ -147,7 +149,6 @@ namespace SFE_Base.ViewModel
 						exitloop
 				end
 				
-;				data ctorArgs			,[#]@Object	,new Object[1]
 				mCTORArgs[1] = ""
 				
 				mDataObjectEntryItem = (DataObjectBase)mClassConstructor.Invoke(mCTORArgs)

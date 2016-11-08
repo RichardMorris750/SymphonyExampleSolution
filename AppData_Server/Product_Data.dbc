@@ -43,7 +43,7 @@ namespace AppData
 		
 
 ;; this is where I can populate the extra fields I add to my data object		
-		private method synergychanged, void8/11/16
+		private method synergychanged, void
 			endparams
 		proc
 			data logName	,a100
@@ -60,6 +60,8 @@ namespace AppData
 		proc
 			RaisePropertyChanged(^null)
 		endmethod
+
+
 		
 		private mSupplierName	,string
 
@@ -99,7 +101,7 @@ namespace AppData
 			method set
 			proc
 				mProductImageFile = value
-				RaisePropertyChanged("GroupName")
+				RaisePropertyChanged("ProductImageFile")
 			endmethod
 		endproperty
 

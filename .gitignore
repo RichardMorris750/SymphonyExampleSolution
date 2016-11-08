@@ -254,3 +254,4 @@ ModelManifest.xml
 /AppData_Server/DBP00000
 /ProductViewer/ProductViewer.g.resources
 /ProductViewer/ProductViewer.Properties.Resources.resources
+*.resources

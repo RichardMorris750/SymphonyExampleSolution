@@ -2,18 +2,28 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:symphonyControls="clr-namespace:Symphony.Conductor.Controls;assembly=SymphonyConductor">
 
-
+    <!--
     <Color x:Key="OldGreyColour">#252525</Color>
     <Color x:Key="GreyColour">#52658f</Color>
     <Color x:Key="BlackColour">#333a56</Color>
     <Color x:Key="OldBlackColour">#000000</Color>
     <Color x:Key="BlueColour" >#42A0FF</Color>
-    <Color x:Key="OldBlueColour" >#0070DF</Color>    
+    <Color x:Key="OldBlueColour" >#0070DF</Color>   
     <Color x:Key="BrightBlueColour" >#42A0FF</Color>
     <Color x:Key="OldWhiteColour">#F0F0F0</Color>
     <Color x:Key="WhiteColour">#f7f5f6</Color>
     <Color x:Key="OrangeColour">#f7f5e6</Color>
     <Color x:Key="OldOrangeColour">#D7BA7D</Color>    
+    
+    -->
+
+    <Color x:Key="GreyColour">#333a56</Color>
+    <Color x:Key="BlackColour">#333a56</Color>
+    <Color x:Key="BlueColour" >#0070DF</Color>
+    <Color x:Key="BrightBlueColour" >#42A0FF</Color>
+    <Color x:Key="WhiteColour">#F0F0F0</Color>
+
+    <Color x:Key="OrangeColour">#F0F0F0</Color>
 
     <SolidColorBrush x:Key="BackgroundPrimaryBrush" Color="{StaticResource GreyColour}"></SolidColorBrush>
     <SolidColorBrush x:Key="BackgroundSecondaryBrush" Color="{StaticResource BlackColour}"></SolidColorBrush>
@@ -23,11 +33,12 @@
     <SolidColorBrush x:Key="GridItemBackgroundBrush" Color="{StaticResource GreyColour}"></SolidColorBrush>
     <SolidColorBrush x:Key="GridItemForegroundBrush" Color="{StaticResource OrangeColour}"></SolidColorBrush>
     <SolidColorBrush x:Key="GridItemDisabledForegroundBrush" Color="{StaticResource WhiteColour}"></SolidColorBrush>
-    <!--<SolidColorBrush x:Key="LabelColorBrush" Color="{StaticResource WhiteColour}"></SolidColorBrush>  -->
-    <SolidColorBrush x:Key="LabelColorBrush" Color="{StaticResource BrightBlueColour}"></SolidColorBrush>
-    <SolidColorBrush x:Key="InputBackgroundBrush" Color="{StaticResource GreyColour}"></SolidColorBrush>
-    <!--<SolidColorBrush x:Key="InputForegroundBrush" Color="{StaticResource BlueColour}"></SolidColorBrush>  -->
-    <SolidColorBrush x:Key="InputForegroundBrush" Color="{StaticResource WhiteColour}"></SolidColorBrush>
+    <SolidColorBrush x:Key="LabelColorBrush" Color="{StaticResource WhiteColour}"></SolidColorBrush>
+    <!--   <SolidColorBrush x:Key="LabelColorBrush" Color="{StaticResource BrightBlueColour}"></SolidColorBrush>  -->
+    <!--    <SolidColorBrush x:Key="InputBackgroundBrush" Color="{StaticResource GreyColour}"></SolidColorBrush>  -->
+    <SolidColorBrush x:Key="InputBackgroundBrush" Color="{StaticResource WhiteColour}"></SolidColorBrush>
+    <SolidColorBrush x:Key="InputForegroundBrush" Color="{StaticResource BlueColour}"></SolidColorBrush>
+    <!--<SolidColorBrush x:Key="InputForegroundBrush" Color="{StaticResource WhiteColour}"></SolidColorBrush>  -->
     <SolidColorBrush x:Key="InputInErrorForegroundBrush" Color="Red"></SolidColorBrush>
     <SolidColorBrush x:Key="StatusBarItemBackgroundBrush" Color="Transparent"></SolidColorBrush>
     <SolidColorBrush x:Key="StatusBarItemForegroundBrush" Color="{StaticResource OrangeColour}"></SolidColorBrush>
@@ -38,9 +49,9 @@
     <SolidColorBrush x:Key="ButtonActiveBackgroundBrush" Color="{StaticResource OrangeColour}"></SolidColorBrush>
     <SolidColorBrush x:Key="ButtonTextBrush" Color="{StaticResource OrangeColour}"></SolidColorBrush>
     <SolidColorBrush x:Key="ButtonDisabledTextBrush" Color="{StaticResource GreyColour}"></SolidColorBrush>
-    
+
     <SolidColorBrush x:Key="CaretBrush" Color="{StaticResource OrangeColour}"></SolidColorBrush>
-    
+
     <Style TargetType="{x:Type Window}">
         <Setter Property="Background">
             <Setter.Value>
@@ -103,7 +114,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    
+
     <Style x:Key="TransperentButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="Template">
             <Setter.Value>
@@ -123,7 +134,7 @@
     </Style>
 
     <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
-        <Setter Property="FontSize" Value="30"></Setter>
+        <Setter Property="FontSize" Value="12"></Setter>
         <Setter Property="Foreground" Value="{StaticResource InputForegroundBrush}"></Setter>
         <Setter Property="Background" Value="Transparent"></Setter>
         <Setter Property="CaretBrush" Value="{StaticResource CaretBrush}"></Setter>
@@ -142,12 +153,14 @@
     </Style>
 
     <Style TargetType="{x:Type DataGrid}">
+        <Setter Property="GridLinesVisibility" Value="None"></Setter>
         <Setter Property="Background">
             <Setter.Value>
                 <LinearGradientBrush StartPoint="0.5,0" EndPoint="1,1">
                     <LinearGradientBrush.GradientStops>
                         <GradientStop Offset="0.0" Color="{StaticResource BlackColour}" />
                         <GradientStop Offset="1.0" Color="{StaticResource GreyColour}" />
+
                     </LinearGradientBrush.GradientStops>
                 </LinearGradientBrush>
             </Setter.Value>
@@ -155,10 +168,12 @@
     </Style>
 
 
+
+
     <Style TargetType="{x:Type DataGridCell}">
         <Setter Property="Background" Value="{StaticResource GridItemBackgroundBrush}"/>
         <Setter Property="BorderBrush" Value="{StaticResource GridItemForegroundBrush}"/>
-        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type DataGridCell}">
@@ -192,12 +207,17 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    
+
 
     <Style TargetType="{x:Type DataGridColumnHeader}">
         <Setter Property="Background" Value="{StaticResource GridHeaderBackgroundBrush}"/>
         <Setter Property="Foreground" Value="{StaticResource GridHeaderForegroundBrush}" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
     </Style>
+
+
+
+
+
 
 </ResourceDictionary>

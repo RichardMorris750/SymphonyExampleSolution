@@ -1,0 +1,109 @@
+import System
+import System.Collections.Generic
+import System.Text
+import Symphony.Conductor.Model
+
+
+namespace AppData
+	
+	public partial class Product_Data
+		
+		protected override method extendedConstructor, void
+			endparams
+		proc
+           ValidateData += doDataChanged
+			SynergyRecordChanged += synergychanged
+			SynergyRecordChanged += refreshData
+			
+			
+		endmethod
+		
+		private method doDataChanged, void
+			inout req message			,@DataChangedMessage
+			endparams
+		proc
+
+			.ifdef example
+			using message.FieldName select
+			("NAME"),	;;supplier name must be valid and more than 5 characters long.
+				if (message.ValidationState == DataValidationState.OK && %trim(Name) < 5)
+				begin
+					message.FailReason = "supplier name is not long enough, must be 5 character or more."
+					message.ValidationState = DataValidationState.Error
+				end
+			(),
+			begin
+				incr TotalValue
+			end
+			endusing
+
+			.endc
+
+		endmethod
+		
+
+;; this is where I can populate the extra fields I add to my data object		
+		private method synergychanged, void8/11/16
+			endparams
+		proc
+			data logName	,a100
+			data flag	,i4
+			getlog('SFEImages',logName,flag)
+			mProductImageFile = atrim(logName) + atrim(Prod_code) + '.jpg' 
+
+			mGroupName = 'group name....' + Prod_group
+			mSupplierName = 'supplier name...' + Supp_code
+		endmethod
+		
+		private method refreshData, void
+			endparams
+		proc
+			RaisePropertyChanged(^null)
+		endmethod
+		
+		private mSupplierName	,string
+
+		private mGroupName	,string		
+
+		private mProductImageFile	,string		
+
+		public property SupplierName, string
+			method get
+			proc
+				mreturn mSupplierName
+			endmethod
+			method set
+			proc
+				mSupplierName = value
+				RaisePropertyChanged("SupplierName")
+			endmethod
+		endproperty
+	
+		public property GroupName, string
+			method get
+			proc
+				mreturn mGroupName
+			endmethod
+			method set
+			proc
+				mGroupName = value
+				RaisePropertyChanged("GroupName")
+			endmethod
+		endproperty
+	
+		public property ProductImageFile, string
+			method get
+			proc
+				mreturn mProductImageFile
+			endmethod
+			method set
+			proc
+				mProductImageFile = value
+				RaisePropertyChanged("GroupName")
+			endmethod
+		endproperty
+
+				
+	endclass
+	
+endnamespace

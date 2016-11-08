@@ -27,7 +27,7 @@
 
         <Border Grid.Row="1" Margin="4" Padding="4" BorderThickness="0" CornerRadius="5" BorderBrush="{StaticResource BorderBrush}">
 
-            <DataGrid ItemsSource="{Binding Path=DataObjectCollection}" AutoGenerateColumns="False" IsReadOnly="True" IsEnabled="{Binding Path=GridIsEnabled}"
+            <DataGrid ItemsSource="{Binding Path=DataObjectCollection}" AutoGenerateColumns="False" IsReadOnly="True" IsEnabled="{Binding Path=GridIsEnabled}"     
                   SelectedItem="{Binding Path=SelectedCollectionItem}" SelectedIndex="{Binding Path=SelectedItemIndex}"
                   SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False"
                   CanUserResizeRows="False" CanUserSortColumns="True" RowHeaderWidth="0">
@@ -43,7 +43,9 @@
                     <DataGridTextColumn Header="Pack" Binding="{Binding Path=Pack_size}" Width="*"></DataGridTextColumn> 
                     <DataGridTextColumn Header="Supplier" Binding="{Binding Path=Supp_code}" Width="50"></DataGridTextColumn>
                     <DataGridTextColumn Header="Group" Binding="{Binding Path=Prod_group}" Width="50"></DataGridTextColumn>
-
+                    <DataGridTextColumn Header="Supplier Name" Binding="{Binding Path=SupplierName}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Group Name" Binding="{Binding Path=GroupName}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Image" Binding="{Binding Path=ProductImageFile}" Width="*"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
 

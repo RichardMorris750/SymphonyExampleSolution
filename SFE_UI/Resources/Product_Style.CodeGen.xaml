@@ -536,15 +536,15 @@
 										</DataTrigger>
 										<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
 											<Setter Property="ComboBox.Foreground" Value="{StaticResource InputInErrorForegroundBrush}" />
-											<Setter Property="ComboBox.Background">
-												<Setter.Value>
+                                            <Setter Property="ComboBox.Background" >
+                                                <Setter.Value>
 													<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
 														<LinearGradientBrush.GradientStops>
 															<GradientStop Offset="0.2" Color="Gray" />
 															<GradientStop Offset="3" Color="Red" />
 														</LinearGradientBrush.GradientStops>
 													</LinearGradientBrush>
-												</Setter.Value>
+												</Setter.Value>                            
 											</Setter>
 										</DataTrigger>
 										<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="False">

@@ -174,6 +174,7 @@
     <Compile Include="Parameter_Data.CodeGen.dbc" />
     <Compile Include="Parameter_FileIO.dbc" />
     <Compile Include="Product_Data.CodeGen.dbc" />
+    <Compile Include="Product_Data.dbc" />
     <Compile Include="Product_DFM.CodeGen.dbc" />
     <Compile Include="Product_FileIO.CodeGen.dbc" />
     <Compile Include="Product_group_Data.CodeGen.dbc" />

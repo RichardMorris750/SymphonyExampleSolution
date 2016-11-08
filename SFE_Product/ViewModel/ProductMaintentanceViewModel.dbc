@@ -42,6 +42,15 @@ import AppData
 import Symphony.Conductor.DataIO
 import Symphony.Conductor.ViewModel
 
+import System.Collections.ObjectModel
+import Symphony.Harmony
+
+;;use the extension methods
+import System.Linq
+import Symphony.Conductor.Model
+import Symphony.Conductor.Commands
+import Symphony.Conductor.DataIO
+import Symphony.Conductor.Types
 
 namespace SFE_Product.ViewModel
 
@@ -56,9 +65,19 @@ namespace SFE_Product.ViewModel
 		proc
 			this.ProgramModeChanged += doProgramModeChanged
 
-			;;we can use the stndard list loding method built into the base class or
+
+			;;we can use the stndard list loading method built into the base class or
 			;;load the list ourselves
 			this.LoadDetailList()
+
+
+
+.ifdef customLoad
+			;;let's load the products using Symphony Harmony and a local connection			
+			mConnector = new DBConnector("SYMLOCAL:richard/morris!AppData.TableMapper.MapTableToFile")
+			
+			loadAllProducts()
+.endc
 		endmethod
 
 		private method doProgramModeChanged	,void
@@ -84,6 +103,65 @@ namespace SFE_Product.ViewModel
 			endusing
 		endmethod
 	
+	.ifdef customLoad		
+		private method loadAllProducts, void
+			endparams
+		proc
+				
+			try
+			begin
+;				if (mProductList == ^null)
+;				begin
+;					mProductList = new AsyncObservableCollection<Product_Data>()
+;				end
+
+				if (mDataObjectCollection == ^null)
+					mDataObjectCollection = new AsyncObservableCollection<Product_Data>()
+					
+				;;the list is instanced so we need to load each item individually
+				mDataObjectCollection.ClearCollection()
+				data item	,@DataObjectBase
+				foreach item in new DataSelect(mConnector, "select * from product", new Product_Data())
+				begin
+;;					item.SupplierName = 'supplier name...'
+	;;				item.GroupName = 'Group Name.....'
+					mDataObjectCollection.AddToCollection(^as(item,Product_Data))
+;;					mProductList.AddToCollection(^as(item, Product_Data))
+				end
+
+			end
+			catch (e, @Exception)
+			begin
+				;;oops
+			end
+			endtry
+				
+		endmethod
+		
+
+		.endc
+
+		mProductImageName, string
+
+		public property ProductImageName, string
+
+				method get
+				proc
+				data logName , a100
+				data flag, i4
+				getlog ('SFEImages',logname,flag)
+				mProductImageName = atrim(logName) + 'COK001' + 'jpg'
+				mreturn mProductImageName
+
+				endmethod
+				method set
+				proc
+					mProductImageName = value
+					RaisePropertyChanged("ProductImageName")
+				endmethod
+			endproperty
+
+
 	endclass
 
 endnamespace

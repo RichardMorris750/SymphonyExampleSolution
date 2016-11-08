@@ -37,7 +37,7 @@
     <!--   <SolidColorBrush x:Key="LabelColorBrush" Color="{StaticResource BrightBlueColour}"></SolidColorBrush>  -->
     <!--    <SolidColorBrush x:Key="InputBackgroundBrush" Color="{StaticResource GreyColour}"></SolidColorBrush>  -->
     <SolidColorBrush x:Key="InputBackgroundBrush" Color="{StaticResource WhiteColour}"></SolidColorBrush>
-    <SolidColorBrush x:Key="InputForegroundBrush" Color="{StaticResource BlueColour}"></SolidColorBrush>
+    <SolidColorBrush x:Key="InputForegroundBrush" Color="{StaticResource BrightBlueColour}"></SolidColorBrush>
     <!--<SolidColorBrush x:Key="InputForegroundBrush" Color="{StaticResource WhiteColour}"></SolidColorBrush>  -->
     <SolidColorBrush x:Key="InputInErrorForegroundBrush" Color="Red"></SolidColorBrush>
     <SolidColorBrush x:Key="StatusBarItemBackgroundBrush" Color="Transparent"></SolidColorBrush>

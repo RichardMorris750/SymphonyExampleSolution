@@ -28,21 +28,38 @@ namespace AppData
 			endparams
 		proc
 
-.ifdef example
+
 			using message.FieldName select
-			("NAME"),	;;supplier name must be valid and more than 5 characters long.
-				if (message.ValidationState == DataValidationState.OK && %trim(Name) < 5)
+;;			("NAME"),	;;supplier name must be valid and more than 5 characters long.
+;;				if (message.ValidationState == DataValidationState.OK && %trim(Name) < 5)
+;;				begin
+;;					message.FailReason = "supplier name is not long enough, must be 5 character or more."
+;;					message.ValidationState = DataValidationState.Error
+;;				end
+			("SUPP_CODE"),
+			begin
+				findSupplier()
+				if mSupplierName(1:13) == 'Supplier name' then
 				begin
-					message.FailReason = "supplier name is not long enough, must be 5 character or more."
+					message.FailReason = "Supplier does not exist"
 					message.ValidationState = DataValidationState.Error
 				end
-			(),
+				else
+					message.ValidationState = DataValidationState.OK
+			end
+
+			("PROD_GROUP"),
 			begin
-				incr TotalValue
+				findGroup()
+					if mGroupName(1:10) == 'Group name' then
+				begin
+					message.FailReason = "Product Group does not exist"
+					message.ValidationState = DataValidationState.Error
+				end
+				else
+					message.ValidationState = DataValidationState.OK
 			end
 			endusing
-
-.endc
 
 		endmethod
 		
@@ -56,38 +73,10 @@ namespace AppData
 			getlog('SFEImages',logName,flag)
 			mProductImageFile = atrim(logName) + atrim(Prod_code) + '.jpg' 
 
-			;; set supplier name
-			data supplierObject = new Supplier_Data()
-			data supplierIO = new Supplier_FileIO(FileOpenMode.InputIndexed)
 
-			data status, FileAccessResults
+			findSupplier()
 
-			supplierIO.ForceFullKeyRead = true 
-
-			supplierObject.Supp_code = supp_code
-			status = SupplierIO.ReadRecord(supplierObject)
-
-			if 	status == FileAccessResults.Success then
-				mSupplierName = supplierObject.Name
-			else
-				mSupplierName = 'supplier name...' + Supp_code
-
-
-
-			;; set profduct group name
-			data product_GroupObject = new Product_group_Data()
-			data product_GroupIO = new Product_group_FileIO(FileOpenMode.InputIndexed)
-
-			
-			product_GroupIO.ForceFullKeyRead = true 
-			
-			product_GroupObject.Prod_group = Prod_group
-			status = product_GroupIO.ReadRecord(product_GroupObject)
-			
-			if 	status == FileAccessResults.Success then
-				mGroupName = product_groupObject.Group_desc
-			else
-				mGroupName = 'Group name...' + Prod_group
+			findGroup()
 
 
 		endmethod
@@ -96,8 +85,8 @@ namespace AppData
 			endparams
 		proc
 			RaisePropertyChanged(^null)
-			RaisePropertyChanged("SupplierName")
-			RaisePropertyChanged("GroupName")
+;;			RaisePropertyChanged("SupplierName")
+;;			RaisePropertyChanged("GroupName")
 		endmethod
 
 
@@ -144,7 +133,57 @@ namespace AppData
 			endmethod
 		endproperty
 
-				
+		private method findSupplier, void
+			;; set supplier name
+
+		proc
+			data supplierObject = new Supplier_Data()
+			data supplierIO = new Supplier_FileIO(FileOpenMode.InputIndexed)
+			
+			data status, FileAccessResults
+			
+			supplierIO.ForceFullKeyRead = true 
+			
+			supplierObject.Supp_code = supp_code
+			status = SupplierIO.ReadRecord(supplierObject)
+			
+			if 	status == FileAccessResults.Success then
+				SupplierName = supplierObject.Name
+			else
+			begin
+				SupplierName = 'Supplier name...' + Supp_code
+
+			end
+
+		endmethod
+
+		private method findGroup, void
+
+		proc
+		
+			data status, FileAccessResults
+		
+		
+			;; set profduct group name
+			data product_GroupObject = new Product_group_Data()
+			data product_GroupIO = new Product_group_FileIO(FileOpenMode.InputIndexed)
+		
+		
+			product_GroupIO.ForceFullKeyRead = true 
+		
+			product_GroupObject.Prod_group = Prod_group
+			status = product_GroupIO.ReadRecord(product_GroupObject)
+		
+			if 	status == FileAccessResults.Success then
+				GroupName = product_groupObject.Group_desc
+			else
+			begin
+				GroupName = 'Group name...' + Prod_group
+
+			end
+
+		endmethod
+			
 	endclass
 	
 endnamespace

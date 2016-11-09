@@ -3,6 +3,11 @@ import System.Collections.Generic
 import System.Text
 import Symphony.Conductor.Model
 
+;;imports required to use data objects and file IO classes.
+import AppData
+import Symphony.Conductor.DataIO
+
+
 
 namespace AppData
 	
@@ -11,7 +16,7 @@ namespace AppData
 		protected override method extendedConstructor, void
 			endparams
 		proc
-           ValidateData += doDataChanged
+			ValidateData += doDataChanged
 			SynergyRecordChanged += synergychanged
 			SynergyRecordChanged += refreshData
 			
@@ -23,7 +28,7 @@ namespace AppData
 			endparams
 		proc
 
-			.ifdef example
+.ifdef example
 			using message.FieldName select
 			("NAME"),	;;supplier name must be valid and more than 5 characters long.
 				if (message.ValidationState == DataValidationState.OK && %trim(Name) < 5)
@@ -37,7 +42,7 @@ namespace AppData
 			end
 			endusing
 
-			.endc
+.endc
 
 		endmethod
 		
@@ -51,14 +56,48 @@ namespace AppData
 			getlog('SFEImages',logName,flag)
 			mProductImageFile = atrim(logName) + atrim(Prod_code) + '.jpg' 
 
-			mGroupName = 'group name....' + Prod_group
-			mSupplierName = 'supplier name...' + Supp_code
+			;; set supplier name
+			data supplierObject = new Supplier_Data()
+			data supplierIO = new Supplier_FileIO(FileOpenMode.InputIndexed)
+
+			data status, FileAccessResults
+
+			supplierIO.ForceFullKeyRead = true 
+
+			supplierObject.Supp_code = supp_code
+			status = SupplierIO.ReadRecord(supplierObject)
+
+			if 	status == FileAccessResults.Success then
+				mSupplierName = supplierObject.Name
+			else
+				mSupplierName = 'supplier name...' + Supp_code
+
+
+
+			;; set profduct group name
+			data product_GroupObject = new Product_group_Data()
+			data product_GroupIO = new Product_group_FileIO(FileOpenMode.InputIndexed)
+
+			
+			product_GroupIO.ForceFullKeyRead = true 
+			
+			product_GroupObject.Prod_group = Prod_group
+			status = product_GroupIO.ReadRecord(product_GroupObject)
+			
+			if 	status == FileAccessResults.Success then
+				mGroupName = product_groupObject.Group_desc
+			else
+				mGroupName = 'Group name...' + Prod_group
+
+
 		endmethod
 		
 		private method refreshData, void
 			endparams
 		proc
 			RaisePropertyChanged(^null)
+			RaisePropertyChanged("SupplierName")
+			RaisePropertyChanged("GroupName")
 		endmethod
 
 

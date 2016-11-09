@@ -34,7 +34,7 @@
                     </Grid>
                 </Button.Content>
             </Button>
-            
+
             <Button Style="{StaticResource MenuButtonStyle}" Command="{Binding Path=NavigateState}" CommandParameter="GroupMaintState">
                 <Button.Content>
                     <Grid>

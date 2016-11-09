@@ -7,7 +7,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{ffc1c590-e1ad-4b25-a78b-673fd68adcd5}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SFE_Group</RootNamespace>
     <AssemblyName>SFE_Group</AssemblyName>
@@ -39,6 +39,11 @@
     <IsWebBootstrapper>False</IsWebBootstrapper>
     <UseApplicationTrust>False</UseApplicationTrust>
     <BootstrapperEnabled>True</BootstrapperEnabled>
+    <StartupObject>(Not set)</StartupObject>
+    <ApplicationIcon />
+    <ResourceType>Icon</ResourceType>
+    <ResourceName />
+    <NoWin32Manifest />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

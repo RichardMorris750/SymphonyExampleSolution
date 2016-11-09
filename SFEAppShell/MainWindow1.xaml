@@ -91,7 +91,7 @@
                     </BooleanAnimationUsingKeyFrames>
                     <Int32Animation Storyboard.TargetName="launcherView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
 
-                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="GroupMaintView" Storyboard.TargetProperty="(Visibility)" Duration="0:0:0">
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="groupMaintView" Storyboard.TargetProperty="(Visibility)" Duration="0:0:0">
                         <DiscreteObjectKeyFrame Value="{x:Static Visibility.Visible}"/>
                     </ObjectAnimationUsingKeyFrames>
 

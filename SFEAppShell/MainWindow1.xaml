@@ -6,6 +6,7 @@
     xmlns:sfeuiCommon="clr-namespace:SFE_UI.Common;assembly=SFE_UI"
     xmlns:sfeuiSupplier="clr-namespace:SEF_Supplier.View;assembly=SEF_Supplier"
     xmlns:sfeuiProduct="clr-namespace:SFE_Product.View;assembly=SFE_Product"
+    xmlns:sfeuiGroup="clr-namespace:SFE_Group.View;assembly=SFE_Group"
         Loaded="Window_Loaded" WindowStartupLocation="CenterScreen"
     Height="600" Width="900" WindowStyle="ToolWindow" Title="SFE Application">
     <Window.Resources>
@@ -81,6 +82,28 @@
                 </Storyboard>
             </VisualState>
 
+            <VisualState x:Name="GroupMaintState">
+                <Storyboard>
+
+                    <DoubleAnimation Storyboard.TargetName="launcherView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.5" To="0" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="launcherView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="launcherView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="GroupMaintView" Storyboard.TargetProperty="(Visibility)" Duration="0:0:0">
+                        <DiscreteObjectKeyFrame Value="{x:Static Visibility.Visible}"/>
+                    </ObjectAnimationUsingKeyFrames>
+
+                    <DoubleAnimation Storyboard.TargetName="groupMaintView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.5" To="1" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="groupMaintView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="groupMaintView" Storyboard.TargetProperty="(Panel.ZIndex)" To="1" />
+
+                </Storyboard>
+            </VisualState>
+
         </VisualStateGroup>
     </VisualStateManager.VisualStateGroups>
 
@@ -117,6 +140,17 @@
                 </Grid.RowDefinitions>
                 <sfeuiCommon:Toolbar Grid.Row="0"></sfeuiCommon:Toolbar>
                 <sfeuiProduct:Maintenance Grid.Row="1"></sfeuiProduct:Maintenance>
+            </Grid>
+        </Border>
+
+        <Border Name="groupMaintView" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Opacity="1" Visibility="Collapsed">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <sfeuiCommon:Toolbar Grid.Row="0"></sfeuiCommon:Toolbar>
+                <sfeuiGroup:Maintenance Grid.Row="1"></sfeuiGroup:Maintenance>
             </Grid>
         </Border>
 

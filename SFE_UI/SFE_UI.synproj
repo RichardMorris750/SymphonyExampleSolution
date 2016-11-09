@@ -116,6 +116,7 @@
     </Compile>
     <Compile Include="Content\Order_header_Collection.CodeGen.dbc" />
     <Compile Include="Content\Product_Collection.CodeGen.dbc" />
+    <Compile Include="Content\Product_group_Collection.CodeGen.dbc" />
     <Compile Include="Content\Supplier_Collection.CodeGen.dbc" />
     <Compile Include="Properties\AssemblyInfo.dbl" />
   </ItemGroup>
@@ -136,6 +137,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Resource Include="Resources\Product_group_Content.CodeGen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
+    <Resource Include="Resources\Product_group_Style.CodeGen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
     <Resource Include="Resources\Product_Content.CodeGen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -48,6 +48,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppImages", "AppImages", "{
 		AppImages\1464464598_document.png = AppImages\1464464598_document.png
 		AppImages\1464464651_1-02.png = AppImages\1464464651_1-02.png
 		AppImages\1464464799_exit.png = AppImages\1464464799_exit.png
+		AppImages\Group.png = AppImages\Group.png
 	EndProjectSection
 EndProject
 Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "SFE_Base", "SFE_Base\SFE_Base.synproj", "{EE7B1BE6-CA7B-47D7-8CD9-837577C149C2}"
@@ -67,6 +68,8 @@ EndProject
 Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "synPDF", "synPDF\synPDF.synproj", "{8E9FD290-EB76-487A-B920-1894456BFE30}"
 EndProject
 Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "SFE_Product", "SFE_Product\SFE_Product.synproj", "{D8748127-708B-4505-8F5C-7373961CD210}"
+EndProject
+Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "SFE_Group", "SFE_Group\SFE_Group.synproj", "{FFC1C590-E1AD-4B25-A78B-673FD68ADCD5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -222,6 +225,18 @@ Global
 		{D8748127-708B-4505-8F5C-7373961CD210}.Release|x64.Build.0 = Release|Any CPU
 		{D8748127-708B-4505-8F5C-7373961CD210}.Release|x86.ActiveCfg = Release|Any CPU
 		{D8748127-708B-4505-8F5C-7373961CD210}.Release|x86.Build.0 = Release|Any CPU
+		{FFC1C590-E1AD-4B25-A78B-673FD68ADCD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFC1C590-E1AD-4B25-A78B-673FD68ADCD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFC1C590-E1AD-4B25-A78B-673FD68ADCD5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FFC1C590-E1AD-4B25-A78B-673FD68ADCD5}.Debug|x64.Build.0 = Debug|Any CPU
+		{FFC1C590-E1AD-4B25-A78B-673FD68ADCD5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FFC1C590-E1AD-4B25-A78B-673FD68ADCD5}.Debug|x86.Build.0 = Debug|Any CPU
+		{FFC1C590-E1AD-4B25-A78B-673FD68ADCD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFC1C590-E1AD-4B25-A78B-673FD68ADCD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFC1C590-E1AD-4B25-A78B-673FD68ADCD5}.Release|x64.ActiveCfg = Release|Any CPU
+		{FFC1C590-E1AD-4B25-A78B-673FD68ADCD5}.Release|x64.Build.0 = Release|Any CPU
+		{FFC1C590-E1AD-4B25-A78B-673FD68ADCD5}.Release|x86.ActiveCfg = Release|Any CPU
+		{FFC1C590-E1AD-4B25-A78B-673FD68ADCD5}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

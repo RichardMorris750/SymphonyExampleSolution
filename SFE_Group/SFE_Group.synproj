@@ -6,11 +6,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{6f55d996-58f7-4b8b-82ee-164137f93daa}</ProjectGuid>
+    <ProjectGuid>{ffc1c590-e1ad-4b25-a78b-673fd68adcd5}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SFEAppShell</RootNamespace>
-    <AssemblyName>SFEAppShell</AssemblyName>
+    <RootNamespace>SFE_Group</RootNamespace>
+    <AssemblyName>SFE_Group</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -22,9 +22,23 @@
     <DBLCmdOptions> -W3 -qstack</DBLCmdOptions>
     <DBL_unQulRecStm>Stack</DBL_unQulRecStm>
     <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
-    <Name>SFEAppShell</Name>
+    <Name>SFE_Group</Name>
     <TargetPlatform>v452</TargetPlatform>
     <EnableCommonProperties>True</EnableCommonProperties>
+    <Install>True</Install>
+    <ApplicationVersion>1.0.0.*</ApplicationVersion>
+    <ApplicationRevision>0</ApplicationRevision>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>False</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>False</UpdatePeriodically>
+    <UpdateRequired>False</UpdateRequired>
+    <MapFileExtensions>True</MapFileExtensions>
+    <IsWebBootstrapper>False</IsWebBootstrapper>
+    <UseApplicationTrust>False</UseApplicationTrust>
+    <BootstrapperEnabled>True</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,7 +50,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DebugOptimize>Debug</DebugOptimize>
-    <DocumentationFile>bin\Debug\SFEAppShell.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\SFE_Group.xml</DocumentationFile>
     <Prefer32Bit Condition=" '$(TargetFrameworkVersion)'  != 'v4.0' AND '$(Prefer32Bit)' != 'false' ">true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -48,7 +62,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DebugOptimize>Optimize</DebugOptimize>
-    <DocumentationFile>bin\Release\SFEAppShell.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\SFE_Group.xml</DocumentationFile>
     <Prefer32Bit Condition=" '$(TargetFrameworkVersion)'  != 'v4.0' AND '$(Prefer32Bit)' != 'false' ">true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
@@ -122,32 +136,30 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </ApplicationDefinition>
-    <Compile Include="ViewModel\ApplicationViewModel.dbc" />
-    <Compile Include="View\MenuSelection.xaml.dbl">
-      <DependentUpon>View\MenuSelection.xaml</DependentUpon>
+    <Compile Include="ViewModel\GroupMaintentanceViewModel.dbc" />
+    <Compile Include="View\FullInput.xaml.dbl">
+      <DependentUpon>View\FullInput.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainWindow1.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Compile Include="View\Maintenance.xaml.dbl">
+      <DependentUpon>View\Maintenance.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\OverviewList.xaml.dbl">
+      <DependentUpon>View\OverviewList.xaml</DependentUpon>
+    </Compile>
+    <Page Include="View\FullInput.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Compile Include="App.xaml.dbl">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MainWindow1.xaml.dbl">
-      <DependentUpon>MainWindow1.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="View\MenuSelection.xaml">
+    <Page Include="View\Maintenance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\OverviewList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -165,7 +177,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Properties\Resources.resx</DependentUpon>
     </Compile>
-    <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -179,33 +190,20 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Images" />
-    <Folder Include="Images\Icons" />
+    <Folder Include="Model" />
     <Folder Include="ViewModel" />
     <Folder Include="View" />
     <Folder Include="Properties" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Icons\Group.png" />
-    <Resource Include="Images\Icons\Menu-64.png" />
-    <Resource Include="Images\Icons\Menu-64_mouseOver.png" />
-    <Resource Include="Images\Icons\Product.png" />
-    <Resource Include="Images\Icons\Supplier.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SEF_Supplier\SFE_Supplier.synproj">
-      <Name>SFE_Supplier</Name>
-      <Project>{f3550f65-c577-48b4-a126-e375b144916f}</Project>
+    <ProjectReference Include="..\AppData_Server\AppData_Server.synproj">
+      <Name>AppData_Server</Name>
+      <Project>{1c61e987-fbd9-49b8-b987-8a30d6ef3218}</Project>
       <Private>True</Private>
     </ProjectReference>
-    <ProjectReference Include="..\SFE_Group\SFE_Group.synproj">
-      <Name>SFE_Group</Name>
-      <Project>{ffc1c590-e1ad-4b25-a78b-673fd68adcd5}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\SFE_Product\SFE_Product.synproj">
-      <Name>SFE_Product</Name>
-      <Project>{d8748127-708b-4505-8f5c-7373961cd210}</Project>
+    <ProjectReference Include="..\SFE_Base\SFE_Base.synproj">
+      <Name>SFE_Base</Name>
+      <Project>{ee7b1be6-ca7b-47d7-8cd9-837577c149c2}</Project>
       <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\SFE_UI\SFE_UI.synproj">
@@ -213,6 +211,18 @@
       <Project>{042c6fdf-2e91-4cba-a1ac-336122022826}</Project>
       <Private>True</Private>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Install>True</Install>
+      <ProductName>Microsoft .NET Framework 4.5.2 (x86 and x64)</ProductName>
+      <Visible>False</Visible>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Install>False</Install>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Visible>False</Visible>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Synergex\VS2010\Synergex.SynergyDE.targets" />
   <PropertyGroup>

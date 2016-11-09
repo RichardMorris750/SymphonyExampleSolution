@@ -1,10 +1,10 @@
 ;;**********************************************************************
 ;;
-;; Title:       ProductMaintentanceViewModel.dbc
+;; Title:       GroupMaintentanceViewModel.dbc
 ;;
 ;; Type:        Class
 ;;
-;; Description: Supplier maintenance
+;; Description: Group maintenance
 ;;
 ;; Author:      Richard C. Morris, Synergex Technology Evangelist
 ;;
@@ -42,42 +42,23 @@ import AppData
 import Symphony.Conductor.DataIO
 import Symphony.Conductor.ViewModel
 
-import System.Collections.ObjectModel
-import Symphony.Harmony
 
-;;use the extension methods
-import System.Linq
-import Symphony.Conductor.Model
-import Symphony.Conductor.Commands
-import Symphony.Conductor.DataIO
-import Symphony.Conductor.Types
+namespace SFE_Group.ViewModel
 
-namespace SFE_Product.ViewModel
+	public class GroupMaintentanceViewModel extends FileMaintViewModel
 
-	public class ProductMaintentanceViewModel extends FileMaintViewModel
+		private static mGroup	,@Product_group_Data	,new product_group_Data()
 
-		private static mProduct	,@Product_Data	,new Product_Data()
-
-		public method ProductMaintentanceViewModel
+		public method GroupMaintentanceViewModel
 			sender									,@FrameworkElement
 			endparams
-			parent(sender, mProduct.GetType(), new Product_FileIO(FileOpenMode.UpdateIndexed), "ShowErrorState")
+			parent(sender, mGroup.GetType(), new Product_group_FileIO(FileOpenMode.UpdateIndexed), "ShowErrorState")
 		proc
 			this.ProgramModeChanged += doProgramModeChanged
 
-
-			;;we can use the stndard list loading method built into the base class or
+			;;we can use the stndard list loding method built into the base class or
 			;;load the list ourselves
 			this.LoadDetailList()
-
-
-
-.ifdef customLoad
-			;;let's load the products using Symphony Harmony and a local connection			
-			mConnector = new DBConnector("SYMLOCAL:richard/morris!AppData.TableMapper.MapTableToFile")
-			
-			loadAllProducts()
-.endc
 		endmethod
 
 		private method doProgramModeChanged	,void
@@ -90,57 +71,19 @@ namespace SFE_Product.ViewModel
 			using currentMode select
 			(ProgramMode.Modify),
 			begin
-				DataObjectEntryItem.SetFieldReadOnlyStatus(true, "PROD_CODE")
+				DataObjectEntryItem.SetFieldReadOnlyStatus(true, "PROD_GROUP")
 			end
 			(ProgramMode.Add),
 			begin
-				DataObjectEntryItem.SetFieldReadOnlyStatus(false, "PROD_CODE")
+				DataObjectEntryItem.SetFieldReadOnlyStatus(false, "PROD_GROUP")
 			end
 			(ProgramMode.Enquiry),
 			begin
-				DataObjectEntryItem.SetFieldReadOnlyStatus(true, "PROD_CODE")
+				DataObjectEntryItem.SetFieldReadOnlyStatus(true, "PROD_GROUP")
 			end
 			endusing
 		endmethod
 	
-	.ifdef customLoad		
-		private method loadAllProducts, void
-			endparams
-		proc
-				
-			try
-			begin
-;				if (mProductList == ^null)
-;				begin
-;					mProductList = new AsyncObservableCollection<Product_Data>()
-;				end
-
-				if (mDataObjectCollection == ^null)
-					mDataObjectCollection = new AsyncObservableCollection<Product_Data>()
-					
-				;;the list is instanced so we need to load each item individually
-				mDataObjectCollection.ClearCollection()
-				data item	,@DataObjectBase
-				foreach item in new DataSelect(mConnector, "select * from product", new Product_Data())
-				begin
-;;					item.SupplierName = 'supplier name...'
-	;;				item.GroupName = 'Group Name.....'
-					mDataObjectCollection.AddToCollection(^as(item,Product_Data))
-;;					mProductList.AddToCollection(^as(item, Product_Data))
-				end
-
-			end
-			catch (e, @Exception)
-			begin
-				;;oops
-			end
-			endtry
-				
-		endmethod
-		
-
-		.endc
-
 	endclass
 
 endnamespace

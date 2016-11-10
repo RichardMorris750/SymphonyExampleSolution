@@ -46,26 +46,6 @@
                         </Image>
                     </Button.Content>
                 </Button>
-                <Button Grid.Column="1" Style="{StaticResource TransperentButtonStyle}" HorizontalAlignment="Left" Margin="2"
-                        Command="{Binding Path=Print}">
-                    <Button.Content>
-                        <Image Height="34" Width="40" Source="pack://application:,,,/SFE_UI;component/Images/Icons/Print_64px.png">
-                            <Image.Style>
-                                <Style>
-                                    <Style.Triggers>
-                                        <Trigger Property="Image.IsMouseOver" Value="True">
-                                            <Setter Property="Image.RenderTransform">
-                                                <Setter.Value>
-                                                    <ScaleTransform ScaleX="1.1" ScaleY="1.1" CenterX="10" CenterY="10"/>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Image.Style>
-                        </Image>
-                    </Button.Content>
-                </Button>
             </Grid>
         </Border>
     </Grid>

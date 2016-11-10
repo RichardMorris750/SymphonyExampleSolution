@@ -20,32 +20,80 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <!--<sfeuiCommon:Toolbar Grid.Row="0"></sfeuiCommon:Toolbar>-->
 
-        <Border Grid.Row="1" Margin="4" Padding="4" BorderThickness="0" CornerRadius="5" BorderBrush="{StaticResource BorderBrush}">
+        <Border Grid.Row="1">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Product Code" Margin="2,2,2,2" VerticalAlignment="Center"></Label>
+                <TextBox Text="{Binding Path=KeyValue}" Width="100" Margin="2,2,2,2" MaxLength="10" VerticalAlignment="Center" CharacterCasing="Upper"></TextBox>
+                <Label Content="Key Word" Margin="2,2,2,2" VerticalAlignment="Center"></Label>
+                <TextBox Text="{Binding Path=KeyWord}" Width="100" Margin="2,2,2,2" MaxLength="10" VerticalAlignment="Center" CharacterCasing="Normal"></TextBox>
+
+                <Button Style="{StaticResource MenuButtonStyle}"  Command="{Binding SearchCommand}" Width="30" Height="30" Margin="20,0">
+                    <Button.Content>
+                        <Image Grid.Row="0" Source="pack://application:,,,/SFE_UI;component/Images/Icons/search.png"></Image>
+                    </Button.Content>
+                </Button>
+
+
+                <Button Style="{StaticResource MenuButtonStyle}"  Command="{Binding PrintCommand}" Width="30" Height="30" Margin="20,0">
+                    <Button.Content>
+                        <Image Grid.Row="0" Source="pack://application:,,,/SFE_UI;component/Images/Icons/Print_64px.png"></Image>
+                    </Button.Content>
+                </Button>
+
+
+                <Button Style="{StaticResource MenuButtonStyle}"  Command="{Binding PDFCommand}" Width="30" Height="30" Margin="20,0">
+                    <Button.Content>
+                        <Image Grid.Row="0" Source="pack://application:,,,/SFE_UI;component/Images/Icons/PDF.png"></Image>
+                    </Button.Content>
+                </Button>
+
+            </StackPanel>
+        </Border>
+ <!--                ScrollViewer.CanContentScroll="True" 
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ScrollViewer.HorizontalScrollBarVisibility="Auto"    -->
+        <Border Grid.Row="2" Margin="4" Padding="4" BorderThickness="1" CornerRadius="5" BorderBrush="{StaticResource BorderBrush}">
 
             <DataGrid ItemsSource="{Binding Path=DataObjectCollection}" AutoGenerateColumns="False" IsReadOnly="True" IsEnabled="{Binding Path=GridIsEnabled}"     
                   SelectedItem="{Binding Path=SelectedCollectionItem}" SelectedIndex="{Binding Path=SelectedItemIndex}"
                   SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False"
-                  CanUserResizeRows="False" CanUserSortColumns="True" RowHeaderWidth="0">
+                CanUserResizeRows="False" CanUserSortColumns="True" RowHeaderWidth="0">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Sorting">
                         <symTrigger:DataGridCustomerSorting ItemsSource="{Binding Path=DataObjectCollection}"></symTrigger:DataGridCustomerSorting>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
 
+
                 <DataGrid.Columns>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <!--                               <Image Source="{Binding Path=ProductImageFile}" Width="30" Margin="2,2,2,2"/>    -->
+                                <Button Style="{StaticResource MenuButtonStyle}"  Command="{Binding PDFCommand}" Width="30" Height="30" Margin="2,2">
+                                    <Button.Content>
+                                        <Image Grid.Row="0" Source="{Binding Path=ProductImageFile}"></Image>
+                                    </Button.Content>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
                     <DataGridTextColumn Header="Code" Binding="{Binding Path=Prod_code}" Width="50"></DataGridTextColumn>
                     <DataGridTextColumn Header="Name" Binding="{Binding Path=Prod_description}" Width="*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Pack" Binding="{Binding Path=Pack_size}" Width="*"></DataGridTextColumn> 
+                    <DataGridTextColumn Header="Pack" Binding="{Binding Path=Pack_size}" Width="*"></DataGridTextColumn>
                     <DataGridTextColumn Header="Supplier" Binding="{Binding Path=Supp_code}" Width="50"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Group" Binding="{Binding Path=Prod_group}" Width="50"></DataGridTextColumn>
                     <DataGridTextColumn Header="Supplier Name" Binding="{Binding Path=SupplierName}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Group" Binding="{Binding Path=Prod_group}" Width="50"></DataGridTextColumn>
                     <DataGridTextColumn Header="Group Name" Binding="{Binding Path=GroupName}" Width="*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Image" Binding="{Binding Path=ProductImageFile}" Width="*"></DataGridTextColumn>
+
+
                 </DataGrid.Columns>
             </DataGrid>
 

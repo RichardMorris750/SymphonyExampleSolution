@@ -137,6 +137,8 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Resource Include="Images\Icons\PDF.png" />
+    <Resource Include="Images\Icons\search.png" />
     <Resource Include="Resources\Product_group_Content.CodeGen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -42,7 +42,7 @@ namespace SFE_Product
 			;;To enable case insensitive comparisons:
 			mConnector.SetCaseSensitivity(false)
 						
-			SFEUtilities.SFEPrinting.PrinterOpen(ReportType,false,80)
+			SFEUtilities.SFEPrinting.PrinterOpen(ReportType,false,132,,,,,true,true)
 			
 			SFEUtilities.SFEPrinting.SetFont("Cambria",12)
 			
@@ -54,7 +54,6 @@ namespace SFE_Product
 			data lineCount,	i4	,99
 			data lineMax	,i4	,60
 			
-	;;		dataSearch = new DataSelect(mConnector, "select * from product where prod_code >=:1 and supp_code <= :2", new Product_Data(), KeyValue,KeyWOrd)
 		
 			if (!KeyWord && !KeyValue)
 			dataSearch = new DataSelect(mConnector, "select * from product", new Product_Data())
@@ -79,15 +78,25 @@ namespace SFE_Product
 					SFEUtilities.SFEPrinting.Write(1,1,"Product Listing")
 					SFEUtilities.SFEPrinting.Write(3,1,"Code")
 					SFEUtilities.SFEPrinting.Write(3,10,"Description")
+					SFEUtilities.SFEPrinting.Write(3,42,"Supplier")
+					SFEUtilities.SFEPrinting.Write(3,70,"Group")
+					SFEUtilities.SFEPrinting.Write(3,95,"Price")
+					SFEUtilities.SFEPrinting.Write(3,105,"Cost")
 					lineCount = 4					
 					SFEUtilities.SFEPrinting.SetFont("Calibri",10)
 				end
 				
 				
 				incr lineCount
+				SFEUtilities.SFEPrinting.SetFont("Calibri",10)
 				SFEUtilities.SFEPrinting.Write(lineCount,1,productObj.prod_code)
 				SFEUtilities.SFEPrinting.Write(lineCount,10,productObj.prod_description)
-
+				SFEUtilities.SFEPrinting.Write(lineCount,42,productObj.supp_code)
+				SFEUtilities.SFEPrinting.Write(lineCount,50,productObj.SupplierName)
+				SFEUtilities.SFEPrinting.Write(lineCount,70,productObj.GroupName)
+				SFEUtilities.SFEPrinting.SetFont("Consolas",10)
+				SFEUtilities.SFEPrinting.Write(lineCount,95,string(productObj.Sell_price,'ZZZX.XX'))
+				SFEUtilities.SFEPrinting.Write(lineCount,105,string(productObj.Cost_price,'ZZZX.XX'))
 			end
 			
 			SFEUtilities.SFEPrinting.PrinterClose()

@@ -42,7 +42,7 @@ namespace SFE_Product
 			;;To enable case insensitive comparisons:
 			mConnector.SetCaseSensitivity(false)
 						
-			SFEUtilities.SFEPrinting.PrinterOpen(ReportType,false,132,,,,,true,true)
+			SFEUtilities.SFEPrinting.PrinterOpen(ReportType,false,132,50,50,100,100,true,true)
 			
 			SFEUtilities.SFEPrinting.SetFont("Cambria",12)
 			

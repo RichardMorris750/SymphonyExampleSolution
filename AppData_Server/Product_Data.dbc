@@ -19,6 +19,10 @@ namespace AppData
 			ValidateData += doDataChanged
 			SynergyRecordChanged += synergychanged
 			SynergyRecordChanged += refreshData
+
+			;;if we have data passed to the constructor) then use it to populate the 
+			;;aditional fields
+			if (trim(product_main.str_prod_code)) synergychanged()
 			
 			
 		endmethod

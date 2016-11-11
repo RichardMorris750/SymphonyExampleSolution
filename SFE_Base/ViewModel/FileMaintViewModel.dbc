@@ -154,7 +154,7 @@ namespace SFE_Base.ViewModel
 				mDataObjectEntryItem = (DataObjectBase)mClassConstructor.Invoke(mCTORArgs)
 				
 				;;bind the required handlers
-				mDataObjectEntryItem.IsDataModifiedChanged += doIsDataModified
+				mDataObjectEntryItem.IsDataModifiedChanged += DoIsDataModified
 				
 				
 				data status	,FileAccessResults	,FileAccessResults.Success
@@ -252,7 +252,7 @@ namespace SFE_Base.ViewModel
 		private mProgramMode		,ProgramMode
 		private mLastProgramMode		,ProgramMode
 		
-		private method doIsDataModified, void
+		public method DoIsDataModified, void
 			endparams
 		proc
 			GridIsEnabled = !mDataObjectEntryItem.IsDataModified

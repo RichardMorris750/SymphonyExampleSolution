@@ -67,6 +67,9 @@ namespace SFE_Product.ViewModel
 
 ;			;;we can use the stndard list loading method built into the base class or
 ;			;;load the list ourselves
+			DataObjectEntryItem = (DataObjectBase)new Product_Data()
+			DataObjectEntryItem.IsDataModifiedChanged += DoIsDataModified
+
 			this.LoadDetailList()
 
 		endmethod
@@ -77,14 +80,16 @@ namespace SFE_Product.ViewModel
 
 			;;let's load the products using Symphony Harmony and a local connection			
 
-			data item, @Product_Data  ,new Product_Data()
+			data item = new Product_Data()
 			data productIO = new Product_FileIO(FileOpenMode.InputIndexed)
 
+			;;clear the list down
+			this.DataObjectCollection.ClearCollection()
 
 			data productStatus	,FileAccessResults	,productIO.ReadFirstRecord(item)
 			while (productStatus == FileAccessResults.Success)
 			begin
-				data add	,i4, false
+				data add	,boolean, false
 
 				if !mKeyValue && !mKeyWord
 					add = true
@@ -96,7 +101,10 @@ namespace SFE_Product.ViewModel
 					add=true
 
 				if (add)
-					this.DataObjectCollection.AddToCollection(item)				
+				begin
+
+					this.DataObjectCollection.AddToCollection((DataObjectBase)new Product_Data(item.SynergyRecord))				
+				end
 				productStatus = productIO.ReadNextRecord(item)
 			end
 
@@ -165,8 +173,14 @@ namespace SFE_Product.ViewModel
 			method get
 			proc
 
-				this.DataObjectCollection.ClearCollection()
-				LoadBaseItemCollection()
+				if (mSearchCommand == ^null)
+				begin
+					lambda doCommand(sender, param)
+					begin
+						LoadDetailList()
+					end
+					mSearchCommand = new GenericCommand("SEARCH", doCommand)
+				end
 
 				mreturn mSearchCommand
 			endmethod

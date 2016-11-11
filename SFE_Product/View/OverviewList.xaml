@@ -75,12 +75,12 @@
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <!--                               <Image Source="{Binding Path=ProductImageFile}" Width="30" Margin="2,2,2,2"/>    -->
-                                <Button Style="{StaticResource MenuButtonStyle}"  Command="{Binding PDFCommand}" Width="30" Height="30" Margin="2,2">
+                                <Image Source="{Binding Path=ProductImageFile}" Width="30" Margin="2,2,2,2"/>
+<!--                                <Button Style="{StaticResource MenuButtonStyle}"  Command="{Binding PDFCommand}" Width="30" Height="30" Margin="2,2">
                                     <Button.Content>
                                         <Image Grid.Row="0" Source="{Binding Path=ProductImageFile}"></Image>
                                     </Button.Content>
-                                </Button>
+                                </Button>-->
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

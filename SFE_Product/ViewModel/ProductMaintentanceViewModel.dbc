@@ -74,12 +74,14 @@ namespace SFE_Product.ViewModel
 
 		endmethod
 		
+		private static mConnector		,@DBConnector
+
 		public override method LoadBaseItemCollection, void
 			endparams
 		proc
 
 			;;let's load the products using Symphony Harmony and a local connection			
-
+.ifdef FileObjects
 			data item = new Product_Data()
 			data productIO = new Product_FileIO(FileOpenMode.InputIndexed)
 
@@ -90,14 +92,23 @@ namespace SFE_Product.ViewModel
 			while (productStatus == FileAccessResults.Success)
 			begin
 				data add	,boolean, false
+				data kWord	,a50
+				data Desc	,a50
+				kWord = mKeyWord
+				upcase kWord
+				Desc = item.Prod_description
+				upcase desc
 
 				if !mKeyValue && !mKeyWord
 					add = true
 
-				if  (mKeyValue != ^null) &&  (atrim(mKeyValue) == item.Prod_code)
+				if  (mKeyValue != ^null && !mKeyWord ) &&  (atrim(mKeyValue) == item.Prod_code)
 					add=true
 
-				if  (mKeyWord != ^null) &&  (instr(1,item.Prod_description,atrim(mKeyWord)))
+				if  (mKeyWord != ^null && !mKeyValue) && (instr(1,desc,atrim(kWord)))
+						add=true
+
+				if  (mKeyWord != ^null && mKeyValue != ^null) && (instr(1,Desc,atrim(kWord)))  &&  (atrim(mKeyValue) == item.Prod_code)
 					add=true
 
 				if (add)
@@ -107,8 +118,33 @@ namespace SFE_Product.ViewModel
 				end
 				productStatus = productIO.ReadNextRecord(item)
 			end
+.endc
 
+			mConnector = new DBConnector("SYMLOCAL:richard/morris!AppData.TableMapper.MapTableToFile")
+			
+			;;To enable case insensitive comparisons:
+			mConnector.SetCaseSensitivity(false)
 
+			data productObj	,@Product_Data	,new Product_Data()
+			
+			data dataSearch	,@DataSelect
+			
+			;;		dataSearch = new DataSelect(mConnector, "select * from product where prod_code >=:1 and supp_code <= :2", new Product_Data(), KeyValue,KeyWOrd)
+			
+			if (!mKeyWord  && !mKeyValue)
+				dataSearch = new DataSelect(mConnector, "select * from product", new Product_Data())
+			
+			if (!mKeyWord && mKeyValue != ^null)
+				dataSearch = new DataSelect(mConnector, "select * from product where prod_code like:1", new Product_Data(), mKeyValue)
+				
+			if (!mKeyValue && mKeyWord != ^null)
+				dataSearch = new DataSelect(mConnector, "select * from product where prod_description like:1", new Product_Data(), mKeyWord)
+				
+			if (mKeyValue != ^null && mKeyWord != ^null)
+				dataSearch = new DataSelect(mConnector, "select * from product where prod_code like:1 and prod_description like:2", new Product_Data(), mKeyValue,mKeyWord)
+				
+			foreach productObj in dataSearch
+				this.DataObjectCollection.AddToCollection((DataObjectBase)new Product_Data(productObj.SynergyRecord))		
 		endmethod
 
 
@@ -187,6 +223,43 @@ namespace SFE_Product.ViewModel
 		endproperty
 		
 
+		private mPrintCommand	,@GenericCommand
+
+		public property PrintCommand, @GenericCommand
+			method get
+			proc
+				
+				if (mPrintCommand == ^null)
+				begin
+					lambda doCommand(sender, param)
+					begin
+						SFE_Product.ProductReport.Print("PDF",mKeyValue,mKeyWord)
+					end
+					mSearchCommand = new GenericCommand("PRINT", doCommand)
+				end
+				
+				mreturn mSearchCommand
+			endmethod
+		endproperty
+
+		private mPDFCommand	,@GenericCommand
+
+		public property PDFCommand, @GenericCommand
+			method get
+			proc
+				
+				if (mPDFCommand == ^null)
+				begin
+					lambda doCommand(sender, param)
+					begin
+						SFE_Product.ProductReport.Print("P",mKeyValue,mKeyWord)
+					end
+					mSearchCommand = new GenericCommand("PDF", doCommand)
+				end
+				
+				mreturn mSearchCommand
+			endmethod
+		endproperty
 
 	endclass
 

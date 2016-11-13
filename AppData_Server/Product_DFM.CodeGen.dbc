@@ -44,19 +44,21 @@ namespace AppData
 			    
 			    ("1 "),	actualName = "PROD_CODE"
 			    
-			    ("2 "),	actualName = "PROD_DESCRIPTION"
+			    ("2 "),	actualName = "PROMOTION"
 			    
-			    ("3 "),	actualName = "SUPP_CODE"
+			    ("3 "),	actualName = "PROD_DESCRIPTION"
 			    
-			    ("4 "),	actualName = "COST_PRICE"
+			    ("4 "),	actualName = "SUPP_CODE"
 			    
-			    ("5 "),	actualName = "SELL_PRICE"
+			    ("5 "),	actualName = "COST_PRICE"
 			    
-			    ("6 "),	actualName = "PACK_SIZE"
+			    ("6 "),	actualName = "SELL_PRICE"
 			    
-			    ("7 "),	actualName = "VAT_CODE"
+			    ("7 "),	actualName = "PACK_SIZE"
 			    
-			    ("8 "),	actualName = "PROD_GROUP"
+			    ("8 "),	actualName = "VAT_CODE"
+			    
+			    ("9 "),	actualName = "PROD_GROUP"
 			    endusing
 		    end
 		    else
@@ -73,12 +75,20 @@ namespace AppData
 			    fieldDescription.StructurePosition = 1
 			    fieldDescription.DecimalPrecision = 0
 		    end
+		    ("PROMOTION "),
+		    begin
+			    fieldDescription.LanguageName = "PROMOTION"
+			    fieldDescription.DataType = FieldDataType.DecimalField
+			    fieldDescription.ElementSize = 1
+			    fieldDescription.StructurePosition = 7
+			    fieldDescription.DecimalPrecision = 0
+		    end
 		    ("PROD_DESCRIPTION "),
 		    begin
 			    fieldDescription.LanguageName = "PROD_DESCRIPTION"
 			    fieldDescription.DataType = FieldDataType.AlphaField
 			    fieldDescription.ElementSize = 40
-			    fieldDescription.StructurePosition = 7
+			    fieldDescription.StructurePosition = 8
 			    fieldDescription.DecimalPrecision = 0
 		    end
 		    ("SUPP_CODE "),
@@ -86,7 +96,7 @@ namespace AppData
 			    fieldDescription.LanguageName = "SUPP_CODE"
 			    fieldDescription.DataType = FieldDataType.AlphaField
 			    fieldDescription.ElementSize = 6
-			    fieldDescription.StructurePosition = 47
+			    fieldDescription.StructurePosition = 48
 			    fieldDescription.DecimalPrecision = 0
 		    end
 		    ("COST_PRICE "),
@@ -94,7 +104,7 @@ namespace AppData
 			    fieldDescription.LanguageName = "COST_PRICE"
 			    fieldDescription.DataType = FieldDataType.ImpliedDecimal
 			    fieldDescription.ElementSize = 8
-			    fieldDescription.StructurePosition = 53
+			    fieldDescription.StructurePosition = 54
 			    fieldDescription.DecimalPrecision = 02
 		    end
 		    ("SELL_PRICE "),
@@ -102,7 +112,7 @@ namespace AppData
 			    fieldDescription.LanguageName = "SELL_PRICE"
 			    fieldDescription.DataType = FieldDataType.ImpliedDecimal
 			    fieldDescription.ElementSize = 8
-			    fieldDescription.StructurePosition = 61
+			    fieldDescription.StructurePosition = 62
 			    fieldDescription.DecimalPrecision = 02
 		    end
 		    ("PACK_SIZE "),
@@ -110,7 +120,7 @@ namespace AppData
 			    fieldDescription.LanguageName = "PACK_SIZE"
 			    fieldDescription.DataType = FieldDataType.AlphaField
 			    fieldDescription.ElementSize = 10
-			    fieldDescription.StructurePosition = 69
+			    fieldDescription.StructurePosition = 70
 			    fieldDescription.DecimalPrecision = 0
 		    end
 		    ("VAT_CODE "),
@@ -118,7 +128,7 @@ namespace AppData
 			    fieldDescription.LanguageName = "VAT_CODE"
 			    fieldDescription.DataType = FieldDataType.DecimalField
 			    fieldDescription.ElementSize = 1
-			    fieldDescription.StructurePosition = 79
+			    fieldDescription.StructurePosition = 80
 			    fieldDescription.DecimalPrecision = 0
 		    end
 		    ("PROD_GROUP "),
@@ -126,7 +136,7 @@ namespace AppData
 			    fieldDescription.LanguageName = "PROD_GROUP"
 			    fieldDescription.DataType = FieldDataType.AlphaField
 			    fieldDescription.ElementSize = 3
-			    fieldDescription.StructurePosition = 80
+			    fieldDescription.StructurePosition = 81
 			    fieldDescription.DecimalPrecision = 0
 		    end
 		    endusing

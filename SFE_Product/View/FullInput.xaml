@@ -67,20 +67,24 @@
 
                     <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource Product_Supp_code_prompt}"></Label>
                     <symControl:FieldControl Grid.Row="4" Grid.Column="2" Style="{StaticResource Product_Supp_code_style}"></symControl:FieldControl>
-   
-                
-                <Label Grid.Row="5" Grid.Column="0" Style="{StaticResource Product_Sell_price_prompt}"></Label>
+
+
+                    <Label Grid.Row="5" Grid.Column="0" Style="{StaticResource Product_Sell_price_prompt}"></Label>
                     <symControl:FieldControl Grid.Row="5" Grid.Column="2" Style="{StaticResource Product_Sell_price_style}"></symControl:FieldControl>
 
                     <Label Grid.Row="6" Grid.Column="0" Style="{StaticResource Product_Cost_price_prompt}"></Label>
                     <symControl:FieldControl Grid.Row="6" Grid.Column="2" Style="{StaticResource Product_Cost_price_style}"></symControl:FieldControl>
 
                     <Label Grid.Row="7" Grid.Column="0" Style="{StaticResource Product_Vat_code_prompt}"></Label>
-                    <symControl:FieldControl Grid.Row="7" Grid.Column="2" Background="Blue" Style="{StaticResource Product_Vat_code_style}"></symControl:FieldControl>
+                    <symControl:FieldControl Grid.Row="7" Grid.Column="2" Style="{StaticResource Product_Vat_code_style}"></symControl:FieldControl>
+
+                    <Label Grid.Row="8" Grid.Column="0" Style="{StaticResource Product_Promotion_prompt}"></Label>
+                    <symControl:FieldControl Grid.Row="8" Grid.Column="2" Style="{StaticResource Product_Promotion_style}"></symControl:FieldControl>
+
 
                     <Border Grid.Row="2" Grid.Column="6" Grid.RowSpan="6">
                         <StackPanel Orientation="Horizontal">
-                            <Image Width="150" Height="150" Source="{Binding Path=ProductImageFile}"> </Image>
+                            <Image Width="150" Height="150" Source="{Binding Path=ProductImageFile}"></Image>
                         </StackPanel>
                     </Border>
 

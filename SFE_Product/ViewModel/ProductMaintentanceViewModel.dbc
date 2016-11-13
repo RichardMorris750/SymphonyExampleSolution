@@ -129,6 +129,8 @@ namespace SFE_Product.ViewModel
 			
 			data dataSearch	,@DataSelect
 			
+			this.DataObjectCollection.ClearCollection()
+
 			;;		dataSearch = new DataSelect(mConnector, "select * from product where prod_code >=:1 and supp_code <= :2", new Product_Data(), KeyValue,KeyWOrd)
 			
 			if (!mKeyWord  && !mKeyValue)
@@ -233,7 +235,7 @@ namespace SFE_Product.ViewModel
 				begin
 					lambda doCommand(sender, param)
 					begin
-						SFE_Product.ProductReport.Print("PDF",mKeyValue,mKeyWord)
+						SFE_Product.ProductReport.Print("R",mKeyValue,mKeyWord)
 					end
 					mSearchCommand = new GenericCommand("PRINT", doCommand)
 				end

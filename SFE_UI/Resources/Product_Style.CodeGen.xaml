@@ -103,6 +103,82 @@
     </Style>
 	
 
+	<clr:String x:Key="Product_Promotion_heading">On Promotion ?</clr:String>
+
+
+	<Style x:Key="Product_Promotion_prompt" TargetType="{x:Type Label}">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Label}">
+					<Label
+						Content="On Promotion ?"
+						IsEnabled="{Binding Path=PromotionIsEnabled}">
+					</Label>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+
+
+    <Style x:Key="Product_Promotion_style" TargetType="{x:Type symphonyControls:FieldControl}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Focusable" Value="False"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type symphonyControls:FieldControl}">
+                    <symphonyUI:SynergyDecimalBox
+						
+						CaretBrush="{StaticResource CaretBrush}"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Center"
+                        Name="ctlProduct_Promotion"
+                        Text="{Binding Path=Promotion, Converter={StaticResource decimalConverter}  
+						,UpdateSourceTrigger=Default
+                        ,ValidatesOnDataErrors=True}"
+                        Validation.ErrorTemplate="{StaticResource validationTemplate}"
+                        IsEnabled="{Binding Path=PromotionIsEnabled}"
+						IsReadOnly="{Binding Path=PromotionIsReadOnly}"
+                        SynergyDecimalField="False"                         MaxLength="1"
+						Width="12"
+						ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
+						            <i:Interaction.Behaviors>
+						              <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
+						            </i:Interaction.Behaviors>
+                        <symphonyUI:SynergyDecimalBox.Style>
+                            <Style>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=PromotionIsFocused}" Value="true">
+                                        <Setter Property="FocusManager.FocusedElement"
+                                                Value="{Binding ElementName=ctlProduct_Promotion}"></Setter>
+                                    </DataTrigger>
+									<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
+										<Setter Property="TextBox.Foreground" Value="{StaticResource InputInErrorForegroundBrush}" />
+										<Setter Property="TextBox.Background">
+											<Setter.Value>
+												<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+													<LinearGradientBrush.GradientStops>
+														<GradientStop Offset="0.2" Color="Gray" />
+														<GradientStop Offset="3" Color="Red" />
+													</LinearGradientBrush.GradientStops>
+												</LinearGradientBrush>
+											</Setter.Value>
+										</Setter>
+									</DataTrigger>
+									<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="False">
+										<Setter Property="TextBox.Foreground" Value="{StaticResource InputForegroundBrush}" />
+										<Setter Property="TextBox.Background" Value="Transparent"/>
+									</DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </symphonyUI:SynergyDecimalBox.Style>
+                    </symphonyUI:SynergyDecimalBox>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+	
+
 	<clr:String x:Key="Product_Prod_description_heading">Description</clr:String>
 
 
@@ -536,15 +612,15 @@
 										</DataTrigger>
 										<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
 											<Setter Property="ComboBox.Foreground" Value="{StaticResource InputInErrorForegroundBrush}" />
-                                            <Setter Property="ComboBox.Background" >
-                                                <Setter.Value>
+											<Setter Property="ComboBox.Background">
+												<Setter.Value>
 													<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
 														<LinearGradientBrush.GradientStops>
 															<GradientStop Offset="0.2" Color="Gray" />
 															<GradientStop Offset="3" Color="Red" />
 														</LinearGradientBrush.GradientStops>
 													</LinearGradientBrush>
-												</Setter.Value>                            
+												</Setter.Value>
 											</Setter>
 										</DataTrigger>
 										<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="False">

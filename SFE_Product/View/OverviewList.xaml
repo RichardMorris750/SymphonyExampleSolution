@@ -55,9 +55,7 @@
 
             </StackPanel>
         </Border>
- <!--                ScrollViewer.CanContentScroll="True" 
-                ScrollViewer.VerticalScrollBarVisibility="Auto"
-                ScrollViewer.HorizontalScrollBarVisibility="Auto"    -->
+
         <Border Grid.Row="2" Margin="4" Padding="4" BorderThickness="1" CornerRadius="5" BorderBrush="{StaticResource BorderBrush}">
 
             <DataGrid ItemsSource="{Binding Path=DataObjectCollection}" AutoGenerateColumns="False" IsReadOnly="True" IsEnabled="{Binding Path=GridIsEnabled}"     
@@ -92,7 +90,14 @@
                     <DataGridTextColumn Header="Supplier Name" Binding="{Binding Path=SupplierName}" Width="*"></DataGridTextColumn>
                     <DataGridTextColumn Header="Group" Binding="{Binding Path=Prod_group}" Width="50"></DataGridTextColumn>
                     <DataGridTextColumn Header="Group Name" Binding="{Binding Path=GroupName}" Width="*"></DataGridTextColumn>
-
+ 
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding Path=PromotionImageFile}" Width="30" Margin="2,2,2,2"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
 
                 </DataGrid.Columns>
             </DataGrid>

@@ -77,6 +77,11 @@ namespace AppData
 			getlog('SFEImages',logName,flag)
 			mProductImageFile = atrim(logName) + atrim(Prod_code) + '.jpg' 
 
+;;			if Promotion then
+			if Prod_code == 'COK' then
+			mPromotionImageFile = atrim(logName) + "Sale.png"
+			else
+				clear mPromotionImageFile
 
 			findSupplier()
 
@@ -89,8 +94,6 @@ namespace AppData
 			endparams
 		proc
 			RaisePropertyChanged(^null)
-;;			RaisePropertyChanged("SupplierName")
-;;			RaisePropertyChanged("GroupName")
 		endmethod
 
 
@@ -100,6 +103,8 @@ namespace AppData
 		private mGroupName	,string		
 
 		private mProductImageFile	,string		
+
+		private mPromotionImageFile	,string		
 
 		public property SupplierName, string
 			method get
@@ -134,6 +139,18 @@ namespace AppData
 			proc
 				mProductImageFile = value
 				RaisePropertyChanged("ProductImageFile")
+			endmethod
+		endproperty
+
+		public property PromotionImageFile, string
+			method get
+			proc
+				mreturn mPromotionImageFile
+			endmethod
+			method set
+			proc
+				mProductImageFile = value
+				RaisePropertyChanged("PromotionImageFile")
 			endmethod
 		endproperty
 

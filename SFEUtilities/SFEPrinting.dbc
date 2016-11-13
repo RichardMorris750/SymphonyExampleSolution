@@ -189,6 +189,7 @@ namespace SFEUtilities
 				mPosX = mLeftMargin
 				mPosY = 1
 				
+				clear mHighestRow 
 				
 				wpr_print(mHandle, DWP_BEGINJOB) ;Create the metafile
 				
@@ -209,14 +210,43 @@ namespace SFEUtilities
 		
 		
 		;---------------------------------------------------------------------------
-		public static method setColumnsPerLine	,void
-			in req columnsPerLine	,n
-			endparams
-		proc
-			mColumnsperLine = columnsPerLine
-		endmethod 
 		
-		
+		public static property ColumnsPerLine, int
+			method get
+			proc
+				mreturn mColumnsperLine
+			endmethod
+			method set
+			proc
+				mColumnsperLine = value
+			endmethod
+			
+		endproperty
+
+		private static mLinesLeft		, int
+
+		public static property LinesLeft, int
+			method get
+			proc
+				if mReportType == 'R' then
+				begin
+					data rowHeight	,int
+					
+					rowHeight = wpr_info(mHandle, DWP_TEXTHEIGHT, 'X')
+					mLinesLeft = (mPageLength - mPosY - mBottomMargin)/rowHeight
+				end
+				else
+				begin
+				end
+
+				mreturn mLinesLeft
+			endmethod
+			method set
+			proc
+				mLinesLeft = value
+			endmethod
+			
+		endproperty		
 		;---------------------------------------------------------------------------
 		
 		private static method doHeading, void
@@ -263,19 +293,18 @@ namespace SFEUtilities
 			end
 			else
 			begin
-				
-				mPosY = mPageLength - (wpr_info(mHandle, DWP_TEXTHEIGHT, "X")) - mBottomMargin
+				data printRow, int
+				printRow = mPageLength - (wpr_info(mHandle, DWP_TEXTHEIGHT, "X")) - mBottomMargin
 				
 			
-				mPosY = mPosY - 104
-				printText(mPosX = -1, mPosY, 6, "Times new Roman", DWPFW_BOLD, "Symphony Solutions Example")
-				mPosY -= wpr_info(mHandle, DWP_TEXTHEIGHT, 'X') - 5
+				printRow = printRow - 104
+				printText(mPosX = -1, printRow, 6, "Times new Roman", DWPFW_BOLD, "Symphony Solutions Example")
+				printRow -= wpr_info(mHandle, DWP_TEXTHEIGHT, 'X') - 5
 
 				data penHandle	,i4
 				
 				penHandle = %wpr_info(mHandle,DWP_GETPEN)
-				wpr_print(mHandle,DWP_LINE, penHandle, 1, mPosY ,mPageWidth, mPosY+2)
-
+				wpr_print(mHandle,DWP_LINE, penHandle, 1, printRow ,mPageWidth, printRow+2)
 
 			end
 			
@@ -289,7 +318,7 @@ namespace SFEUtilities
 			in opt fontName					,a
 			in opt fontSize					,n
 			in opt fontWeight				,n
-			in opt columnsPerLine			,n
+			in opt fontColor				,a
 			endparams
 			
 		proc
@@ -303,49 +332,60 @@ namespace SFEUtilities
 			if ^passed(fontWeight)
 				mfontWeight = fontWeight
 			
-			if ^passed (ColumnsperLine)
-				mColumnsperLine = columnsPerLine
 			
 			
-			if mReportType == 'P'
+			
+			if mReportType == 'P' then
 			begin
 				using mfontName select
 				('Cambria'), 	begin
-;;					if !mCambriaFont
-					mCambriaFont		= mPDF.LoadTrueTypeFont("fonts:cambriab.ttf")
+					if !mCambriaFont
+						mCambriaFont		= mPDF.LoadTrueTypeFont("fonts:cambriab.ttf")
 					mPDF.SelectFont(mCambriaFont,fontsize)
 				end
 				('Consolas'), 
 				begin
-;;					if !mConsolasFont
-					mConsolasFont	= mPDF.LoadTrueTypeFont("fonts:Consola.ttf")
+					if !mConsolasFont
+						mConsolasFont	= mPDF.LoadTrueTypeFont("fonts:Consola.ttf")
 					mPDF.SelectFont(mConsolasFont,fontsize)
 				end
 				
 				('Calibri'), 	
 				begin
-;;					if !mCalibriFont
-					mCalibriFont	= mPDF.LoadTrueTypeFont("fonts:Calibri.ttf")
+					if !mCalibriFont
+						mCalibriFont	= mPDF.LoadTrueTypeFont("fonts:Calibri.ttf")
 					mPDF.SelectFont(mCalibriFont,fontsize)
 				end
 				
 				('Arialn'),
 				begin
-;;					if !mArialNFont
-					mArialNFont		= mPDF.LoadTrueTypeFont("fonts:arialn.ttf")
+					if !mArialNFont
+						mArialNFont		= mPDF.LoadTrueTypeFont("fonts:arialn.ttf")
 					mPDF.SelectFont(mArialNFont,fontsize)
 				end
 				
 				('Arialb'),
 				begin
-;;					if !mArialNBFont
-					mArialNBFont		= mPDF.LoadTrueTypeFont("fonts:arialb.ttf")
+					if !mArialNBFont
+						mArialNBFont		= mPDF.LoadTrueTypeFont("fonts:arialb.ttf")
 					mPDF.SelectFont(mArialNBFont,fontsize)
 				end				
 				endusing
 			end
-			
-			nop
+			else
+			begin
+				if ^passed (fontColor)
+				begin
+					using fontColor select
+					("grey"), wpr_setdevice(mHandle,DWP_TEXTCOLOR,m_rgb(180,180,180))
+					("blue"), wpr_setdevice(mHandle,DWP_TEXTCOLOR,m_rgb(105,80,188))
+					("red"), wpr_setdevice(mHandle,DWP_TEXTCOLOR,m_rgb(255,0,0))
+					(),wpr_setdevice(mHandle,DWP_TEXTCOLOR,m_rgb(0,0,0))
+					endusing
+				end
+
+			end
+
 		endmethod
 		
 ;-------------------------------------------------------------------------------------------		
@@ -382,14 +422,109 @@ namespace SFEUtilities
 					mHighestRow = row
 				end
 
-				mPosX = mLeftMargin + (PageWidth * col/mColumnsperLine)
+				mPosX = mLeftMargin + (mPageWidth * col/mColumnsperLine)
 				
 				printText(mPosX,mPosY, mfontSize, mfontName, mfontWeight, %atrim(printData))
 
 			end
 			
 		endmethod
+
+;---------------------------------------------------------------------
+		public static method box, void
+			in req	topRow				,int		; top left row
+			in req	topCol				,int		; top left column 
+			in req	bottomRow			,int		; bottom right row		
+			in req	bottomCol			,int		; bottom right col
+			in req	margin				,int		; margin to add to co-ordinates
+			endparams
+		proc
+
 		
+			data topRowPixel		,int
+			data topColPixel		,int
+			data bottomRowPixel		,int
+			data bottomColPixel		,int
+			data rowHeight			,int	; row height, in pixels
+
+			
+			if mReportType == 'R' then
+			begin
+				data penHandle	,i4
+
+				rowHeight = wpr_info(mHandle, DWP_TEXTHEIGHT, 'X')
+				
+				topRowPixel = mPosY + ((topRow - mHighestRow) * rowHeight) - margin
+				bottomRowPixel = mPosY + ((BottomRow - mHighestRow) * rowHeight) + margin				
+				
+				topColPixel = mLeftMargin + (mPageWidth * topCol/mColumnsperLine) - margin			
+				bottomColPixel = mLeftMargin + (mPageWidth * bottomCol/mColumnsperLine) + margin
+
+				penHandle = %wpr_info(mHandle,DWP_GETPEN)
+
+				if topRowPixel == bottomColPixel || topColPixel == bottomColPixel then
+				begin
+					;; line
+				wpr_print(mHandle,DWP_LINE, penHandle, topColPixel, topRowPixel, bottomColPixel, bottomRowPixel)
+				end
+				else
+				begin
+					;; box
+					bottomRowPixel = bottomRowPixel + rowHeight
+					wpr_print(mHandle,DWP_LINE, penHandle, topColPixel, topRowPixel, bottomColPixel, topRowPixel)		;; top line
+					wpr_print(mHandle,DWP_LINE, penHandle, topColPixel, bottomRowPixel, bottomColPixel, bottomRowPixel)	;; bottom line
+					wpr_print(mHandle,DWP_LINE, penHandle, topColPixel, topRowPixel, topColPixel, bottomRowPixel)		;; LHS
+					wpr_print(mHandle,DWP_LINE, penHandle, bottomColPixel, topRowPixel, bottomColPixel, bottomRowPixel)		;; RHS
+					end
+			end
+			else
+			begin
+			end
+
+		endmethod
+
+;---------------------------------------------------------------------
+		public static method PrintImage	,void
+			imageFileName		,a			; image file name
+			topRow				,int		; top left row
+			topCol				,int		; top left column 
+			bottomRow			,int		; bottom right row		
+			bottomCol			,int		; bottom right col
+			endparams
+
+		proc
+			data topRowPixel		,int
+			data topColPixel		,int
+			data bottomRowPixel		,int
+			data bottomColPixel		,int
+			data rowHeight			,int	; row height, in pixels
+			data PixHeight			,int
+			data PixWidth			,int
+
+			if mReportType == 'R' then
+			begin
+
+				rowHeight = wpr_info(mHandle, DWP_TEXTHEIGHT, 'X')
+
+				topRowPixel = mPosY + ((topRow - mHighestRow) * rowHeight)
+				bottomRowPixel = mPosY + ((BottomRow - mHighestRow) * rowHeight)				
+								
+				topColPixel = mLeftMargin + (mPageWidth * topCol/mColumnsperLine)			
+				bottomColPixel = mLeftMargin + (mPageWidth * bottomCol/mColumnsperLine)	
+
+				PixHeight = bottomRowPixel - topRowPixel
+				PixWidth = bottomRowPixel - topRowPixel
+
+				wpr_print(mHandle, DWP_BITMAP, ImageFileName, topColPixel,topRowPixel,pixWidth,pixHeight, true)
+			end
+			else
+			begin
+			end
+
+
+		endmethod
+
+.ifdef notneeded	
 		;-------------------------------------------------------------------------------------
 		public static method WriteLine	,void
 			in req printData							,a
@@ -412,6 +547,8 @@ namespace SFEUtilities
 
 		endmethod
 		
+.endc
+
 		;-------------------------------------------------------------------------------------------
 		public static method FormFeed, void
 			endparams
@@ -421,10 +558,12 @@ namespace SFEUtilities
 			if mPrintFooter .and. mDonePrinting
 				dofooter()
 			
+			clear mHighestRow 
+
 			if mReportType == 'P' then
 			begin
 				mPosY = mPDF.Height		
-				clear mHighestRow 
+
 				mPDF.NewPage() 
 			end
 			else
@@ -526,33 +665,6 @@ namespace SFEUtilities
 
 			wpr_print(mHandle, DWP_WRITEOUT, printX, printY, pString)
 
-.ifdef notNeeded					
-			if (%trim(pString) != 0) then
-			begin
-							wpr_print(mHandle, DWP_WRITEOUT, printX, printY, pString)
-;				posX += wpr_info(mHandle, DWP_TEXTWIDTH, pString)
-;				if (fontWeight == DWPFW_BOLD)
-;				begin
-;					posX += (wpr_info(mHandle, DWP_TEXTWIDTH, pString) * 0.1)
-;				end
-			if (posY > 0) then
-				begin
-					
-					posY += (wpr_info(mHandle, DWP_TEXTHEIGHT, pString))
-					
-				end									
-				else
-					posY = posY * -1
-			end
-			else
-			begin
-				if (posY > 0) then
-					posY += wpr_info(mHandle, DWP_TEXTHEIGHT, " ")
-				else
-					posY = posY * -1
-			end
-			
-.endc
 		endmethod
 		
 		;-------------------------------------------------------------------------------

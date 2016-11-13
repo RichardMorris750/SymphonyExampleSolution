@@ -39,6 +39,8 @@ namespace AppData
 .align
 			public csProd_code, String
 .align
+			public csPromotion, Int32
+.align
 			public csProd_description, String
 .align
 			public csSupp_code, String
@@ -57,7 +59,7 @@ namespace AppData
 		public static SynergyMemberInfo, @List<System.Reflection.MemberInfo>
 
 		public const RPSStructureName	,String	,"PRODUCT"
-		public const RPSStructureSize	,Int32	,82
+		public const RPSStructureSize	,Int32	,83
 
 		private product_main	,STRProduct
 
@@ -93,50 +95,58 @@ namespace AppData
 			&	"ALPHA", false, 0, 0)
 
 			
+			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "PROMOTION", "Promotion",  "", "",
+			&	"", "PROMOTION", 7, 1,
+			&	0, 0, 0, 0,
+			&	"DECIMAL", false, 0, 9)
+
+			
 			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "PROD_DESCRIPTION", "Prod_description",  "", "",
-			&	"", "PROD_DESCRIPTION", 7, 40,
+			&	"", "PROD_DESCRIPTION", 8, 40,
 			&	0, 0, 0, 0,
 			&	"ALPHA", false, 0, 0)
 
 			
 			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "SUPP_CODE", "Supp_code",  "", "",
-			&	"", "SUPP_CODE", 47, 6,
+			&	"", "SUPP_CODE", 48, 6,
 			&	0, 0, 0, 0,
 			&	"ALPHA", false, 0, 0)
 
 			
 			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "COST_PRICE", "Cost_price",  "", "",
-			&	"", "COST_PRICE", 53, 8,
+			&	"", "COST_PRICE", 54, 8,
 			&	0, 0, 0, 0,
 			&	"IMPLIED", false, 0, 999999.99)
 
 			
 			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "SELL_PRICE", "Sell_price",  "", "",
-			&	"", "SELL_PRICE", 61, 8,
+			&	"", "SELL_PRICE", 62, 8,
 			&	0, 0, 0, 0,
 			&	"IMPLIED", false, 0, 999999.99)
 
 			
 			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "PACK_SIZE", "Pack_size",  "", "",
-			&	"", "PACK_SIZE", 69, 10,
+			&	"", "PACK_SIZE", 70, 10,
 			&	0, 0, 0, 0,
 			&	"ALPHA", false, 0, 0)
 
 			
 			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "VAT_CODE", "Vat_code",  "", "",
-			&	"", "VAT_CODE", 79, 1,
+			&	"", "VAT_CODE", 80, 1,
 			&	0, 0, 0, 0,
 			&	"DECIMAL", false, 0, 3)
 
 			
 			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "PROD_GROUP", "Prod_group",  "", "",
-			&	"", "PROD_GROUP", 80, 3,
+			&	"", "PROD_GROUP", 81, 3,
 			&	0, 0, 0, 0,
 			&	"ALPHA", false, 0, 0)
 
 
 			mStaticFieldNameList.Add("Prod_code")
 			mStaticFieldHeadingList.Add("Product Code")
+			mStaticFieldNameList.Add("Promotion")
+			mStaticFieldHeadingList.Add("On Promotion ?")
 			mStaticFieldNameList.Add("Prod_description")
 			mStaticFieldHeadingList.Add("Description")
 			mStaticFieldNameList.Add("Supp_code")
@@ -307,6 +317,23 @@ namespace AppData
 				end
 			endmethod
 		endproperty
+        ;;Promotion
+		{JsonProperty}
+		public property Promotion, d1
+			method get
+			proc
+                mreturn product_main.STR_Promotion
+            endmethod
+			method set
+			proc
+				if (product_main.STR_Promotion .ne. value)
+				begin
+										product_main.STR_Promotion = value
+					ValidateEnteredData(2)
+					RaisePropertyChanged("Promotion")
+				end
+			endmethod
+		endproperty
         ;;Prod_description
 		{JsonProperty}
 		public property Prod_description, a40
@@ -319,7 +346,7 @@ namespace AppData
 					if (product_main.STR_Prod_description .nes. value)
 				begin
 										product_main.STR_Prod_description = value
-					ValidateEnteredData(2)
+					ValidateEnteredData(3)
 					RaisePropertyChanged("Prod_description")
 				end
 			endmethod
@@ -336,7 +363,7 @@ namespace AppData
 					if (product_main.STR_Supp_code .nes. value)
 				begin
 										product_main.STR_Supp_code = value
-					ValidateEnteredData(3)
+					ValidateEnteredData(4)
 					RaisePropertyChanged("Supp_code")
 				end
 			endmethod
@@ -353,7 +380,7 @@ namespace AppData
 				if (product_main.STR_Cost_price .ne. value)
 				begin
 										product_main.STR_Cost_price = value
-					ValidateEnteredData(4)
+					ValidateEnteredData(5)
 					RaisePropertyChanged("Cost_price")
 				end
 			endmethod
@@ -370,7 +397,7 @@ namespace AppData
 				if (product_main.STR_Sell_price .ne. value)
 				begin
 										product_main.STR_Sell_price = value
-					ValidateEnteredData(5)
+					ValidateEnteredData(6)
 					RaisePropertyChanged("Sell_price")
 				end
 			endmethod
@@ -387,7 +414,7 @@ namespace AppData
 					if (product_main.STR_Pack_size .nes. value)
 				begin
 										product_main.STR_Pack_size = value
-					ValidateEnteredData(6)
+					ValidateEnteredData(7)
 					RaisePropertyChanged("Pack_size")
 				end
 			endmethod
@@ -404,7 +431,7 @@ namespace AppData
 				if (product_main.STR_Vat_code .ne. value)
 				begin
 										product_main.STR_Vat_code = value
-					ValidateEnteredData(7)
+					ValidateEnteredData(8)
 					RaisePropertyChanged("Vat_code")
 				end
 			endmethod
@@ -421,7 +448,7 @@ namespace AppData
 					if (product_main.STR_Prod_group .nes. value)
 				begin
 										product_main.STR_Prod_group = value
-					ValidateEnteredData(8)
+					ValidateEnteredData(9)
 					RaisePropertyChanged("Prod_group")
 				end
 			endmethod
@@ -449,20 +476,22 @@ namespace AppData
                 
 				SetFieldValid("Prod_code")
 									if (mValidateSynergyData) ValidateEnteredData(1)
-				SetFieldValid("Prod_description")
+				SetFieldValid("Promotion")
 									if (mValidateSynergyData) ValidateEnteredData(2)
-				SetFieldValid("Supp_code")
+				SetFieldValid("Prod_description")
 									if (mValidateSynergyData) ValidateEnteredData(3)
-				SetFieldValid("Cost_price")
+				SetFieldValid("Supp_code")
 									if (mValidateSynergyData) ValidateEnteredData(4)
-				SetFieldValid("Sell_price")
+				SetFieldValid("Cost_price")
 									if (mValidateSynergyData) ValidateEnteredData(5)
-				SetFieldValid("Pack_size")
+				SetFieldValid("Sell_price")
 									if (mValidateSynergyData) ValidateEnteredData(6)
-				SetFieldValid("Vat_code")
+				SetFieldValid("Pack_size")
 									if (mValidateSynergyData) ValidateEnteredData(7)
-				SetFieldValid("Prod_group")
+				SetFieldValid("Vat_code")
 									if (mValidateSynergyData) ValidateEnteredData(8)
+				SetFieldValid("Prod_group")
+									if (mValidateSynergyData) ValidateEnteredData(9)
 				RaisePropertyChanged(^null)
 				RaiseSynergyRecordChanged()
             endmethod
@@ -489,18 +518,20 @@ namespace AppData
 				            ValidateEnteredData(1)
             RaisePropertyChanged("Prod_code")
 				            ValidateEnteredData(2)
-            RaisePropertyChanged("Prod_description")
+            RaisePropertyChanged("Promotion")
 				            ValidateEnteredData(3)
-            RaisePropertyChanged("Supp_code")
+            RaisePropertyChanged("Prod_description")
 				            ValidateEnteredData(4)
-            RaisePropertyChanged("Cost_price")
+            RaisePropertyChanged("Supp_code")
 				            ValidateEnteredData(5)
-            RaisePropertyChanged("Sell_price")
+            RaisePropertyChanged("Cost_price")
 				            ValidateEnteredData(6)
-            RaisePropertyChanged("Pack_size")
+            RaisePropertyChanged("Sell_price")
 				            ValidateEnteredData(7)
-            RaisePropertyChanged("Vat_code")
+            RaisePropertyChanged("Pack_size")
 				            ValidateEnteredData(8)
+            RaisePropertyChanged("Vat_code")
+				            ValidateEnteredData(9)
             RaisePropertyChanged("Prod_group")
 
         endmethod
@@ -519,19 +550,21 @@ namespace AppData
 			
             ("PROD_CODE"), mCurrentField = 1
 			
-            ("PROD_DESCRIPTION"), mCurrentField = 2
+            ("PROMOTION"), mCurrentField = 2
 			
-            ("SUPP_CODE"), mCurrentField = 3
+            ("PROD_DESCRIPTION"), mCurrentField = 3
 			
-            ("COST_PRICE"), mCurrentField = 4
+            ("SUPP_CODE"), mCurrentField = 4
 			
-            ("SELL_PRICE"), mCurrentField = 5
+            ("COST_PRICE"), mCurrentField = 5
 			
-            ("PACK_SIZE"), mCurrentField = 6
+            ("SELL_PRICE"), mCurrentField = 6
 			
-            ("VAT_CODE"), mCurrentField = 7
+            ("PACK_SIZE"), mCurrentField = 7
 			
-            ("PROD_GROUP"), mCurrentField = 8
+            ("VAT_CODE"), mCurrentField = 8
+			
+            ("PROD_GROUP"), mCurrentField = 9
             (),
                 mCurrentField = 0
             endusing
@@ -563,6 +596,8 @@ namespace AppData
                 (7),    mreturn ""
 				
                 (8),    mreturn ""
+				
+                (9),    mreturn ""
 				(), mreturn ""  ;;if incorrect field value or not configured, ensure we clear the return value
                 endusing
             endmethod
@@ -585,7 +620,7 @@ namespace AppData
         endproperty
 		
 
-        public property Prod_descriptionIsEnabled, Boolean
+        public property PromotionIsEnabled, Boolean
             method get
             proc
                 mreturn GetFieldEnabledState(2)
@@ -593,6 +628,19 @@ namespace AppData
             method set
             proc
                 SetFieldEnabledState(2, value)
+                RaiseNonRPSPropertyChanged("PromotionIsEnabled")
+            endmethod
+        endproperty
+		
+
+        public property Prod_descriptionIsEnabled, Boolean
+            method get
+            proc
+                mreturn GetFieldEnabledState(3)
+            endmethod
+            method set
+            proc
+                SetFieldEnabledState(3, value)
                 RaiseNonRPSPropertyChanged("Prod_descriptionIsEnabled")
             endmethod
         endproperty
@@ -601,11 +649,11 @@ namespace AppData
         public property Supp_codeIsEnabled, Boolean
             method get
             proc
-                mreturn GetFieldEnabledState(3)
+                mreturn GetFieldEnabledState(4)
             endmethod
             method set
             proc
-                SetFieldEnabledState(3, value)
+                SetFieldEnabledState(4, value)
                 RaiseNonRPSPropertyChanged("Supp_codeIsEnabled")
             endmethod
         endproperty
@@ -614,11 +662,11 @@ namespace AppData
         public property Cost_priceIsEnabled, Boolean
             method get
             proc
-                mreturn GetFieldEnabledState(4)
+                mreturn GetFieldEnabledState(5)
             endmethod
             method set
             proc
-                SetFieldEnabledState(4, value)
+                SetFieldEnabledState(5, value)
                 RaiseNonRPSPropertyChanged("Cost_priceIsEnabled")
             endmethod
         endproperty
@@ -627,11 +675,11 @@ namespace AppData
         public property Sell_priceIsEnabled, Boolean
             method get
             proc
-                mreturn GetFieldEnabledState(5)
+                mreturn GetFieldEnabledState(6)
             endmethod
             method set
             proc
-                SetFieldEnabledState(5, value)
+                SetFieldEnabledState(6, value)
                 RaiseNonRPSPropertyChanged("Sell_priceIsEnabled")
             endmethod
         endproperty
@@ -640,11 +688,11 @@ namespace AppData
         public property Pack_sizeIsEnabled, Boolean
             method get
             proc
-                mreturn GetFieldEnabledState(6)
+                mreturn GetFieldEnabledState(7)
             endmethod
             method set
             proc
-                SetFieldEnabledState(6, value)
+                SetFieldEnabledState(7, value)
                 RaiseNonRPSPropertyChanged("Pack_sizeIsEnabled")
             endmethod
         endproperty
@@ -653,11 +701,11 @@ namespace AppData
         public property Vat_codeIsEnabled, Boolean
             method get
             proc
-                mreturn GetFieldEnabledState(7)
+                mreturn GetFieldEnabledState(8)
             endmethod
             method set
             proc
-                SetFieldEnabledState(7, value)
+                SetFieldEnabledState(8, value)
                 RaiseNonRPSPropertyChanged("Vat_codeIsEnabled")
             endmethod
         endproperty
@@ -666,11 +714,11 @@ namespace AppData
         public property Prod_groupIsEnabled, Boolean
             method get
             proc
-                mreturn GetFieldEnabledState(8)
+                mreturn GetFieldEnabledState(9)
             endmethod
             method set
             proc
-                SetFieldEnabledState(8, value)
+                SetFieldEnabledState(9, value)
                 RaiseNonRPSPropertyChanged("Prod_groupIsEnabled")
             endmethod
         endproperty
@@ -687,6 +735,19 @@ namespace AppData
 				clearFocus()
 				mProd_codeIsFocused = value
 				RaiseNonRPSPropertyChanged("Prod_codeIsFocused")
+			endmethod
+		endproperty
+		private mPromotionIsFocused	,Boolean
+		public property PromotionIsFocused, Boolean
+			method get
+			proc
+				mreturn mPromotionIsFocused
+			endmethod
+			method set
+			proc
+				clearFocus()
+				mPromotionIsFocused = value
+				RaiseNonRPSPropertyChanged("PromotionIsFocused")
 			endmethod
 		endproperty
 		private mProd_descriptionIsFocused	,Boolean
@@ -798,7 +859,7 @@ namespace AppData
 		endproperty
 		
 
-		public property Prod_descriptionIsReadOnly, Boolean
+		public property PromotionIsReadOnly, Boolean
 			method get
 			proc
 				mreturn GetFieldReadOnlyState(2)
@@ -806,6 +867,19 @@ namespace AppData
 			method set
 			proc
 				SetFieldReadOnlyState(2, value)
+				RaiseNonRPSPropertyChanged("PromotionIsReadOnly")
+			endmethod
+		endproperty
+		
+
+		public property Prod_descriptionIsReadOnly, Boolean
+			method get
+			proc
+				mreturn GetFieldReadOnlyState(3)
+			endmethod
+			method set
+			proc
+				SetFieldReadOnlyState(3, value)
 				RaiseNonRPSPropertyChanged("Prod_descriptionIsReadOnly")
 			endmethod
 		endproperty
@@ -814,11 +888,11 @@ namespace AppData
 		public property Supp_codeIsReadOnly, Boolean
 			method get
 			proc
-				mreturn GetFieldReadOnlyState(3)
+				mreturn GetFieldReadOnlyState(4)
 			endmethod
 			method set
 			proc
-				SetFieldReadOnlyState(3, value)
+				SetFieldReadOnlyState(4, value)
 				RaiseNonRPSPropertyChanged("Supp_codeIsReadOnly")
 			endmethod
 		endproperty
@@ -827,11 +901,11 @@ namespace AppData
 		public property Cost_priceIsReadOnly, Boolean
 			method get
 			proc
-				mreturn GetFieldReadOnlyState(4)
+				mreturn GetFieldReadOnlyState(5)
 			endmethod
 			method set
 			proc
-				SetFieldReadOnlyState(4, value)
+				SetFieldReadOnlyState(5, value)
 				RaiseNonRPSPropertyChanged("Cost_priceIsReadOnly")
 			endmethod
 		endproperty
@@ -840,11 +914,11 @@ namespace AppData
 		public property Sell_priceIsReadOnly, Boolean
 			method get
 			proc
-				mreturn GetFieldReadOnlyState(5)
+				mreturn GetFieldReadOnlyState(6)
 			endmethod
 			method set
 			proc
-				SetFieldReadOnlyState(5, value)
+				SetFieldReadOnlyState(6, value)
 				RaiseNonRPSPropertyChanged("Sell_priceIsReadOnly")
 			endmethod
 		endproperty
@@ -853,11 +927,11 @@ namespace AppData
 		public property Pack_sizeIsReadOnly, Boolean
 			method get
 			proc
-				mreturn GetFieldReadOnlyState(6)
+				mreturn GetFieldReadOnlyState(7)
 			endmethod
 			method set
 			proc
-				SetFieldReadOnlyState(6, value)
+				SetFieldReadOnlyState(7, value)
 				RaiseNonRPSPropertyChanged("Pack_sizeIsReadOnly")
 			endmethod
 		endproperty
@@ -866,11 +940,11 @@ namespace AppData
 		public property Vat_codeIsReadOnly, Boolean
 			method get
 			proc
-				mreturn GetFieldReadOnlyState(7)
+				mreturn GetFieldReadOnlyState(8)
 			endmethod
 			method set
 			proc
-				SetFieldReadOnlyState(7, value)
+				SetFieldReadOnlyState(8, value)
 				RaiseNonRPSPropertyChanged("Vat_codeIsReadOnly")
 			endmethod
 		endproperty
@@ -879,11 +953,11 @@ namespace AppData
 		public property Prod_groupIsReadOnly, Boolean
 			method get
 			proc
-				mreturn GetFieldReadOnlyState(8)
+				mreturn GetFieldReadOnlyState(9)
 			endmethod
 			method set
 			proc
-				SetFieldReadOnlyState(8, value)
+				SetFieldReadOnlyState(9, value)
 				RaiseNonRPSPropertyChanged("Prod_groupIsReadOnly")
 			endmethod
 		endproperty
@@ -897,6 +971,7 @@ namespace AppData
 			begin
 				doingClearFocus = true
 				if (Prod_codeIsFocused) Prod_codeIsFocused = false
+				if (PromotionIsFocused) PromotionIsFocused = false
 				if (Prod_descriptionIsFocused) Prod_descriptionIsFocused = false
 				if (Supp_codeIsFocused) Supp_codeIsFocused = false
 				if (Cost_priceIsFocused) Cost_priceIsFocused = false
@@ -944,6 +1019,28 @@ namespace AppData
 				else
 				begin
 					if (((Product_Data)obj1).Prod_code > ((Product_Data)obj2).Prod_code) then
+					begin
+						if (sortDir == Symphony.Conductor.Framework.SynergySortOrder.Ascending) then
+							result = -1
+						else
+							result = 1
+					end
+					else
+					begin
+						if (sortDir == Symphony.Conductor.Framework.SynergySortOrder.Descending) then
+							result = -1
+						else
+							result = 1
+					end
+				end
+			end
+			("Promotion"),
+			begin
+				if (((Product_Data)obj1).Promotion == ((Product_Data)obj2).Promotion) then
+					result = 0
+				else
+				begin
+					if (((Product_Data)obj1).Promotion > ((Product_Data)obj2).Promotion) then
 					begin
 						if (sortDir == Symphony.Conductor.Framework.SynergySortOrder.Ascending) then
 							result = -1
@@ -1129,6 +1226,7 @@ namespace AppData
 			proc
 				data tmpSTR	,clsstrProduct
 				tmpSTR.csProd_code = (string)mAlphaConveter.Convert(product_main.STR_prod_code, ^null, ^null, ^null)
+				tmpSTR.csPromotion = (int32)mIntegerConveter.Convert(product_main.STR_promotion, ^null, ^null, ^null)
 				tmpSTR.csProd_description = (string)mAlphaConveter.Convert(product_main.STR_prod_description, ^null, ^null, ^null)
 				tmpSTR.csSupp_code = (string)mAlphaConveter.Convert(product_main.STR_supp_code, ^null, ^null, ^null)
 				tmpSTR.csCost_price = (decimal)mImpliedDecimalConveter.Convert(product_main.STR_cost_price, ^null, ^null, ^null)
@@ -1143,6 +1241,7 @@ namespace AppData
 				data tmpSTR	,clsstrProduct
 				tmpSTR = byteArrayToStructure(value)
 				product_main.STR_Prod_code = (a)mAlphaConveter.ConvertBack(tmpSTR.csProd_code, ^null, ^null, ^null)
+				product_main.STR_Promotion = (d)((i)mIntegerConveter.ConvertBack(tmpSTR.csPromotion, ^null, ^null, ^null))
 				product_main.STR_Prod_description = (a)mAlphaConveter.ConvertBack(tmpSTR.csProd_description, ^null, ^null, ^null)
 				product_main.STR_Supp_code = (a)mAlphaConveter.ConvertBack(tmpSTR.csSupp_code, ^null, ^null, ^null)
 				product_main.STR_Cost_price = (id)mImpliedDecimalConveter.ConvertBack(tmpSTR.csCost_price, ^null, ^null, ^null)
@@ -1161,6 +1260,7 @@ namespace AppData
 			begin
 				disposable data writer ,@BinaryWriter , new BinaryWriter(stream)
 				writer.Write(tmpSTRUCT.csProd_code)
+				writer.Write(tmpSTRUCT.csPromotion.ToString())
 				writer.Write(tmpSTRUCT.csProd_description)
 				writer.Write(tmpSTRUCT.csSupp_code)
 				writer.Write(tmpSTRUCT.csCost_price.ToString())
@@ -1182,6 +1282,8 @@ namespace AppData
 			begin
 				disposable data reader	,@BinaryReader	,new BinaryReader(stream)
 				tmpSTRUCT.csProd_code = reader.ReadString()
+				tmpString = reader.ReadString()
+				tmpSTRUCT.csPromotion = Convert.ToInt32(tmpString)
 				tmpSTRUCT.csProd_description = reader.ReadString()
 				tmpSTRUCT.csSupp_code = reader.ReadString()
 				tmpString = reader.ReadString()

@@ -46,6 +46,7 @@ namespace SFE_Product
 			
 			SFEUtilities.SFEPrinting.SetFont("Cambria",12)
 			
+
 			data productObj	,@Product_Data	,new Product_Data()
 			
 			data dataSearch	,@DataSelect
@@ -53,10 +54,10 @@ namespace SFE_Product
 			data pline	,a132
 			data lineCount,	i4	,99
 			data lineMax	,i4	,60
-			
+			data firstPage	,boolean, true
 		
 			if (!KeyWord && !KeyValue)
-			dataSearch = new DataSelect(mConnector, "select * from product", new Product_Data())
+				dataSearch = new DataSelect(mConnector, "select * from product", new Product_Data())
 				
 			if (!KeyWord && KeyValue)
 				dataSearch = new DataSelect(mConnector, "select * from product where prod_code like:1", new Product_Data(), KeyValue)
@@ -69,34 +70,71 @@ namespace SFE_Product
 
 			foreach productObj in dataSearch
 			begin
-				if lineCount .ge. lineMax
+				SFEUtilities.SFEPrinting.SetFont("Calibri",10)
+				if firstPage || SFEUtilities.SFEPrinting.LinesLeft < 11
 				begin
-					if lineCount .ne.99
+					if !firstPage
 						SFEUtilities.SFEPrinting.FormFeed()
 					
-					SFEUtilities.SFEPrinting.SetFont("Cambria",12)
+					firstPage = false
+
+					SFEUtilities.SFEPrinting.SetFont("Cambria",12,,"blue")
 					SFEUtilities.SFEPrinting.Write(1,1,"Product Listing")
 					SFEUtilities.SFEPrinting.Write(3,1,"Code")
 					SFEUtilities.SFEPrinting.Write(3,10,"Description")
 					SFEUtilities.SFEPrinting.Write(3,42,"Supplier")
 					SFEUtilities.SFEPrinting.Write(3,70,"Group")
-					SFEUtilities.SFEPrinting.Write(3,95,"Price")
-					SFEUtilities.SFEPrinting.Write(3,105,"Cost")
 					lineCount = 4					
 					SFEUtilities.SFEPrinting.SetFont("Calibri",10)
 				end
 				
 				
 				incr lineCount
-				SFEUtilities.SFEPrinting.SetFont("Calibri",10)
+				SFEUtilities.SFEPrinting.SetFont("Calibri",10,,"black")
 				SFEUtilities.SFEPrinting.Write(lineCount,1,productObj.prod_code)
 				SFEUtilities.SFEPrinting.Write(lineCount,10,productObj.prod_description)
 				SFEUtilities.SFEPrinting.Write(lineCount,42,productObj.supp_code)
 				SFEUtilities.SFEPrinting.Write(lineCount,50,productObj.SupplierName)
 				SFEUtilities.SFEPrinting.Write(lineCount,70,productObj.GroupName)
+				SFEUtilities.SFEPrinting.PrintImage(productObj.ProductImageFile,lineCount+1,20,lineCount +6,40)
+				if productObj.PromotionImageFile != ^null
+					SFEUtilities.SFEPrinting.PrintImage(productObj.PromotionImageFile,lineCount+2,50,lineCount +4,60)
+
+
+				SFEUtilities.SFEPrinting.Write(lineCount+2,75,"Selling Price")
+
+				SFEUtilities.SFEPrinting.box(lineCount + 2,70, lineCount + 4,110,50)
+
+				SFEUtilities.SFEPrinting.SetFont("Calibri",10,,"black")
+				SFEUtilities.SFEPrinting.Write(lineCount+2,75,"Selling Price")
 				SFEUtilities.SFEPrinting.SetFont("Consolas",10)
-				SFEUtilities.SFEPrinting.Write(lineCount,95,string(productObj.Sell_price,'ZZZX.XX'))
-				SFEUtilities.SFEPrinting.Write(lineCount,105,string(productObj.Cost_price,'ZZZX.XX'))
+				SFEUtilities.SFEPrinting.Write(lineCount+2,95,string(productObj.Sell_price,'ZZZX.XX'))
+
+				SFEUtilities.SFEPrinting.SetFont("Calibri",10)
+				SFEUtilities.SFEPrinting.Write(lineCount+3,75,"Cost Price")
+				SFEUtilities.SFEPrinting.SetFont("Consolas",10)
+				SFEUtilities.SFEPrinting.Write(lineCount+3,95,string(productObj.Cost_price,'ZZZX.XX'))
+
+				SFEUtilities.SFEPrinting.SetFont("Calibri",10)
+				SFEUtilities.SFEPrinting.Write(lineCount+4,75,"% Profit")
+								
+				data prof		,d10
+				data sellPrice	,d10
+				data costPrice	,d10
+
+				sellPrice = productObj.Sell_price
+				costPrice = productObj.Cost_price
+	
+				if (SellPrice)
+					prof = (((SellPrice - costPrice)*100000)/ sellPrice) #1
+				
+				if prof < 0
+					SFEUtilities.SFEPrinting.SetFont(,,,"red")
+				
+				SFEUtilities.SFEPrinting.Write(lineCount+4,95,string(prof,'ZZZX.XX-')+'%')
+				SFEUtilities.SFEPrinting.SetFont(,,,"black")
+				
+				lineCount += 6
 			end
 			
 			SFEUtilities.SFEPrinting.PrinterClose()

@@ -51,9 +51,7 @@ namespace SFE_Product
 			
 			data dataSearch	,@DataSelect
 			
-			data pline	,a132
-			data lineCount,	i4	,99
-			data lineMax	,i4	,60
+			data lineCount,	i4	
 			data firstPage	,boolean, true
 		
 			if (!KeyWord && !KeyValue)
@@ -84,6 +82,8 @@ namespace SFE_Product
 					SFEUtilities.SFEPrinting.Write(3,10,"Description")
 					SFEUtilities.SFEPrinting.Write(3,42,"Supplier")
 					SFEUtilities.SFEPrinting.Write(3,70,"Group")
+					SFEUtilities.SFEPrinting.Write(3,90,"Pack Size")
+
 					lineCount = 4					
 					SFEUtilities.SFEPrinting.SetFont("Calibri",10)
 				end
@@ -96,6 +96,8 @@ namespace SFE_Product
 				SFEUtilities.SFEPrinting.Write(lineCount,42,productObj.supp_code)
 				SFEUtilities.SFEPrinting.Write(lineCount,50,productObj.SupplierName)
 				SFEUtilities.SFEPrinting.Write(lineCount,70,productObj.GroupName)
+				SFEUtilities.SFEPrinting.Write(lineCount,90,productObj.Pack_size)
+
 				SFEUtilities.SFEPrinting.PrintImage(productObj.ProductImageFile,lineCount+1,20,lineCount +6,40)
 				if productObj.PromotionImageFile != ^null
 					SFEUtilities.SFEPrinting.PrintImage(productObj.PromotionImageFile,lineCount+2,50,lineCount +4,60)

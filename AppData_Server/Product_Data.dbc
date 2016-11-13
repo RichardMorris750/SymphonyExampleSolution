@@ -77,8 +77,7 @@ namespace AppData
 			getlog('SFEImages',logName,flag)
 			mProductImageFile = atrim(logName) + atrim(Prod_code) + '.jpg' 
 
-;;			if Promotion then
-			if Prod_code == 'COK' then
+		if Promotion then
 			mPromotionImageFile = atrim(logName) + "Sale.png"
 			else
 				clear mPromotionImageFile

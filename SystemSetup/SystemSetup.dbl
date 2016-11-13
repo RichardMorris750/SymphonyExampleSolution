@@ -118,7 +118,7 @@ namespace SystemSetup
 			delet('SFEDATA:product.ism')
 			data headerKeyVals	,[2]a*
 			&	,"START=1,LENGTH=6,TYPE=ALPHA,NODUPS"
-			&	,"START=80:1,LENGTH=3:6,TYPE=ALPHA:ALPHA,NODUPS"
+			&	,"START=80:1,LENGTH=3:6,TYPE=ALPHA:ALPHA,DUPS,MODIFY"
 			isamc('SFEDATA:product.ism', ^size(STRProduct), 2, headerKeyVals)	
 		end
 		catch (e, @Exception)
@@ -309,6 +309,7 @@ namespace SystemSetup
 		product.str_supp_code	=	'D00001'
 		product.str_vat_code			=	1
 		product.str_pack_size			=	'330ML'
+		product.str_promotion			= 1
 		call addproduct
 		
 		product.str_prod_code			=	'7UP002'
@@ -329,16 +330,7 @@ namespace SystemSetup
 		product.str_supp_code	=	'D00001'
 		product.str_vat_code			=	1
 		product.str_pack_size			=	'6 x 2 Ltr'
-		call addproduct
-		
-		product.str_prod_code			=	'CRISP1'
-		product.str_prod_description	=	'Ready Salted Crisps'
-		product.str_sell_price			=	13.00	
-		product.str_cost_price			=	10.50
-		product.str_prod_group	=	'CR'
-		product.str_supp_code	=	'C00001'
-		product.str_vat_code			=	1
-		product.str_pack_size			=	'Box of 48'
+		product.str_promotion			= 1
 		call addproduct
 		
 		product.str_prod_code			=	'CRISP1'

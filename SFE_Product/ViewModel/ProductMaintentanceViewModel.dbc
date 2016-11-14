@@ -117,8 +117,9 @@ namespace SFE_Product.ViewModel
 
 				if (add)
 				begin
-
-					this.DataObjectCollection.AddToCollection((DataObjectBase)new Product_Data(item.SynergyRecord))				
+					data tmpDO = new Product_Data(item.SynergyRecord)
+					tmpDO.GlobalRFA = item.GlobalRFA
+					this.DataObjectCollection.AddToCollection((DataObjectBase)tmpDO)				
 				end
 				productStatus = productIO.ReadNextRecord(item)
 			end

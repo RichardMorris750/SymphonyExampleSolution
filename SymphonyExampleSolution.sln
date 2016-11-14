@@ -1,12 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "SystemSetup", "SystemSetup\SystemSetup.synproj", "{78504DA9-412F-490B-B944-471209C6B25F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{10036368-383E-4442-A84A-65827266025F}"
 	ProjectSection(SolutionItems) = preProject
+		ReGen.bat = ReGen.bat
 		Rps\rpsmain.is1 = Rps\rpsmain.is1
 		Rps\rpsmain.ism = Rps\rpsmain.ism
 		Rps\rpsmain.schema = Rps\rpsmain.schema

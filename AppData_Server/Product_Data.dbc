@@ -42,7 +42,7 @@ namespace AppData
 ;;				end
 			("SUPP_CODE"),
 			begin
-				if !findSupplier() then
+				if (findSupplier() != FileAccessResults.Success) then
 				begin
 					message.FailReason = "Supplier does not exist"
 					message.ValidationState = DataValidationState.Error
@@ -152,33 +152,26 @@ namespace AppData
 		endproperty
 
 
-		private method findSupplier, boolean
-			;; set supplier name
+		;; set supplier name
+		private method findSupplier, FileAccessResults
+			endparams
 
 		proc
-			data supplierObject = new Supplier_Data()
-			data supplierIO = new Supplier_FileIO(FileOpenMode.InputIndexed)
+			data response	,FileAccessResults
+			data tmpDO = Supplier_DOCache.DataObject(supp_code)
 			
-			data status, FileAccessResults
-			
-			data retStatus, boolean, false
-			supplierIO.ForceFullKeyRead = true 
-			
-			supplierObject.Supp_code = supp_code
-			status = SupplierIO.ReadRecord(supplierObject)
-			
-			if 	status == FileAccessResults.Success then
-				begin
-				SupplierName = supplierObject.Name
-				retStatus = true
-				end
+			if (tmpDO != ^null) then
+			begin
+				response = FileAccessResults.Success
+				SupplierName = tmpDO.Name
+			end
 			else
 			begin
+				response = FileAccessResults.RecordNotFound
 				SupplierName = 'Supplier name...' + Supp_code
-				retStatus = false
 			end
 
-			mreturn retStatus
+			mreturn response
 		endmethod
 
 		private method findGroup, boolean

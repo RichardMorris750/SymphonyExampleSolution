@@ -179,12 +179,14 @@
     <Compile Include="Product_FileIO.CodeGen.dbc" />
     <Compile Include="Product_group_Data.CodeGen.dbc" />
     <Compile Include="Product_group_DFM.CodeGen.dbc" />
+    <Compile Include="Product_group_DOCache.CodeGen.dbc" />
     <Compile Include="Product_group_FileIO.CodeGen.dbc" />
     <Compile Include="Properties\AssemblyInfo.dbl" />
     <Compile Include="Selections_Data.CodeGen.dbc" />
     <Compile Include="Supplier_Data.CodeGen.dbc" />
     <Compile Include="Supplier_Data.dbc" />
     <Compile Include="Supplier_DFM.CodeGen.dbc" />
+    <Compile Include="Supplier_DOCache.CodeGen.dbc" />
     <Compile Include="Supplier_FileIO.CodeGen.dbc" />
     <Compile Include="TableMapper.dbc" />
   </ItemGroup>

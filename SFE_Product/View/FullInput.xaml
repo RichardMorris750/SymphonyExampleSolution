@@ -78,8 +78,8 @@
                     <Label Grid.Row="7" Grid.Column="0" Style="{StaticResource Product_Vat_code_prompt}"></Label>
                     <symControl:FieldControl Grid.Row="7" Grid.Column="2" Style="{StaticResource Product_Vat_code_style}"></symControl:FieldControl>
 
-                    <Label Grid.Row="8" Grid.Column="0" Style="{StaticResource Product_Promotion_prompt}"></Label>
-                    <symControl:FieldControl Grid.Row="8" Grid.Column="2" Style="{StaticResource Product_Promotion_style}"></symControl:FieldControl>
+  <!--                  <Label Grid.Row="8" Grid.Column="0" Style="{StaticResource Product_Promotion_prompt}"></Label>   -->
+                    <symControl:FieldControl Grid.Row="8" Grid.Column="0" Style="{StaticResource Product_Promotion_style}"></symControl:FieldControl>
 
 
                     <Border Grid.Row="2" Grid.Column="6" Grid.RowSpan="6">

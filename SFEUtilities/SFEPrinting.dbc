@@ -30,7 +30,9 @@ namespace SFEUtilities
 		private static mfontName		,a50
 		private static mfontWeight		,i4
 		private static mUnderline		,boolean
-		
+		private static mFontColour		,string
+		private static mBackColour		,string
+
 		private static mPrinterName		,a100
 		private static mPrintHeader		,boolean
 		private static mPrintFooter		,boolean
@@ -46,6 +48,7 @@ namespace SFEUtilities
 		private static mCalibriFont		,string
 		private static mArialNFont		,string
 		private static mArialNBFont		,string
+		private static mTimesFont		,string
 		
 		private static mColumnsperLine	,int
 		private static mTopMargin		,int
@@ -63,10 +66,10 @@ namespace SFEUtilities
 			in req reportType				,a		; R for Report or P for PDF
 			in opt landscapeMode			,n		; t/f
 			in opt columnsPerLine			,n		
-			in opt topMargin				,n		; in pixels
-			in opt bottomMargin				,n		; in pixels
-			in opt leftMargin				,n		; in pixels
-			in opt rightMargin				,n		; in pixels
+			in opt topMargin				,n		; in print API pixels
+			in opt bottomMargin				,n		; in print API pixels
+			in opt leftMargin				,n		; in print API pixels
+			in opt rightMargin				,n		; in print API pixels
 			in opt printHeader				,n		; t/f
 			in opt printFooter				,n		; t/f
 			in opt printerName				,a 		; printer anme for print API or PDF name for PDF
@@ -98,25 +101,38 @@ namespace SFEUtilities
 				mColumnsperLine = 80
 			
 			if ^passed(topMargin)then
-				mTopMargin = topMargin
-			else
-				mTopMargin = 50
+				if mReportType == 'R' 
+					mTopMargin = topMargin
+				else
+				mTopMargin = 100
+
+			if mReportType == 'P' 
+				mTopMargin = mTopMargin/15
 			
 			if ^passed(bottomMargin) then
 				mBottomMargin = bottomMargin
 			else
-				mBottomMargin = 50
-			
+				mBottomMargin = 100
+
+			if mReportType == 'P' 
+				mBottomMargin = mBottomMargin/15
+						
 			if ^passed(leftMargin) then
 				mLeftMargin = leftMargin
 			else
-				mLeftMargin = 25
+				mLeftMargin = 100
 			
+			if mReportType == 'P' 
+				mLeftMargin = mLeftMargin/8
+
 			if ^passed(rightMargin) then
 				mRightMargin = rightMargin
 			else
-				mRightMargin = 25
+				mRightMargin = 100
 			
+			if mReportType == 'P' 
+				mRightMargin = mRightMargin/8
+
 			if ^passed(printHeader) then
 				mPrintHeader = printHeader
 			else
@@ -136,6 +152,12 @@ namespace SFEUtilities
 			
 			mfontWeight = DWPFW_NORMAL
 			
+			mCambriaFont	= ^null
+			mConsolasFont	= ^null
+			mCalibriFont	= ^null
+			mArialNFont		= ^null
+			mArialNBFont	= ^null
+			mTimesFont		= ^null
 			
 			
 			if mReportType == 'P' then
@@ -147,7 +169,7 @@ namespace SFEUtilities
 				if ^passed (printerName) then
 					mPDF.FileName = %atrim(printerName) + ".pdf"
 				else
-					mPDF.FileName = %syn_uname + ".pdf"
+					mPDF.FileName = %syn_uname + string(time()) + ".pdf"
 				
 				mPDF.PageLayout = PdfPageLayout.Single
 				
@@ -258,6 +280,15 @@ namespace SFEUtilities
 			
 			if mReportType =='P' then
 			begin
+				mPosY -= mTopMargin
+				SetFont ('Times new roman',14)
+				PrintField (1,(mColumnsperLine/2) - 17,"SFE Demo Company")
+				SetFont (,6)
+				PrintField (2,(mColumnsperLine/2) - 11,"Spiffing Lane, Spiffingly, UK")
+				PrintField (3,(mColumnsperLine/2) - 20,"TEL: 020-8843 5400  FAX: 020-8574 1716/020-8571 7214")
+				clear mHighestRow
+				mPosY = mPosY - 10
+
 			end
 			else
 			begin
@@ -319,6 +350,7 @@ namespace SFEUtilities
 			in opt fontSize					,n
 			in opt fontWeight				,n
 			in opt fontColor				,a
+			in opt backColor				,a
 			endparams
 			
 		proc
@@ -332,8 +364,11 @@ namespace SFEUtilities
 			if ^passed(fontWeight)
 				mfontWeight = fontWeight
 			
-			
-			
+			if ^passed (fontColor)
+				mfontColour = fontColor
+
+			if ^passed (backColor)
+				mBackColour = backcolor
 			
 			if mReportType == 'P' then
 			begin
@@ -341,46 +376,68 @@ namespace SFEUtilities
 				('Cambria'), 	begin
 					if !mCambriaFont
 						mCambriaFont		= mPDF.LoadTrueTypeFont("fonts:cambriab.ttf")
-					mPDF.SelectFont(mCambriaFont,fontsize)
+					mPDF.SelectFont(mCambriaFont,mfontsize)
 				end
 				('Consolas'), 
 				begin
 					if !mConsolasFont
 						mConsolasFont	= mPDF.LoadTrueTypeFont("fonts:Consola.ttf")
-					mPDF.SelectFont(mConsolasFont,fontsize)
+					mPDF.SelectFont(mConsolasFont,mfontsize)
 				end
 				
 				('Calibri'), 	
 				begin
 					if !mCalibriFont
 						mCalibriFont	= mPDF.LoadTrueTypeFont("fonts:Calibri.ttf")
-					mPDF.SelectFont(mCalibriFont,fontsize)
+					mPDF.SelectFont(mCalibriFont,mfontsize)
 				end
 				
 				('Arialn'),
 				begin
 					if !mArialNFont
 						mArialNFont		= mPDF.LoadTrueTypeFont("fonts:arialn.ttf")
-					mPDF.SelectFont(mArialNFont,fontsize)
+					mPDF.SelectFont(mArialNFont,mfontsize)
 				end
 				
 				('Arialb'),
 				begin
 					if !mArialNBFont
 						mArialNBFont		= mPDF.LoadTrueTypeFont("fonts:arialb.ttf")
-					mPDF.SelectFont(mArialNBFont,fontsize)
-				end				
+					mPDF.SelectFont(mArialNBFont,mfontsize)
+				end		
+
+				('Times new roman'),
+				begin
+					if !mTimesFont
+						mTimesFont		= mPDF.LoadTrueTypeFont("fonts:times.ttf")
+					mPDF.SelectFont(mTimesFont,mfontsize)
+				end								
 				endusing
+			
 			end
+
 			else
 			begin
+				;; print API
 				if ^passed (fontColor)
 				begin
 					using fontColor select
 					("grey"), wpr_setdevice(mHandle,DWP_TEXTCOLOR,m_rgb(180,180,180))
-					("blue"), wpr_setdevice(mHandle,DWP_TEXTCOLOR,m_rgb(105,80,188))
+					("blue"), wpr_setdevice(mHandle,DWP_TEXTCOLOR,m_rgb(0,0,255))
 					("red"), wpr_setdevice(mHandle,DWP_TEXTCOLOR,m_rgb(255,0,0))
+					("greem"), wpr_setdevice(mHandle,DWP_TEXTCOLOR,m_rgb(0,255,0))
 					(),wpr_setdevice(mHandle,DWP_TEXTCOLOR,m_rgb(0,0,0))
+					endusing
+				end
+
+				if ^passed (backColor)
+				begin
+					using backColor select
+					("lightblue"), wpr_setdevice(mHandle,DWP_BACKCOLOR,m_rgb(220,235,245))
+					("lightgreen"), wpr_setdevice(mHandle,DWP_BACKCOLOR,m_rgb(207,250,212))
+					("lightyelow"), wpr_setdevice(mHandle,DWP_BACKCOLOR,m_rgb(246,247,173))
+					("lightgrey"), wpr_setdevice(mHandle,DWP_BACKCOLOR,m_rgb(230,230,230))
+					(),wpr_setdevice(mHandle,DWP_BACKCOLOR,m_rgb(255,255,255))
 					endusing
 				end
 
@@ -390,7 +447,7 @@ namespace SFEUtilities
 		
 ;-------------------------------------------------------------------------------------------		
 ;; prints by row and column		
-		public static method Write	,void
+		public static method PrintField	,void
 			in req row									,i
 			in req col									,i
 			in req printData							,a
@@ -407,22 +464,30 @@ namespace SFEUtilities
 			begin
 				if row .gt. mHighestRow
 				begin
-					mPosY -= mfontSize * (row-mHighestRow)
+					mPosY -= (mfontSize + 2) * (row-mHighestRow)
 					mHighestRow = row
 				end
 				
-				mPosX = mPDF.width * col/mColumnsperLine
-				mPdf.DrawText(%atrim(printData),mPosX,mPosY)
+
+
+				mPosX = ((mPDF.width -mLeftMargin - mRightMargin) * col/mColumnsperLine) + mLeftMargin
+
+				using mFontColour select
+				('blue'),	mPdf.DrawText(%atrim(printData),mPosX,mPosY,PdfColor.blue)
+				('gray'),	mPdf.DrawText(%atrim(printData),mPosX,mPosY,PdfColor.gray)
+				('red'),	mPdf.DrawText(%atrim(printData),mPosX,mPosY,PdfColor.red)
+				(),			mPdf.DrawText(%atrim(printData),mPosX,mPosY)
+				endusing
 			end
 			else
 			begin
 				if row .gt.mHighestRow
 				begin
-					mPosY += (wpr_info(mHandle, DWP_TEXTHEIGHT, %atrim(printdata))) * (row -mHighestRow)
+					mPosY += ((wpr_info(mHandle, DWP_TEXTHEIGHT, %atrim(printdata))+5) * (row -mHighestRow))
 					mHighestRow = row
 				end
 
-				mPosX = mLeftMargin + (mPageWidth * col/mColumnsperLine)
+				mPosX = mLeftMargin + ((mPageWidth - mLeftMargin - mRightMargin) * col/mColumnsperLine)
 				
 				printText(mPosX,mPosY, mfontSize, mfontName, mfontWeight, %atrim(printData))
 
@@ -437,6 +502,7 @@ namespace SFEUtilities
 			in req	bottomRow			,int		; bottom right row		
 			in req	bottomCol			,int		; bottom right col
 			in req	margin				,int		; margin to add to co-ordinates
+			in opt  fillColour			,a		; fill colour for box.  No fill if not passed
 			endparams
 		proc
 
@@ -457,15 +523,15 @@ namespace SFEUtilities
 				topRowPixel = mPosY + ((topRow - mHighestRow) * rowHeight) - margin
 				bottomRowPixel = mPosY + ((BottomRow - mHighestRow) * rowHeight) + margin				
 				
-				topColPixel = mLeftMargin + (mPageWidth * topCol/mColumnsperLine) - margin			
-				bottomColPixel = mLeftMargin + (mPageWidth * bottomCol/mColumnsperLine) + margin
+				topColPixel = mLeftMargin + ((mPageWidth-mLeftMargin - mRightMargin) * topCol/mColumnsperLine) - margin			
+				bottomColPixel = mLeftMargin + ((mPageWidth - mLeftMargin - mRightMargin) * bottomCol/mColumnsperLine) + margin
 
 				penHandle = %wpr_info(mHandle,DWP_GETPEN)
 
 				if topRowPixel == bottomColPixel || topColPixel == bottomColPixel then
 				begin
 					;; line
-				wpr_print(mHandle,DWP_LINE, penHandle, topColPixel, topRowPixel, bottomColPixel, bottomRowPixel)
+					wpr_print(mHandle,DWP_LINE, penHandle, topColPixel, topRowPixel, bottomColPixel, bottomRowPixel)
 				end
 				else
 				begin
@@ -475,7 +541,24 @@ namespace SFEUtilities
 					wpr_print(mHandle,DWP_LINE, penHandle, topColPixel, bottomRowPixel, bottomColPixel, bottomRowPixel)	;; bottom line
 					wpr_print(mHandle,DWP_LINE, penHandle, topColPixel, topRowPixel, topColPixel, bottomRowPixel)		;; LHS
 					wpr_print(mHandle,DWP_LINE, penHandle, bottomColPixel, topRowPixel, bottomColPixel, bottomRowPixel)		;; RHS
+
+					if ^passed (fillColour)
+					begin
+						data fillWidth ,int
+						data fillHeight, int
+						fillHeight = topRowPixel - bottomRowPixel +4
+						fillWidth = topColPixel - bottomColPixel +4
+						
+						using fillColour select
+						('lightblue'),wpr_print(mHandle,DWP_FILL, bottomColpixel-1, bottomRowPixel-1, fillWidth, fillHeight, M_RGB(220,235,245))
+						('lightgreen'),wpr_print(mHandle,DWP_FILL, bottomColpixel-1, bottomRowPixel-1, fillWidth, fillHeight, M_RGB(207,250,212))
+						('lightyellow'),wpr_print(mHandle,DWP_FILL, bottomColpixel-1, bottomRowPixel-1, fillWidth, fillHeight, M_RGB(246,247,173))
+						('lightgrey'),wpr_print(mHandle,DWP_FILL, bottomColpixel-1, bottomRowPixel-1, fillWidth, fillHeight, M_RGB(230,230,230))
+						(),wpr_print(mHandle,DWP_FILL, bottomColpixel-1, bottomRowPixel-1, fillWidth, fillHeight, M_RGB(0,0,0))
+						endusing
+						
 					end
+				end
 			end
 			else
 			begin

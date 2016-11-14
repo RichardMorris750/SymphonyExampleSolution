@@ -42,8 +42,7 @@ namespace AppData
 ;;				end
 			("SUPP_CODE"),
 			begin
-				findSupplier()
-				if mSupplierName(1:13) == 'Supplier name' then
+				if !findSupplier() then
 				begin
 					message.FailReason = "Supplier does not exist"
 					message.ValidationState = DataValidationState.Error
@@ -54,8 +53,7 @@ namespace AppData
 
 			("PROD_GROUP"),
 			begin
-				findGroup()
-					if mGroupName(1:10) == 'Group name' then
+				if !findGroup() then
 				begin
 					message.FailReason = "Product Group does not exist"
 					message.ValidationState = DataValidationState.Error
@@ -77,8 +75,8 @@ namespace AppData
 			getlog('SFEImages',logName,flag)
 			mProductImageFile = atrim(logName) + atrim(Prod_code) + '.jpg' 
 
-		if Promotion then
-			mPromotionImageFile = atrim(logName) + "Sale.png"
+			if Promotion then
+				mPromotionImageFile = atrim(logName) + "Sale.png"
 			else
 				clear mPromotionImageFile
 
@@ -153,7 +151,8 @@ namespace AppData
 			endmethod
 		endproperty
 
-		private method findSupplier, void
+
+		private method findSupplier, boolean
 			;; set supplier name
 
 		proc
@@ -162,27 +161,33 @@ namespace AppData
 			
 			data status, FileAccessResults
 			
+			data retStatus, boolean, false
 			supplierIO.ForceFullKeyRead = true 
 			
 			supplierObject.Supp_code = supp_code
 			status = SupplierIO.ReadRecord(supplierObject)
 			
 			if 	status == FileAccessResults.Success then
+				begin
 				SupplierName = supplierObject.Name
+				retStatus = true
+				end
 			else
 			begin
 				SupplierName = 'Supplier name...' + Supp_code
-
+				retStatus = false
 			end
 
+			mreturn retStatus
 		endmethod
 
-		private method findGroup, void
+		private method findGroup, boolean
 
 		proc
 		
 			data status, FileAccessResults
 		
+			data retStatus	,boolean, false
 		
 			;; set profduct group name
 			data product_GroupObject = new Product_group_Data()
@@ -195,12 +200,17 @@ namespace AppData
 			status = product_GroupIO.ReadRecord(product_GroupObject)
 		
 			if 	status == FileAccessResults.Success then
+			begin
 				GroupName = product_groupObject.Group_desc
+				retStatus = true
+			end
 			else
 			begin
 				GroupName = 'Group name...' + Prod_group
-
+				retStatus = false
 			end
+
+			mreturn retStatus
 
 		endmethod
 			

@@ -78,10 +78,14 @@ namespace SFE_Product.ViewModel
 
 		public override method LoadBaseItemCollection, void
 			endparams
+			
+.define FileObjects
+
 		proc
 
-			;;let's load the products using Symphony Harmony and a local connection			
 .ifdef FileObjects
+			;;let's load the products using Symphony Harmony and a local connection			
+
 			data item = new Product_Data()
 			data productIO = new Product_FileIO(FileOpenMode.InputIndexed)
 
@@ -106,7 +110,7 @@ namespace SFE_Product.ViewModel
 					add=true
 
 				if  (mKeyWord != ^null && !mKeyValue) && (instr(1,desc,atrim(kWord)))
-						add=true
+					add=true
 
 				if  (mKeyWord != ^null && mKeyValue != ^null) && (instr(1,Desc,atrim(kWord)))  &&  (atrim(mKeyValue) == item.Prod_code)
 					add=true
@@ -118,7 +122,7 @@ namespace SFE_Product.ViewModel
 				end
 				productStatus = productIO.ReadNextRecord(item)
 			end
-.endc
+.else
 
 			mConnector = new DBConnector("SYMLOCAL:richard/morris!AppData.TableMapper.MapTableToFile")
 			
@@ -146,7 +150,10 @@ namespace SFE_Product.ViewModel
 				dataSearch = new DataSelect(mConnector, "select * from product where prod_code like:1 and prod_description like:2", new Product_Data(), mKeyValue,mKeyWord)
 				
 			foreach productObj in dataSearch
-				this.DataObjectCollection.AddToCollection((DataObjectBase)new Product_Data(productObj.SynergyRecord))		
+				this.DataObjectCollection.AddToCollection((DataObjectBase)new Product_Data(productObj.SynergyRecord))	
+			
+.endc
+				
 		endmethod
 
 
@@ -215,7 +222,8 @@ namespace SFE_Product.ViewModel
 				begin
 					lambda doCommand(sender, param)
 					begin
-						LoadDetailList()
+;;						LoadDetailList()
+						LoadBaseItemCollection()
 					end
 					mSearchCommand = new GenericCommand("SEARCH", doCommand)
 				end

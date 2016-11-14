@@ -140,7 +140,7 @@ namespace AppData
 			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "PROMOTION", "Promotion",  "", "",
 			&	"", "PROMOTION", 83, 1,
 			&	0, 0, 0, 0,
-			&	"DECIMAL", false, 0, 9)
+			&	"DECIMAL", false, 0, 1)
 
 
 			mStaticFieldNameList.Add("Prod_code")

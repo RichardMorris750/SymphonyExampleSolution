@@ -42,7 +42,7 @@ namespace SFE_Product
 			;;To enable case insensitive comparisons:
 			mConnector.SetCaseSensitivity(false)
 						
-			SFEUtilities.SFEPrinting.PrinterOpen(ReportType,false,132,50,50,100,100,true,true)
+			SFEUtilities.SFEPrinting.PrinterOpen(ReportType,false,110,200,200,200,200,true,true)
 			
 			SFEUtilities.SFEPrinting.SetFont("Cambria",12)
 			
@@ -77,12 +77,12 @@ namespace SFE_Product
 					firstPage = false
 
 					SFEUtilities.SFEPrinting.SetFont("Cambria",12,,"blue")
-					SFEUtilities.SFEPrinting.Write(1,1,"Product Listing")
-					SFEUtilities.SFEPrinting.Write(3,1,"Code")
-					SFEUtilities.SFEPrinting.Write(3,10,"Description")
-					SFEUtilities.SFEPrinting.Write(3,42,"Supplier")
-					SFEUtilities.SFEPrinting.Write(3,70,"Group")
-					SFEUtilities.SFEPrinting.Write(3,90,"Pack Size")
+					SFEUtilities.SFEPrinting.PrintField(1,1,"Product Listing")
+					SFEUtilities.SFEPrinting.PrintField(3,1,"Code")
+					SFEUtilities.SFEPrinting.PrintField(3,10,"Description")
+					SFEUtilities.SFEPrinting.PrintField(3,42,"Supplier")
+					SFEUtilities.SFEPrinting.PrintField(3,70,"Group")
+					SFEUtilities.SFEPrinting.PrintField(3,90,"Pack Size")
 
 					lineCount = 4					
 					SFEUtilities.SFEPrinting.SetFont("Calibri",10)
@@ -91,34 +91,35 @@ namespace SFE_Product
 				
 				incr lineCount
 				SFEUtilities.SFEPrinting.SetFont("Calibri",10,,"black")
-				SFEUtilities.SFEPrinting.Write(lineCount,1,productObj.prod_code)
-				SFEUtilities.SFEPrinting.Write(lineCount,10,productObj.prod_description)
-				SFEUtilities.SFEPrinting.Write(lineCount,42,productObj.supp_code)
-				SFEUtilities.SFEPrinting.Write(lineCount,50,productObj.SupplierName)
-				SFEUtilities.SFEPrinting.Write(lineCount,70,productObj.GroupName)
-				SFEUtilities.SFEPrinting.Write(lineCount,90,productObj.Pack_size)
+				SFEUtilities.SFEPrinting.PrintField(lineCount,1,productObj.prod_code)
+				SFEUtilities.SFEPrinting.PrintField(lineCount,10,productObj.prod_description)
+				SFEUtilities.SFEPrinting.PrintField(lineCount,42,productObj.supp_code)
+				SFEUtilities.SFEPrinting.PrintField(lineCount,50,productObj.SupplierName)
+				SFEUtilities.SFEPrinting.PrintField(lineCount,70,productObj.GroupName)
+				SFEUtilities.SFEPrinting.PrintField(lineCount,90,productObj.Pack_size)
 
 				SFEUtilities.SFEPrinting.PrintImage(productObj.ProductImageFile,lineCount+1,20,lineCount +6,40)
+
 				if productObj.PromotionImageFile != ^null
 					SFEUtilities.SFEPrinting.PrintImage(productObj.PromotionImageFile,lineCount+2,50,lineCount +4,60)
 
 
-				SFEUtilities.SFEPrinting.Write(lineCount+2,75,"Selling Price")
+				SFEUtilities.SFEPrinting.PrintField(lineCount+2,75,"Selling Price")
 
-				SFEUtilities.SFEPrinting.box(lineCount + 2,70, lineCount + 4,110,50)
+				SFEUtilities.SFEPrinting.box(lineCount + 2,70, lineCount + 4,110,50,'lightblue')
 
-				SFEUtilities.SFEPrinting.SetFont("Calibri",10,,"black")
-				SFEUtilities.SFEPrinting.Write(lineCount+2,75,"Selling Price")
+				SFEUtilities.SFEPrinting.SetFont("Calibri",10,,"black","lightblue")
+				SFEUtilities.SFEPrinting.PrintField(lineCount+2,75,"Selling Price")
 				SFEUtilities.SFEPrinting.SetFont("Consolas",10)
-				SFEUtilities.SFEPrinting.Write(lineCount+2,95,string(productObj.Sell_price,'ZZZX.XX'))
+				SFEUtilities.SFEPrinting.PrintField(lineCount+2,95,string(productObj.Sell_price,'ZZZX.XX'))
 
 				SFEUtilities.SFEPrinting.SetFont("Calibri",10)
-				SFEUtilities.SFEPrinting.Write(lineCount+3,75,"Cost Price")
+				SFEUtilities.SFEPrinting.PrintField(lineCount+3,75,"Cost Price")
 				SFEUtilities.SFEPrinting.SetFont("Consolas",10)
-				SFEUtilities.SFEPrinting.Write(lineCount+3,95,string(productObj.Cost_price,'ZZZX.XX'))
+				SFEUtilities.SFEPrinting.PrintField(lineCount+3,95,string(productObj.Cost_price,'ZZZX.XX'))
 
 				SFEUtilities.SFEPrinting.SetFont("Calibri",10)
-				SFEUtilities.SFEPrinting.Write(lineCount+4,75,"% Profit")
+				SFEUtilities.SFEPrinting.PrintField(lineCount+4,75,"% Profit")
 								
 				data prof		,d10
 				data sellPrice	,d10
@@ -133,8 +134,8 @@ namespace SFE_Product
 				if prof < 0
 					SFEUtilities.SFEPrinting.SetFont(,,,"red")
 				
-				SFEUtilities.SFEPrinting.Write(lineCount+4,95,string(prof,'ZZZX.XX-')+'%')
-				SFEUtilities.SFEPrinting.SetFont(,,,"black")
+				SFEUtilities.SFEPrinting.PrintField(lineCount+4,95,string(prof,'ZZZX.XX-')+'%')
+				SFEUtilities.SFEPrinting.SetFont(,,,"black","white")
 				
 				lineCount += 6
 			end

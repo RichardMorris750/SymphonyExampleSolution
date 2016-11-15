@@ -126,6 +126,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\SupplierReport.dbc" />
     <Compile Include="Properties\AssemblyInfo.dbl" />
     <Compile Include="ViewModel\SupplierMaintentanceViewModel.dbc" />
     <Compile Include="View\FullInput.xaml.dbl">
@@ -162,6 +163,11 @@
     <ProjectReference Include="..\AppData_Server\AppData_Server.synproj">
       <Name>AppData_Server</Name>
       <Project>{1c61e987-fbd9-49b8-b987-8a30d6ef3218}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\SFEUtilities\SFEUtilities.synproj">
+      <Name>SFEUtilities</Name>
+      <Project>{d7acad11-026e-4daa-acf9-b481f8e298a3}</Project>
       <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\SFE_Base\SFE_Base.synproj">

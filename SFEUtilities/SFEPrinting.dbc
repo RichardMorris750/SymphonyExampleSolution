@@ -637,7 +637,7 @@ namespace SFEUtilities
 					begin
 						using fillColour select
 						
-						('lightblue'), mPDFBackColour = PdfColor.PowderBlue
+						('lightblue'), mPDFBackColour = PdfColor.LightCyan
 						('lightred'), mPDFBackColour = PdfColor.PalePink
 						('lightgreen'), mPDFBackColour = PdfColor.PaleGreen
 						('lightyellow'), mPDFBackColour = PdfColor.LemonChiffon

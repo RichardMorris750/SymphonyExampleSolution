@@ -34,12 +34,7 @@ namespace AppData
 
 
 			using message.FieldName select
-;;			("NAME"),	;;supplier name must be valid and more than 5 characters long.
-;;				if (message.ValidationState == DataValidationState.OK && %trim(Name) < 5)
-;;				begin
-;;					message.FailReason = "supplier name is not long enough, must be 5 character or more."
-;;					message.ValidationState = DataValidationState.Error
-;;				end
+
 			("SUPP_CODE"),
 			begin
 				if (findSupplier() != FileAccessResults.Success) then
@@ -188,7 +183,7 @@ namespace AppData
 			else
 			begin
 				response = FileAccessResults.RecordNotFound
-				SupplierName = 'Group name...' + prod_group
+				GroupName = 'Group name...' + prod_group
 			end
 			
 			mreturn response

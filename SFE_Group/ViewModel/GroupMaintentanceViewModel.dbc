@@ -42,6 +42,12 @@ import AppData
 import Symphony.Conductor.DataIO
 import Symphony.Conductor.ViewModel
 
+;;use the extension methods
+import System.Linq
+import Symphony.Conductor.Model
+import Symphony.Conductor.Commands
+import Symphony.Conductor.DataIO
+import Symphony.Conductor.Types
 
 namespace SFE_Group.ViewModel
 
@@ -61,7 +67,7 @@ namespace SFE_Group.ViewModel
 			this.LoadDetailList()
 		endmethod
 
-		private method doProgramModeChanged	,void
+		private method doProgramModeChanged	,void	
 			in req currentMode				,ProgramMode
 			endparams
 		proc
@@ -84,6 +90,148 @@ namespace SFE_Group.ViewModel
 			endusing
 		endmethod
 	
+		;-----------------------------------------------------------------------------------
+		public override method LoadBaseItemCollection, void
+			endparams
+			
+			
+		proc
+			
+			
+			data item = new Product_group_Data()
+			data Product_groupIO = new Product_group_FileIO(FileOpenMode.InputIndexed)
+			
+			;;clear the list down
+			this.DataObjectCollection.ClearCollection()
+			
+			data Product_groupStatus	,FileAccessResults	,Product_groupIO.ReadFirstRecord(item)
+			while (Product_groupStatus == FileAccessResults.Success)
+			begin
+				data add	,boolean, false
+				data kWord	,a50
+				data Desc	,a50
+				kWord = mKeyWord
+				upcase kWord
+				Desc = item.group_desc
+				upcase desc
+				
+				if !mKeyValue && !mKeyWord
+					add = true
+				
+				if  (mKeyValue != ^null && !mKeyWord ) &&  (atrim(mKeyValue) == item.prod_group)
+					add=true
+				
+				if  (mKeyWord != ^null && !mKeyValue) && (instr(1,desc,atrim(kWord)))
+					add=true
+				
+				if  (mKeyWord != ^null && mKeyValue != ^null) && (instr(1,Desc,atrim(kWord)))  &&  (atrim(mKeyValue) == item.Prod_group)
+					add=true
+				
+				if (add)
+				begin
+					data tmpDO = new Product_group_Data(item.SynergyRecord)
+					tmpDO.GlobalRFA = item.GlobalRFA
+					this.DataObjectCollection.AddToCollection((DataObjectBase)tmpDO)				
+				end
+				Product_groupStatus = Product_groupIO.ReadNextRecord(item)
+			end
+			
+		endmethod
+		
+;----------------------------------------------------------------------------------------------
+		private mKeyWord	,string
+		
+		public property KeyWord, string
+			method get
+			proc
+				mreturn mKeyWord
+			endmethod
+			method set
+			proc
+				mKeyWord = value
+				RaisePropertyChanged("KeyWord")
+			endmethod
+			
+		endproperty
+		
+		
+		private	mKeyValue	,string	
+		
+		public property KeyValue, string
+			method get
+			proc
+				mreturn mKeyValue
+			endmethod
+			method set
+			proc
+				mKeyValue = value
+				RaisePropertyChanged("KeyValue")
+			endmethod
+		endproperty
+		
+;------------------------------------------------------------------------------------------------------
+		
+		private mSearchCommand	,@GenericCommand
+		
+		public property SearchCommand, @GenericCommand
+			method get
+			proc
+				
+				if (mSearchCommand == ^null)
+				begin
+					lambda doCommand(sender, param)
+					begin
+;;						LoadDetailList()
+						LoadBaseItemCollection()
+					end
+					mSearchCommand = new GenericCommand("SEARCH", doCommand)
+				end
+				
+				mreturn mSearchCommand
+			endmethod
+		endproperty
+		
+		
+		private mPrintCommand	,@GenericCommand
+		
+		public property PrintCommand, @GenericCommand
+			method get
+			proc
+				
+				if (mPrintCommand == ^null)
+				begin
+					lambda doCommand(sender, param)
+					begin
+						SFE_Group.ProductGroupReport.Print("R",mKeyValue,mKeyWord)
+					end
+					mSearchCommand = new GenericCommand("PRINT", doCommand)
+				end
+				
+				mreturn mSearchCommand
+			endmethod
+		endproperty
+		
+		private mPDFCommand	,@GenericCommand
+		
+		public property PDFCommand, @GenericCommand
+			method get
+			proc
+				
+				if (mPDFCommand == ^null)
+				begin
+					lambda doCommand(sender, param)
+					begin
+						SFE_Group.ProductGroupReport.Print("P",mKeyValue,mKeyWord)
+					end
+					mSearchCommand = new GenericCommand("PDF", doCommand)
+				end
+				
+				mreturn mSearchCommand
+			endmethod
+		endproperty
+
+
+
 	endclass
 
 endnamespace

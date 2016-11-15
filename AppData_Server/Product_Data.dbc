@@ -37,6 +37,8 @@ namespace AppData
 
 			("SUPP_CODE"),
 			begin
+				;;call the find-supplier method to validate the changed/entered value
+				;;invalid values will signal a validation error so the UI can display appropriate details.
 				if (findSupplier() != FileAccessResults.Success) then
 				begin
 					message.FailReason = "Supplier does not exist"
@@ -48,7 +50,9 @@ namespace AppData
 
 			("PROD_GROUP"),
 			begin
-				if !findGroup() then
+				;;call the find-group method to validate the changed/entered value
+				;;invalid values will signal a validation error so the UI can display appropriate details.
+				if (findGroup() != FileAccessResults.Success) then
 				begin
 					message.FailReason = "Product Group does not exist"
 					message.ValidationState = DataValidationState.Error

@@ -174,36 +174,24 @@ namespace AppData
 			mreturn response
 		endmethod
 
-		private method findGroup, boolean
+		private method findGroup, FileAccessResults
 
 		proc
-		
-			data status, FileAccessResults
-		
-			data retStatus	,boolean, false
-		
-			;; set profduct group name
-			data product_GroupObject = new Product_group_Data()
-			data product_GroupIO = new Product_group_FileIO(FileOpenMode.InputIndexed)
-		
-		
-			product_GroupIO.ForceFullKeyRead = true 
-		
-			product_GroupObject.Prod_group = Prod_group
-			status = product_GroupIO.ReadRecord(product_GroupObject)
-		
-			if 	status == FileAccessResults.Success then
+			data response	,FileAccessResults
+			data tmpDO = Product_Group_DOCache.DataObject(prod_group)
+			
+			if (tmpDO != ^null) then
 			begin
-				GroupName = product_groupObject.Group_desc
-				retStatus = true
+				response = FileAccessResults.Success
+				GroupName = tmpDO.Group_desc
 			end
 			else
 			begin
-				GroupName = 'Group name...' + Prod_group
-				retStatus = false
+				response = FileAccessResults.RecordNotFound
+				SupplierName = 'Group name...' + prod_group
 			end
-
-			mreturn retStatus
+			
+			mreturn response
 
 		endmethod
 			

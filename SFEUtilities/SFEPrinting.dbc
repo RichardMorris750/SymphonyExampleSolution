@@ -111,7 +111,7 @@ namespace SFEUtilities
 					mTopMargin = 100
 
 			if mReportType == 'P' 
-				mTopMargin = mTopMargin/8
+				mTopMargin = mTopMargin/10
 			
 			if ^passed(bottomMargin) then
 				mBottomMargin = bottomMargin
@@ -119,7 +119,7 @@ namespace SFEUtilities
 				mBottomMargin = 100
 
 			if mReportType == 'P' 
-				mBottomMargin = mBottomMargin/8
+				mBottomMargin = mBottomMargin/10
 						
 			if ^passed(leftMargin) then
 				mLeftMargin = leftMargin
@@ -629,7 +629,7 @@ namespace SFEUtilities
 				if topRow == bottomRow then
 				begin
 					topRowPixel -= mfontSize/2
-					mpdf.AutoItems.Add(new AutoLineAbsolute(topColPixel,topRowpixel,bottomColPixel,topRowPixel))
+					mpdf.drawBox(topColPixel,topRowpixel,bottomColPixel,topRowPixel)
 				end
 				else
 				begin
@@ -637,22 +637,21 @@ namespace SFEUtilities
 					begin
 						using fillColour select
 						
-						('lightblue'), mPDFBackColour = PdfColor.PaleBlue
+						('lightblue'), mPDFBackColour = PdfColor.PowderBlue
 						('lightred'), mPDFBackColour = PdfColor.PalePink
 						('lightgreen'), mPDFBackColour = PdfColor.PaleGreen
-						('lightyellow'), mPDFBackColour = PdfColor.PaleGold
-						('lightgrey'), mPDFBackColour = PdfColor.DimGray
+						('lightyellow'), mPDFBackColour = PdfColor.LemonChiffon
+						('lightgrey'), mPDFBackColour = PdfColor.LightGray
 						(),		mPDFBackColour = PdfColor.DimGray
 						endusing
 						
 					end
 					
-					topRowPixel += margin/8
-					topColPixel += margin/8
+					topRowPixel += margin/10
+					topColPixel += margin/10
 					bottomRowPixel -= margin/8
 					bottomColPixel -= margin/8
-					mpdf.AutoItems.Add(new AutoBoxAbsolute(topColPixel,topRowpixel,bottomColPixel,bottomRowPixel,,,true,
-					&	mPDFBackColour,AutoItemMode.EndPage))
+					mpdf.drawbox(topColPixel,topRowpixel,bottomColPixel,bottomRowPixel,,,true,mPDFBackColour)
 				end
 			end
 
@@ -695,15 +694,15 @@ namespace SFEUtilities
 			else
 			begin
 				topRowPixel = mPosY - ((topRow - mHighestRow) * mfontSize)
-				bottomRowPixel = mPosY - ((BottomRow - mHighestRow) * mfontSize)				
+				bottomRowPixel = mPosY - ((BottomRow - mHighestRow) * mfontSize) - mfontSize				
 				
-				topColPixel = ((mPDF.width - mLeftMargin - mRightMargin) * topCol/mColumnsperLine) + mLeftMargin		
-				bottomColPixel = ((mPDF.width -mLeftMargin - mRightMargin) * bottomCol/mColumnsperLine) + mLeftMargin
+				topColPixel = ((mPDF.width - mLeftMargin - mRightMargin) * topCol/mColumnsperLine) + mRightMargin		
+				bottomColPixel = ((mPDF.width -mLeftMargin - mRightMargin) * bottomCol/mColumnsperLine) + mRightMargin
 				
 				PixHeight = topRowPixel - bottomRowPixel
 				PixWidth = topRowPixel - bottomRowPixel
 
-				mpdf.AutoItems.Add(new AUtoImage(imageFileName,topColPixel,bottomRowPixel,pixWidth,pixHeight))
+				mpdf.DrawImage(imageFileName,topColPixel,bottomRowPixel,pixWidth,pixHeight)
 			end
 
 		endmethod

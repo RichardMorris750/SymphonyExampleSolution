@@ -64,7 +64,9 @@ namespace SEF_Supplier.ViewModel
 
 			;;we can use the stndard list loding method built into the base class or
 			;;load the list ourselves
-
+			DataObjectEntryItem = (DataObjectBase)new Supplier_Data()
+			DataObjectEntryItem.IsDataModifiedChanged += DoIsDataModified
+			
 			this.LoadDetailList()
 		endmethod
 

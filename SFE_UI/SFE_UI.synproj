@@ -58,50 +58,50 @@
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="Microsoft.ServiceBus, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-      <HintPath>..\packages\WindowsAzure.ServiceBus.3.1.5\lib\net45-full\Microsoft.ServiceBus.dll</HintPath>
+      <HintPath>..\packages\WindowsAzure.ServiceBus.3.4.1\lib\net45-full\Microsoft.ServiceBus.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="mscorlib" />
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="SymphonyAdapter, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.8\lib\net45\SymphonyAdapter.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.10\lib\net45\SymphonyAdapter.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyConductor, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.8\lib\net45\SymphonyConductor.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.10\lib\net45\SymphonyConductor.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyConductorWPF, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.8\lib\net45\SymphonyConductorWPF.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.10\lib\net45\SymphonyConductorWPF.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyCore, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.8\lib\net45\SymphonyCore.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.10\lib\net45\SymphonyCore.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyCrescendo, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.8\lib\net45\SymphonyCrescendo.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.10\lib\net45\SymphonyCrescendo.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyHarmony, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.8\lib\net45\SymphonyHarmony.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.10\lib\net45\SymphonyHarmony.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyUIToolkit, Version=3.2.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\SymphonyFramework.3.2.8\lib\net45\SymphonyUIToolkit.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.10\lib\net45\SymphonyUIToolkit.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
@@ -124,8 +124,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\BaseUserControl.dbc" />
     <Compile Include="Common\ErrorDialog.xaml.dbl">
       <DependentUpon>Common\ErrorDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Common\ProductGroupLookup.xaml.dbl">
+      <DependentUpon>Common\ProductGroupLookup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\Toolbar.xaml.dbl">
       <DependentUpon>Common\Toolbar.xaml</DependentUpon>
@@ -135,12 +139,14 @@
     <Compile Include="Content\Product_group_Collection.CodeGen.dbc" />
     <Compile Include="Content\Supplier_Collection.CodeGen.dbc" />
     <Compile Include="Properties\AssemblyInfo.dbl" />
+    <Compile Include="ViewModel\ProductGroupLookupViewModel.dbc" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Common" />
     <Folder Include="Images" />
     <Folder Include="Images\Icons" />
     <Folder Include="Content" />
+    <Folder Include="ViewModel" />
     <Folder Include="Resources" />
     <Folder Include="Properties\" />
   </ItemGroup>
@@ -149,10 +155,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Common\ProductGroupLookup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Common\Toolbar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Resource Include="Images\Icons\Cancel.png" />
     <Resource Include="Images\Icons\PDF.png" />
     <Resource Include="Images\Icons\Sale.png" />
     <Resource Include="Images\Icons\search.png" />
@@ -200,6 +211,18 @@
   <ItemGroup>
     <Resource Include="Images\Icons\Exit-52.png" />
     <Resource Include="Images\Icons\Ok-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AppData_Server\AppData_Server.synproj">
+      <Name>AppData_Server</Name>
+      <Project>{1c61e987-fbd9-49b8-b987-8a30d6ef3218}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\SFE_Base\SFE_Base.synproj">
+      <Name>SFE_Base</Name>
+      <Project>{ee7b1be6-ca7b-47d7-8cd9-837577c149c2}</Project>
+      <Private>True</Private>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Synergex\VS2010\Synergex.SynergyDE.targets" />
   <PropertyGroup>

@@ -36,6 +36,12 @@
                     </BooleanAnimationUsingKeyFrames>
                     <Int32Animation Storyboard.TargetName="errorView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
 
+                    <DoubleAnimation Storyboard.TargetName="prodGrpLookupView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0" To="0" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="prodGrpLookupView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="prodGrpLookupView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+
                 </Storyboard>
             </VisualState>
 
@@ -48,11 +54,41 @@
                     </BooleanAnimationUsingKeyFrames>
                     <Int32Animation Storyboard.TargetName="mainView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
 
+                    <DoubleAnimation Storyboard.TargetName="prodGrpLookupView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0" To="0" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="prodGrpLookupView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="prodGrpLookupView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+
                     <DoubleAnimation Storyboard.TargetName="errorView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.2" To="1" />
                     <BooleanAnimationUsingKeyFrames Storyboard.TargetName="errorView" Storyboard.TargetProperty="(IsEnabled)">
                         <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True"/>
                     </BooleanAnimationUsingKeyFrames>
                     <Int32Animation Storyboard.TargetName="errorView" Storyboard.TargetProperty="(Panel.ZIndex)" To="1" />
+
+                </Storyboard>
+            </VisualState>
+
+            <VisualState x:Name="ProdGroupDrillState">
+                <Storyboard>
+
+                    <DoubleAnimation Storyboard.TargetName="mainView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.2" To="0.2" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="mainView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="mainView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+
+                    <DoubleAnimation Storyboard.TargetName="errorView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0" To="0" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="errorView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="errorView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+
+                    <DoubleAnimation Storyboard.TargetName="prodGrpLookupView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.2" To="1" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="prodGrpLookupView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="prodGrpLookupView" Storyboard.TargetProperty="(Panel.ZIndex)" To="1" />
 
                 </Storyboard>
             </VisualState>
@@ -77,7 +113,7 @@
             </Grid>            
         </Border>
 
-        <Border Name="errorView" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Border Name="errorView" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"></RowDefinition>
@@ -91,11 +127,15 @@
                 </Grid.ColumnDefinitions>
 
                 <sfeuiCommon:ErrorDialog Grid.Row="1" Grid.Column="1"></sfeuiCommon:ErrorDialog>
-                
+
             </Grid>
 
         </Border>
 
+        <Border Name="prodGrpLookupView" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <sfeuiCommon:ProductGroupLookup DataContext="{Binding Path=ProdGroupLookupVM}"></sfeuiCommon:ProductGroupLookup>
+        </Border>
+        
     </Grid>
 
 </UserControl>

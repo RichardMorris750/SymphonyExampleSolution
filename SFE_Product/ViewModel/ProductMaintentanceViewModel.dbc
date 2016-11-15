@@ -1,3 +1,4 @@
+import SFE_UI.ViewModel
 ;;**********************************************************************
 ;;
 ;; Title:       ProductMaintentanceViewModel.dbc
@@ -71,6 +72,12 @@ namespace SFE_Product.ViewModel
 			DataObjectEntryItem.IsDataModifiedChanged += DoIsDataModified
 
 			this.LoadDetailList()
+		
+			buildProductGroupLookup()
+
+			;;when we navigate viausl states we need to execute logic, so define an event handler
+			;;that is called when we do navitate visual stated
+			BeforeNavigateState += doBeforeNavigateState
 
 		endmethod
 		
@@ -79,7 +86,7 @@ namespace SFE_Product.ViewModel
 		public override method LoadBaseItemCollection, void
 			endparams
 			
-.define FileObjects
+;.define FileObjects
 
 		proc
 
@@ -151,7 +158,7 @@ namespace SFE_Product.ViewModel
 				dataSearch = new DataSelect(mConnector, "select * from product where prod_code like:1 and prod_description like:2", new Product_Data(), mKeyValue,mKeyWord)
 				
 			foreach productObj in dataSearch
-				this.DataObjectCollection.AddToCollection((DataObjectBase)new Product_Data(productObj.SynergyRecord))	
+				this.DataObjectCollection.AddToCollection(productObj)	
 			
 .endc
 				
@@ -272,6 +279,67 @@ namespace SFE_Product.ViewModel
 			endmethod
 		endproperty
 
+.region "Visual State managment"
+		
+		private method doBeforeNavigateState	,void
+			eArgs								,@NavigateToStateEventArgs 
+			endparams
+		proc
+			using eArgs.NewStateName select
+			("ProdGroupDrillState"),
+			begin
+				mProdGrpLookupVM.LoadList()
+			end
+			(),
+				nop
+			endusing
+		endmethod
+.endregion
+
+.region "Product group lookup elements"
+		
+		private method buildProductGroupLookup, void
+			endparams
+		proc
+			;;create the product group lookup view model
+			mProdGrpLookupVM = new ProductGroupLookupViewModel()
+
+			;;need event handlers for when they select/quiot the lookup
+			mProdGrpLookupVM.ItemSelected += doProdGrpItemSelected
+			mProdGrpLookupVM.CancelSearch += doProdGrpItemCanceled
+		endmethod
+
+		private method doProdGrpItemSelected	,void
+			sender								,@SelectedItemEventArgs 
+			endparams
+		proc
+			;;we have a product group item selected.  first, lets restore back the visual state
+			StateCompleted()
+
+			;;now let's set the data.  this will update the UI and cuase the group description to be loaded.
+			((Product_Data)DataObjectEntryItem).Prod_group = ((Product_group_Data)sender.ItemValue).Prod_group
+
+		endmethod
+
+		private method doProdGrpItemCanceled, void
+			endparams
+		proc
+			;;they want to cancel from the search so just abort the lookup visual state
+			StateAborted()
+		endmethod
+
+		private mProdGrpLookupVM	,@ProductGroupLookupViewModel
+
+		public property ProdGroupLookupVM, @ProductGroupLookupViewModel
+			method get
+			proc
+				mreturn mProdGrpLookupVM
+			endmethod
+		endproperty
+		
+.endregion
+
 	endclass
+
 
 endnamespace

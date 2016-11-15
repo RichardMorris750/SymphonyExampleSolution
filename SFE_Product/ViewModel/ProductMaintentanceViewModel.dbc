@@ -91,8 +91,7 @@ namespace SFE_Product.ViewModel
 		proc
 
 .ifdef FileObjects
-			;;let's load the products using Symphony Harmony and a local connection			
-
+		
 			data item = new Product_Data()
 			data productIO = new Product_FileIO(FileOpenMode.InputIndexed)
 

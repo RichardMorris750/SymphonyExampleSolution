@@ -1,0 +1,101 @@
+import System
+import System.Collections.Generic
+import System.Text
+
+import Symphony.Conductor.ViewModel
+import System.Windows
+import System.Collections.ObjectModel
+import AppData
+import Symphony.Harmony
+
+;;use the extension methods
+import System.Linq
+import Symphony.Conductor.Model
+import Symphony.Conductor.Commands
+import Symphony.Conductor.DataIO
+import Symphony.Conductor.Types
+
+import SFEUtilities
+
+namespace SFE_Group
+	
+	public class ProductGroupReport
+		
+		private static mConnector		,@DBConnector
+		
+		public static method Print		, void
+			in req ReportType	,a		;R = Print API, P = PDF
+			in req KeyValue		,a		; Partial code
+			in req KeyWord		,a		; description key word
+
+			endparams
+			
+			.include 'DBLDIR:winprint.def'
+			
+			
+			
+		proc
+
+			;;let's load the product using Symphony Harmony and a local connection
+			
+			mConnector = new DBConnector("SYMLOCAL:richard/morris!AppData.TableMapper.MapTableToFile")
+			
+			;;To enable case insensitive comparisons:
+			mConnector.SetCaseSensitivity(false)
+
+			SFEUtilities.SFEPrinting.PrinterOpen(ReportType,false,80,100,200,200,100,true,true)			
+			
+			data groupObj	,@Product_group_Data	,new product_group_Data()
+			
+			data dataSearch	,@DataSelect
+			
+			data lineCount,	i4	
+			data firstPage	,boolean, true
+			
+			if (!KeyWord && !KeyValue)
+				dataSearch = new DataSelect(mConnector, "select * from Product_group", new Product_group_Data())
+			
+			if (!KeyWord && KeyValue)
+				dataSearch = new DataSelect(mConnector, "select * from Product_group where prod_group like:1", new Product_group_Data(), KeyValue)
+				
+			if (!KeyValue && KeyWord)
+				dataSearch = new DataSelect(mConnector, "select * from Product_group where group_desc like:1", new Product_group_Data(), KeyWord)
+				
+			if (KeyValue && KeyWord)
+				dataSearch = new DataSelect(mConnector, "select * from Product_group where prod_group like:1 and group_desc like:2", new Product_group_Data(), KeyValue,KeyWord)
+				
+			foreach groupObj in dataSearch
+			begin
+				SFEUtilities.SFEPrinting.SetFont("Calibri",10)
+				if firstPage || SFEUtilities.SFEPrinting.LinesLeft < 8
+				begin
+					if !firstPage
+						SFEUtilities.SFEPrinting.FormFeed()
+					
+					firstPage = false
+					
+					SFEUtilities.SFEPrinting.SetFont("Cambria",14)
+					SFEUtilities.SFEPrinting.PrintField(1,1,"Product Group Listing")
+					SFEUtilities.SFEPrinting.SetFont("Cambria",12)
+					SFEUtilities.SFEPrinting.PrintField(3,1,"Code")
+					SFEUtilities.SFEPrinting.PrintField(3,10,"Description")
+
+					lineCount = 4					
+					SFEUtilities.SFEPrinting.SetFont("Calibri",10)
+				end
+				
+				
+				incr lineCount
+				SFEUtilities.SFEPrinting.PrintField(lineCount,1,groupObj.Prod_group)
+				SFEUtilities.SFEPrinting.PrintField(lineCount,10,groupObj.Group_desc)
+
+			end
+			
+			SFEUtilities.SFEPrinting.PrinterClose()
+			
+			mreturn
+			
+		endmethod
+		
+	endclass
+endnamespace

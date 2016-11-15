@@ -570,7 +570,7 @@ namespace SystemSetup
 		product_group.str_group_desc	= 'Soft Drinks'
 		call addgroup
 		
-		product_group.str_prod_group	= 'CRI'
+		product_group.str_prod_group	= 'CR'
 		product_group.str_group_desc	= 'Crisps'
 		call addgroup
 		

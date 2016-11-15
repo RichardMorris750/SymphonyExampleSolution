@@ -33,6 +33,9 @@ namespace SFEUtilities
 		private static mFontColour		,string
 		private static mBackColour		,string
 
+		private static mPDFFontColour	,PdfColor
+		private static mPDFBackColour	,PdfColor
+
 		private static mPrinterName		,a100
 		private static mPrintHeader		,boolean
 		private static mPrintFooter		,boolean
@@ -57,6 +60,7 @@ namespace SFEUtilities
 		private static mRightMargin		,int
 		
 		private static mHighestRow		,int
+		private static mLastPrintPos	,int
 
 		
 ;-------------------------------------------------------------------------------
@@ -104,10 +108,10 @@ namespace SFEUtilities
 				if mReportType == 'R' 
 					mTopMargin = topMargin
 				else
-				mTopMargin = 100
+					mTopMargin = 100
 
 			if mReportType == 'P' 
-				mTopMargin = mTopMargin/15
+				mTopMargin = mTopMargin/10
 			
 			if ^passed(bottomMargin) then
 				mBottomMargin = bottomMargin
@@ -115,7 +119,7 @@ namespace SFEUtilities
 				mBottomMargin = 100
 
 			if mReportType == 'P' 
-				mBottomMargin = mBottomMargin/15
+				mBottomMargin = mBottomMargin/10
 						
 			if ^passed(leftMargin) then
 				mLeftMargin = leftMargin
@@ -138,6 +142,8 @@ namespace SFEUtilities
 			else
 				mPrintHeader = false
 			
+			mLastPrintPos = mBottomMargin
+
 			
 			if ^passed(printFooter) then
 				mPrintFooter = printFooter
@@ -159,7 +165,8 @@ namespace SFEUtilities
 			mArialNBFont	= ^null
 			mTimesFont		= ^null
 			
-			
+			clear mPageNumber
+
 			if mReportType == 'P' then
 			begin
 				mPDF = new PdfFile(,,,,,,,,,,,"SFEPDFfiles:")
@@ -172,7 +179,7 @@ namespace SFEUtilities
 					mPDF.FileName = %syn_uname + string(time()) + ".pdf"
 				
 				mPDF.PageLayout = PdfPageLayout.Single
-				
+				mPageLength = mPDF.Height
 				mPosY = mPDF.Height	
 				mPosX = 1		
 			end
@@ -221,10 +228,24 @@ namespace SFEUtilities
 				wpr_getdevice(mHandle, DWP_PIXELHEIGHT, mPageLength)
 			end
 			
-			clear mHighestRow
+			if mReportType == 'R' then
+			begin
+				mPosY = mTopMargin
+				mLastPrintPos = mPageLength - mBottomMargin 
+			end
+			else
+				begin
+				mPosY = mPDF.Height - mTopMargin
+				mLastPrintPos = mBottomMargin		
+			end
+
+			if mPrintFooter
+				dofooter()	
 			
 			if mPrintHeader
-				doHeading()
+				doHeading()	
+				
+			clear mHighestRow
 			
 			
 		endmethod
@@ -255,10 +276,11 @@ namespace SFEUtilities
 					data rowHeight	,int
 					
 					rowHeight = wpr_info(mHandle, DWP_TEXTHEIGHT, 'X')
-					mLinesLeft = (mPageLength - mPosY - mBottomMargin)/rowHeight
+					mLinesLeft = ((mPageLength - mPosY) - (mPageLength- mLastPrintPos))/rowHeight
 				end
 				else
 				begin
+					mLinesLeft = (mPosY - mLastPrintPos) / mFontSize
 				end
 
 				mreturn mLinesLeft
@@ -280,35 +302,37 @@ namespace SFEUtilities
 			
 			if mReportType =='P' then
 			begin
-				mPosY -= mTopMargin
+				clear mHighestRow
+				mPosY = mPageLength - mTopMargin
 				SetFont ('Times new roman',14)
 				PrintField (1,(mColumnsperLine/2) - 17,"SFE Demo Company")
-				SetFont (,6)
-				PrintField (2,(mColumnsperLine/2) - 11,"Spiffing Lane, Spiffingly, UK")
-				PrintField (3,(mColumnsperLine/2) - 20,"TEL: 020-8843 5400  FAX: 020-8574 1716/020-8571 7214")
+				SetFont (,8)
+				PrintField (2,(mColumnsperLine/2) - 14,"Spiffing Lane, Spiffingly, UK")
+				PrintField (3,(mColumnsperLine/2) - 23,"TEL: 020-8843 5400  FAX: 020-8574 1716/020-8571 7214")
+				box(4,1,4,mColumnsperLine,50)
+
 				clear mHighestRow
-				mPosY = mPosY - 10
+				mPosY = mPosY - mfontSize
 
 			end
 			else
 			begin
-				data penHandle	,i4
-				
-				penHandle = %wpr_info(mHandle,DWP_GETPEN)
-				
+				clear mHighestRow
 				mPosY = mTopMargin
-				printText(mPosX = -1, mPosY, 14, "Times new Roman", DWPFW_BOLD, "SFE Demo Company")
-				mPosY += (wpr_info(mHandle, DWP_TEXTHEIGHT, 'X')) 
-				printText(mPosX = -1, mPosY, 6, "Times new Roman", DWPFW_BOLD, "Spiffing Lane, Spiffingly, UK")
-				mPosY += (wpr_info(mHandle, DWP_TEXTHEIGHT, 'X'))
-				printText(mPosX = -1, mPosY, 6, "Times new Roman", DWPFW_BOLD, "TEL: 020-8843 5400  FAX: 020-8574 1716/020-8571 7214")
-				mPosY += (wpr_info(mHandle, DWP_TEXTHEIGHT, 'X')) + 10
-				wpr_print(mHandle,DWP_LINE, penHandle, 1, mPosY ,mPageWidth, mPosY+2)
-				mPosY += 10
+				SetFont ('Times new roman',14)
+				PrintField (1,-1,"SFE Demo Company")
+				SetFont (,8)
+				PrintField (2,-1,"Spiffing Lane, Spiffingly, UK")
+				PrintField (3,-1,"TEL: 020-8843 5400  FAX: 020-8574 1716/020-8571 7214")
 				
-				mPrintStart = mPosY
-				
-				wpr_info(mHandle,DWP_DELPEN,penHandle)				
+				data textHght	,int
+				textHght = wpr_info(mHandle, DWP_TEXTHEIGHT, 'X')
+				 
+				box(4,1,4,mColumnsperLine,textHght / 2)
+
+				mPosY += textHght
+									
+				clear mHighestRow		
 			end
 			
 		endmethod
@@ -318,24 +342,33 @@ namespace SFEUtilities
 		private static method doFooter, void
 			endparams
 		proc
-			
-			if mReportType =='P' then
+										
+			SetFont("Calibri",10)
+				
+			mPageNumber += 1
+			if mReportType == 'R' then
 			begin
+				data tmpX	,int, 1
+				data tmpY	,int, 1	
+				printText(tmpX,tmpY, mfontSize, mfontName, mfontWeight, "")
+				data textHeight	, int
+				textHeight = wpr_info(mHandle, DWP_TEXTHEIGHT, 'X')
+				mPosY = mPageLength - mBottomMargin - (textHeight*2)
+				mHighestRow = 1
+				box (1,1,1,ColumnsPerLine,0)
+				mPosY += textHeight
+				PrintField(1,1,%date())
+				PrintField(1,ColumnsPerLine-10,'Page ' + string(mPageNumber))			
+				mLastPrintPos = mPageLength - (textHeight *2) - mBottomMargin
 			end
 			else
 			begin
-				data printRow, int
-				printRow = mPageLength - (wpr_info(mHandle, DWP_TEXTHEIGHT, "X")) - mBottomMargin
-				
-			
-				printRow = printRow - 104
-				printText(mPosX = -1, printRow, 6, "Times new Roman", DWPFW_BOLD, "Symphony Solutions Example")
-				printRow -= wpr_info(mHandle, DWP_TEXTHEIGHT, 'X') - 5
-
-				data penHandle	,i4
-				
-				penHandle = %wpr_info(mHandle,DWP_GETPEN)
-				wpr_print(mHandle,DWP_LINE, penHandle, 1, printRow ,mPageWidth, printRow+2)
+				mPosY = mBottomMargin + (mfontSize * 2)
+				mlastPrintPos = mPosY
+				mHighestRow = 1
+				box (1,1,1,ColumnsPerLine,0)
+				PrintField(2,1,%date())
+				PrintField(2,ColumnsPerLine-10,'Page ' + string(mPageNumber))				
 
 			end
 			
@@ -414,6 +447,19 @@ namespace SFEUtilities
 				end								
 				endusing
 			
+				if ^passed (fontColor)
+				begin
+					using fontColor select
+
+					('blue'), mPDFFontColour = PdfColor.Blue
+					('red'), mPDFFontColour = PdfColor.Red
+					('green'), mPDFFontColour = PdfColor.Green
+					('grey'), mPDFFontColour = PdfColor.Gray
+					(),		mPDFFontColour = PdfColor.DefaultColor
+					endusing
+
+				end
+
 			end
 
 			else
@@ -472,22 +518,27 @@ namespace SFEUtilities
 
 				mPosX = ((mPDF.width -mLeftMargin - mRightMargin) * col/mColumnsperLine) + mLeftMargin
 
-				using mFontColour select
-				('blue'),	mPdf.DrawText(%atrim(printData),mPosX,mPosY,PdfColor.blue)
-				('gray'),	mPdf.DrawText(%atrim(printData),mPosX,mPosY,PdfColor.gray)
-				('red'),	mPdf.DrawText(%atrim(printData),mPosX,mPosY,PdfColor.red)
-				(),			mPdf.DrawText(%atrim(printData),mPosX,mPosY)
-				endusing
+				mPdf.DrawText(%atrim(printData),mPosX,mPosY,mPDFFontColour)
+
+
 			end
 			else
 			begin
-				if row .gt.mHighestRow
+				if (row > mHighestRow)
 				begin
 					mPosY += ((wpr_info(mHandle, DWP_TEXTHEIGHT, %atrim(printdata))+5) * (row -mHighestRow))
 					mHighestRow = row
 				end
 
-				mPosX = mLeftMargin + ((mPageWidth - mLeftMargin - mRightMargin) * col/mColumnsperLine)
+				if (col == -1) then
+				begin
+
+					mPosX = (mPageWidth)/2
+					printText(mPosX,mPosY, mfontSize, mfontName, mfontWeight, "")		; to force font size to get width of text
+					mPosX -= wpr_info(mHandle, DWP_TEXTWIDTH, atrim(printData))/2
+				end
+				else
+					mPosX = mLeftMargin + ((mPageWidth - mLeftMargin - mRightMargin) * col/mColumnsperLine)
 				
 				printText(mPosX,mPosY, mfontSize, mfontName, mfontWeight, %atrim(printData))
 
@@ -496,12 +547,13 @@ namespace SFEUtilities
 		endmethod
 
 ;---------------------------------------------------------------------
+; draw boxes and lines
 		public static method box, void
 			in req	topRow				,int		; top left row
 			in req	topCol				,int		; top left column 
 			in req	bottomRow			,int		; bottom right row		
 			in req	bottomCol			,int		; bottom right col
-			in req	margin				,int		; margin to add to co-ordinates
+			in req	margin				,int		; margin to add to co-ordinates (print API pixels)
 			in opt  fillColour			,a		; fill colour for box.  No fill if not passed
 			endparams
 		proc
@@ -520,15 +572,15 @@ namespace SFEUtilities
 
 				rowHeight = wpr_info(mHandle, DWP_TEXTHEIGHT, 'X')
 				
-				topRowPixel = mPosY + ((topRow - mHighestRow) * rowHeight) - margin
-				bottomRowPixel = mPosY + ((BottomRow - mHighestRow) * rowHeight) + margin				
+				topRowPixel = mPosY + ((topRow - mHighestRow) * rowHeight) 
+				bottomRowPixel = mPosY + ((BottomRow - mHighestRow) * rowHeight) 			
 				
-				topColPixel = mLeftMargin + ((mPageWidth-mLeftMargin - mRightMargin) * topCol/mColumnsperLine) - margin			
-				bottomColPixel = mLeftMargin + ((mPageWidth - mLeftMargin - mRightMargin) * bottomCol/mColumnsperLine) + margin
+				topColPixel = mLeftMargin + ((mPageWidth-mLeftMargin - mRightMargin) * topCol/mColumnsperLine) 		
+				bottomColPixel = mLeftMargin + ((mPageWidth - mLeftMargin - mRightMargin) * bottomCol/mColumnsperLine)
 
 				penHandle = %wpr_info(mHandle,DWP_GETPEN)
 
-				if topRowPixel == bottomColPixel || topColPixel == bottomColPixel then
+				if topRow == bottomRow || topCol == bottomCol then
 				begin
 					;; line
 					wpr_print(mHandle,DWP_LINE, penHandle, topColPixel, topRowPixel, bottomColPixel, bottomRowPixel)
@@ -536,6 +588,10 @@ namespace SFEUtilities
 				else
 				begin
 					;; box
+					topRowPixel -= margin
+					topColPixel -= margin
+					bottomRowPixel += margin
+					bottomColPixel += margin
 					bottomRowPixel = bottomRowPixel + rowHeight
 					wpr_print(mHandle,DWP_LINE, penHandle, topColPixel, topRowPixel, bottomColPixel, topRowPixel)		;; top line
 					wpr_print(mHandle,DWP_LINE, penHandle, topColPixel, bottomRowPixel, bottomColPixel, bottomRowPixel)	;; bottom line
@@ -562,6 +618,41 @@ namespace SFEUtilities
 			end
 			else
 			begin
+				rowHeight = mfontSize + 2
+
+				topRowPixel = mPosY - ((topRow - mHighestRow-1) * rowHeight) 
+				bottomRowPixel = mPosY - ((BottomRow - mHighestRow) * rowHeight) 				
+				
+				topColPixel = ((mPDF.width - mLeftMargin - mRightMargin) * topCol/mColumnsperLine) + mLeftMargin		
+				bottomColPixel = ((mPDF.width -mLeftMargin - mRightMargin) * bottomCol/mColumnsperLine) + mLeftMargin
+
+				if topRow == bottomRow then
+				begin
+					topRowPixel -= mfontSize/2
+					mpdf.drawBox(topColPixel,topRowpixel,bottomColPixel,topRowPixel)
+				end
+				else
+				begin
+					if ^passed (fillColour)
+					begin
+						using fillColour select
+						
+						('lightblue'), mPDFBackColour = PdfColor.LightCyan
+						('lightred'), mPDFBackColour = PdfColor.PalePink
+						('lightgreen'), mPDFBackColour = PdfColor.PaleGreen
+						('lightyellow'), mPDFBackColour = PdfColor.LemonChiffon
+						('lightgrey'), mPDFBackColour = PdfColor.LightGray
+						(),		mPDFBackColour = PdfColor.DimGray
+						endusing
+						
+					end
+					
+					topRowPixel += margin/10
+					topColPixel += margin/10
+					bottomRowPixel -= margin/8
+					bottomColPixel -= margin/8
+					mpdf.drawbox(topColPixel,topRowpixel,bottomColPixel,bottomRowPixel,,,true,mPDFBackColour)
+				end
 			end
 
 		endmethod
@@ -602,51 +693,29 @@ namespace SFEUtilities
 			end
 			else
 			begin
-			end
-
-
-		endmethod
-
-.ifdef notneeded	
-		;-------------------------------------------------------------------------------------
-		public static method WriteLine	,void
-			in req printData							,a
-			in opt lineFeedCount						,i
-			endparams
-			
-			
-		proc
-			mDonePrinting = true	
-			if mReportType == 'P' then
-			begin
+				topRowPixel = mPosY - ((topRow - mHighestRow) * mfontSize)
+				bottomRowPixel = mPosY - ((BottomRow - mHighestRow) * mfontSize) - mfontSize				
 				
+				topColPixel = ((mPDF.width - mLeftMargin - mRightMargin) * topCol/mColumnsperLine) + mRightMargin		
+				bottomColPixel = ((mPDF.width -mLeftMargin - mRightMargin) * bottomCol/mColumnsperLine) + mRightMargin
+				
+				PixHeight = topRowPixel - bottomRowPixel
+				PixWidth = topRowPixel - bottomRowPixel
+
+				mpdf.DrawImage(imageFileName,topColPixel,bottomRowPixel,pixWidth,pixHeight)
 			end
-			else
-				printText(mPosX = D_LEFT_MARGIN, mPosY, mfontSize, mfontName, mfontWeight, %atrim(printData))
-			
-			
-			if (^passed(lineFeedCount) && lineFeedCount)
-				LineFeed(lineFeedCount)
 
 		endmethod
-		
-.endc
 
 		;-------------------------------------------------------------------------------------------
 		public static method FormFeed, void
 			endparams
 		proc
-			
-			
-			if mPrintFooter .and. mDonePrinting
-				dofooter()
-			
+					
 			clear mHighestRow 
 
 			if mReportType == 'P' then
 			begin
-				mPosY = mPDF.Height		
-
 				mPDF.NewPage() 
 			end
 			else
@@ -654,47 +723,25 @@ namespace SFEUtilities
 				wpr_print(mHandle, DWP_ENDPAGE)
 				wpr_print(mHandle, DWP_BEGINPAGE)
 				
-				mPosY = 1
-				mPosX = mLeftMargin
-				
 			end
-			
-			
-			if mPrintHeader
-				doHeading()
-			
-		endmethod
-		
-		;-----------------------------------------------------------------------------	
-		public static method LineFeed	,void
-			in opt numberOfLines				,i
-			endparams
-			
-			record
-				tCount	,i4
-				lCount	,i4	
-			endrecord
-			
-		proc
-			
-			tCount = 1
-			if (^passed(numberOfLines) && numberOfLines)
-				tCount = numberOfLines
-			
-			if mReportType == 'P' then
-			begin
 				
-			end
+			if mReportType == 'R' then
+				mPosY = mTopMargin
 			else
-			begin
-				for lCount from 1 thru tCount by 1
-					printText(mPosX = D_LEFT_MARGIN, mPosY, mfontSize, mfontName, mfontWeight, "")
-			end
+				mPosY = mPDF.Height - mTopMargin		
 			
-			mDonePrinting = true
-			
+			if mPrintFooter
+				dofooter()	
+					
+			if mPrintHeader
+				doHeading()	
+	
+
+			clear mHighestRow 
+
 		endmethod
 		
+
 		;----------------------------------------------------------------------------------------
 		
 		private static method printText, void
@@ -761,7 +808,6 @@ namespace SFEUtilities
 			else
 				if (mHandle)
 				begin
-					doFooter()
 					wpr_print(mHandle, DWP_ENDPAGE)
 					wpr_print(mHandle, DWP_ENDJOB)
 					

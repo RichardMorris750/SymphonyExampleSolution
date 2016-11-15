@@ -34,12 +34,7 @@ namespace AppData
 
 
 			using message.FieldName select
-;;			("NAME"),	;;supplier name must be valid and more than 5 characters long.
-;;				if (message.ValidationState == DataValidationState.OK && %trim(Name) < 5)
-;;				begin
-;;					message.FailReason = "supplier name is not long enough, must be 5 character or more."
-;;					message.ValidationState = DataValidationState.Error
-;;				end
+
 			("SUPP_CODE"),
 			begin
 				if (findSupplier() != FileAccessResults.Success) then
@@ -174,36 +169,24 @@ namespace AppData
 			mreturn response
 		endmethod
 
-		private method findGroup, boolean
+		private method findGroup, FileAccessResults
 
 		proc
-		
-			data status, FileAccessResults
-		
-			data retStatus	,boolean, false
-		
-			;; set profduct group name
-			data product_GroupObject = new Product_group_Data()
-			data product_GroupIO = new Product_group_FileIO(FileOpenMode.InputIndexed)
-		
-		
-			product_GroupIO.ForceFullKeyRead = true 
-		
-			product_GroupObject.Prod_group = Prod_group
-			status = product_GroupIO.ReadRecord(product_GroupObject)
-		
-			if 	status == FileAccessResults.Success then
+			data response	,FileAccessResults
+			data tmpDO = Product_Group_DOCache.DataObject(prod_group)
+			
+			if (tmpDO != ^null) then
 			begin
-				GroupName = product_groupObject.Group_desc
-				retStatus = true
+				response = FileAccessResults.Success
+				GroupName = tmpDO.Group_desc
 			end
 			else
 			begin
-				GroupName = 'Group name...' + Prod_group
-				retStatus = false
+				response = FileAccessResults.RecordNotFound
+				GroupName = 'Group name...' + prod_group
 			end
-
-			mreturn retStatus
+			
+			mreturn response
 
 		endmethod
 			

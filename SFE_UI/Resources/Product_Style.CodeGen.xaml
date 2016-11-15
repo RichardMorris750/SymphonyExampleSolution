@@ -714,7 +714,7 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type Label}">
 					<Label
-						Content="Om Offer ?"
+						Content="On Offer ?"
 						IsEnabled="{Binding Path=PromotionIsEnabled}">
 					</Label>
 				</ControlTemplate>
@@ -734,7 +734,7 @@
 						
 						HorizontalAlignment="Left"
                         Name="ctlProduct_Promotion"
-						Content="Om Offer ?"
+						Content="On Offer ?"
                         IsChecked="{Binding Path=Promotion, Converter={StaticResource decimalTFConverter}}"
                         IsEnabled="{Binding Path=PromotionIsEnabled}"
                         VerticalAlignment="Center"

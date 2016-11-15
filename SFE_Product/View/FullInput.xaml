@@ -50,7 +50,6 @@
                         <RowDefinition Height="25" />
                         <RowDefinition Height="25" />
                         <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
                     </Grid.RowDefinitions>
 
                     <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource Product_Prod_code_prompt}"></Label>
@@ -78,8 +77,7 @@
                     <Label Grid.Row="7" Grid.Column="0" Style="{StaticResource Product_Vat_code_prompt}"></Label>
                     <symControl:FieldControl Grid.Row="7" Grid.Column="2" Style="{StaticResource Product_Vat_code_style}"></symControl:FieldControl>
 
-  <!--                  <Label Grid.Row="8" Grid.Column="0" Style="{StaticResource Product_Promotion_prompt}"></Label>   -->
-                    <symControl:FieldControl Grid.Row="8" Grid.Column="0" Style="{StaticResource Product_Promotion_style}"></symControl:FieldControl>
+                    <symControl:FieldControl Grid.Row="5" Grid.Column="4" Style="{StaticResource Product_Promotion_style}"></symControl:FieldControl>
 
 
                     <Border Grid.Row="2" Grid.Column="6" Grid.RowSpan="6">

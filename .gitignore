@@ -255,3 +255,5 @@ ModelManifest.xml
 /ProductViewer/ProductViewer.g.resources
 /ProductViewer/ProductViewer.Properties.Resources.resources
 *.resources
+*.
+*.il

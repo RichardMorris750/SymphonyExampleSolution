@@ -131,6 +131,9 @@
     <Compile Include="Common\ProductGroupLookup.xaml.dbl">
       <DependentUpon>Common\ProductGroupLookup.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\SupplierCodeLookup.xaml.dbl">
+      <DependentUpon>Common\SupplierCodeLookup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Common\Toolbar.xaml.dbl">
       <DependentUpon>Common\Toolbar.xaml</DependentUpon>
     </Compile>
@@ -140,6 +143,7 @@
     <Compile Include="Content\Supplier_Collection.CodeGen.dbc" />
     <Compile Include="Properties\AssemblyInfo.dbl" />
     <Compile Include="ViewModel\ProductGroupLookupViewModel.dbc" />
+    <Compile Include="ViewModel\SupplierCodeLookupViewModel.dbc" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Common" />
@@ -156,6 +160,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Common\ProductGroupLookup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Common\SupplierCodeLookup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

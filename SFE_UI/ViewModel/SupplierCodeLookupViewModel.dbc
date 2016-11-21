@@ -1,0 +1,41 @@
+import System
+import System.Collections.Generic
+import System.Text
+import SFE_Base.ViewModel
+import Symphony.Conductor.ViewModel
+import AppData
+import Symphony.Harmony
+import Symphony.Conductor.Model
+
+
+namespace SFE_UI.ViewModel
+	
+	public class SupplierCodeLookupViewModel extends SearchViewModel
+		
+		public method SupplierCodeLookupViewModel
+			endparams
+			parent(new Supplier_Data(), new Supplier_Data())
+		proc
+			mConnector = new DBConnector("SYMLOCAL:richard/morris!AppData.TableMapper.MapTableToFile")
+		endmethod
+		
+		private mConnector	,@DBConnector
+		
+		public method LoadList, void
+			endparams
+		proc
+			;;make sure nothing is ion the results list
+			this.ResultsTable.Clear()
+			
+			;;iterate through the list and add data items to the list
+			data item	,@DataObjectBase
+			foreach item in DataSelect.RunDataSelect(mConnector, "select supp_code,name from supplier", new Supplier_Data()).Result 
+			begin
+				this.AddToResultsTable((Supplier_Data)item)
+			end
+		endmethod
+		
+	endclass
+	
+endnamespace
+

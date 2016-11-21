@@ -63,49 +63,49 @@ namespace SFEBusinessLogic
 						SFEUtilities.SFEPrinting.FormFeed()
 					
 					SFEUtilities.SFEPrinting.SetFont("Cambria",14)
-					SFEUtilities.SFEPrinting.Write(1,1,"Supplier Listing Report")
-					SFEUtilities.SFEPrinting.Write(3,1,"Code")
-					SFEUtilities.SFEPrinting.Write(3,10,"Name & Address")
-					SFEUtilities.SFEPrinting.Write(3,43,"Phone No")
-					SFEUtilities.SFEPrinting.Write(3,60,"Email")
+					SFEUtilities.SFEPrinting.PrintField(1,1,"Supplier Listing Report")
+					SFEUtilities.SFEPrinting.PrintField(3,1,"Code")
+					SFEUtilities.SFEPrinting.PrintField(3,10,"Name & Address")
+					SFEUtilities.SFEPrinting.PrintField(3,43,"Phone No")
+					SFEUtilities.SFEPrinting.PrintField(3,60,"Email")
 					lineCount = 4					
 					SFEUtilities.SFEPrinting.SetFont("Calibri",10)
 				end
 				
 				
 				incr lineCount
-				SFEUtilities.SFEPrinting.Write(lineCount,1,suppObj.Supp_code)
-				SFEUtilities.SFEPrinting.Write(lineCount,10,suppObj.Name)
-				SFEUtilities.SFEPrinting.Write(lineCount,43,suppObj.Phone)
-				SFEUtilities.SFEPrinting.Write(lineCount,60,suppObj.Email)
+				SFEUtilities.SFEPrinting.PrintField(lineCount,1,suppObj.Supp_code)
+				SFEUtilities.SFEPrinting.PrintField(lineCount,10,suppObj.Name)
+				SFEUtilities.SFEPrinting.PrintField(lineCount,43,suppObj.Phone)
+				SFEUtilities.SFEPrinting.PrintField(lineCount,60,suppObj.Email)
 				
 				if suppObj.address1
 				begin
 					incr lineCount
-					SFEUtilities.SFEPrinting.Write(lineCount,10,suppObj.Address1)			
+					SFEUtilities.SFEPrinting.PrintField(lineCount,10,suppObj.Address1)			
 				end
 				
 				if suppObj.address2
 				begin
 					incr lineCount
-					SFEUtilities.SFEPrinting.Write(lineCount,10,suppObj.Address2)		
+					SFEUtilities.SFEPrinting.PrintField(lineCount,10,suppObj.Address2)		
 				end
 				
 				if suppObj.address3
 				begin
 					incr lineCount
-					SFEUtilities.SFEPrinting.Write(lineCount,10,suppObj.Address3)		
+					SFEUtilities.SFEPrinting.PrintField(lineCount,10,suppObj.Address3)		
 				end
 				
 				if suppObj.postcode
 				begin				
 					incr lineCount
-					SFEUtilities.SFEPrinting.Write(lineCount,10,suppObj.Postcode)		
+					SFEUtilities.SFEPrinting.PrintField(lineCount,10,suppObj.Postcode)		
 				end
 				
 				incr lineCount
 				SFEUtilities.SFEPrinting.SetFont(,12)
-				SFEUtilities.SFEPrinting.Write(lineCount,1,'END OF SUPPLIER')
+				SFEUtilities.SFEPrinting.PrintField(lineCount,1,'END OF SUPPLIER')
 ;				incr lineCount
 				SFEUtilities.SFEPrinting.SetFont(,10)
 			end

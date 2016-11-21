@@ -229,6 +229,11 @@
       <Project>{1c61e987-fbd9-49b8-b987-8a30d6ef3218}</Project>
       <Private>True</Private>
     </ProjectReference>
+    <ProjectReference Include="..\SFEBusinessLogic\SFEBusinessLogic.synproj">
+      <Name>SFEBusinessLogic</Name>
+      <Project>{9edb4004-e905-4259-ac18-5931d2a2385c}</Project>
+      <Private>True</Private>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Synergex\VS2010\Synergex.SynergyDE.targets" />
   <PropertyGroup>

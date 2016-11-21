@@ -257,3 +257,5 @@ ModelManifest.xml
 *.resources
 *.
 *.il
+/SFEPDFfiles/gordon113046.pdf
+*.pdf

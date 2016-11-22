@@ -352,7 +352,7 @@ namespace SFE_Product.ViewModel
 
 .region "Product Group lookup elements"
 		
-		private method buildProdGroupLookup, void
+		private method buildProductGroupLookup, void
 			endparams
 		proc
 			;;create the product group lookup view model

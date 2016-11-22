@@ -17,7 +17,7 @@ namespace SFE_UI.Common
     ;;; <summary>
     ;;; Interaction logic for SupplierCodeLookup.xaml
     ;;; </summary>
-    public partial class SupplierCodeLookup extends UserControl
+	public partial class SupplierCodeLookup extends BaseUserControl
     
         public method SupplierCodeLookup
         endparams

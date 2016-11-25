@@ -108,11 +108,10 @@ namespace SupplierReport
 				begin
 					lambda doCommand(sender, param)
 					begin
-;						data repData	,STRSelections
-;						repData = mSelections.SynergyRecord
-						if !mStartSupp && !mEndSupp
+
+						if (!mStartSupp && !mEndSupp)
 							mEndSupp = '~~~~~~'
-						if mStartSupp .ne.'      ' .and. mEndSupp .eq.'      '
+						if (mStartSupp != ^null  && mEndSupp == ^null) 
 							mEndSupp = mStartSupp
 
 						SFEBusinessLogic.SupplierReport.Print(mStartSupp,mEndSupp,mReportType)

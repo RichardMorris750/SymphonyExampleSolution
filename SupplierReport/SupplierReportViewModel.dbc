@@ -60,12 +60,10 @@ namespace SupplierReport
 			method get
 			proc
 				mreturn mStartSupp
-;				mreturn mSelections.Start_supp
 			endmethod
 			method set
 			proc
 				mStartSupp = value
-;				mSelections.Start_supp = value
 				RaisePropertyChanged("StartSupp")
 			endmethod
 		endproperty
@@ -74,12 +72,10 @@ namespace SupplierReport
 		public property EndSupp, string
 			method get
 			proc
-;				mreturn mSelections.End_supp
 				mreturn mEndSupp
 			endmethod
 			method set
 				proc
-;				mSelections.End_supp = value
 				RaisePropertyChanged("EndSupp")
 				mEndSupp = value
 			endmethod
@@ -94,7 +90,6 @@ namespace SupplierReport
 			endmethod
 			method set
 				proc
-;				mSelections.End_supp = value
 				RaisePropertyChanged("ReportType")
 				mreportType = value
 			endmethod

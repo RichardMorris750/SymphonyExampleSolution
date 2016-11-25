@@ -101,17 +101,7 @@ namespace SupplierReport
 		endproperty
 		
 
-		public property ProgramOptions, @Selections_Data
-			method get
-			proc
-				mreturn mSelections
-			endmethod
-			method set
-			proc
-				mSelections = value
-			endmethod
-		endproperty
-		
+
 		;;button binding command code
 		
 		private mDoReportCommand	,@GenericCommand

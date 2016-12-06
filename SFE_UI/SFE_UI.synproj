@@ -9,7 +9,7 @@
     <RootNamespace>SFE_UI</RootNamespace>
     <AssemblyName>SFE_UI</AssemblyName>
     <MainFile>UserControl.xaml</MainFile>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <TargetPlatform>v452</TargetPlatform>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>

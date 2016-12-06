@@ -7,7 +7,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{d8748127-708b-4505-8f5c-7373961cd210}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SFE_Product</RootNamespace>
     <AssemblyName>SFE_Product</AssemblyName>
@@ -25,6 +25,20 @@
     <Name>SFE_Product</Name>
     <TargetPlatform>v452</TargetPlatform>
     <EnableCommonProperties>True</EnableCommonProperties>
+    <Install>True</Install>
+    <ApplicationVersion>1.0.0.*</ApplicationVersion>
+    <ApplicationRevision>0</ApplicationRevision>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>False</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>False</UpdatePeriodically>
+    <UpdateRequired>False</UpdateRequired>
+    <MapFileExtensions>True</MapFileExtensions>
+    <IsWebBootstrapper>False</IsWebBootstrapper>
+    <UseApplicationTrust>False</UseApplicationTrust>
+    <BootstrapperEnabled>True</BootstrapperEnabled>
     <StartupObject>(Not set)</StartupObject>
     <ApplicationIcon />
     <ResourceType>Icon</ResourceType>
@@ -157,9 +171,6 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </ApplicationDefinition>
     <Compile Include="Model\ProductReport.dbc" />
     <Compile Include="ViewModel\ProductMaintentanceViewModel.dbc" />
     <Compile Include="View\FullInput.xaml.dbl">
@@ -170,10 +181,6 @@
     </Compile>
     <Compile Include="View\OverviewList.xaml.dbl">
       <DependentUpon>View\OverviewList.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="App.xaml.dbl">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Page Include="View\FullInput.xaml">
       <SubType>Designer</SubType>
@@ -240,11 +247,18 @@
       <Project>{042c6fdf-2e91-4cba-a1ac-336122022826}</Project>
       <Private>True</Private>
     </ProjectReference>
-    <ProjectReference Include="..\synPDF\synPDF.synproj">
-      <Name>synPDF</Name>
-      <Project>{8e9fd290-eb76-487a-b920-1894456bfe30}</Project>
-      <Private>True</Private>
-    </ProjectReference>
+    </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Install>True</Install>
+      <ProductName>Microsoft .NET Framework 4.5.2 (x86 and x64)</ProductName>
+      <Visible>False</Visible>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Install>False</Install>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Visible>False</Visible>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Synergex\VS2010\Synergex.SynergyDE.targets" />
   <PropertyGroup>

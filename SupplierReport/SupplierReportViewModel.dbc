@@ -60,12 +60,10 @@ namespace SupplierReport
 			method get
 			proc
 				mreturn mStartSupp
-;				mreturn mSelections.Start_supp
 			endmethod
 			method set
 			proc
 				mStartSupp = value
-;				mSelections.Start_supp = value
 				RaisePropertyChanged("StartSupp")
 			endmethod
 		endproperty
@@ -74,12 +72,10 @@ namespace SupplierReport
 		public property EndSupp, string
 			method get
 			proc
-;				mreturn mSelections.End_supp
 				mreturn mEndSupp
 			endmethod
 			method set
 				proc
-;				mSelections.End_supp = value
 				RaisePropertyChanged("EndSupp")
 				mEndSupp = value
 			endmethod
@@ -94,24 +90,13 @@ namespace SupplierReport
 			endmethod
 			method set
 				proc
-;				mSelections.End_supp = value
 				RaisePropertyChanged("ReportType")
 				mreportType = value
 			endmethod
 		endproperty
 		
 
-		public property ProgramOptions, @Selections_Data
-			method get
-			proc
-				mreturn mSelections
-			endmethod
-			method set
-			proc
-				mSelections = value
-			endmethod
-		endproperty
-		
+
 		;;button binding command code
 		
 		private mDoReportCommand	,@GenericCommand
@@ -123,11 +108,10 @@ namespace SupplierReport
 				begin
 					lambda doCommand(sender, param)
 					begin
-;						data repData	,STRSelections
-;						repData = mSelections.SynergyRecord
-						if !mStartSupp && !mEndSupp
+
+						if (!mStartSupp && !mEndSupp)
 							mEndSupp = '~~~~~~'
-						if mStartSupp .ne.'      ' .and. mEndSupp .eq.'      '
+						if (mStartSupp != ^null  && mEndSupp == ^null) 
 							mEndSupp = mStartSupp
 
 						SFEBusinessLogic.SupplierReport.Print(mStartSupp,mEndSupp,mReportType)

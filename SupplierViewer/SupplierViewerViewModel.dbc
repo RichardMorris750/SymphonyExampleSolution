@@ -159,7 +159,12 @@ namespace SupplierViewer
 							data typeOfSearch	,@DataSelect
 
 							if (string.IsNullOrEmpty(mKeyWord)) then
-								typeOfSearch = new DataSelect(mConnector, "select * from supplier where supp_code like :1", new Supplier_Data(), mKeyValue)
+							begin
+								if (mFullKeyMatch) then
+									typeOfSearch = new DataSelect(mConnector, "select * from supplier where supp_code = :1", new Supplier_Data(), mKeyValue)
+								else
+									typeOfSearch = new DataSelect(mConnector, "select * from supplier where supp_code like :1", new Supplier_Data(), mKeyValue)		
+							end
 							else
 								typeOfSearch = new DataSelect(mConnector, "select * from supplier where supp_code like :1 and name like :2", new Supplier_Data(), mKeyValue, mKeyWord)
 

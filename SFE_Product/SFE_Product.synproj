@@ -25,6 +25,11 @@
     <Name>SFE_Product</Name>
     <TargetPlatform>v452</TargetPlatform>
     <EnableCommonProperties>True</EnableCommonProperties>
+    <StartupObject>(Not set)</StartupObject>
+    <ApplicationIcon />
+    <ResourceType>Icon</ResourceType>
+    <ResourceName />
+    <NoWin32Manifest />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

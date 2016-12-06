@@ -9,7 +9,7 @@
     <RootNamespace>SFE_UI</RootNamespace>
     <AssemblyName>SFE_UI</AssemblyName>
     <MainFile>UserControl.xaml</MainFile>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetPlatform>v452</TargetPlatform>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -20,6 +20,11 @@
     <DBL_unQulRecStm>Stack</DBL_unQulRecStm>
     <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
     <Prefer32Bit>False</Prefer32Bit>
+    <StartupObject>(Not set)</StartupObject>
+    <ApplicationIcon />
+    <ResourceType>Icon</ResourceType>
+    <ResourceName />
+    <NoWin32Manifest />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <IncludeDebugInformation>true</IncludeDebugInformation>

@@ -6,13 +6,17 @@
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:symTrigger="clr-namespace:Symphony.Conductor.Triggers;assembly=SymphonyConductor"
              xmlns:sfeuiCommon="clr-namespace:SFE_UI.Common;assembly=SFE_UI"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:localConverter="clr-namespace:SFE_UI.Converters;assembly=SFE_UI"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" >
 
     <UserControl.Resources>
         <ResourceDictionary>
+            <localConverter:NullImageConverter x:Key="nullImgConv"></localConverter:NullImageConverter>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/SFE_UI;component/Resources/AppStyling.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SymphonyConductor;component/Resources/Converters.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -73,12 +77,7 @@
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Image Source="{Binding Path=ProductImageFile}" Width="30" Margin="2,2,2,2"/>
-<!--                                <Button Style="{StaticResource MenuButtonStyle}"  Command="{Binding PDFCommand}" Width="30" Height="30" Margin="2,2">
-                                    <Button.Content>
-                                        <Image Grid.Row="0" Source="{Binding Path=ProductImageFile}"></Image>
-                                    </Button.Content>
-                                </Button>-->
+                                <Image Source="{Binding Path=ProductImage, Converter={StaticResource nullImgConv}}" Width="30" Margin="2,2,2,2"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -90,11 +89,11 @@
                     <DataGridTextColumn Header="Supplier Name" Binding="{Binding Path=SupplierName}" Width="*"></DataGridTextColumn>
                     <DataGridTextColumn Header="Group" Binding="{Binding Path=Prod_group}" Width="50"></DataGridTextColumn>
                     <DataGridTextColumn Header="Group Name" Binding="{Binding Path=GroupName}" Width="*"></DataGridTextColumn>
- 
-                    <DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn >
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Image Source="{Binding Path=PromotionImageFile}" Width="30" Margin="2,2,2,2"/>
+                                <Image Source="{Binding Path=PromotionImage, Converter={StaticResource nullImgConv}}" Width="30" Margin="2" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

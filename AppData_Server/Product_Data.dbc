@@ -6,8 +6,7 @@ import Symphony.Conductor.Model
 ;;imports required to use data objects and file IO classes.
 import AppData
 import Symphony.Conductor.DataIO
-
-
+import System.Windows.Media
 
 namespace AppData
 	
@@ -69,20 +68,10 @@ namespace AppData
 		private method synergychanged, void
 			endparams
 		proc
-			data logName	,a100
-			data flag	,i4
-			getlog('SFEImages',logName,flag)
-			mProductImageFile = atrim(logName) + atrim(Prod_code) + '.jpg' 
-
-			if Promotion then
-				mPromotionImageFile = atrim(logName) + "Sale.png"
-			else
-				clear mPromotionImageFile
-
+			mProductImage = ^null
+			mPromotionImage = ^null
 			findSupplier()
-
 			findGroup()
-
 
 		endmethod
 		
@@ -91,16 +80,10 @@ namespace AppData
 		proc
 			RaisePropertyChanged(^null)
 		endmethod
-
-
 		
 		private mSupplierName	,string
 
 		private mGroupName	,string		
-
-		private mProductImageFile	,string		
-
-		private mPromotionImageFile	,string		
 
 		public property SupplierName, string
 			method get
@@ -129,24 +112,45 @@ namespace AppData
 		public property ProductImageFile, string
 			method get
 			proc
-				mreturn mProductImageFile
+				mreturn AppData.DataLogic.GetImageFileName(product_main.str_prod_code, ImageFileType.JPGFileType)
 			endmethod
-			method set
+		endproperty
+
+		private mProductImage	,@ImageSource
+
+		public property ProductImage, @ImageSource
+			method get
 			proc
-				mProductImageFile = value
-				RaisePropertyChanged("ProductImageFile")
+				if (mProductImage == ^null)
+					mProductImage = AppData.DataLogic.GetImageSource(product_main.str_prod_code, ImageFileType.JPGFileType)
+				mreturn mProductImage
 			endmethod
 		endproperty
 
 		public property PromotionImageFile, string
 			method get
 			proc
-				mreturn mPromotionImageFile
+				if (product_main.str_promotion == 1) then
+					mreturn AppData.DataLogic.GetImageFileName("sale", ImageFileType.PNGFileType)
+				else
+					mreturn ^null
+				
 			endmethod
-			method set
+		endproperty
+		
+		private mPromotionImage	,@ImageSource
+
+		public property PromotionImage, @ImageSource
+			method get
 			proc
-				mProductImageFile = value
-				RaisePropertyChanged("PromotionImageFile")
+				if (Promotion == 1) then
+				begin
+					if (mPromotionImage == ^null)
+						mPromotionImage = AppData.DataLogic.GetImageSource("sale", ImageFileType.PNGFileType)
+					mreturn mPromotionImage
+				end
+				else
+					mreturn ^null
 			endmethod
 		endproperty
 
@@ -193,7 +197,7 @@ namespace AppData
 			mreturn response
 
 		endmethod
-			
+
 	endclass
 	
 endnamespace

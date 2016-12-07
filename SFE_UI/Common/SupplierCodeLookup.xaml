@@ -28,7 +28,7 @@
                 </Grid.RowDefinitions>
 
                 <!-- title border -->
-                <Grid Grid.Row="0" Background="{Binding Path=DialogBorderColor}" MouseLeftButtonUp="root_MouseLeftButtonUp" MouseLeftButtonDown="root_MouseLeftButtonDown" MouseMove="root_MouseMove">
+                <Grid Grid.Row="0" MouseLeftButtonUp="root_MouseLeftButtonUp" MouseLeftButtonDown="root_MouseLeftButtonDown" MouseMove="root_MouseMove">
 
                     <Border >
 

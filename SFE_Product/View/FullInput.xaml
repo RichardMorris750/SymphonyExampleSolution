@@ -5,11 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:sfeuiCommon="clr-namespace:SFE_UI.Common;assembly=SFE_UI"
              xmlns:symControl="clr-namespace:Symphony.Conductor.Controls;assembly=SymphonyConductor"
+             xmlns:localConverter="clr-namespace:SFE_UI.Converters;assembly=SFE_UI"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
     <UserControl.Resources>
         <ResourceDictionary>
+            <localConverter:NullImageConverter x:Key="nullImgConv"></localConverter:NullImageConverter>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/SFE_UI;component/Resources/AppStyling.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/SymphonyConductor;component/Resources/Converters.xaml"/>
@@ -82,7 +84,7 @@
 
                     <Border Grid.Row="2" Grid.Column="6" Grid.RowSpan="6">
                         <StackPanel Orientation="Horizontal">
-                            <Image Width="150" Height="150" Source="{Binding Path=ProductImageFile}"></Image>
+                            <Image Width="150" Height="150" Source="{Binding Path=ProductImage, Converter={StaticResource nullImgConv}}"></Image>
                         </StackPanel>
                     </Border>
 

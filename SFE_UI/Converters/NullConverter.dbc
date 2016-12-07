@@ -1,0 +1,95 @@
+;;**********************************************************************
+;;
+;; Title:       NullImageConverter.dbc
+;;
+;; Type:        Class
+;;
+;; Description: Data Converter : Protect against 
+;;
+;; Author:      Richard C. Morris, Synergex Technology Evangelist
+;;
+;; Copyright (c) 2016, Synergex International, Inc. All rights reserved.
+;;
+;; Redistribution and use in source and binary forms, with or without
+;; modification, are permitted provided that the following conditions are met:
+;;
+;; * Redistributions of source code must retain the above copyright notice,
+;;   this list of conditions and the following disclaimer.
+;;
+;; * Redistributions in binary form must reproduce the above copyright notice,
+;;   this list of conditions and the following disclaimer in the documentation
+;;   and/or other materials provided with the distribution.
+;;
+;; THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+;; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+;; IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+;; ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+;; LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+;; CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+;; SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+;; INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+;; CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+;; ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+;; POSSIBILITY OF SUCH DAMAGE.
+;;
+;;*****************************************************************************
+import System
+import System.Collections.Generic
+import System.Text
+
+import System.Windows.Data
+import System.Windows
+
+
+namespace SFE_UI.Converters
+
+	public class NullImageConverter implements IValueConverter
+
+		;;; <summary>
+		;;;  Convert to protect/test against null images.
+		;;; </summary>		
+		;;; <param name="value">The inbound value to convert.</param>
+		;;; <param name="targetType">The datatype type of the target.</param>
+		;;; <param name="parameter">Any addiotnal binding parameters passed in, as specified by the ConverterParameter property.</param>
+		;;; <param name="culture">An instance of the System.Globalization.CultureInfo class that identifies the culture of the client _UI_.</param>
+		;;; <remarks>
+		;;; The Convert method will return the value of Nothing if null.
+		;;; </remarks>
+		public virtual method Convert	,@object
+			value						,@object 
+			targetType					,@Type 
+			parameter					,@object 
+			culture						,@System.Globalization.CultureInfo 
+			endparams
+		proc
+			if (value != ^null)
+			begin
+				mreturn value
+			end
+			mreturn DependencyProperty.UnsetValue
+		endmethod
+	
+		;;; <summary>
+		;;;	Convert to protect/test against null images.
+		;;; </summary>
+		;;; <param name="value">The inbound value to convert.</param>
+		;;; <param name="targetType">The datatype type of the target.</param>
+		;;; <param name="parameter">Any addiotnal binding parameters passed in, as specified by the ConverterParameter property.</param>
+		;;; <param name="culture">An instance of the System.Globalization.CultureInfo class that identifies the culture of the client _UI_.</param>
+		;;; <remarks>
+		;;; The Convert method will convert and return the value or Nothing if null.
+		;;; </remarks>
+		public virtual method ConvertBack	,@object
+			value							,@object 
+			targetType						,@Type 
+			parameter						,@object 
+			culture							,@System.Globalization.CultureInfo 
+			endparams
+		proc
+			mreturn DependencyProperty.UnsetValue
+		endmethod
+
+	
+	endclass
+
+endnamespace

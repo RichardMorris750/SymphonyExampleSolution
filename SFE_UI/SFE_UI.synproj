@@ -146,6 +146,7 @@
     <Compile Include="Content\Product_Collection.CodeGen.dbc" />
     <Compile Include="Content\Product_group_Collection.CodeGen.dbc" />
     <Compile Include="Content\Supplier_Collection.CodeGen.dbc" />
+    <Compile Include="Converters\NullConverter.dbc" />
     <Compile Include="Properties\AssemblyInfo.dbl" />
     <Compile Include="ViewModel\ProductGroupLookupViewModel.dbc" />
     <Compile Include="ViewModel\SupplierCodeLookupViewModel.dbc" />
@@ -155,6 +156,7 @@
     <Folder Include="Images" />
     <Folder Include="Images\Icons" />
     <Folder Include="Content" />
+    <Folder Include="Converters" />
     <Folder Include="ViewModel" />
     <Folder Include="Resources" />
     <Folder Include="Properties\" />

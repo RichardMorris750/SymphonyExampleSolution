@@ -165,7 +165,7 @@
         </Border>
 
         <Border Name="suppCodeLookupView" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" >
-            <sfeuiCommon:SupplierCodeLookup DataContext="{Binding Path=suppCodeLookupVM}"></sfeuiCommon:SupplierCodeLookup>
+            <sfeuiCommon:SupplierCodeLookup DataContext="{Binding Path=SuppCodeLookupVM}"></sfeuiCommon:SupplierCodeLookup>
         </Border>
 
     </Grid>

@@ -165,6 +165,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataLogic.dbc" />
     <Compile Include="Order_header_Data.CodeGen.dbc" />
     <Compile Include="Order_header_DFM.CodeGen.dbc" />
     <Compile Include="Order_header_FileIO.CodeGen.dbc" />

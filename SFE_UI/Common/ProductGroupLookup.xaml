@@ -18,7 +18,7 @@
     </UserControl.Resources>
 
 
-    <Grid Width="200" Height="200">
+    <Grid Width="250" Height="200">
         <Border CornerRadius="2" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource InputBackgroundBrush}">
 
             <Grid Margin="2">

@@ -29,9 +29,9 @@
 
         <Border Grid.Row="1">
             <StackPanel Orientation="Horizontal">
-                <Label Content="Supplier Code" Margin="2,2,2,2" VerticalAlignment="Center"></Label>
+                <Label Content="Code" Margin="2,2,2,2" VerticalAlignment="Center"></Label>
                 <TextBox Text="{Binding Path=KeyValue}" Width="100" Margin="2,2,2,2" MaxLength="10" VerticalAlignment="Center" CharacterCasing="Upper"></TextBox>
-                <Label Content="Name" Margin="2,2,2,2" VerticalAlignment="Center"></Label>
+                <Label Content="Key Word" Margin="2,2,2,2" VerticalAlignment="Center"></Label>
                 <TextBox Text="{Binding Path=KeyWord}" Width="100" Margin="2,2,2,2" MaxLength="10" VerticalAlignment="Center" CharacterCasing="Normal"></TextBox>
 
                 <Button Style="{StaticResource MenuButtonStyle}"  Command="{Binding SearchCommand}" Width="30" Height="30" Margin="20,0">

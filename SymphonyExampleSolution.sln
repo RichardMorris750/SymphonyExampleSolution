@@ -75,6 +75,8 @@ Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "SupplierViewer", "SupplierV
 EndProject
 Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "SupplierReport", "SupplierReport\SupplierReport.synproj", "{14590B9B-85D1-46A0-B3D0-88A823AF00EC}"
 EndProject
+Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "ProductGroupViewer", "ProductGroupViewer\ProductGroupViewer.synproj", "{9AF86CF6-EC92-4068-AC22-0A8573287A17}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -253,6 +255,18 @@ Global
 		{14590B9B-85D1-46A0-B3D0-88A823AF00EC}.Release|x64.Build.0 = Release|x64
 		{14590B9B-85D1-46A0-B3D0-88A823AF00EC}.Release|x86.ActiveCfg = Release|x86
 		{14590B9B-85D1-46A0-B3D0-88A823AF00EC}.Release|x86.Build.0 = Release|x86
+		{9AF86CF6-EC92-4068-AC22-0A8573287A17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AF86CF6-EC92-4068-AC22-0A8573287A17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AF86CF6-EC92-4068-AC22-0A8573287A17}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9AF86CF6-EC92-4068-AC22-0A8573287A17}.Debug|x64.Build.0 = Debug|Any CPU
+		{9AF86CF6-EC92-4068-AC22-0A8573287A17}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9AF86CF6-EC92-4068-AC22-0A8573287A17}.Debug|x86.Build.0 = Debug|Any CPU
+		{9AF86CF6-EC92-4068-AC22-0A8573287A17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AF86CF6-EC92-4068-AC22-0A8573287A17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AF86CF6-EC92-4068-AC22-0A8573287A17}.Release|x64.ActiveCfg = Release|Any CPU
+		{9AF86CF6-EC92-4068-AC22-0A8573287A17}.Release|x64.Build.0 = Release|Any CPU
+		{9AF86CF6-EC92-4068-AC22-0A8573287A17}.Release|x86.ActiveCfg = Release|Any CPU
+		{9AF86CF6-EC92-4068-AC22-0A8573287A17}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

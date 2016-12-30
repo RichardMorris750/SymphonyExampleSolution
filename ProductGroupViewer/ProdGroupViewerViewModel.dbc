@@ -1,0 +1,342 @@
+;;**********************************************************************
+;;
+;;Title:       ProductGroupViewerViewModel.dbc
+;;
+;;Type:        Class
+;;
+;;Description: Product Group Viewer
+;;
+;;Author:      Allan Shikhvarg, Synergex Consultant
+;;
+;;Copyright (c) 2012, Synergex International, Inc. All rights reserved.
+;;
+;;Redistribution and use in source and binary forms, with or without
+;;modification, are permitted provided that the following conditions are met:
+;;
+;;* Redistributions of source code must retain the above copyright notice,
+;;; this list of conditions and the following disclaimer.
+;;
+;;* Redistributions in binary form must reproduce the above copyright notice,
+;;; this list of conditions and the following disclaimer in the documentation
+;;; and/or other materials provided with the distribution.
+;;
+;;THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+;;AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+;;IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+;;ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+;;LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+;;CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+;;SUBSTITUTE GOODS OR SERVICES;;LOSS OF USE, DATA, OR PROFITS;;OR BUSINESS
+;;INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+;;CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+;;ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+;;POSSIBILITY OF SUCH DAMAGE.
+;;
+;;*****************************************************************************
+
+
+import System
+import System.Collections.Generic
+import System.Collections.ObjectModel		;required for ObservableCollection<>
+import System.Linq
+import System.Text
+import System.Windows
+
+import AppData								;required for 'models'
+
+import Symphony.Harmony
+import Symphony.Conductor.Model
+import Symphony.Conductor.ViewModel			;required for BaseViewModel, etc.
+import Symphony.Conductor.Commands			;required for GenericCommand, etc.
+import Symphony.Conductor.DataIO
+import Symphony.Conductor.Types
+
+
+namespace ProductGroupViewer
+
+	public class ProdGroupViewerViewModel extends BaseViewModel
+
+
+;;=============================================================================
+.region "Private Variables"
+		private mConnector			,@DBConnector
+		private mProductGroupList	,@AsyncObservableCollection<Product_group_Data>
+		private mSearchCommand		,@GenericCommand
+		private mSelectedProdGroup	,@Product_group_Data
+
+		private mStatus			,i4
+		private mKeyMatch		,boolean	,false
+		private mDescrEnabled	,boolean	,false
+
+		private	mCodeValue		,string	
+		private mDescrValue		,string
+		private mDescrColor		,string
+		
+
+.endregion
+
+;;=============================================================================
+.region 'Properties'
+		public property ProductGroupList, @AsyncObservableCollection<Product_group_Data>
+			method get
+			proc
+				mreturn mProductGroupList
+			endmethod
+		endproperty
+		
+;;-----------------------------------------------------------------------------
+		public property KeyMatch, boolean
+			method get
+			proc
+				mreturn mKeyMatch
+			endmethod
+			method set
+			proc
+				mKeyMatch = value
+				RaisePropertyChanged("KeyMatch")
+
+				if (!mKeyMatch) then
+					DescrEnabled = true
+				else
+					DescrEnabled = false
+			endmethod
+		endproperty
+
+;;-----------------------------------------------------------------------------
+		public property DescrEnabled, boolean
+			method get
+			proc
+				mreturn mDescrEnabled
+			endmethod
+			method set
+			proc
+				mDescrEnabled = value
+				RaisePropertyChanged("DescrEnabled")
+
+				if (mDescrEnabled) then
+					DescrColor = "White"
+				else
+				begin
+					DescrValue = ^null
+					DescrColor = "Gray"
+				end
+			endmethod
+		endproperty
+		
+;;-----------------------------------------------------------------------------
+		public property CodeValue, string
+			method get
+			proc
+				mreturn mCodeValue
+			endmethod
+			method set
+			proc
+				mCodeValue = value
+				RaisePropertyChanged("CodeValue")
+			endmethod
+		endproperty
+		
+;;-----------------------------------------------------------------------------
+		public property DescrValue, string
+			method get
+			proc
+				mreturn mDescrValue
+			endmethod
+			method set
+			proc
+				mDescrValue = value
+				RaisePropertyChanged("DescrValue")
+			endmethod
+		endproperty
+		
+;;-----------------------------------------------------------------------------
+		public property DescrColor, string
+			method get
+			proc
+				mreturn mDescrColor
+			endmethod
+			method set
+			proc
+				mDescrColor = value
+				RaisePropertyChanged("DescrColor")
+			endmethod
+		endproperty
+		
+;;-----------------------------------------------------------------------------		
+		public property SelectedProdGroup, @Product_group_Data
+			method get
+			proc
+				mreturn mSelectedProdGroup
+			endmethod
+			method set
+			proc
+				mSelectedProdGroup = value
+				RaisePropertyChanged("SelectedProdGroup")
+			endmethod
+		endproperty
+
+;;-----------------------------------------------------------------------------		
+		public property SearchCommand, @GenericCommand
+			method get
+			proc
+				if (mSearchCommand == ^null)
+				begin
+					lambda doSearchCommand(sender, param)
+					begin
+						
+						;;if there is no key value, reload the whole list using Symphony Harmony
+						if (string.IsNullOrEmpty(CodeValue)) then
+							loadProdGroupList()
+						else
+						begin
+							mProductGroupList.ClearCollection()
+							
+							data prodGroupObj	,@Product_group_Data	,new Product_group_Data()
+
+;;change this to change the way we access data!!!
+.define DO_SQL_QUERY
+
+.ifdef DO_SQL_QUERY			;;find matching records using Symphony Harmony
+
+							;;define the query
+							data typeOfSearch	,@DataSelect
+
+							if (string.IsNullOrEmpty(mDescrValue)) then
+							begin
+								if (mKeyMatch) then
+									typeOfSearch = new DataSelect(mConnector, "select * from Product_group where Prod_group = :1", new Product_group_Data(), mCodeValue)
+								else
+									typeOfSearch = new DataSelect(mConnector, "select * from Product_group where Prod_group like :1", new Product_group_Data(), mCodeValue)		
+							end
+							else
+								typeOfSearch = new DataSelect(mConnector, "select * from Product_group where Prod_group like :1 and Prod_descr like :2", 
+								&	new Product_group_Data(), atrim(mCodeValue), atrim(mDescrValue))
+
+							foreach prodGroupObj in typeOfSearch
+							begin
+								mProductGroupList.AddToCollection(^as(prodGroupObj, Product_group_Data))
+
+								;;display top record of the list
+								if (mProductGroupList.Count == 1)
+									SelectedProdGroup = prodGroupObj
+							end
+							
+.else						;;find matching records using FileIO objects
+							
+							prodGroupObj.Prod_group = CodeValue
+							
+							data prodGroupIO		,@Product_group_FileIO	,new Product_group_FileIO()
+							
+							;;do we want to do a key match?
+							if (mKeyMatch)
+								prodGroupIO.ForceFullKeyRead = true
+														
+							if (prodGroupIO.ReadRecord(prodGroupObj) == FileAccessResults.Success)
+							begin
+								
+								data accessStatus	,FileAccessResults	,FileAccessResults.Success
+								
+								while(accessStatus == FileAccessResults.Success)
+								begin
+									;;still matching
+									if (string.IsNullOrEmpty(DescrValue) || (!string.IsNullOrEmpty(DescrValue) && ((string)prodGroupObj.Group_desc).ToString().ToUpper().Contains(DescrValue.ToUpper())) )
+										mProductGroupList.AddToCollection(new Product_group_Data(prodGroupObj.SynergyRecord))
+
+									if (mProductGroupList.Count == 1)
+										SelectedProdGroup = prodGroupObj
+																			
+									accessStatus = prodGroupIO.ReadNextRecord(prodGroupObj)
+									
+									if (accessStatus == FileAccessResults.Success && atrim(prodGroupObj.Prod_group) != atrim(CodeValue))
+										accessStatus = FileAccessResults.EndOFDataFile
+								end
+							end
+.endc
+						end ;;else (loads list based on search criteria)
+						
+					end  ;;lambda
+
+					mSearchCommand = new GenericCommand("SEARCH", doSearchCommand)
+				
+				end ;;if (mSearchCommand == ^null)
+				 
+				mreturn mSearchCommand
+			endmethod
+		endproperty
+		
+
+.endregion
+
+;;=============================================================================
+.region 'Methods'	
+		public method ProdGroupViewerViewModel
+			in req sender	,@FrameworkElement
+			endparams
+			parent(sender)
+
+		proc
+			;;establish connection using Symphony Harmony
+			mConnector = new DBConnector("SYMLOCAL:richard/morris!AppData.TableMapper.MapTableToFile")
+			
+			;;enable case insensitive comparisons:
+			mConnector.SetCaseSensitivity(false)
+			
+			;;load the product group list
+			loadProdGroupList()
+
+			;;enable Key Description search field
+			DescrEnabled = true
+
+		endmethod
+
+;;-----------------------------------------------------------------------------	
+		private method loadProdGroupList, void
+			endparams
+		
+		proc
+			try
+			begin
+				;;instantiate list if applicable
+				if (mProductGroupList == ^null)
+				begin
+					mProductGroupList = new AsyncObservableCollection<Product_group_Data>()
+				end
+
+				SelectedProdGroup = ^null
+				
+				;;load each item individually
+				mProductGroupList.ClearCollection()
+				data item			,@DataObjectBase
+				data typeOfSearch	,@DataSelect
+				
+				;;is requested search as per specific CodeValue?
+				if (string.IsNullOrEmpty(mCodeValue)) then
+					typeOfSearch = new DataSelect(mConnector, "select * from Product_group", new Product_group_Data())
+				else
+					typeOfSearch = new DataSelect(mConnector, "select * from Product_group where prod_group like :1", new Product_group_Data(), mCodeValue)
+				
+				foreach item in typeOfSearch
+				begin
+					mProductGroupList.AddToCollection(^as(item, Product_group_Data))
+
+					;;display top record of the list
+					if (mProductGroupList.Count == 1)
+						SelectedProdGroup = ^as(item, Product_group_Data)
+				end
+
+				mStatus = 0	
+			end
+			catch (e, @Exception)
+			begin
+				mStatus = %error()
+			end
+			endtry
+					
+		endmethod
+
+
+.endregion
+	
+	endclass
+
+endnamespace

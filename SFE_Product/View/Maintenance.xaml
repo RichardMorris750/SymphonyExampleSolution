@@ -45,6 +45,12 @@
                     </BooleanAnimationUsingKeyFrames>
                     <Int32Animation Storyboard.TargetName="prodGrpLookupView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
 
+                    <DoubleAnimation Storyboard.TargetName="suppCodeLookupView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0" To="0" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="suppCodeLookupView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="suppCodeLookupView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+
                 </Storyboard>
             </VisualState>
 
@@ -62,6 +68,12 @@
                         <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
                     </BooleanAnimationUsingKeyFrames>
                     <Int32Animation Storyboard.TargetName="prodGrpLookupView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+
+                    <DoubleAnimation Storyboard.TargetName="suppCodeLookupView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0" To="0" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="suppCodeLookupView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="suppCodeLookupView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
 
                     <DoubleAnimation Storyboard.TargetName="errorView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.2" To="1" />
                     <BooleanAnimationUsingKeyFrames Storyboard.TargetName="errorView" Storyboard.TargetProperty="(IsEnabled)">
@@ -87,6 +99,12 @@
                     </BooleanAnimationUsingKeyFrames>
                     <Int32Animation Storyboard.TargetName="errorView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
 
+                    <DoubleAnimation Storyboard.TargetName="suppCodeLookupView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0" To="0" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="suppCodeLookupView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="suppCodeLookupView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+
                     <DoubleAnimation Storyboard.TargetName="prodGrpLookupView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.2" To="1" />
                     <BooleanAnimationUsingKeyFrames Storyboard.TargetName="prodGrpLookupView" Storyboard.TargetProperty="(IsEnabled)">
                         <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True"/>
@@ -110,6 +128,12 @@
                         <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
                     </BooleanAnimationUsingKeyFrames>
                     <Int32Animation Storyboard.TargetName="errorView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+
+                    <DoubleAnimation Storyboard.TargetName="prodGrpLookupView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0" To="0" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="prodGrpLookupView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="prodGrpLookupView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
 
                     <DoubleAnimation Storyboard.TargetName="suppCodeLookupView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.2" To="1" />
                     <BooleanAnimationUsingKeyFrames Storyboard.TargetName="suppCodeLookupView" Storyboard.TargetProperty="(IsEnabled)">

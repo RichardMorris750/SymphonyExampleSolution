@@ -22,7 +22,6 @@
     <Color x:Key="BlueColour" >#0070DF</Color>
     <Color x:Key="BrightBlueColour" >#42A0FF</Color>
     <Color x:Key="WhiteColour">#F0F0F0</Color>
-
     <Color x:Key="OrangeColour">#F0F0F0</Color>
 
     <SolidColorBrush x:Key="BackgroundPrimaryBrush" Color="{StaticResource GreyColour}"></SolidColorBrush>

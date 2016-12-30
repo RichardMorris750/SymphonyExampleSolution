@@ -28,6 +28,7 @@
     <ResourceType>Icon</ResourceType>
     <ResourceName />
     <NoWin32Manifest />
+    <IncludeDebugInformation>False</IncludeDebugInformation>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

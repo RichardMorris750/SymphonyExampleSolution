@@ -25,6 +25,7 @@
     <Name>SupplierReport</Name>
     <TargetPlatform>v452</TargetPlatform>
     <EnableCommonProperties>True</EnableCommonProperties>
+    <IncludeDebugInformation>False</IncludeDebugInformation>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

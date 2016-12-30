@@ -75,7 +75,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
     <Prefer32Bit Condition=" '$(TargetFrameworkVersion)'  != 'v4.0' AND '$(Prefer32Bit)' != 'false' ">False</Prefer32Bit>
-    <IncludeDebugInformation>true</IncludeDebugInformation>
+    <IncludeDebugInformation>False</IncludeDebugInformation>
     <PlatformTarget>x64</PlatformTarget>
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
     <DebugOptimize>Optimize</DebugOptimize>

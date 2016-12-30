@@ -37,6 +37,7 @@
     <IsWebBootstrapper>False</IsWebBootstrapper>
     <UseApplicationTrust>False</UseApplicationTrust>
     <BootstrapperEnabled>True</BootstrapperEnabled>
+    <IncludeDebugInformation>False</IncludeDebugInformation>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

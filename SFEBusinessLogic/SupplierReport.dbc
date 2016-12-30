@@ -29,9 +29,8 @@ namespace SFEBusinessLogic
 			in req ReportType	,a		;R = Print API, P = PDF
 			endparams
 			
-			.include 'DBLDIR:winprint.def'
-			
-			
+
+					
 			
 		proc
 			;;let's load the supplier using Symphony Harmony and a local connection
@@ -48,8 +47,7 @@ namespace SFEBusinessLogic
 			data suppObj	,@Supplier_Data	,new Supplier_Data()
 			
 			data dataSearch	,@DataSelect
-			
-			data pline	,a132
+
 			data lineCount,	i4	,99
 			data lineMax	,i4	,60
 			
@@ -57,9 +55,9 @@ namespace SFEBusinessLogic
 			
 			foreach suppObj in dataSearch
 			begin
-				if lineCount .ge. lineMax
+				if (lineCount >= lineMax)
 				begin
-					if lineCount .ne.99
+					if (lineCount != 99)
 						SFEUtilities.SFEPrinting.FormFeed()
 					
 					SFEUtilities.SFEPrinting.SetFont("Cambria",14)
@@ -79,25 +77,25 @@ namespace SFEBusinessLogic
 				SFEUtilities.SFEPrinting.PrintField(lineCount,43,suppObj.Phone)
 				SFEUtilities.SFEPrinting.PrintField(lineCount,60,suppObj.Email)
 				
-				if suppObj.address1
+				if (suppObj.address1)
 				begin
 					incr lineCount
 					SFEUtilities.SFEPrinting.PrintField(lineCount,10,suppObj.Address1)			
 				end
 				
-				if suppObj.address2
+				if (suppObj.address2)
 				begin
 					incr lineCount
 					SFEUtilities.SFEPrinting.PrintField(lineCount,10,suppObj.Address2)		
 				end
 				
-				if suppObj.address3
+				if (suppObj.address3)
 				begin
 					incr lineCount
 					SFEUtilities.SFEPrinting.PrintField(lineCount,10,suppObj.Address3)		
 				end
 				
-				if suppObj.postcode
+				if (suppObj.postcode)
 				begin				
 					incr lineCount
 					SFEUtilities.SFEPrinting.PrintField(lineCount,10,suppObj.Postcode)		
@@ -106,7 +104,7 @@ namespace SFEBusinessLogic
 				incr lineCount
 				SFEUtilities.SFEPrinting.SetFont(,12)
 				SFEUtilities.SFEPrinting.PrintField(lineCount,1,'END OF SUPPLIER')
-;				incr lineCount
+
 				SFEUtilities.SFEPrinting.SetFont(,10)
 			end
 			

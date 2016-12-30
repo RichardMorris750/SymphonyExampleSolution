@@ -3010,7 +3010,7 @@ eof,
         ;;; <summary>
         ;;; Print a PDF file directly from disk.
         ;;; </summary>
-        ;;; <param name="aPPdfFileName">Name of PDF file to be printed.</param>
+        ;;; <param name="aPPdfFileSpec">Name of PDF file to be printed.</param>
         ;;; <param name="aPrinterName">Optional printer name. If not passed then the users default printer is used.</param>
         ;;; <param name="aErrorMessage">Optional returned error message.</param>
         ;;; <returns></returns>
@@ -3272,7 +3272,7 @@ eof,
         ;;; <summary>
         ;;; Converts a column number to an X coordinate.
         ;;; </summary>
-        ;;; <param name="aCol"></param>
+        ;;; <param name="aColumn"></param>
         ;;; <returns></returns>
         public method XfromColumn, float
             required in aColumn, int
@@ -3287,7 +3287,7 @@ eof,
         ;;; <summary>
         ;;; Converts a body row number to a Y coordinate.
         ;;; </summary>
-        ;;; <param name="aRow"></param>
+        ;;; <param name="aBodyRow"></param>
         ;;; <returns></returns>
         public method YfromBodyRow, float
             required in aBodyRow, int

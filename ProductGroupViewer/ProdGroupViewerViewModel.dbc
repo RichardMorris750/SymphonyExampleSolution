@@ -165,7 +165,7 @@ namespace ProductGroupViewer
 					lambda doSearchCommand(sender, param)
 					begin
 						
-						;;if there is no key value, reload the whole list using Symphony Harmony
+						;;if there is no key value for the code, reload the whole list using Symphony Harmony
 						if (string.IsNullOrEmpty(CodeValue)) then
 							loadProdGroupList()
 						else
@@ -190,7 +190,7 @@ namespace ProductGroupViewer
 									typeOfSearch = DataSelect.RunDataSelect(mConnector, "select * from Product_group where Prod_group like :1", new Product_group_Data(), mCodeValue).Result		
 							end
 							else
-								typeOfSearch = DataSelect.RunDataSelect(mConnector, "select * from Product_group where Prod_group like :1 and Prod_descr like :2", 
+								typeOfSearch = DataSelect.RunDataSelect(mConnector, "select * from Product_group where Prod_group like :1 and Group_desc like :2", 
 								&	new Product_group_Data(), mCodeValue, mDescrValue).Result
 
 							foreach prodGroupObj in typeOfSearch
@@ -289,13 +289,13 @@ namespace ProductGroupViewer
 				mProductGroupList.ClearCollection()
 				data item			,@DataObjectBase
 				data typeOfSearch	,@DataSelect
-				
-				;;is requested search as per specific CodeValue?
-				if (string.IsNullOrEmpty(mCodeValue)) then
+
+				; search on description if applicable else load the whole list
+				if (string.IsNullOrEmpty(mDescrValue)) then
 					typeOfSearch = DataSelect.RunDataSelect(mConnector, "select * from Product_group", new Product_group_Data()).Result
 				else
-					typeOfSearch = DataSelect.RunDataSelect(mConnector, "select * from Product_group where prod_group like :1", new Product_group_Data(), mCodeValue).Result
-				
+					typeOfSearch = DataSelect.RunDataSelect(mConnector, "select * from Product_group where Group_desc like :1", new Product_group_Data(), mDescrValue).Result
+
 				foreach item in typeOfSearch
 				begin
 					mProductGroupList.AddToCollection(^as(item, Product_group_Data))

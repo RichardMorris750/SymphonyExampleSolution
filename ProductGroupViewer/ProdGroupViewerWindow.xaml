@@ -1,8 +1,14 @@
 ﻿<Window x:Class="ProductGroupViewer.ProdGroupViewerWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="Product Group Viewer" Height="600" Width="450" FontWeight="ExtraLight">
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:symTrigger="clr-namespace:Symphony.Conductor.Triggers;assembly=SymphonyConductor"
+    mc:Ignorable="d" 
+   Title="Product Group Viewer" FontWeight="ExtraLight" Height="600" Width="450" WindowStartupLocation="CenterScreen">
 
+    
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -59,7 +65,12 @@
 
         <DataGrid Grid.Row="2" Margin="4" Padding="4" BorderThickness="0" Background="Aqua" ItemsSource="{Binding Path=ProductGroupList}" AutoGenerateColumns="False" 
                   IsReadOnly="True" SelectedItem="{Binding Path=SelectedProdGroup}">
-                           
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Sorting">
+                    <symTrigger:DataGridCustomerSorting ItemsSource="{Binding Path=ProductGroupList}"></symTrigger:DataGridCustomerSorting>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Code" Binding="{Binding Path=Prod_group}" Width="60" ></DataGridTextColumn>
                 <DataGridTextColumn Header="Name" Binding="{Binding Path=Group_desc}" Width="*"></DataGridTextColumn>

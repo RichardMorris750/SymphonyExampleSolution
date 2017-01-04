@@ -76,6 +76,11 @@ EndProject
 Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "SupplierReport", "SupplierReport\SupplierReport.synproj", "{14590B9B-85D1-46A0-B3D0-88A823AF00EC}"
 EndProject
 Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "ProductGroupViewer", "ProductGroupViewer\ProductGroupViewer.synproj", "{9AF86CF6-EC92-4068-AC22-0A8573287A17}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D7ACAD11-026E-4DAA-ACF9-B481F8E298A3} = {D7ACAD11-026E-4DAA-ACF9-B481F8E298A3}
+		{042C6FDF-2E91-4CBA-A1AC-336122022826} = {042C6FDF-2E91-4CBA-A1AC-336122022826}
+		{EE7B1BE6-CA7B-47D7-8CD9-837577C149C2} = {EE7B1BE6-CA7B-47D7-8CD9-837577C149C2}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

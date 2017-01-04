@@ -44,14 +44,14 @@
                         <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
+                        <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                        <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                        <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                        <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                        <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                        <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                        <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                        <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
                     </Grid.RowDefinitions>
 
                     <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource Product_Prod_code_prompt}"></Label>

@@ -2,6 +2,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:symphonyControls="clr-namespace:Symphony.Conductor.Controls;assembly=SymphonyConductor">
 
+    <!--standard values/literals -->
+
+    <GridLength x:Key="StandardInputGridHeight">25</GridLength>
+    
+    <!-- standard colors -->
+    
     <Color x:Key="BorderLightColor">#FFCCCCCC</Color>
     <Color x:Key="BorderMediumColor">#FF888888</Color>
     <Color x:Key="BorderDarkColor">#FF444444</Color>

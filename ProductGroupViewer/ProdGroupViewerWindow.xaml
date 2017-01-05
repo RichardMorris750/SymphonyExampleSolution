@@ -4,106 +4,130 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:symControl="clr-namespace:Symphony.Conductor.Controls;assembly=SymphonyConductor"
     xmlns:symTrigger="clr-namespace:Symphony.Conductor.Triggers;assembly=SymphonyConductor"
+    xmlns:sfeUICommon="clr-namespace:SFE_UI.Common;assembly=SFE_UI"
     mc:Ignorable="d" 
-   Title="Product Group Viewer" FontWeight="ExtraLight" Height="600" Width="450" WindowStartupLocation="CenterScreen">
-
+    Title="Product Group Viewer" Height="600" Width="400" WindowStartupLocation="CenterScreen">
     
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/SymphonyConductor;component/Resources/Converters.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SFE_UI;component/Resources/AppStyling.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SFE_UI;component/Resources/Product_group_Style.CodeGen.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <Style x:Key="ColorStyle" TargetType="TextBox">
-                <Setter Property="Background" Value="White"></Setter>
-                <Style.Triggers >
+            
+            <Style x:Key="KeyMatchStyle" TargetType="TextBox">
+                <Setter Property="TextBox.Background" Value="Transparent"/>
+                <Setter Property="TextBox.Foreground" Value="{StaticResource InputForegroundBrush}"/>
+                <Style.Triggers>
                     <Trigger Property="IsEnabled" Value="False">
-                        <Setter Property="Background" Value="Gray"></Setter>
-                        <Setter Property="Opacity" Value=".3"></Setter>
+                        <Setter Property="Background" Value="{StaticResource BackgroundPrimaryBrush}"/>
+                        <Setter Property="Opacity" Value=".1"/>
                     </Trigger>
                 </Style.Triggers>
             </Style>
+
+            <Style x:Key="CheckBoxStyle" TargetType="{x:Type CheckBox}">
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="Foreground" Value="{StaticResource LabelColorBrush}"/>
+                <Setter Property="Background" Value="Transparent"/>
+            </Style>
+          
             <Style x:Key="SelectStyle" TargetType="TextBox">
-                <Setter Property="Margin" Value="5"></Setter>
-                <Setter Property="Background" Value="Salmon"></Setter>
-                <Setter Property="Opacity" Value=".2"></Setter>
-                <Setter Property="HorizontalAlignment" Value="Left"></Setter>
-                <Setter Property="VerticalAlignment" Value="Center"></Setter>
-                <Setter Property="CharacterCasing" Value="Upper"></Setter>
-                <Setter Property="IsReadOnly" Value="True"></Setter>
-                <Setter Property="FontWeight" Value="UltraBlack"></Setter>
-                <Setter Property="FontStyle" Value="Oblique"></Setter>
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="Background" Value="Salmon"/>
+                <Setter Property="Opacity" Value=".2"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="CharacterCasing" Value="Upper"/>
+                <Setter Property="IsReadOnly" Value="True"/>
+                <Setter Property="FontWeight" Value="UltraBlack"/>
+                <Setter Property="FontStyle" Value="Oblique"/>
             </Style>
         </ResourceDictionary>
     </Window.Resources>
     
-    <Grid Background="Azure">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <Border>
-            <StackPanel Orientation="Horizontal">
-                <Label Margin="25,10 15,10">Key Code</Label>
-                <TextBox Text="{Binding Path=CodeValue}" Margin="0,15,15,15" MaxLength="3" Width="40" CharacterCasing="Upper"></TextBox>
-                <Label Margin="15,10 15,10">Key Description</Label>
-                <TextBox Text="{Binding Path=DescrValue}" Margin="0,15,15,15" MaxLength="20" Width="115" CharacterCasing="Upper" 
-                         IsEnabled="{Binding Path=DescrEnabled}" Style="{StaticResource ColorStyle}">
+        <Border Margin="10">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <Label VerticalAlignment="Center">Key Code</Label>
+                <TextBox Text="{Binding Path=CodeValue}" Margin="5,15,30,15" MaxLength="3" Width="40" CharacterCasing="Upper"/>
+                <Label VerticalAlignment="Center">Key Description</Label>
+                <TextBox Text="{Binding Path=DescrValue}" Margin="5,15,15,15" MaxLength="20" Width="115" CharacterCasing="Upper" 
+                         IsEnabled="{Binding Path=DescrEnabled}" Style="{StaticResource KeyMatchStyle}">
                </TextBox>
             </StackPanel>
         </Border>
 
-        <Border Grid.Row="1">
+        <Border Grid.Row="1" Margin="10">
             <StackPanel Orientation="Horizontal">
-                <CheckBox IsChecked="{Binding Path=KeyMatch}" Margin="25,15,10,15" VerticalAlignment="Center">Match on whole key?</CheckBox>
-                <Button Command="{Binding Path=SearchCommand}" Margin="110,15,15,15" Padding="5" Width="50" Background="Red" FontWeight="Medium">Search</Button>
+                <CheckBox IsChecked="{Binding Path=KeyMatch}" VerticalAlignment="Center" Style="{StaticResource CheckBoxStyle}">Match on whole key?</CheckBox>
+                <Button Style="{StaticResource MenuButtonStyle}"  Command="{Binding SearchCommand}" Width="30" Height="30" Margin="25,0">
+                    <Button.Content>
+                        <Image Source="pack://application:,,,/SFE_UI;component/Images/Icons/search.png" RenderTransformOrigin="2.114,0.367" HorizontalAlignment="Center" Width="30"/>
+                    </Button.Content>
+                </Button>
             </StackPanel>
         </Border>
 
-        <DataGrid Grid.Row="2" Margin="4" Padding="4" BorderThickness="0" Background="Aqua" ItemsSource="{Binding Path=ProductGroupList}" AutoGenerateColumns="False" 
-                  IsReadOnly="True" SelectedItem="{Binding Path=SelectedProdGroup}">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="Sorting">
-                    <symTrigger:DataGridCustomerSorting ItemsSource="{Binding Path=ProductGroupList}"></symTrigger:DataGridCustomerSorting>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
+        <Border Grid.Row="2" Margin="4" Padding="4" BorderThickness="0" CornerRadius="5" BorderBrush="{StaticResource BorderBrush}">
+            <DataGrid Background="Aqua" ItemsSource="{Binding Path=ProductGroupList}" AutoGenerateColumns="False" 
+                IsReadOnly="True" SelectedItem="{Binding Path=SelectedProdGroup}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Sorting">
+                        <symTrigger:DataGridCustomerSorting ItemsSource="{Binding Path=ProductGroupList}"></symTrigger:DataGridCustomerSorting>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
 
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Code" Binding="{Binding Path=Prod_group}" Width="60" ></DataGridTextColumn>
-                <DataGridTextColumn Header="Name" Binding="{Binding Path=Group_desc}" Width="*"></DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Code" Binding="{Binding Path=Prod_group}" Width="60"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Group_desc}" Width="*"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
 
-        <Border Grid.Row="3">
+        <Border Grid.Row="3" Margin="10" DataContext="{Binding Path=SelectedProdGroup}">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="130" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Label  Margin="5" VerticalAlignment="Center">Product Group Code</Label>
-                
-                <TextBox Grid.Column="1" Text="{Binding Path=SelectedProdGroup.Prod_group, Converter={StaticResource alphaConverter}}" 
-                    Width="50" Style="{StaticResource SelectStyle}">
-                </TextBox>
-                   
-                <Label  Grid.Row="1" Margin="5" VerticalAlignment="Center">Product Group Name</Label>
-                 
-                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=SelectedProdGroup.Group_desc, Converter={StaticResource alphaConverter}}" 
-                    Width="120" Style="{StaticResource SelectStyle}">
-                </TextBox>
-                          
+                <Label Style="{StaticResource Product_group_Prod_group_prompt}"/>
+                <symControl:FieldControl Grid.Column="1" Style="{StaticResource Product_group_Prod_group_style}"></symControl:FieldControl>
+
+                <Label  Grid.Row="1" Style="{StaticResource Product_group_Group_desc_prompt}"/>
+                <symControl:FieldControl Grid.Row="1" Grid.Column="1" Style="{StaticResource Product_group_Group_desc_style}"></symControl:FieldControl>
             </Grid>
-                        
+        </Border>
+ 
+        <Border Grid.Row="4">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StatusBarItem Grid.Column="1">
+                    <TextBlock Foreground="{StaticResource StatusBarItemForegroundBrush}" Background="{StaticResource StatusBarItemBackgroundBrush}">Icons provided by www.icons8.com</TextBlock>
+                </StatusBarItem>
+            </Grid>
         </Border>
         
     </Grid>
+    
 </Window>

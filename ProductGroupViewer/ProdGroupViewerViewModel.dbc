@@ -302,7 +302,13 @@ namespace ProductGroupViewer
 
 					;;display top record of the list
 					if (mProductGroupList.Count == 1)
+					begin
 						SelectedProdGroup = ^as(item, Product_group_Data)
+
+						SelectedProdGroup.Prod_groupIsReadOnly = true
+						SelectedProdGroup.Group_descIsReadOnly = true
+					end
+						
 				end
 
 				mStatus = 0	

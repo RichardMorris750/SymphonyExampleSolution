@@ -44,14 +44,14 @@
                         <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
+                        <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                        <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                        <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                        <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                        <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                        <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                        <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                        <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
                     </Grid.RowDefinitions>
 
                     <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource Product_Prod_code_prompt}"></Label>
@@ -89,11 +89,11 @@
                     </Border>
 
                     <Border Grid.Row="3" Grid.Column="4" BorderThickness="0" >
-                        <TextBlock Foreground="#42A0FF" Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=GroupName}"></TextBlock>
+                        <TextBlock Foreground="{StaticResource InputForegroundBrush}" Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=GroupName}"></TextBlock>
                     </Border>
 
                     <Border Grid.Row="4" Grid.Column="4" BorderThickness="0"  >
-                        <TextBlock Foreground="#42A0FF" Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=SupplierName}"></TextBlock>
+                        <TextBlock Foreground="{StaticResource InputForegroundBrush}" Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=SupplierName}"></TextBlock>
                     </Border>
 
                 </Grid>

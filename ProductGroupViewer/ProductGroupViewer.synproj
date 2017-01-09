@@ -196,6 +196,11 @@
       <Project>{1c61e987-fbd9-49b8-b987-8a30d6ef3218}</Project>
       <Private>True</Private>
     </ProjectReference>
+    <ProjectReference Include="..\SFE_UI\SFE_UI.synproj">
+      <Name>SFE_UI</Name>
+      <Project>{042c6fdf-2e91-4cba-a1ac-336122022826}</Project>
+      <Private>True</Private>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">

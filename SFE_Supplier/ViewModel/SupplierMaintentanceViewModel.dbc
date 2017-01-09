@@ -1,10 +1,10 @@
 ;;**********************************************************************
 ;;
-;; Title:       GroupMaintentanceViewModel.dbc
+;; Title:       SupplierMaintentanceViewModel.dbc
 ;;
 ;; Type:        Class
 ;;
-;; Description: Group maintenance
+;; Description: Supplier maintenance
 ;;
 ;; Author:      Richard C. Morris, Synergex Technology Evangelist
 ;;
@@ -49,29 +49,29 @@ import Symphony.Conductor.Commands
 import Symphony.Conductor.DataIO
 import Symphony.Conductor.Types
 
-namespace SFE_Group.ViewModel
+namespace SFE_Supplier.ViewModel
 
-	public class GroupMaintentanceViewModel extends FileMaintViewModel
+	public class SupplierMaintentanceViewModel extends FileMaintViewModel
 
-		private static mGroup	,@Product_group_Data	,new product_group_Data()
+		private static mSupplier	,@Supplier_Data	,new Supplier_Data()
 
-		public method GroupMaintentanceViewModel
+		public method SupplierMaintentanceViewModel
 			sender									,@FrameworkElement
 			endparams
-			parent(sender, mGroup.GetType(), new Product_group_FileIO(FileOpenMode.UpdateIndexed), "ShowErrorState")
+			parent(sender, mSupplier.GetType(), new Supplier_FileIO(FileOpenMode.UpdateIndexed), "ShowErrorState")
 		proc
 			this.ProgramModeChanged += doProgramModeChanged
 
 			;;we can use the stndard list loding method built into the base class or
 			;;load the list ourselves
-
-			DataObjectEntryItem = (DataObjectBase)new Product_group_Data()
+			DataObjectEntryItem = (DataObjectBase)new Supplier_Data()
 			DataObjectEntryItem.IsDataModifiedChanged += DoIsDataModified
 			
 			this.LoadDetailList()
 		endmethod
 
-		private method doProgramModeChanged	,void	
+		;--------------------------------------------------------------------------------------
+		private method doProgramModeChanged	,void
 			in req currentMode				,ProgramMode
 			endparams
 		proc
@@ -81,70 +81,71 @@ namespace SFE_Group.ViewModel
 			using currentMode select
 			(ProgramMode.Modify),
 			begin
-				DataObjectEntryItem.SetFieldReadOnlyStatus(true, "PROD_GROUP")
+				DataObjectEntryItem.SetFieldReadOnlyStatus(true, "SUPP_CODE")
 			end
 			(ProgramMode.Add),
 			begin
-				DataObjectEntryItem.SetFieldReadOnlyStatus(false, "PROD_GROUP")
+				DataObjectEntryItem.SetFieldReadOnlyStatus(false, "SUPP_CODE")
 			end
 			(ProgramMode.Enquiry),
 			begin
-				DataObjectEntryItem.SetFieldReadOnlyStatus(true, "PROD_GROUP")
+				DataObjectEntryItem.SetFieldReadOnlyStatus(true, "SUPP_CODE")
 			end
 			endusing
 		endmethod
-	
-		;-----------------------------------------------------------------------------------
+
+
+;-----------------------------------------------------------------------------------
 		public override method LoadBaseItemCollection, void
 			endparams
-			
-			
-		proc
-			
-			
-			data item = new Product_group_Data()
-			data Product_groupIO = new Product_group_FileIO(FileOpenMode.InputIndexed)
-			
+		
+		proc	
+
+			data item = new Supplier_Data()
+			data supplierIO = new Supplier_FileIO()
+		
 			;;clear the list down
 			this.DataObjectCollection.ClearCollection()
-			
-			data Product_groupStatus	,FileAccessResults	,Product_groupIO.ReadFirstRecord(item)
-			while (Product_groupStatus == FileAccessResults.Success)
+		
+			data supplierStatus	,FileAccessResults	,supplierIO.ReadFirstRecord(item)
+			while (supplierStatus == FileAccessResults.Success)
 			begin
 				data add	,boolean, false
 				data kWord	,a50
 				data Desc	,a50
 				kWord = mKeyWord
 				upcase kWord
-				Desc = item.group_desc
+				Desc = item.Name
 				upcase desc
-				
+			
 				if (!mKeyValue && !mKeyWord)
 					add = true
 				
-				if  (mKeyValue != ^null && !mKeyWord ) &&  (atrim(mKeyValue) == item.prod_group)
+				if  (mKeyValue != ^null && !mKeyWord ) &&  (atrim(mKeyValue) == item.supp_code)
 					add=true
 				
 				if  (mKeyWord != ^null && !mKeyValue) && (instr(1,desc,atrim(kWord)))
 					add=true
 				
-				if  (mKeyWord != ^null && mKeyValue != ^null) && (instr(1,Desc,atrim(kWord)))  &&  (atrim(mKeyValue) == item.Prod_group)
+				if  (mKeyWord != ^null && mKeyValue != ^null) && (instr(1,Desc,atrim(kWord)))  &&  (atrim(mKeyValue) == item.Supp_code)
 					add=true
 				
 				if (add)
 				begin
-					data tmpDO = new Product_group_Data(item.SynergyRecord)
+					data tmpDO = new Supplier_Data(item.SynergyRecord)
 					tmpDO.GlobalRFA = item.GlobalRFA
-					this.DataObjectCollection.AddToCollection((DataObjectBase)tmpDO)				
+					this.DataObjectCollection.AddToCollection((DataObjectBase)tmpDO)									
 				end
-				Product_groupStatus = Product_groupIO.ReadNextRecord(item)
+				supplierStatus = supplierIO.ReadNextRecord(item)
 			end
-			
-		endmethod
 		
+		endmethod
+
+
+
 ;----------------------------------------------------------------------------------------------
 		private mKeyWord	,string
-		
+	
 		public property KeyWord, string
 			method get
 			proc
@@ -155,12 +156,12 @@ namespace SFE_Group.ViewModel
 				mKeyWord = value
 				RaisePropertyChanged("KeyWord")
 			endmethod
-			
+		
 		endproperty
-		
-		
+	
+	
 		private	mKeyValue	,string	
-		
+	
 		public property KeyValue, string
 			method get
 			proc
@@ -172,70 +173,66 @@ namespace SFE_Group.ViewModel
 				RaisePropertyChanged("KeyValue")
 			endmethod
 		endproperty
-		
+	
 ;------------------------------------------------------------------------------------------------------
-		
+	
 		private mSearchCommand	,@GenericCommand
-		
+	
 		public property SearchCommand, @GenericCommand
 			method get
 			proc
-				
+			
 				if (mSearchCommand == ^null)
 				begin
 					lambda doCommand(sender, param)
 					begin
-;;						LoadDetailList()
 						LoadBaseItemCollection()
 					end
 					mSearchCommand = new GenericCommand("SEARCH", doCommand)
 				end
-				
+			
 				mreturn mSearchCommand
 			endmethod
 		endproperty
-		
-		
+	
+	
 		private mPrintCommand	,@GenericCommand
-		
+	
 		public property PrintCommand, @GenericCommand
 			method get
 			proc
-				
+			
 				if (mPrintCommand == ^null)
 				begin
 					lambda doCommand(sender, param)
 					begin
-						SFE_Group.ProductGroupReport.Print("R",mKeyValue,mKeyWord)
+						SFE_Supplier.SupplierReport.Print("R",mKeyValue,mKeyWord)
 					end
-					mSearchCommand = new GenericCommand("PRINT", doCommand)
+					mPrintCommand = new GenericCommand("PRINT", doCommand)
 				end
-				
-				mreturn mSearchCommand
+			
+				mreturn mPrintCommand
 			endmethod
 		endproperty
-		
+	
 		private mPDFCommand	,@GenericCommand
-		
+	
 		public property PDFCommand, @GenericCommand
 			method get
 			proc
-				
+			
 				if (mPDFCommand == ^null)
 				begin
 					lambda doCommand(sender, param)
 					begin
-						SFE_Group.ProductGroupReport.Print("P",mKeyValue,mKeyWord)
+						SFE_Supplier.SupplierReport.Print("P",mKeyValue,mKeyWord)
 					end
-					mSearchCommand = new GenericCommand("PDF", doCommand)
+					mPDFCommand = new GenericCommand("PDF", doCommand)
 				end
-				
-				mreturn mSearchCommand
+			
+				mreturn mPDFCommand
 			endmethod
 		endproperty
-
-
-
+	
 	endclass
-
 endnamespace

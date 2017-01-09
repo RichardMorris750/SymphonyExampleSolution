@@ -4,7 +4,7 @@
     xmlns:symControl="clr-namespace:Symphony.Conductor.Controls;assembly=SymphonyConductor"
     xmlns:localUI="clr-namespace:SFEAppShell.View"
     xmlns:sfeuiCommon="clr-namespace:SFE_UI.Common;assembly=SFE_UI"
-    xmlns:sfeuiSupplier="clr-namespace:SEF_Supplier.View;assembly=SEF_Supplier"
+    xmlns:sfeuiSupplier="clr-namespace:SFE_Supplier.View;assembly=SFE_Supplier"
     xmlns:sfeuiProduct="clr-namespace:SFE_Product.View;assembly=SFE_Product"
     xmlns:sfeuiGroup="clr-namespace:SFE_Group.View;assembly=SFE_Group"
         Loaded="Window_Loaded" WindowStartupLocation="CenterScreen"

@@ -11,18 +11,28 @@ import System.Windows.Media
 import System.Windows.Media.Imaging
 import System.Windows.Navigation
 import System.Windows.Shapes
+import SFE_Supplier.ViewModel
 
-namespace SEF_Supplier.View
+namespace SFE_Supplier.View
 
     ;;; <summary>
-    ;;; Interaction logic for OverviewList.xaml
+    ;;; Interaction logic for Maintenance.xaml
     ;;; </summary>
-    public partial class OverviewList extends UserControl
+    public partial class Maintenance extends UserControl
     
-        public method OverviewList
+        public method Maintenance
         endparams
         proc
-            this.InitializeComponent()
-        endmethod
+			this.InitializeComponent()
+		endmethod
+		
+		private method UserControl_Loaded, void
+			sender, @object 
+			e, @System.Windows.RoutedEventArgs 
+			endparams
+		proc
+			this.DataContext = new SupplierMaintentanceViewModel(this)
+		endmethod
+		
     endclass
 endnamespace

@@ -54,24 +54,25 @@ namespace SFE_Product
 			data lineCount,	i4	
 			data firstPage	,boolean, true
 		
+
 			if (!KeyWord && !KeyValue)
-				dataSearch = new DataSelect(mConnector, "select * from product", new Product_Data())
-				
+				dataSearch = DataSelect.RunDataSelect(mConnector, "select * from product", new Product_Data()).Result
+
 			if (!KeyWord && KeyValue)
-				dataSearch = new DataSelect(mConnector, "select * from product where prod_code like:1", new Product_Data(), KeyValue)
+				dataSearch = DataSelect.RunDataSelect(mConnector, "select * from product where prod_code like:1", new Product_Data(), KeyValue).Result
 
 			if (!KeyValue && KeyWord)
-				dataSearch = new DataSelect(mConnector, "select * from product where prod_description like:1", new Product_Data(), KeyWord)
+				dataSearch =DataSelect.RunDataSelect(mConnector, "select * from product where prod_description like:1", new Product_Data(), KeyWord).Result
 
 			if (KeyValue && KeyWord)
-				dataSearch = new DataSelect(mConnector, "select * from product where prod_code like:1 and prod_description like:2", new Product_Data(), KeyValue,KeyWord)
+				dataSearch = DataSelect.RunDataSelect(mConnector, "select * from product where prod_code like:1 and prod_description like:2", new Product_Data(), KeyValue,KeyWord).Result
 
 			foreach productObj in dataSearch
 			begin
 				SFEUtilities.SFEPrinting.SetFont("Calibri",10)
-				if firstPage || SFEUtilities.SFEPrinting.LinesLeft < 11
+				if (firstPage || SFEUtilities.SFEPrinting.LinesLeft < 11)
 				begin
-					if !firstPage
+					if (!firstPage)
 						SFEUtilities.SFEPrinting.FormFeed()
 					
 					firstPage = false
@@ -98,9 +99,10 @@ namespace SFE_Product
 				SFEUtilities.SFEPrinting.PrintField(lineCount,70,productObj.GroupName)
 				SFEUtilities.SFEPrinting.PrintField(lineCount,90,productObj.Pack_size)
 
+				if (productObj.ProductImageFile != ^null)
 				SFEUtilities.SFEPrinting.PrintImage(productObj.ProductImageFile,lineCount+1,20,lineCount +6,40)
 
-				if productObj.PromotionImageFile != ^null
+				if (productObj.PromotionImageFile != ^null)
 					SFEUtilities.SFEPrinting.PrintImage(productObj.PromotionImageFile,lineCount+2,50,lineCount +4,60)
 
 
@@ -131,7 +133,7 @@ namespace SFE_Product
 				if (SellPrice)
 					prof = (((SellPrice - costPrice)*100000)/ sellPrice) #1
 				
-				if prof < 0
+				if (prof < 0)
 					SFEUtilities.SFEPrinting.SetFont(,,,"red")
 				
 				SFEUtilities.SFEPrinting.PrintField(lineCount+4,95,string(prof,'ZZZX.XX-')+'%')

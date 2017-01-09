@@ -17,7 +17,7 @@ import Symphony.Conductor.Types
 
 import SFEUtilities
 
-namespace SEF_Supplier
+namespace SFE_Supplier
 	
 	public class SupplierReport
 		
@@ -29,9 +29,6 @@ namespace SEF_Supplier
 			in req KeyWord		,a		; description key word
 
 			endparams
-			
-			.include 'DBLDIR:winprint.def'
-			
 			
 			
 		proc
@@ -53,23 +50,23 @@ namespace SEF_Supplier
 			data firstPage	,boolean, true
 		
 			if (!KeyWord && !KeyValue)
-				dataSearch = new DataSelect(mConnector, "select * from supplier", new Supplier_Data())
+				dataSearch = DataSelect.RunDataSelect(mConnector, "select * from supplier", new Supplier_Data()).Result
 				
 			if (!KeyWord && KeyValue)
-				dataSearch = new DataSelect(mConnector, "select * from supplier where supp_code like:1", new Supplier_Data(), KeyValue)
+				dataSearch = DataSelect.RunDataSelect(mConnector, "select * from supplier where supp_code like:1", new Supplier_Data(), KeyValue).Result
 
 			if (!KeyValue && KeyWord)
-				dataSearch = new DataSelect(mConnector, "select * from supplier where name like:1", new Supplier_Data(), KeyWord)
+				dataSearch = DataSelect.RunDataSelect(mConnector, "select * from supplier where name like:1", new Supplier_Data(), KeyWord).Result
 
 			if (KeyValue && KeyWord)
-				dataSearch = new DataSelect(mConnector, "select * from supplier where supp_code like:1 and name like:2", new Supplier_Data(), KeyValue,KeyWord)
+				dataSearch = DataSelect.RunDataSelect(mConnector, "select * from supplier where supp_code like:1 and name like:2", new Supplier_Data(), KeyValue,KeyWord).Result
 
 			foreach supplierObj in dataSearch
 			begin
 				SFEUtilities.SFEPrinting.SetFont("Calibri",10)
-				if firstPage || SFEUtilities.SFEPrinting.LinesLeft < 8
+				if (firstPage || SFEUtilities.SFEPrinting.LinesLeft < 8)
 				begin
-					if !firstPage
+					if (!firstPage)
 						SFEUtilities.SFEPrinting.FormFeed()
 					
 					firstPage = false
@@ -92,25 +89,25 @@ namespace SEF_Supplier
 				SFEUtilities.SFEPrinting.PrintField(lineCount,43,supplierObj.Phone)
 				SFEUtilities.SFEPrinting.PrintField(lineCount,60,supplierObj.Email)
 					
-				if supplierObj.address1
+				if (supplierObj.address1)
 				begin
 					incr lineCount
 					SFEUtilities.SFEPrinting.PrintField(lineCount,10,supplierObj.Address1)			
 				end
 					
-				if supplierObj.address2
+				if (supplierObj.address2)
 				begin
 					incr lineCount
 					SFEUtilities.SFEPrinting.PrintField(lineCount,10,supplierObj.Address2)		
 				end
 					
-				if supplierObj.address3
+				if (supplierObj.address3)
 				begin
 					incr lineCount
 					SFEUtilities.SFEPrinting.PrintField(lineCount,10,supplierObj.Address3)		
 				end
 					
-				if supplierObj.postcode
+				if (supplierObj.postcode)
 				begin				
 					incr lineCount
 					SFEUtilities.SFEPrinting.PrintField(lineCount,10,supplierObj.Postcode)		

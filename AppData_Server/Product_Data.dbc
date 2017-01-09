@@ -109,6 +109,7 @@ namespace AppData
 			endmethod
 		endproperty
 	
+		
 		public property ProductImageFile, string
 			method get
 			proc
@@ -134,7 +135,7 @@ namespace AppData
 					mreturn AppData.DataLogic.GetImageFileName("sale", ImageFileType.PNGFileType)
 				else
 					mreturn ^null
-				
+			
 			endmethod
 		endproperty
 		

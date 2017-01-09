@@ -51,7 +51,7 @@ namespace SFEBusinessLogic
 			data lineCount,	i4	,99
 			data lineMax	,i4	,60
 			
-			dataSearch = new DataSelect(mConnector, "select * from supplier where supp_code >=:1 and supp_code <= :2", new Supplier_Data(), StartSupp,EndSupp)
+			dataSearch = DataSelect.RunDataSelect(mConnector, "select * from supplier where supp_code >=:1 and supp_code <= :2", new Supplier_Data(), StartSupp,EndSupp).Result
 			
 			foreach suppObj in dataSearch
 			begin

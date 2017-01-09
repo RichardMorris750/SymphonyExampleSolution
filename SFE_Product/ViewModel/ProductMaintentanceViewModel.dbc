@@ -115,7 +115,7 @@ namespace SFE_Product.ViewModel
 				Desc = item.Prod_description
 				upcase desc
 
-				if !mKeyValue && !mKeyWord
+				if (!mKeyValue && !mKeyWord)
 					add = true
 
 				if  (mKeyValue != ^null && !mKeyWord ) &&  (atrim(mKeyValue) == item.Prod_code)
@@ -149,16 +149,16 @@ namespace SFE_Product.ViewModel
 			this.DataObjectCollection.ClearCollection()
 
 			if (!mKeyWord  && !mKeyValue)
-				dataSearch = await DataSelect.RunDataSelect(mConnector, "select * from product", new Product_Data())
+				dataSearch =  DataSelect.RunDataSelect(mConnector, "select * from product", new Product_Data()).Result
 			
 			if (!mKeyWord && mKeyValue != ^null)
-				dataSearch = await DataSelect.RunDataSelect(mConnector, "select * from product where prod_code like:1", new Product_Data(), mKeyValue)
+				dataSearch = DataSelect.RunDataSelect(mConnector, "select * from product where prod_code like:1", new Product_Data(), mKeyValue).Result
 				
 			if (!mKeyValue && mKeyWord != ^null)
-				dataSearch = await DataSelect.RunDataSelect(mConnector, "select * from product where prod_description like:1", new Product_Data(), mKeyWord)
+				dataSearch = DataSelect.RunDataSelect(mConnector, "select * from product where prod_description like:1", new Product_Data(), mKeyWord).Result
 				
 			if (mKeyValue != ^null && mKeyWord != ^null)
-				dataSearch = await DataSelect.RunDataSelect(mConnector, "select * from product where prod_code like:1 and prod_description like:2", new Product_Data(), mKeyValue,mKeyWord)
+				dataSearch = DataSelect.RunDataSelect(mConnector, "select * from product where prod_code like:1 and prod_description like:2", new Product_Data(), mKeyValue,mKeyWord).Result
 				
 			foreach productObj in dataSearch
 				this.DataObjectCollection.AddToCollection(productObj)	

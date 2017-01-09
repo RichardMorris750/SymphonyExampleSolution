@@ -49,7 +49,7 @@ import Symphony.Conductor.Commands
 import Symphony.Conductor.DataIO
 import Symphony.Conductor.Types
 
-namespace SEF_Supplier.ViewModel
+namespace SFE_Supplier.ViewModel
 
 	public class SupplierMaintentanceViewModel extends FileMaintViewModel
 
@@ -99,7 +99,6 @@ namespace SEF_Supplier.ViewModel
 		public override method LoadBaseItemCollection, void
 			endparams
 		
-
 		proc	
 
 			data item = new Supplier_Data()
@@ -187,7 +186,6 @@ namespace SEF_Supplier.ViewModel
 				begin
 					lambda doCommand(sender, param)
 					begin
-;;						LoadDetailList()
 						LoadBaseItemCollection()
 					end
 					mSearchCommand = new GenericCommand("SEARCH", doCommand)
@@ -208,12 +206,12 @@ namespace SEF_Supplier.ViewModel
 				begin
 					lambda doCommand(sender, param)
 					begin
-						SEF_Supplier.SupplierReport.Print("R",mKeyValue,mKeyWord)
+						SFE_Supplier.SupplierReport.Print("R",mKeyValue,mKeyWord)
 					end
-					mSearchCommand = new GenericCommand("PRINT", doCommand)
+					mPrintCommand = new GenericCommand("PRINT", doCommand)
 				end
 			
-				mreturn mSearchCommand
+				mreturn mPrintCommand
 			endmethod
 		endproperty
 	
@@ -227,12 +225,12 @@ namespace SEF_Supplier.ViewModel
 				begin
 					lambda doCommand(sender, param)
 					begin
-						SEF_Supplier.SupplierReport.Print("P",mKeyValue,mKeyWord)
+						SFE_Supplier.SupplierReport.Print("P",mKeyValue,mKeyWord)
 					end
-					mSearchCommand = new GenericCommand("PDF", doCommand)
+					mPDFCommand = new GenericCommand("PDF", doCommand)
 				end
 			
-				mreturn mSearchCommand
+				mreturn mPDFCommand
 			endmethod
 		endproperty
 	

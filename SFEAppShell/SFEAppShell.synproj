@@ -218,11 +218,6 @@
     <Resource Include="Images\Icons\Supplier.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SEF_Supplier\SFE_Supplier.synproj">
-      <Name>SFE_Supplier</Name>
-      <Project>{f3550f65-c577-48b4-a126-e375b144916f}</Project>
-      <Private>True</Private>
-    </ProjectReference>
     <ProjectReference Include="..\SFE_Group\SFE_Group.synproj">
       <Name>SFE_Group</Name>
       <Project>{ffc1c590-e1ad-4b25-a78b-673fd68adcd5}</Project>
@@ -231,6 +226,11 @@
     <ProjectReference Include="..\SFE_Product\SFE_Product.synproj">
       <Name>SFE_Product</Name>
       <Project>{d8748127-708b-4505-8f5c-7373961cd210}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\SFE_Supplier\SFE_Supplier.synproj">
+      <Name>SFE_Supplier</Name>
+      <Project>{f3550f65-c577-48b4-a126-e375b144916f}</Project>
       <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\SFE_UI\SFE_UI.synproj">

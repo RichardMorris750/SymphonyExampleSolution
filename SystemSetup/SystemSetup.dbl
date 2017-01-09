@@ -72,7 +72,7 @@ namespace SystemSetup
 
 		writes(ttChn, 'Recreate all files ?  (Y/N) ?')
 		reads(ttChn, ans)
-		if (ans.eq.'Y' .or. ans.eq.'y')
+		if (ans == 'Y' .or. ans == 'y')
 		begin
 			writes(ttChn, 'Creating Files...')
 			

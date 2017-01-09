@@ -5,11 +5,11 @@ import System.Runtime.InteropServices
 ; General Information about an assembly is controlled through the following
 ; set of attributes. Change these attribute values to modify the information
 ; associated with an assembly.
-{assembly: AssemblyTitle("SEF_Supplier")}
+{assembly: AssemblyTitle("SFE_Supplier")}
 {assembly: AssemblyDescription("WPF User Control Library")}
 {assembly: AssemblyConfiguration("")}
 {assembly: AssemblyCompany("")}
-{assembly: AssemblyProduct("SEF_Supplier")}
+{assembly: AssemblyProduct("SFE_Supplier")}
 {assembly: AssemblyCopyright("Copyright  2016")}
 {assembly: AssemblyTrademark("")}
 {assembly: AssemblyCulture("")}

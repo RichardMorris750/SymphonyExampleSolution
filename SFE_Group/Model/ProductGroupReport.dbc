@@ -53,23 +53,23 @@ namespace SFE_Group
 			data firstPage	,boolean, true
 			
 			if (!KeyWord && !KeyValue)
-				dataSearch = new DataSelect(mConnector, "select * from Product_group", new Product_group_Data())
+				dataSearch = DataSelect.RunDataSelect(mConnector, "select * from Product_group", new Product_group_Data()).Result
 			
 			if (!KeyWord && KeyValue)
-				dataSearch = new DataSelect(mConnector, "select * from Product_group where prod_group like:1", new Product_group_Data(), KeyValue)
+				dataSearch = DataSelect.RunDataSelect(mConnector, "select * from Product_group where prod_group like:1", new Product_group_Data(), KeyValue).Result
 				
 			if (!KeyValue && KeyWord)
-				dataSearch = new DataSelect(mConnector, "select * from Product_group where group_desc like:1", new Product_group_Data(), KeyWord)
+				dataSearch = DataSelect.RunDataSelect(mConnector, "select * from Product_group where group_desc like:1", new Product_group_Data(), KeyWord).Result
 				
 			if (KeyValue && KeyWord)
-				dataSearch = new DataSelect(mConnector, "select * from Product_group where prod_group like:1 and group_desc like:2", new Product_group_Data(), KeyValue,KeyWord)
+				dataSearch = DataSelect.RunDataSelect(mConnector, "select * from Product_group where prod_group like:1 and group_desc like:2", new Product_group_Data(), KeyValue,KeyWord).Result
 				
 			foreach groupObj in dataSearch
 			begin
 				SFEUtilities.SFEPrinting.SetFont("Calibri",10)
-				if firstPage || SFEUtilities.SFEPrinting.LinesLeft < 8
+				if (firstPage || SFEUtilities.SFEPrinting.LinesLeft < 8)
 				begin
-					if !firstPage
+					if (!firstPage)
 						SFEUtilities.SFEPrinting.FormFeed()
 					
 					firstPage = false

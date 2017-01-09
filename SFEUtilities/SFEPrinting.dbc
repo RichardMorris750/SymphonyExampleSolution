@@ -86,7 +86,7 @@ namespace SFEUtilities
 				landscape		,boolean	
 		proc
 			
-			if mHandle
+			if (mHandle)
 			begin
 				wpr_info(mHandle, DWP_DELPRINTER)
 				clear mHandle
@@ -94,50 +94,50 @@ namespace SFEUtilities
 			
 			mReportType = reportType
 			
-			if ^passed(landscapeMode) then
+			if (^passed(landscapeMode)) then
 				landscape = landscapeMode
 			else
 				landscape= false
 			
-			if ^passed(ColumnsperLine) then
+			if (^passed(ColumnsperLine)) then
 				mColumnsperLine = columnsPerLine
 			else
 				mColumnsperLine = 80
 			
-			if ^passed(topMargin)then
-				if mReportType == 'R' 
+			if (^passed(topMargin)) then
+				if (mReportType == 'R') 
 					mTopMargin = topMargin
 				else
 					mTopMargin = 100
 
-			if mReportType == 'P' 
+			if (mReportType == 'P') 
 				mTopMargin = mTopMargin/10
 			
-			if ^passed(bottomMargin) then
+			if (^passed(bottomMargin)) then
 				mBottomMargin = bottomMargin
 			else
 				mBottomMargin = 100
 
-			if mReportType == 'P' 
+			if (mReportType == 'P') 
 				mBottomMargin = mBottomMargin/10
 						
-			if ^passed(leftMargin) then
+			if (^passed(leftMargin)) then
 				mLeftMargin = leftMargin
 			else
 				mLeftMargin = 100
 			
-			if mReportType == 'P' 
+			if (mReportType == 'P') 
 				mLeftMargin = mLeftMargin/8
 
-			if ^passed(rightMargin) then
+			if (^passed(rightMargin)) then
 				mRightMargin = rightMargin
 			else
 				mRightMargin = 100
 			
-			if mReportType == 'P' 
+			if (mReportType == 'P') 
 				mRightMargin = mRightMargin/8
 
-			if ^passed(printHeader) then
+			if (^passed(printHeader)) then
 				mPrintHeader = printHeader
 			else
 				mPrintHeader = false
@@ -145,15 +145,15 @@ namespace SFEUtilities
 			mLastPrintPos = mBottomMargin
 
 			
-			if ^passed(printFooter) then
+			if (^passed(printFooter)) then
 				mPrintFooter = printFooter
 			else
 				mPrintFooter = false
 			
-			if .not.mfontName			
+			if (!mfontName)			
 				mfontName = "Courier"
 			
-			if .not.mfontSize
+			if (!mfontSize)
 				mfontSize = 9
 			
 			mfontWeight = DWPFW_NORMAL
@@ -167,13 +167,13 @@ namespace SFEUtilities
 			
 			clear mPageNumber
 
-			if mReportType == 'P' then
+			if (mReportType == 'P') then
 			begin
 				mPDF = new PdfFile(,,,,,,,,,,,"SFEPDFfiles:")
 				
 				;;Override default name to suppress date/time prefix, and and ask reader
 				;;apps to display the file in full page view.
-				if ^passed (printerName) then
+				if (^passed (printerName)) then
 					mPDF.FileName = %atrim(printerName) + ".pdf"
 				else
 					mPDF.FileName = %syn_uname + string(time()) + ".pdf"
@@ -204,13 +204,13 @@ namespace SFEUtilities
 				
 				if (landscapeMode == true) then
 				begin
-					if .not.mfontSize
+					if  (!mfontSize)
 						mfontSize = 7
 					wpr_setdevice(mHandle, DWP_ORIENTATION, DWPO_PORTRAIT)
 				end
 				else
 				begin
-					if .not. mFontsize
+					if (!mFontsize)
 						mfontSize = 11
 					wpr_setdevice(mHandle, DWP_ORIENTATION, DWPO_PORTRAIT)
 				end
@@ -228,7 +228,7 @@ namespace SFEUtilities
 				wpr_getdevice(mHandle, DWP_PIXELHEIGHT, mPageLength)
 			end
 			
-			if mReportType == 'R' then
+			if (mReportType == 'R') then
 			begin
 				mPosY = mTopMargin
 				mLastPrintPos = mPageLength - mBottomMargin 
@@ -239,10 +239,10 @@ namespace SFEUtilities
 				mLastPrintPos = mBottomMargin		
 			end
 
-			if mPrintFooter
+			if (mPrintFooter)
 				dofooter()	
 			
-			if mPrintHeader
+			if (mPrintHeader)
 				doHeading()	
 				
 			clear mHighestRow
@@ -271,7 +271,7 @@ namespace SFEUtilities
 		public static property LinesLeft, int
 			method get
 			proc
-				if mReportType == 'R' then
+				if (mReportType == 'R') then
 				begin
 					data rowHeight	,int
 					
@@ -300,7 +300,7 @@ namespace SFEUtilities
 			
 		proc
 			
-			if mReportType =='P' then
+			if (mReportType =='P') then
 			begin
 				clear mHighestRow
 				mPosY = mPageLength - mTopMargin
@@ -346,7 +346,7 @@ namespace SFEUtilities
 			SetFont("Calibri",10)
 				
 			mPageNumber += 1
-			if mReportType == 'R' then
+			if (mReportType == 'R') then
 			begin
 				data tmpX	,int, 1
 				data tmpY	,int, 1	
@@ -388,66 +388,66 @@ namespace SFEUtilities
 			
 		proc
 			
-			if ^passed(fontName)
+			if (^passed(fontName))
 				mfontName = fontName
 			
-			if ^passed(fontSize)
+			if (^passed(fontSize))
 				mfontSize = fontSize
 			
-			if ^passed(fontWeight)
+			if (^passed(fontWeight))
 				mfontWeight = fontWeight
 			
-			if ^passed (fontColor)
+			if (^passed (fontColor))
 				mfontColour = fontColor
 
-			if ^passed (backColor)
+			if (^passed (backColor))
 				mBackColour = backcolor
 			
-			if mReportType == 'P' then
+			if (mReportType == 'P') then
 			begin
 				using mfontName select
 				('Cambria'), 	begin
-					if !mCambriaFont
+					if (!mCambriaFont)
 						mCambriaFont		= mPDF.LoadTrueTypeFont("fonts:cambriab.ttf")
 					mPDF.SelectFont(mCambriaFont,mfontsize)
 				end
 				('Consolas'), 
 				begin
-					if !mConsolasFont
+					if (!mConsolasFont)
 						mConsolasFont	= mPDF.LoadTrueTypeFont("fonts:Consola.ttf")
 					mPDF.SelectFont(mConsolasFont,mfontsize)
 				end
 				
 				('Calibri'), 	
 				begin
-					if !mCalibriFont
+					if (!mCalibriFont)
 						mCalibriFont	= mPDF.LoadTrueTypeFont("fonts:Calibri.ttf")
 					mPDF.SelectFont(mCalibriFont,mfontsize)
 				end
 				
 				('Arialn'),
 				begin
-					if !mArialNFont
+					if (!mArialNFont)
 						mArialNFont		= mPDF.LoadTrueTypeFont("fonts:arialn.ttf")
 					mPDF.SelectFont(mArialNFont,mfontsize)
 				end
 				
 				('Arialb'),
 				begin
-					if !mArialNBFont
+					if (!mArialNBFont)
 						mArialNBFont		= mPDF.LoadTrueTypeFont("fonts:arialb.ttf")
 					mPDF.SelectFont(mArialNBFont,mfontsize)
 				end		
 
 				('Times new roman'),
 				begin
-					if !mTimesFont
+					if (!mTimesFont)
 						mTimesFont		= mPDF.LoadTrueTypeFont("fonts:times.ttf")
 					mPDF.SelectFont(mTimesFont,mfontsize)
 				end								
 				endusing
 			
-				if ^passed (fontColor)
+				if (^passed (fontColor))
 				begin
 					using fontColor select
 
@@ -465,7 +465,7 @@ namespace SFEUtilities
 			else
 			begin
 				;; print API
-				if ^passed (fontColor)
+				if (^passed (fontColor))
 				begin
 					using fontColor select
 					("grey"), wpr_setdevice(mHandle,DWP_TEXTCOLOR,m_rgb(180,180,180))
@@ -476,7 +476,7 @@ namespace SFEUtilities
 					endusing
 				end
 
-				if ^passed (backColor)
+				if (^passed (backColor))
 				begin
 					using backColor select
 					("lightblue"), wpr_setdevice(mHandle,DWP_BACKCOLOR,m_rgb(220,235,245))
@@ -503,12 +503,12 @@ namespace SFEUtilities
 			
 			mDonePrinting = true
 
-			if mReportType == 'P' then
+			if (mReportType == 'P') then
 				;; note - allows for printing based on row and relative column based on declared number of columns
 				;; does not allow printing back to a row already printed, but can print multiple fields on same
 				;; line, and can skip lines.   Assumes same font size used on each print line.
 			begin
-				if row .gt. mHighestRow
+				if (row .gt. mHighestRow)
 				begin
 					mPosY -= (mfontSize + 2) * (row-mHighestRow)
 					mHighestRow = row
@@ -566,7 +566,7 @@ namespace SFEUtilities
 			data rowHeight			,int	; row height, in pixels
 
 			
-			if mReportType == 'R' then
+			if (mReportType == 'R') then
 			begin
 				data penHandle	,i4
 
@@ -580,7 +580,7 @@ namespace SFEUtilities
 
 				penHandle = %wpr_info(mHandle,DWP_GETPEN)
 
-				if topRow == bottomRow || topCol == bottomCol then
+				if (topRow == bottomRow || topCol == bottomCol) then
 				begin
 					;; line
 					wpr_print(mHandle,DWP_LINE, penHandle, topColPixel, topRowPixel, bottomColPixel, bottomRowPixel)
@@ -598,7 +598,7 @@ namespace SFEUtilities
 					wpr_print(mHandle,DWP_LINE, penHandle, topColPixel, topRowPixel, topColPixel, bottomRowPixel)		;; LHS
 					wpr_print(mHandle,DWP_LINE, penHandle, bottomColPixel, topRowPixel, bottomColPixel, bottomRowPixel)		;; RHS
 
-					if ^passed (fillColour)
+					if (^passed (fillColour))
 					begin
 						data fillWidth ,int
 						data fillHeight, int
@@ -633,7 +633,7 @@ namespace SFEUtilities
 				end
 				else
 				begin
-					if ^passed (fillColour)
+					if (^passed (fillColour))
 					begin
 						using fillColour select
 						
@@ -675,7 +675,7 @@ namespace SFEUtilities
 			data PixHeight			,int
 			data PixWidth			,int
 
-			if mReportType == 'R' then
+			if (mReportType == 'R') then
 			begin
 
 				rowHeight = wpr_info(mHandle, DWP_TEXTHEIGHT, 'X')
@@ -714,7 +714,7 @@ namespace SFEUtilities
 					
 			clear mHighestRow 
 
-			if mReportType == 'P' then
+			if (mReportType == 'P') then
 			begin
 				mPDF.NewPage() 
 			end
@@ -725,15 +725,15 @@ namespace SFEUtilities
 				
 			end
 				
-			if mReportType == 'R' then
+			if (mReportType == 'R') then
 				mPosY = mTopMargin
 			else
 				mPosY = mPDF.Height - mTopMargin		
 			
-			if mPrintFooter
+			if (mPrintFooter)
 				dofooter()	
 					
-			if mPrintHeader
+			if (mPrintHeader)
 				doHeading()	
 	
 
@@ -803,7 +803,7 @@ namespace SFEUtilities
 			endparams
 			
 		proc
-			if mReportType == 'P' then
+			if (mReportType == 'P') then
 				mPdf.preview()
 			else
 				if (mHandle)

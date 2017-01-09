@@ -204,13 +204,13 @@ namespace ProductGroupViewer
 							if (string.IsNullOrEmpty(mDescrValue)) then
 							begin
 								if (mKeyMatch) then
-									typeOfSearch = new DataSelect(mConnector, "select * from Product_group where Prod_group = :1", new Product_group_Data(), mCodeValue)
+									typeOfSearch = DataSelect.RunDataSelect(mConnector, "select * from Product_group where Prod_group = :1", new Product_group_Data(), mCodeValue).Result
 								else
-									typeOfSearch = new DataSelect(mConnector, "select * from Product_group where Prod_group like :1", new Product_group_Data(), mCodeValue)		
+									typeOfSearch = DataSelect.RunDataSelect(mConnector, "select * from Product_group where Prod_group like :1", new Product_group_Data(), mCodeValue).Result	
 							end
 							else
-								typeOfSearch = new DataSelect(mConnector, "select * from Product_group where Prod_group like :1 and Prod_descr like :2", 
-								&	new Product_group_Data(), atrim(mCodeValue), atrim(mDescrValue))
+								typeOfSearch = DataSelect.RunDataSelect(mConnector, "select * from Product_group where Prod_group like :1 and Prod_descr like :2", 
+								&	new Product_group_Data(), atrim(mCodeValue), atrim(mDescrValue)).Result
 
 							foreach prodGroupObj in typeOfSearch
 							begin
@@ -311,9 +311,9 @@ namespace ProductGroupViewer
 				
 				;;is requested search as per specific CodeValue?
 				if (string.IsNullOrEmpty(mCodeValue)) then
-					typeOfSearch = new DataSelect(mConnector, "select * from Product_group", new Product_group_Data())
+					typeOfSearch = DataSelect.RunDataSelect(mConnector, "select * from Product_group", new Product_group_Data()).Result
 				else
-					typeOfSearch = new DataSelect(mConnector, "select * from Product_group where prod_group like :1", new Product_group_Data(), mCodeValue)
+					typeOfSearch = DataSelect.RunDataSelect(mConnector, "select * from Product_group where prod_group like :1", new Product_group_Data(), mCodeValue).Result
 				
 				foreach item in typeOfSearch
 				begin

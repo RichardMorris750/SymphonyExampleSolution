@@ -62,7 +62,7 @@
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                 <Label VerticalAlignment="Center">Key Code</Label>
                 <TextBox Text="{Binding Path=CodeValue}" Margin="5,15,30,15" MaxLength="3" Width="40" CharacterCasing="Upper"/>
-                <Label VerticalAlignment="Center">Key Description</Label>
+                <Label VerticalAlignment="Center" IsEnabled="{Binding Path=DescrEnabled}">Key Description</Label>
                 <TextBox Text="{Binding Path=DescrValue}" Margin="5,15,15,15" MaxLength="20" Width="115" CharacterCasing="Upper" 
                          IsEnabled="{Binding Path=DescrEnabled}" Style="{StaticResource KeyMatchStyle}">
                </TextBox>
@@ -74,14 +74,14 @@
                 <CheckBox IsChecked="{Binding Path=KeyMatch}" VerticalAlignment="Center" Style="{StaticResource CheckBoxStyle}">Match on whole key?</CheckBox>
                 <Button Style="{StaticResource MenuButtonStyle}"  Command="{Binding SearchCommand}" Width="30" Height="30" Margin="25,0">
                     <Button.Content>
-                        <Image Source="pack://application:,,,/SFE_UI;component/Images/Icons/search.png" RenderTransformOrigin="2.114,0.367" HorizontalAlignment="Center" Width="30"/>
+                        <Image Source="pack://application:,,,/SFE_UI;component/Images/Icons/search.png" HorizontalAlignment="Center" Width="30"/>
                     </Button.Content>
                 </Button>
             </StackPanel>
         </Border>
 
         <Border Grid.Row="2" Margin="4" Padding="4" BorderThickness="0" CornerRadius="5" BorderBrush="{StaticResource BorderBrush}">
-            <DataGrid Background="Aqua" ItemsSource="{Binding Path=ProductGroupList}" AutoGenerateColumns="False" 
+            <DataGrid RowHeaderWidth="0" ItemsSource="{Binding Path=ProductGroupList}" AutoGenerateColumns="False" 
                 IsReadOnly="True" SelectedItem="{Binding Path=SelectedProdGroup}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Sorting">

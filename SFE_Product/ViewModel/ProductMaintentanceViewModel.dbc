@@ -315,7 +315,7 @@ namespace SFE_Product.ViewModel
 			;;create the supplier code lookup view model
 			mSuppCodeLookupVM = new SupplierCodeLookupViewModel()
 
-			;;need event handlers for when they select/quiot the lookup
+			;;need event handlers for when they select/quit the lookup
 			mSuppCodeLookupVM.ItemSelected += doSuppCodeItemSelected
 			mSuppCodeLookupVM.CancelSearch += doSuppCodeItemCanceled
 		endmethod

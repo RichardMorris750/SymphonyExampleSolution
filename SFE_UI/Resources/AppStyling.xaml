@@ -36,6 +36,7 @@
     <SolidColorBrush x:Key="BackgroundSecondaryBrush" Color="{StaticResource BlackColour}"></SolidColorBrush>
     <SolidColorBrush x:Key="GridHeaderBackgroundBrush" Color="{StaticResource BlackColour}"></SolidColorBrush>
     <SolidColorBrush x:Key="GridHeaderForegroundBrush" Color="{StaticResource BrightBlueColour}"></SolidColorBrush>
+    
     <SolidColorBrush x:Key="GridHeaderBorderBrush" Color="{StaticResource BlueColour}"></SolidColorBrush>
     <SolidColorBrush x:Key="GridItemBackgroundBrush" Color="{StaticResource GreyColour}"></SolidColorBrush>
     <SolidColorBrush x:Key="GridItemForegroundBrush" Color="{StaticResource OrangeColour}"></SolidColorBrush>

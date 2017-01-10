@@ -1,3 +1,4 @@
+
 import System
 import System.Collections.Generic
 import System.Text
@@ -23,11 +24,11 @@ namespace SFEBusinessLogic
 		
 		private static mConnector		,@DBConnector
 		
-		public static method Print		, void
-			in req StartSupp	,a		; starting supplier
-			in req EndSupp		,a		; ending supplier
-			in req ReportType	,a		;R = Print API, P = PDF
-			endparams
+		public static method Print		,void
+		in req StartSupp				,a		; starting supplier
+		in req EndSupp					,a		; ending supplier
+		in req ReportType				,a		;R = Print API, P = PDF
+		endparams
 			
 
 					
@@ -44,14 +45,15 @@ namespace SFEBusinessLogic
 			
 			SFEUtilities.SFEPrinting.SetFont("Cambria",12)
 			
-			data suppObj	,@Supplier_Data	,new Supplier_Data()
+		data suppObj					,@Supplier_Data		,new Supplier_Data()
 			
-			data dataSearch	,@DataSelect
+		data dataSearch					,@DataSelect
 
-			data lineCount,	i4	,99
-			data lineMax	,i4	,60
+		data lineCount					,i4					,99
+		data lineMax					,i4					,60
 			
-			dataSearch = DataSelect.RunDataSelect(mConnector, "select * from supplier where supp_code >=:1 and supp_code <= :2", new Supplier_Data(), StartSupp,EndSupp).Result
+			dataSearch = DataSelect.RunDataSelect(mConnector, "select * from supplier where supp_code >=:1 and supp_code <= :2", 
+			&	new Supplier_Data()		,StartSupp			,EndSupp).Result
 			
 			foreach suppObj in dataSearch
 			begin

@@ -50,15 +50,15 @@ namespace SystemSetup
 	;;; </summary>  
 	main
 		
-;		.include 'product' repository, record = 'product'
-;		.include 'product_group' repository, record = 'product_group'
-;		.include 'parameter' repository, record = 'parameter'
+	;		.include 'product' repository, record = 'product'
+	;		.include 'product_group' repository, record = 'product_group'
+	;		.include 'parameter' repository, record = 'parameter'
 		
-		record
-			ttChn		,i4	,0
-			ans			,a1
-;			dataChan	,i4	,0
-		endrecord
+	record
+		ttChn		,i4		,0
+		ans			,a1
+		;			dataChan	,i4	,0
+	endrecord
 		
 	proc
 		;;************************************************************
@@ -89,16 +89,16 @@ namespace SystemSetup
 		close ttChn
 		flags(7000000, 1)
 		stop
-;----------------------------------------------------------------------------------------
-;create files
+		;----------------------------------------------------------------------------------------
+		;create files
 		
 	create,
 
-		data hadError	,boolean	,false
+	data hadError		,boolean		,false
 
 		;;create the folder if it's not there
-		data logValue	,a255
-		data logLength	,i4
+	data logValue		,a255
+	data logLength		,i4
 		getlog("SFEDATA", logValue, logLength)
 		if (!logLength)
 		begin
@@ -116,8 +116,8 @@ namespace SystemSetup
 		try
 		begin
 			delet('SFEDATA:product.ism')
-			data headerKeyVals	,[2]a*
-			&	,"START=1,LENGTH=6,TYPE=ALPHA,NODUPS"
+		data headerKeyVals		,[2]a*
+			&					,"START=1,LENGTH=6,TYPE=ALPHA,NODUPS"
 			&	,"START=80:1,LENGTH=3:6,TYPE=ALPHA:ALPHA,DUPS,MODIFY"
 			isamc('SFEDATA:product.ism', ^size(STRProduct), 2, headerKeyVals)	
 		end
@@ -155,8 +155,8 @@ namespace SystemSetup
 		try
 		begin
 			delet('SFEDATA:order_header.ism')
-			data headerKeyVals	,[4]a*
-			&	,"START=1,LENGTH=6,TYPE=DECIMAL,NODUPS"
+		data headerKeyVals		,[4]a*
+			&					,"START=1,LENGTH=6,TYPE=DECIMAL,NODUPS"
 			&	,"START=7:1,LENGTH=6:6,TYPE=ALPHA:DECIMAL,NODUPS"
 			&	,"START=13:1,LENGTH=8:6,TYPE=DECIMAL:DECIMAL,NODUPS"
 			&	,"START=21:1,LENGTH=8:6,TYPE=DECIMAL:DECIMAL,NODUPS"
@@ -172,8 +172,8 @@ namespace SystemSetup
 		try
 		begin
 			delet('SFEDATA:order_line.ism')
-			data lineKeyVals	,[2]a*
-			&	,"START=1:6,LENGTH=5:6,TYPE=DECIMAL:DECIMAL,NODUPS"
+		data lineKeyVals	,[2]a*
+			&				,"START=1:6,LENGTH=5:6,TYPE=DECIMAL:DECIMAL,NODUPS"
 			&	,"START=12:1:6,LENGTH=10:5:6,TYPE=ALPHA:DECIMAL:DECIMAL,NODUPS"
 			isamc('SFEDATA:order_line.ism', ^size(STROrder_line), 2, lineKeyVals)	
 		end
@@ -191,8 +191,8 @@ namespace SystemSetup
 		end
 		return
 		
-;--------------------------------------------------------------------
-;set parameter file
+		;--------------------------------------------------------------------
+		;set parameter file
 		
 	setparameter,
 		writes(ttChn,'Creating parameter file')
@@ -200,7 +200,7 @@ namespace SystemSetup
 		;;need to create a relative file
 		try
 		begin
-			data tmpChan	,i4	,0
+		data tmpChan	,i4		,0
 			open(tmpChan, O:R, 'SFEDATA:parameter.dat', RECSIZ:100)
 			close(tmpChan)
 		end
@@ -210,9 +210,9 @@ namespace SystemSetup
 		end
 		endtry
 
-		data parameterIO = new Parameter_fileIO(FileOpenMode.UpdateRelative)
+	data parameterIO = new Parameter_fileIO(FileOpenMode.UpdateRelative)
 
-		data paramObj	,@Parameter_Data	,new Parameter_Data()
+	data paramObj		,@Parameter_Data		,new Parameter_Data()
 
 		;;read the first record (record number 1).  We ignore any "not found" errors.
 		parameterIO.ReadRecord(paramObj, 1)
@@ -233,13 +233,13 @@ namespace SystemSetup
 		return
 		
 		
-;------------------------------------------------------------
-; populate product file
+		;------------------------------------------------------------
+		; populate product file
 	loadproduct,
 
-		data productIO = new Product_FileIO(FileOpenMode.UpdateIndexed)
+	data productIO = new Product_FileIO(FileOpenMode.UpdateIndexed)
 		
-		data product	,STRproduct
+	data product	,STRproduct
 
 		product.str_prod_code			=	'COK001'
 		product.str_prod_description	=	'Coke Cans'
@@ -365,9 +365,9 @@ namespace SystemSetup
 
 		call addproduct
 
-		data productObject = new Product_Data()
+	data productObject = new Product_Data()
 		
-		data productStatus	,FileAccessResults	,productIO.ReadFirstRecord(productObject)
+	data productStatus		,FileAccessResults		,productIO.ReadFirstRecord(productObject)
 		while (productStatus == FileAccessResults.Success)
 		begin
 			writes(ttChn, productObject.prod_code + " : " + productObject.prod_description)
@@ -383,49 +383,49 @@ namespace SystemSetup
 
 		return
 
-;------------------------------------------------------------------------------------
+		;------------------------------------------------------------------------------------
 	addproduct,
 		if (productIO.CreateRecord(new Product_Data(product)) != FileAccessResults.Success)
 			writes(ttChn, 'Error adding product record for ' + product.str_prod_code + ' : ' + productIO.LastSynergyError.ToString())
 		return
 
 
-;; just to keep old code for comparison
+		;; just to keep old code for comparison
 
-;		writes(ttChn, 'Loading products')
-;		open(dataChan = 0, U:I, 'SFEDATA:product.ism')
-;		
-;		prod_code			=	'COK001'
-;		prod_description	=	'Coke Cans'
-;		sell_price			=	8.00	
-;		cost_price			=	6.00
-;		product.str_prod_group	=	'SD'
-;		product.str_supp_code	=	'D00001'
-;		vat_code			=	1
-;		pack_size			=	'330ML'
-;		call addproduct
-;		
-;
-;		return
-;		
-;--------------------------------------------------------
-;		
-;	addproduct,
-;		try
-;		begin
-;			store(dataChan, product)
-;		end
-;		catch (e,@Exception)
-;		begin
-;			writes(ttChn, 'Error adding product record for ' + prod_code + ' : ' + e.Message)
-;		end
-;		endtry
-;		return
-;		
+		;		writes(ttChn, 'Loading products')
+		;		open(dataChan = 0, U:I, 'SFEDATA:product.ism')
+		;		
+		;		prod_code			=	'COK001'
+		;		prod_description	=	'Coke Cans'
+		;		sell_price			=	8.00	
+		;		cost_price			=	6.00
+		;		product.str_prod_group	=	'SD'
+		;		product.str_supp_code	=	'D00001'
+		;		vat_code			=	1
+		;		pack_size			=	'330ML'
+		;		call addproduct
+		;		
+		;
+		;		return
+		;		
+		;--------------------------------------------------------
+		;		
+		;	addproduct,
+		;		try
+		;		begin
+		;			store(dataChan, product)
+		;		end
+		;		catch (e,@Exception)
+		;		begin
+		;			writes(ttChn, 'Error adding product record for ' + prod_code + ' : ' + e.Message)
+		;		end
+		;		endtry
+		;		return
+		;		
 
 
-;-----------------------------------------------------------------------------
-; populate supplier file
+		;-----------------------------------------------------------------------------
+		; populate supplier file
 	loadsupplier,
 		writes(ttChn, 'loading suppliers')
 
@@ -433,10 +433,11 @@ namespace SystemSetup
 		; gi - so this creates an object which has the file open in update mode
 			
 		data supplier		,STRSupplier
-		data currentDate	,a20	,%datetime
+
+		data currentDate	,a20		,%datetime
 
 		; gi - i use a structure instead fo a record to hold the data I want to add to the file
-		supplier.str_supp_code	=	'D00001'
+		supplier.str_supp_code			=	'D00001'
 		supplier.str_name				=	'Drinks Company'
 		supplier.str_address1			=	'123 Main Road'
 		supplier.str_address2			=	'Anytown'
@@ -468,9 +469,9 @@ namespace SystemSetup
 
 		writes(ttChn, "Suppliers created:")
 		
-		data supplierObject = new Supplier_Data()
+	data supplierObject = new Supplier_Data()
 		
-		data status	,FileAccessResults	,supplierIO.ReadFirstRecord(supplierObject)
+	data status		,FileAccessResults		,supplierIO.ReadFirstRecord(supplierObject)
 		; gi,  this defines the status and calls the "read first record" for the file class and returns a supplier data object and sets the status we just defined
 		;;correct!
 		while (status == FileAccessResults.Success)
@@ -479,7 +480,7 @@ namespace SystemSetup
 			; we can now access properties of the supplier object.  how would we set them and update the file ?
 
 			;; rcm - if we wanted to update the file.....
-			data storeName	,string	,supplierObject.Name
+		data storeName		,string		,supplierObject.Name
 			;; rcm - set the "new data"
 			supplierObject.Name = "New Name"
 			;; rcm - update the file
@@ -507,9 +508,9 @@ namespace SystemSetup
 		;; rcm - when the FileIO objects are used we store the GRFA and so can use this.  The GRFA
 		;; rcm - is stored in the data object.
 		;; rcm - let's just re-read the first 2 records.
-		data sup1	,@Supplier_Data	,new Supplier_Data()
+	data sup1		,@Supplier_Data		,new Supplier_Data()
 		supplierIO.ReadFirstRecord(sup1)
-		data sup2	,@Supplier_Data	,new Supplier_Data()
+	data sup2		,@Supplier_Data		,new Supplier_Data()
 		supplierIO.ReadNextRecord(sup2)
 		supplierIO.UnlockChannel()	;;force no records to be locked!!
 
@@ -543,11 +544,13 @@ namespace SystemSetup
 
 		return
 		
-;---------------------------------------------------------
+		;---------------------------------------------------------
 	addsupplier,
 		; gi - this creates an object from the structure and passes it to the file obejct.  It has a return value which can be checked
+
 		if (supplierIO.CreateRecord(new Supplier_Data(supplier)) != FileAccessResults.Success)
-			writes(ttChn, 'Error adding supplier record for ' + supplier.str_supp_code + ' : ' + supplierIO.LastSynergyError.ToString())
+		
+				writes(ttChn, 'Error adding supplier record for ' + supplier.str_supp_code + ' : ' + supplierIO.LastSynergyError.ToString())
 		; gi - this replaces the try / catch logic, and uses properties of the data obejct and teh file object for the error message
 		; gi - Q - does this object exist after it is created ?  If so, do we need to dispose of it ?
 
@@ -555,13 +558,13 @@ namespace SystemSetup
 
 		return
 		
-;-------------------------------------------------------------------------------
-; populate product group file
+		;-------------------------------------------------------------------------------
+		; populate product group file
 	loadgroup,
 
-		data product_groupIO = new product_group_FileIO(FileOpenMode.UpdateIndexed)
+	data product_groupIO = new product_group_FileIO(FileOpenMode.UpdateIndexed)
 		
-		data product_group	,STRProduct_group
+	data product_group		,STRProduct_group
 		
 		writes(ttChn, 'loading groups')
 
@@ -582,9 +585,9 @@ namespace SystemSetup
 		product_group.str_group_desc	= 'Chocolate'
 		call addgroup
 
-		data product_groupObject = new Product_group_Data()
+	data product_groupObject = new Product_group_Data()
 		
-		data product_groupStatus	,FileAccessResults	,Product_groupIO.ReadFirstRecord(Product_groupObject)
+	data product_groupStatus	,FileAccessResults		,Product_groupIO.ReadFirstRecord(Product_groupObject)
 		while (product_groupStatus == FileAccessResults.Success)
 		begin
 			writes(ttChn, product_groupObject.prod_group + " : " + product_groupObject.group_desc)
@@ -599,7 +602,7 @@ namespace SystemSetup
 		reads(ttChn, ans)
 
 		return
-;---------------------------------------------------------
+		;---------------------------------------------------------
 	addgroup,
 		if (product_groupIO.CreateRecord(new Product_group_Data(product_group)) != FileAccessResults.Success)
 			writes(ttChn, 'Error adding product group record for ' + product_group.str_prod_group + ' : ' + product_groupIO.LastSynergyError.ToString())

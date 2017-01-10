@@ -1,3 +1,4 @@
+
 import System
 import System.Collections.Generic
 import System.Text
@@ -161,6 +162,7 @@ namespace SupplierViewer
 							if (string.IsNullOrEmpty(mKeyWord)) then
 							begin
 								if (mFullKeyMatch) then
+
 									typeOfSearch = DataSelect.RunDataSelect(mConnector, "select * from supplier where supp_code = :1", new Supplier_Data(), mKeyValue).Result
 								else
 									typeOfSearch = DataSelect.RunDataSelect(mConnector, "select * from supplier where supp_code like :1", new Supplier_Data(), mKeyValue).Result

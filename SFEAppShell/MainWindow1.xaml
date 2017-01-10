@@ -35,6 +35,18 @@
                     </BooleanAnimationUsingKeyFrames>
                     <Int32Animation Storyboard.TargetName="supplierMaintView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
 
+                    <DoubleAnimation Storyboard.TargetName="productMaintView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.5" To="0" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="productMaintView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    
+                    <Int32Animation Storyboard.TargetName="groupMaintView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+
+                    <DoubleAnimation Storyboard.TargetName="groupMaintView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.5" To="0" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="groupMaintView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="groupMaintView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
                 </Storyboard>
             </VisualState>
 

@@ -59,7 +59,7 @@ namespace AppData
 		public static SynergyMemberInfo, @List<System.Reflection.MemberInfo>
 
 		public const RPSStructureName	,String	,"ORDER_LINE"
-		public const RPSStructureSize	,Int32	,100
+		public const RPSStructureSize	,Int32	,600
 
 		private order_line_main	,STROrder_line
 

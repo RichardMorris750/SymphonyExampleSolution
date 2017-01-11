@@ -63,7 +63,7 @@ namespace AppData
 		public static SynergyMemberInfo, @List<System.Reflection.MemberInfo>
 
 		public const RPSStructureName	,String	,"SUPPLIER"
-		public const RPSStructureSize	,Int32	,245
+		public const RPSStructureSize	,Int32	,745
 
 		private supplier_main	,STRSupplier
 

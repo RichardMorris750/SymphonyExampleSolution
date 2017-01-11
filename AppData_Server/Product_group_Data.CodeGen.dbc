@@ -45,7 +45,7 @@ namespace AppData
 		public static SynergyMemberInfo, @List<System.Reflection.MemberInfo>
 
 		public const RPSStructureName	,String	,"PRODUCT_GROUP"
-		public const RPSStructureSize	,Int32	,23
+		public const RPSStructureSize	,Int32	,523
 
 		private product_group_main	,STRProduct_group
 

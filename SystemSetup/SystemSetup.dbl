@@ -201,7 +201,7 @@ namespace SystemSetup
 		try
 		begin
 		data tmpChan	,i4		,0
-			open(tmpChan, O:R, 'SFEDATA:parameter.dat', RECSIZ:100)
+			open(tmpChan, O:R, 'SFEDATA:parameter.dat', RECSIZ:600)
 			close(tmpChan)
 		end
 		catch (e,@Exception)

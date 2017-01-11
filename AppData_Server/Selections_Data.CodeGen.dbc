@@ -48,12 +48,14 @@ namespace AppData
 			public csKeyword, String
 .align
 			public csReport_type, String
+.align
+			public csKeyvalue, String
 		endstructure
 		
 		public static SynergyMemberInfo, @List<System.Reflection.MemberInfo>
 
 		public const RPSStructureName	,String	,"SELECTIONS"
-		public const RPSStructureSize	,Int32	,45
+		public const RPSStructureSize	,Int32	,55
 
 		private selections_main	,STRSelections
 
@@ -118,6 +120,12 @@ namespace AppData
 			&	0, 0, 0, 0,
 			&	"ALPHA", false, 0, 0)
 
+			
+			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "KEYVALUE", "Keyvalue",  "", "",
+			&	"", "KEYVALUE", 46, 10,
+			&	0, 0, 0, 0,
+			&	"ALPHA", false, 0, 0)
+
 
 			mStaticFieldNameList.Add("Start_supp")
 			mStaticFieldHeadingList.Add("First Supplier")
@@ -131,6 +139,8 @@ namespace AppData
 			mStaticFieldHeadingList.Add("Key Word")
 			mStaticFieldNameList.Add("Report_type")
 			mStaticFieldHeadingList.Add("Report Type")
+			mStaticFieldNameList.Add("Keyvalue")
+			mStaticFieldHeadingList.Add("Key Value")
 
 			mreturn
 		endmethod
@@ -372,6 +382,23 @@ namespace AppData
 				end
 			endmethod
 		endproperty
+        ;;Keyvalue
+		{JsonProperty}
+		public property Keyvalue, a10
+			method get
+			proc
+				mreturn %atrim(selections_main.STR_Keyvalue)
+            endmethod
+			method set
+			proc
+					if (selections_main.STR_Keyvalue .nes. value)
+				begin
+										selections_main.STR_Keyvalue = value
+					ValidateEnteredData(7)
+					RaisePropertyChanged("Keyvalue")
+				end
+			endmethod
+		endproperty
 			
         ;;; <summary>
         ;;; Expose the complete synergy record
@@ -405,6 +432,8 @@ namespace AppData
 									if (mValidateSynergyData) ValidateEnteredData(5)
 				SetFieldValid("Report_type")
 									if (mValidateSynergyData) ValidateEnteredData(6)
+				SetFieldValid("Keyvalue")
+									if (mValidateSynergyData) ValidateEnteredData(7)
 				RaisePropertyChanged(^null)
 				RaiseSynergyRecordChanged()
             endmethod
@@ -440,6 +469,8 @@ namespace AppData
             RaisePropertyChanged("Keyword")
 				            ValidateEnteredData(6)
             RaisePropertyChanged("Report_type")
+				            ValidateEnteredData(7)
+            RaisePropertyChanged("Keyvalue")
 
         endmethod
 
@@ -466,6 +497,8 @@ namespace AppData
             ("KEYWORD"), mCurrentField = 5
 			
             ("REPORT_TYPE"), mCurrentField = 6
+			
+            ("KEYVALUE"), mCurrentField = 7
             (),
                 mCurrentField = 0
             endusing
@@ -493,6 +526,8 @@ namespace AppData
                 (5),    mreturn ""
 				
                 (6),    mreturn ""
+				
+                (7),    mreturn ""
 				(), mreturn ""  ;;if incorrect field value or not configured, ensure we clear the return value
                 endusing
             endmethod
@@ -578,6 +613,19 @@ namespace AppData
                 RaiseNonRPSPropertyChanged("Report_typeIsEnabled")
             endmethod
         endproperty
+		
+
+        public property KeyvalueIsEnabled, Boolean
+            method get
+            proc
+                mreturn GetFieldEnabledState(7)
+            endmethod
+            method set
+            proc
+                SetFieldEnabledState(7, value)
+                RaiseNonRPSPropertyChanged("KeyvalueIsEnabled")
+            endmethod
+        endproperty
 
         ;;Expose properties to indicate whether fields are focussed
 		private mStart_suppIsFocused	,Boolean
@@ -656,6 +704,19 @@ namespace AppData
 				clearFocus()
 				mReport_typeIsFocused = value
 				RaiseNonRPSPropertyChanged("Report_typeIsFocused")
+			endmethod
+		endproperty
+		private mKeyvalueIsFocused	,Boolean
+		public property KeyvalueIsFocused, Boolean
+			method get
+			proc
+				mreturn mKeyvalueIsFocused
+			endmethod
+			method set
+			proc
+				clearFocus()
+				mKeyvalueIsFocused = value
+				RaiseNonRPSPropertyChanged("KeyvalueIsFocused")
 			endmethod
 		endproperty
 
@@ -739,6 +800,19 @@ namespace AppData
 				RaiseNonRPSPropertyChanged("Report_typeIsReadOnly")
 			endmethod
 		endproperty
+		
+
+		public property KeyvalueIsReadOnly, Boolean
+			method get
+			proc
+				mreturn GetFieldReadOnlyState(7)
+			endmethod
+			method set
+			proc
+				SetFieldReadOnlyState(7, value)
+				RaiseNonRPSPropertyChanged("KeyvalueIsReadOnly")
+			endmethod
+		endproperty
 
 		private doingClearFocus	,Boolean
 
@@ -754,6 +828,7 @@ namespace AppData
 				if (End_prodIsFocused) End_prodIsFocused = false
 				if (KeywordIsFocused) KeywordIsFocused = false
 				if (Report_typeIsFocused) Report_typeIsFocused = false
+				if (KeyvalueIsFocused) KeyvalueIsFocused = false
 				doingClearFocus = false
 			end
 		endmethod
@@ -919,6 +994,28 @@ namespace AppData
 					end
 				end
 			end
+			("Keyvalue"),
+			begin
+				if (((Selections_Data)obj1).Keyvalue == ((Selections_Data)obj2).Keyvalue) then
+					result = 0
+				else
+				begin
+					if (((Selections_Data)obj1).Keyvalue > ((Selections_Data)obj2).Keyvalue) then
+					begin
+						if (sortDir == Symphony.Conductor.Framework.SynergySortOrder.Ascending) then
+							result = -1
+						else
+							result = 1
+					end
+					else
+					begin
+						if (sortDir == Symphony.Conductor.Framework.SynergySortOrder.Descending) then
+							result = -1
+						else
+							result = 1
+					end
+				end
+			end
 			(),
 				result = this.CustomCompareObjects(obj1, obj2, colName, sortDir)
 			endusing
@@ -940,6 +1037,7 @@ namespace AppData
 				tmpSTR.csEnd_prod = (string)mAlphaConveter.Convert(selections_main.STR_end_prod, ^null, ^null, ^null)
 				tmpSTR.csKeyword = (string)mAlphaConveter.Convert(selections_main.STR_keyword, ^null, ^null, ^null)
 				tmpSTR.csReport_type = (string)mAlphaConveter.Convert(selections_main.STR_report_type, ^null, ^null, ^null)
+				tmpSTR.csKeyvalue = (string)mAlphaConveter.Convert(selections_main.STR_keyvalue, ^null, ^null, ^null)
 				mreturn structureToByteArray(tmpSTR)
 			endmethod
 			method set
@@ -952,6 +1050,7 @@ namespace AppData
 				selections_main.STR_End_prod = (a)mAlphaConveter.ConvertBack(tmpSTR.csEnd_prod, ^null, ^null, ^null)
 				selections_main.STR_Keyword = (a)mAlphaConveter.ConvertBack(tmpSTR.csKeyword, ^null, ^null, ^null)
 				selections_main.STR_Report_type = (a)mAlphaConveter.ConvertBack(tmpSTR.csReport_type, ^null, ^null, ^null)
+				selections_main.STR_Keyvalue = (a)mAlphaConveter.ConvertBack(tmpSTR.csKeyvalue, ^null, ^null, ^null)
 			endmethod
 		endproperty
 			
@@ -968,6 +1067,7 @@ namespace AppData
 				writer.Write(tmpSTRUCT.csEnd_prod)
 				writer.Write(tmpSTRUCT.csKeyword)
 				writer.Write(tmpSTRUCT.csReport_type)
+				writer.Write(tmpSTRUCT.csKeyvalue)
 			end
 			mreturn stream.ToArray()
 		endmethod
@@ -987,6 +1087,7 @@ namespace AppData
 				tmpSTRUCT.csEnd_prod = reader.ReadString()
 				tmpSTRUCT.csKeyword = reader.ReadString()
 				tmpSTRUCT.csReport_type = reader.ReadString()
+				tmpSTRUCT.csKeyvalue = reader.ReadString()
 			end
 
 			mreturn tmpSTRUCT

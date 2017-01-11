@@ -43,7 +43,7 @@ namespace AppData
 		public static SynergyMemberInfo, @List<System.Reflection.MemberInfo>
 
 		public const RPSStructureName	,String	,"PARAMETER"
-		public const RPSStructureSize	,Int32	,100
+		public const RPSStructureSize	,Int32	,600
 
 		private parameter_main	,STRParameter
 

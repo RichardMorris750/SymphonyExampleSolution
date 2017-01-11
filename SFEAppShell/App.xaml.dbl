@@ -10,5 +10,10 @@ namespace SFEAppShell
 
     public partial class App extends System.Windows.Application
     
+		public method App
+			endparams
+		proc
+			Symphony.Conductor.Static.ThreadSafe.AnchorToUIThread()
+		endmethod
     endclass
 endnamespace

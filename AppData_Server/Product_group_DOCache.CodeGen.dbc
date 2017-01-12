@@ -15,8 +15,6 @@ import System.Text
 import Synergex.SynergyDE.Select
 import AppData
 
-import AppData
-
 namespace AppData
 	
 	public class Product_group_DOCache
@@ -27,20 +25,19 @@ namespace AppData
 			in req keyValue		,String
 			endparams
 
-			.include 'product_group' repository, record = "product_groupRecord"
-
 		proc
-			data doObject	,@Product_group_Data
-			if (!mObjectCache.TryGetValue(product_groupRecord.Prod_group = keyValue, doObject))
+			data product_groupRecord	,STRProduct_group
+			data doObject				,@Product_group_Data
+			if (!mObjectCache.TryGetValue(product_groupRecord.str_Prod_group = keyValue, doObject))
 			begin
 				;;object not found in dictionary, load it.
 				foreach product_groupRecord in new Select(new From("SFEDATA:product_group.ism", product_groupRecord),
-				&	(Where) product_groupRecord.Prod_group .eqs. keyValue
+				&	(Where) product_groupRecord.str_Prod_group .eqs. keyValue
 				&	)
 				begin
 					doObject = new Product_group_Data(product_groupRecord)
 					mObjectCache.Add(
-					&	product_groupRecord.Prod_group
+					&	product_groupRecord.str_Prod_group
 					&	, doObject)
 					exitloop
 				end

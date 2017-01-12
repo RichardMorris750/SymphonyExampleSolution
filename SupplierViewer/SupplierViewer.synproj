@@ -166,11 +166,6 @@
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
-    <Reference Include="SymphonyUIToolkit, Version=3.2.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\SymphonyFramework.3.2.7\lib\net45\SymphonyUIToolkit.dll</HintPath>
-      <Private>True</Private>
-      <CopyLocal>True</CopyLocal>
-    </Reference>
     <Reference Include="synrnt">
       <Private>False</Private>
     </Reference>

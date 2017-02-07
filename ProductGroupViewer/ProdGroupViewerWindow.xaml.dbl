@@ -25,7 +25,7 @@ namespace ProductGroupViewer
         proc
 			this.InitializeComponent()
 			this.DataContext = new ProdGroupViewerViewModel(this) 
-
+			Symphony.Conductor.Static.ThreadSafe.AnchorToUIThread()
 		endmethod
 
 	endclass

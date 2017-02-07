@@ -6,9 +6,11 @@
     xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
     xmlns:symControl="clr-namespace:Symphony.Conductor.Controls;assembly=SymphonyConductor"
     xmlns:symTrigger="clr-namespace:Symphony.Conductor.Triggers;assembly=SymphonyConductor"
+        xmlns:localConverter="clr-namespace:SFE_UI.Converters;assembly=SFE_UI"
     xmlns:sfeUICommon="clr-namespace:SFE_UI.Common;assembly=SFE_UI"
+    
     mc:Ignorable="d" 
-    Title="Product Group Viewer" Height="600" Width="400" WindowStartupLocation="CenterScreen">
+    Title="Product Group Viewer" Height="600" Width="500" WindowStartupLocation="CenterScreen">
     
     <Window.Resources>
         <ResourceDictionary>
@@ -18,7 +20,7 @@
                 <ResourceDictionary Source="pack://application:,,,/SFE_UI;component/Resources/Product_group_Style.CodeGen.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/SFE_UI;component/Resources/Product_Style.CodeGen.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            
+
             <Style x:Key="KeyMatchStyle" TargetType="TextBox">
                 <Setter Property="TextBox.Background" Value="Transparent"/>
                 <Setter Property="TextBox.Foreground" Value="{StaticResource InputForegroundBrush}"/>
@@ -172,6 +174,7 @@
                 <Setter Property="FontWeight" Value="UltraBlack"/>
                 <Setter Property="FontStyle" Value="Oblique"/>
             </Style>
+            <localConverter:NullImageConverter x:Key="nullImgConv"></localConverter:NullImageConverter>
         </ResourceDictionary>
     </Window.Resources>
     
@@ -189,16 +192,19 @@
                 <Label VerticalAlignment="Center">Key Code</Label>
                 <TextBox Text="{Binding Path=CodeValue}" Margin="5,15,30,15" MaxLength="3" Width="40" CharacterCasing="Upper"/>
                 <Label VerticalAlignment="Center" IsEnabled="{Binding Path=DescrEnabled}">Key Description</Label>
-                <TextBox Text="{Binding Path=DescrValue}" Margin="5,15,15,15" MaxLength="20" Width="115" CharacterCasing="Upper" 
-                         IsEnabled="{Binding Path=DescrEnabled}" Style="{StaticResource KeyMatchStyle}">
+                <TextBox Text="{Binding Path=DescrValue}" Margin="5,15,15,15" MaxLength="20" Width="115" CharacterCasing="Upper"
+                    IsEnabled="{Binding Path=DescrEnabled}"
+                    Style="{StaticResource KeyMatchStyle}">
                </TextBox>
             </StackPanel>
         </Border>
 
         <Border Grid.Row="1" Margin="10">
             <StackPanel Orientation="Horizontal">
-                <symControl:FieldControl Style="{StaticResource CheckBoxStyle}"></symControl:FieldControl>
-                
+                <symControl:FieldControl 
+                    Style="{StaticResource CheckBoxStyle}"></symControl:FieldControl> 
+                    <!--Style="{StaticResource Product_Promotion_style}"></symControl:FieldControl>-->
+                                   
                 <Button Style="{StaticResource MenuButtonStyle}"  Command="{Binding SearchCommand}" Width="30" Height="30" Margin="25,0">
                     <Button.Content>
                         <Image Source="pack://application:,,,/SFE_UI;component/Images/Icons/search.png" HorizontalAlignment="Center" Width="30"/>
@@ -207,26 +213,37 @@
             </StackPanel>
         </Border>
 
-        <Border Grid.Row="2" Margin="4" Padding="4" BorderThickness="0" CornerRadius="5" BorderBrush="{StaticResource BorderBrush}">
+        <Border Grid.Row="2" Margin="4" Padding="4" BorderThickness="1" CornerRadius="5" BorderBrush="{StaticResource BorderBrush}">
             <DataGrid RowHeaderWidth="0" ItemsSource="{Binding Path=ProductGroupList}" AutoGenerateColumns="False" 
-                IsReadOnly="True" SelectedItem="{Binding Path=SelectedProdGroup}">
+                IsReadOnly="True" SelectedItem="{Binding Path=SelectedProdGroup}" SelectionMode="Single" 
+                CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" CanUserSortColumns="True">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Sorting">
                         <symTrigger:DataGridCustomerSorting ItemsSource="{Binding Path=ProductGroupList}"></symTrigger:DataGridCustomerSorting>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-
+                
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Code" Binding="{Binding Path=Prod_group}" Width="60"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Code" Binding="{Binding Path=Prod_group}" Width="50"></DataGridTextColumn>
                     <DataGridTextColumn Header="Name" Binding="{Binding Path=Group_desc}" Width="*"></DataGridTextColumn>
+
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding Path=FlagImage, Converter={StaticResource nullImgConv}}" Width="30" Margin="2,2,2,2"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
                 </DataGrid.Columns>
             </DataGrid>
         </Border>
 
-        <Border Grid.Row="3" Margin="10" DataContext="{Binding Path=SelectedProdGroup}">
+        <Border Grid.Row="3" Margin="5,10,5,5" DataContext="{Binding Path=SelectedProdGroup}">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="75"/>
+                    <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 
@@ -240,21 +257,39 @@
 
                 <Label  Grid.Row="1" Style="{StaticResource Product_group_Group_desc_prompt}"/>
                 <symControl:FieldControl Grid.Row="1" Grid.Column="1" Style="{StaticResource Product_group_Group_desc_style}"></symControl:FieldControl>
+             
             </Grid>
         </Border>
- 
+
+        <Border Grid.Row="3" Grid.Column="4" Grid.RowSpan="2" HorizontalAlignment="Right"  VerticalAlignment="Top" Margin="0,0,10,0">
+            <StackPanel Orientation="Horizontal">
+                <Image Width="70" Height="70" Source="{Binding Path=FlagImage, Converter={StaticResource nullImgConv}}"></Image>
+            </StackPanel>
+        </Border>
+
         <Border Grid.Row="4">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                
                 <StatusBarItem Grid.Column="1">
                     <TextBlock Foreground="{StaticResource StatusBarItemForegroundBrush}" Background="{StaticResource StatusBarItemBackgroundBrush}">Icons provided by www.icons8.com</TextBlock>
                 </StatusBarItem>
+                <StatusBarItem Grid.Row="1" Grid.Column="1">
+                    <TextBlock Foreground="{StaticResource StatusBarItemForegroundBrush}" Background="{StaticResource StatusBarItemBackgroundBrush}">Flags courtesy of www.theodora.com/flags</TextBlock>
+                </StatusBarItem>
             </Grid>
         </Border>
+
         
+
     </Grid>
     
 </Window>

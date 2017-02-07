@@ -41,6 +41,7 @@ import System.Collections.ObjectModel		;required for ObservableCollection<>
 import System.Linq
 import System.Text
 import System.Windows
+import System.Windows.Media
 
 import AppData								;required for 'models'
 
@@ -63,6 +64,7 @@ namespace ProductGroupViewer
 		private mProductGroupList	,@AsyncObservableCollection<Product_group_Data>
 		private mSearchCommand		,@GenericCommand
 		private mSelectedProdGroup	,@Product_group_Data
+		private mFlagImage		,@ImageSource
 
 		private mStatus			,i4
 		private mKeyMatch		,boolean	,false
@@ -153,6 +155,16 @@ namespace ProductGroupViewer
 			proc
 				mSelectedProdGroup = value
 				RaisePropertyChanged("SelectedProdGroup")
+			endmethod
+		endproperty
+		
+;;-----------------------------------------------------------------------------	
+		public property FlagImage, @ImageSource
+			method get
+			proc
+				if (mFlagImage == ^null)
+					mFlagImage = AppData.DataLogic.GetImageSource("uk-s", ImageFileType.JPGFileType)
+				mreturn mFlagImage
 			endmethod
 		endproperty
 
@@ -247,7 +259,7 @@ namespace ProductGroupViewer
 				mreturn mSearchCommand
 			endmethod
 		endproperty
-		
+
 
 .endregion
 

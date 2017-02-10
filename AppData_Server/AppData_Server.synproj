@@ -179,6 +179,7 @@
     <Compile Include="Product_DFM.CodeGen.dbc" />
     <Compile Include="Product_FileIO.CodeGen.dbc" />
     <Compile Include="Product_group_Data.CodeGen.dbc" />
+    <Compile Include="Product_group_Data.dbc" />
     <Compile Include="Product_group_DFM.CodeGen.dbc" />
     <Compile Include="Product_group_DOCache.CodeGen.dbc" />
     <Compile Include="Product_group_FileIO.CodeGen.dbc" />

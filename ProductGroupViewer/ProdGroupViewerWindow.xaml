@@ -10,7 +10,7 @@
     xmlns:sfeUICommon="clr-namespace:SFE_UI.Common;assembly=SFE_UI"
     
     mc:Ignorable="d" 
-    Title="Product Group Viewer" Height="600" Width="500" WindowStartupLocation="CenterScreen">
+    Title="Product Group Viewer" Height="600" Width="430" WindowStartupLocation="CenterScreen">
     
     <Window.Resources>
         <ResourceDictionary>
@@ -203,7 +203,6 @@
             <StackPanel Orientation="Horizontal">
                 <symControl:FieldControl 
                     Style="{StaticResource CheckBoxStyle}"></symControl:FieldControl> 
-                    <!--Style="{StaticResource Product_Promotion_style}"></symControl:FieldControl>-->
                                    
                 <Button Style="{StaticResource MenuButtonStyle}"  Command="{Binding SearchCommand}" Width="30" Height="30" Margin="25,0">
                     <Button.Content>
@@ -230,7 +229,7 @@
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Image Source="{Binding Path=FlagImage, Converter={StaticResource nullImgConv}}" Width="30" Margin="2,2,2,2"/>
+                                <Image Source="{Binding Path=ProductGroupImage, Converter={StaticResource nullImgConv}}" Width="30" Margin="2,2,3,2"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -244,12 +243,14 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="75"/>
                     <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="3"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                    <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                    <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
                 </Grid.RowDefinitions>
 
                 <Label Style="{StaticResource Product_group_Prod_group_prompt}"/>
@@ -257,14 +258,13 @@
 
                 <Label  Grid.Row="1" Style="{StaticResource Product_group_Group_desc_prompt}"/>
                 <symControl:FieldControl Grid.Row="1" Grid.Column="1" Style="{StaticResource Product_group_Group_desc_style}"></symControl:FieldControl>
-             
-            </Grid>
-        </Border>
 
-        <Border Grid.Row="3" Grid.Column="4" Grid.RowSpan="2" HorizontalAlignment="Right"  VerticalAlignment="Top" Margin="0,0,10,0">
-            <StackPanel Orientation="Horizontal">
-                <Image Width="70" Height="70" Source="{Binding Path=FlagImage, Converter={StaticResource nullImgConv}}"></Image>
-            </StackPanel>
+                <Border Grid.Row="0" Grid.Column="4" Grid.RowSpan="3" HorizontalAlignment="Center"  VerticalAlignment="Top">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Width="80" Height="80" Source="{Binding Path=ProductGroupImage, Converter={StaticResource nullImgConv}}"></Image>
+                    </StackPanel>
+                </Border>
+            </Grid>
         </Border>
 
         <Border Grid.Row="4">
@@ -275,16 +275,16 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                    <!--<RowDefinition Height="{StaticResource StandardInputGridHeight}" />-->
                 </Grid.RowDefinitions>
                 
                 <StatusBarItem Grid.Column="1">
                     <TextBlock Foreground="{StaticResource StatusBarItemForegroundBrush}" Background="{StaticResource StatusBarItemBackgroundBrush}">Icons provided by www.icons8.com</TextBlock>
                 </StatusBarItem>
-                <StatusBarItem Grid.Row="1" Grid.Column="1">
+                <!--<StatusBarItem Grid.Row="1" Grid.Column="1">
                     <TextBlock Foreground="{StaticResource StatusBarItemForegroundBrush}" Background="{StaticResource StatusBarItemBackgroundBrush}">Flags courtesy of www.theodora.com/flags</TextBlock>
-                </StatusBarItem>
+                </StatusBarItem>-->
             </Grid>
         </Border>
 

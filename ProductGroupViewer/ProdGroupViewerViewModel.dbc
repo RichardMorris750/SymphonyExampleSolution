@@ -64,8 +64,7 @@ namespace ProductGroupViewer
 		private mProductGroupList	,@AsyncObservableCollection<Product_group_Data>
 		private mSearchCommand		,@GenericCommand
 		private mSelectedProdGroup	,@Product_group_Data
-		private mFlagImage		,@ImageSource
-
+		
 		private mStatus			,i4
 		private mKeyMatch		,boolean	,false
 		private mDescrEnabled	,boolean	,false
@@ -159,16 +158,6 @@ namespace ProductGroupViewer
 		endproperty
 		
 ;;-----------------------------------------------------------------------------	
-		public property FlagImage, @ImageSource
-			method get
-			proc
-				if (mFlagImage == ^null)
-					mFlagImage = AppData.DataLogic.GetImageSource("uk-s", ImageFileType.JPGFileType)
-				mreturn mFlagImage
-			endmethod
-		endproperty
-
-;;-----------------------------------------------------------------------------		
 		public property SearchCommand, @GenericCommand
 			method get
 			proc

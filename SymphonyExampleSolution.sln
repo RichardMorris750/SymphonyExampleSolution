@@ -87,6 +87,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CountryFLagsImages", "Count
 		CountryFlagsImages\uk-s.jpg = CountryFlagsImages\uk-s.jpg
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProductGroupImages", "ProductGroupImages", "{D86432F3-093C-4B6A-A456-206843DA744A}"
+	ProjectSection(SolutionItems) = preProject
+		Product Group Images\cho.jpg = Product Group Images\cho.jpg
+		Product Group Images\cr.jpg = Product Group Images\cr.jpg
+		Product Group Images\nut.jpg = Product Group Images\nut.jpg
+		Product Group Images\sd.jpg = Product Group Images\sd.jpg
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

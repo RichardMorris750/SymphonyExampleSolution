@@ -1,0 +1,110 @@
+;;**********************************************************************
+;;
+;; Title:       Product_group_Data.dbc
+;;
+;; Type:        Class
+;;
+;; Description: Various Product Group data related "extra" methods & properties. 
+;;
+;; Author:      Allan Shikhvarg, Synergex Consultant
+;;
+;; Copyright (c) 2017, Synergex International, Inc. All rights reserved.
+;;
+;; Redistribution and use in source and binary forms, with or without
+;; modification, are permitted provided that the following conditions are met:
+;;
+;; * Redistributions of source code must retain the above copyright notice,
+;;   this list of conditions and the following disclaimer.
+;;
+;; * Redistributions in binary form must reproduce the above copyright notice,
+;;   this list of conditions and the following disclaimer in the documentation
+;;   and/or other materials provided with the distribution.
+;;
+;; THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+;; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+;; IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+;; ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+;; LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+;; CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+;; SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+;; INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+;; CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+;; ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+;; POSSIBILITY OF SUCH DAMAGE.
+;;
+;;*****************************************************************************
+import System
+import System.Collections.Generic
+import System.Text
+import Symphony.Conductor.Model
+
+;;imports required to use data objects and file IO classes.
+import AppData
+import Symphony.Conductor.DataIO
+import System.Windows.Media
+
+
+namespace AppData
+
+	public partial class Product_group_Data
+
+;;=============================================================================
+.region "Private Variables"
+		private mProductGroupImage		,@ImageSource
+
+.endregion
+
+;;=============================================================================
+.region 'Properties'
+		public property ProductGroupImage, @ImageSource
+			method get
+			proc
+				if (mProductGroupImage == ^null)
+					mProductGroupImage = AppData.DataLogic.GetImageSource(product_group_main.STR_Prod_group, ImageFileType.JPGFileType,"GroupImages")
+									
+				mreturn mProductGroupImage
+			endmethod
+		endproperty
+
+.endregion
+
+;;=============================================================================
+.region 'Methods'
+
+		protected override method extendedConstructor, void
+			endparams
+
+		proc
+			SynergyRecordChanged += synergyChanged
+			SynergyRecordChanged += refreshData
+
+			;;if data passed is to the constructor then use it to populate the aditional fields
+			if (trim(product_group_main.STR_Prod_group)) 
+				synergychanged()
+						
+		endmethod
+
+;;-----------------------------------------------------------------------------	
+		private method synergyChanged, void
+			endparams
+
+		proc
+			;; populate any extra fields that are added to data object	
+			mProductGroupImage = ^null
+
+		endmethod
+
+;;-----------------------------------------------------------------------------	
+		private method refreshData, void
+			endparams
+
+		proc
+			RaisePropertyChanged(^null)
+
+		endmethod
+
+;;-----------------------------------------------------------------------------	
+	
+	endclass
+
+endnamespace

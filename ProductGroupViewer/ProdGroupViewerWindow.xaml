@@ -6,9 +6,11 @@
     xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
     xmlns:symControl="clr-namespace:Symphony.Conductor.Controls;assembly=SymphonyConductor"
     xmlns:symTrigger="clr-namespace:Symphony.Conductor.Triggers;assembly=SymphonyConductor"
+        xmlns:localConverter="clr-namespace:SFE_UI.Converters;assembly=SFE_UI"
     xmlns:sfeUICommon="clr-namespace:SFE_UI.Common;assembly=SFE_UI"
+    
     mc:Ignorable="d" 
-    Title="Product Group Viewer" Height="600" Width="400" WindowStartupLocation="CenterScreen">
+    Title="Product Group Viewer" Height="600" Width="430" WindowStartupLocation="CenterScreen">
     
     <Window.Resources>
         <ResourceDictionary>
@@ -16,8 +18,9 @@
                 <ResourceDictionary Source="pack://application:,,,/SymphonyConductor;component/Resources/Converters.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/SFE_UI;component/Resources/AppStyling.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/SFE_UI;component/Resources/Product_group_Style.CodeGen.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SFE_UI;component/Resources/Product_Style.CodeGen.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            
+
             <Style x:Key="KeyMatchStyle" TargetType="TextBox">
                 <Setter Property="TextBox.Background" Value="Transparent"/>
                 <Setter Property="TextBox.Foreground" Value="{StaticResource InputForegroundBrush}"/>
@@ -29,12 +32,137 @@
                 </Style.Triggers>
             </Style>
 
-            <Style x:Key="CheckBoxStyle" TargetType="{x:Type CheckBox}">
-                <Setter Property="FontSize" Value="12"/>
-                <Setter Property="Foreground" Value="{StaticResource LabelColorBrush}"/>
-                <Setter Property="Background" Value="Transparent"/>
+            <Style x:Key="CheckBoxStyle" TargetType="{x:Type symControl:FieldControl}">
+                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                <Setter Property="Focusable" Value="False"></Setter>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type symControl:FieldControl}">
+                            <CheckBox HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding Path=KeyMatch}" 
+                                Content="Match on whole key?" Foreground="{StaticResource LabelColorBrush}"
+                                ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
+                            
+                                <CheckBox.Style>
+                                    <Style>
+                                        <Setter Property="CheckBox.Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type CheckBox}">
+                                                    <BulletDecorator Background="Transparent">
+                                                        <BulletDecorator.Bullet>
+                                                            <Border x:Name="Border" Width="16" Height="16" CornerRadius="0" BorderThickness="1">
+                                                                <Border.BorderBrush>
+                                                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                                        <LinearGradientBrush.GradientStops>
+                                                                            <GradientStopCollection>
+                                                                                <GradientStop Color="{DynamicResource BorderLightColor}" Offset="0.0" />
+                                                                                <GradientStop Color="{DynamicResource BorderDarkColor}" Offset="1.0" />
+                                                                            </GradientStopCollection>
+                                                                        </LinearGradientBrush.GradientStops>
+                                                                    </LinearGradientBrush>
+                                                                </Border.BorderBrush>
+
+                                                                <Border.Background>
+                                                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                                        <LinearGradientBrush.GradientStops>
+                                                                            <GradientStopCollection>
+                                                                                <GradientStop Color="{DynamicResource ControlLightColor}" />
+                                                                                <GradientStop Color="{DynamicResource ControlMediumColor}" Offset="1.0" />
+                                                                            </GradientStopCollection>
+                                                                        </LinearGradientBrush.GradientStops>
+                                                                    </LinearGradientBrush>
+                                                                </Border.Background>
+
+                                                                <Grid>
+                                                                    <Path Visibility="Collapsed" Width="10" Height="10" x:Name="CheckMark"
+																        SnapsToDevicePixels="False" StrokeThickness="2" 
+                                                                        Data="F1 M 0.468732,4.66838L 3.03345,7.95443L 7.28127,0.420569">
+                                                                        <Path.Stroke>
+                                                                            <SolidColorBrush Color="{DynamicResource GlyphColor}" />
+                                                                        </Path.Stroke>
+                                                                    </Path>
+
+                                                                    <Path Visibility="Collapsed" Width="10" Height="10" x:Name="InderminateMark"
+																        SnapsToDevicePixels="False" StrokeThickness="2"
+																        Data="F1 M 0.468732,4.66838L 3.03345,7.95443L 7.28127,0.420569">
+                                                                        <Path.Stroke>
+                                                                            <SolidColorBrush Color="{DynamicResource GlyphColor}" />
+                                                                        </Path.Stroke>
+                                                                    </Path>
+                                                                </Grid>
+                                                            </Border>
+                                                        </BulletDecorator.Bullet>
+
+                                                        <VisualStateManager.VisualStateGroups>
+                                                            <VisualStateGroup x:Name="CommonStates">
+                                                                <VisualState x:Name="Normal" />
+
+                                                                <VisualState x:Name="MouseOver">
+                                                                    <Storyboard>
+                                                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
+																	        Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)">
+                                                                            <EasingColorKeyFrame KeyTime="0" Value="{StaticResource ControlMouseOverColor}" />
+                                                                        </ColorAnimationUsingKeyFrames>
+                                                                    </Storyboard>
+                                                                </VisualState>
+
+                                                                <VisualState x:Name="Pressed">
+                                                                    <Storyboard>
+                                                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
+																	        Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)">
+                                                                            <EasingColorKeyFrame KeyTime="0" Value="{StaticResource ControlPressedColor}" />
+                                                                        </ColorAnimationUsingKeyFrames>
+
+                                                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
+																	        Storyboard.TargetProperty="(Border.BorderBrush).(GradientBrush.GradientStops)[0].(GradientStop.Color)">
+                                                                            <EasingColorKeyFrame KeyTime="0" Value="{StaticResource PressedBorderDarkColor}" />
+                                                                        </ColorAnimationUsingKeyFrames>
+
+                                                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
+																	        Storyboard.TargetProperty="(Border.BorderBrush).(GradientBrush.GradientStops)[1].(GradientStop.Color)">
+                                                                            <EasingColorKeyFrame KeyTime="0" Value="{StaticResource PressedBorderLightColor}" />
+                                                                        </ColorAnimationUsingKeyFrames>
+                                                                    </Storyboard>
+                                                                </VisualState>
+
+                                                                <VisualState x:Name="Disabled" />
+                                                            </VisualStateGroup>
+
+                                                            <VisualStateGroup x:Name="CheckStates">
+                                                                <VisualState x:Name="Checked">
+                                                                    <Storyboard>
+                                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)"
+																	        Storyboard.TargetName="CheckMark">
+                                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+                                                                        </ObjectAnimationUsingKeyFrames>
+                                                                    </Storyboard>
+                                                                </VisualState>
+
+                                                                <VisualState x:Name="Unchecked" />
+
+                                                                <VisualState x:Name="Indeterminate">
+                                                                    <Storyboard>
+                                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)"
+																	        Storyboard.TargetName="InderminateMark">
+                                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+                                                                        </ObjectAnimationUsingKeyFrames>
+                                                                    </Storyboard>
+                                                                </VisualState>
+                                                            </VisualStateGroup>
+                                                        </VisualStateManager.VisualStateGroups>
+
+                                                        <ContentPresenter Margin="4,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" RecognizesAccessKey="True" />
+                                                    </BulletDecorator>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </CheckBox.Style>
+                            </CheckBox>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
             </Style>
-          
+
             <Style x:Key="SelectStyle" TargetType="TextBox">
                 <Setter Property="Margin" Value="5"/>
                 <Setter Property="Background" Value="Salmon"/>
@@ -46,6 +174,7 @@
                 <Setter Property="FontWeight" Value="UltraBlack"/>
                 <Setter Property="FontStyle" Value="Oblique"/>
             </Style>
+            <localConverter:NullImageConverter x:Key="nullImgConv"></localConverter:NullImageConverter>
         </ResourceDictionary>
     </Window.Resources>
     
@@ -63,15 +192,18 @@
                 <Label VerticalAlignment="Center">Key Code</Label>
                 <TextBox Text="{Binding Path=CodeValue}" Margin="5,15,30,15" MaxLength="3" Width="40" CharacterCasing="Upper"/>
                 <Label VerticalAlignment="Center" IsEnabled="{Binding Path=DescrEnabled}">Key Description</Label>
-                <TextBox Text="{Binding Path=DescrValue}" Margin="5,15,15,15" MaxLength="20" Width="115" CharacterCasing="Upper" 
-                         IsEnabled="{Binding Path=DescrEnabled}" Style="{StaticResource KeyMatchStyle}">
+                <TextBox Text="{Binding Path=DescrValue}" Margin="5,15,15,15" MaxLength="20" Width="115" CharacterCasing="Upper"
+                    IsEnabled="{Binding Path=DescrEnabled}"
+                    Style="{StaticResource KeyMatchStyle}">
                </TextBox>
             </StackPanel>
         </Border>
 
         <Border Grid.Row="1" Margin="10">
             <StackPanel Orientation="Horizontal">
-                <CheckBox IsChecked="{Binding Path=KeyMatch}" VerticalAlignment="Center" Style="{StaticResource CheckBoxStyle}">Match on whole key?</CheckBox>
+                <symControl:FieldControl 
+                    Style="{StaticResource CheckBoxStyle}"></symControl:FieldControl> 
+                                   
                 <Button Style="{StaticResource MenuButtonStyle}"  Command="{Binding SearchCommand}" Width="30" Height="30" Margin="25,0">
                     <Button.Content>
                         <Image Source="pack://application:,,,/SFE_UI;component/Images/Icons/search.png" HorizontalAlignment="Center" Width="30"/>
@@ -80,32 +212,45 @@
             </StackPanel>
         </Border>
 
-        <Border Grid.Row="2" Margin="4" Padding="4" BorderThickness="0" CornerRadius="5" BorderBrush="{StaticResource BorderBrush}">
+        <Border Grid.Row="2" Margin="4" Padding="4" BorderThickness="1" CornerRadius="5" BorderBrush="{StaticResource BorderBrush}">
             <DataGrid RowHeaderWidth="0" ItemsSource="{Binding Path=ProductGroupList}" AutoGenerateColumns="False" 
-                IsReadOnly="True" SelectedItem="{Binding Path=SelectedProdGroup}">
+                IsReadOnly="True" SelectedItem="{Binding Path=SelectedProdGroup}" SelectionMode="Single" 
+                CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" CanUserSortColumns="True">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Sorting">
                         <symTrigger:DataGridCustomerSorting ItemsSource="{Binding Path=ProductGroupList}"></symTrigger:DataGridCustomerSorting>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-
+                
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Code" Binding="{Binding Path=Prod_group}" Width="60"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Code" Binding="{Binding Path=Prod_group}" Width="50"></DataGridTextColumn>
                     <DataGridTextColumn Header="Name" Binding="{Binding Path=Group_desc}" Width="*"></DataGridTextColumn>
+
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding Path=ProductGroupImage, Converter={StaticResource nullImgConv}}" Width="30" Margin="2,2,3,2"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
                 </DataGrid.Columns>
             </DataGrid>
         </Border>
 
-        <Border Grid.Row="3" Margin="10" DataContext="{Binding Path=SelectedProdGroup}">
+        <Border Grid.Row="3" Margin="5,10,5,5" DataContext="{Binding Path=SelectedProdGroup}">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="75"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="3"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                    <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                    <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
                 </Grid.RowDefinitions>
 
                 <Label Style="{StaticResource Product_group_Prod_group_prompt}"/>
@@ -113,21 +258,38 @@
 
                 <Label  Grid.Row="1" Style="{StaticResource Product_group_Group_desc_prompt}"/>
                 <symControl:FieldControl Grid.Row="1" Grid.Column="1" Style="{StaticResource Product_group_Group_desc_style}"></symControl:FieldControl>
+
+                <Border Grid.Row="0" Grid.Column="4" Grid.RowSpan="3" HorizontalAlignment="Center"  VerticalAlignment="Top">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Width="80" Height="80" Source="{Binding Path=ProductGroupImage, Converter={StaticResource nullImgConv}}"></Image>
+                    </StackPanel>
+                </Border>
             </Grid>
         </Border>
- 
+
         <Border Grid.Row="4">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                    <!--<RowDefinition Height="{StaticResource StandardInputGridHeight}" />-->
+                </Grid.RowDefinitions>
+                
                 <StatusBarItem Grid.Column="1">
                     <TextBlock Foreground="{StaticResource StatusBarItemForegroundBrush}" Background="{StaticResource StatusBarItemBackgroundBrush}">Icons provided by www.icons8.com</TextBlock>
                 </StatusBarItem>
+                <!--<StatusBarItem Grid.Row="1" Grid.Column="1">
+                    <TextBlock Foreground="{StaticResource StatusBarItemForegroundBrush}" Background="{StaticResource StatusBarItemBackgroundBrush}">Flags courtesy of www.theodora.com/flags</TextBlock>
+                </StatusBarItem>-->
             </Grid>
         </Border>
+
         
+
     </Grid>
     
 </Window>

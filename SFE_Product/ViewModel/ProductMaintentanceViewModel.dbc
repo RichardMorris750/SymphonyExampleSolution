@@ -392,6 +392,7 @@ namespace SFE_Product.ViewModel
 			endmethod
 		endproperty
 
+.endregion
 
 	endclass
 

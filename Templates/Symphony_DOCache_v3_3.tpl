@@ -1,5 +1,4 @@
 <CODEGEN_FILENAME><Structure_name>_DOCache.CodeGen.dbc</CODEGEN_FILENAME>
-<REQUIRES_USERTOKEN>ASSEMBLYNAME</REQUIRES_USERTOKEN>
 <REQUIRES_USERTOKEN>MODELNAMESPACE</REQUIRES_USERTOKEN>
 <OPTIONAL_USERTOKEN>DATAFILENAME="<FILE_NAME>"</OPTIONAL_USERTOKEN>
 ;//****************************************************************************
@@ -54,8 +53,6 @@ import System.Text
 import Synergex.SynergyDE.Select
 import <MODELNAMESPACE>
 
-import <ASSEMBLYNAME>
-
 namespace <NAMESPACE>
 	
 	public class <Structure_name>_DOCache
@@ -66,14 +63,13 @@ namespace <NAMESPACE>
 			in req keyValue		,String
 			endparams
 
-			.include '<structure_name>' repository, record = "<structure_name>Record"
-
 		proc
-			data doObject	,@<Structure_name>_Data
+			data <structure_name>Record	,STR<Structure_name>
+			data doObject				,@<Structure_name>_Data
 			<PRIMARY_KEY>
 		    <SEGMENT_LOOP>
 		    <FIRST_SEGMENT>
-			if (!mObjectCache.TryGetValue(<structure_name>Record.<Segment_name> = keyValue, doObject))
+			if (!mObjectCache.TryGetValue(<structure_name>Record.str_<Segment_name> = keyValue, doObject))
 		    </FIRST_SEGMENT>
 		    </SEGMENT_LOOP>
 		    </PRIMARY_KEY>
@@ -83,7 +79,7 @@ namespace <NAMESPACE>
 				<PRIMARY_KEY>
 				<SEGMENT_LOOP>
 				<FIRST_SEGMENT>
-				&	(Where) <structure_name>Record.<Segment_name> .eqs. keyValue
+				&	(Where) <structure_name>Record.str_<Segment_name> .eqs. keyValue
 				</FIRST_SEGMENT>
 				</SEGMENT_LOOP>
 				</PRIMARY_KEY>
@@ -94,7 +90,7 @@ namespace <NAMESPACE>
 					<PRIMARY_KEY>
 					<SEGMENT_LOOP>
 					<FIRST_SEGMENT>
-					&	<structure_name>Record.<Segment_name>
+					&	<structure_name>Record.str_<Segment_name>
 					</FIRST_SEGMENT>
 					</SEGMENT_LOOP>
 					</PRIMARY_KEY>

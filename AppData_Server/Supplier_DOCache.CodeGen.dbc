@@ -15,8 +15,6 @@ import System.Text
 import Synergex.SynergyDE.Select
 import AppData
 
-import AppData
-
 namespace AppData
 	
 	public class Supplier_DOCache
@@ -27,20 +25,19 @@ namespace AppData
 			in req keyValue		,String
 			endparams
 
-			.include 'supplier' repository, record = "supplierRecord"
-
 		proc
-			data doObject	,@Supplier_Data
-			if (!mObjectCache.TryGetValue(supplierRecord.Supp_code = keyValue, doObject))
+			data supplierRecord	,STRSupplier
+			data doObject				,@Supplier_Data
+			if (!mObjectCache.TryGetValue(supplierRecord.str_Supp_code = keyValue, doObject))
 			begin
 				;;object not found in dictionary, load it.
 				foreach supplierRecord in new Select(new From("SFEDATA:supplier.ism", supplierRecord),
-				&	(Where) supplierRecord.Supp_code .eqs. keyValue
+				&	(Where) supplierRecord.str_Supp_code .eqs. keyValue
 				&	)
 				begin
 					doObject = new Supplier_Data(supplierRecord)
 					mObjectCache.Add(
-					&	supplierRecord.Supp_code
+					&	supplierRecord.str_Supp_code
 					&	, doObject)
 					exitloop
 				end

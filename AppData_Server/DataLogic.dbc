@@ -80,6 +80,36 @@ namespace AppData
 		endmethod
 
 		;;; <summary>
+		;;; Overload method to above.
+		;;; </summary>
+		;;; <param name="imageName"></param>
+		;;; <param name="fileType"></param>
+		;;; <param name="logical"></param>
+		public static method GetImageSource	,@ImageSource
+			in req imageName				,String
+			in req fileType					,ImageFileType
+			in req logical					,String
+			endparams
+		proc
+
+			data fileName = GetImageFileName(imageName, fileType,logical)
+
+			if (IO.File.Exists(fileName) == false)
+			begin
+				mreturn ^null
+			end
+
+			data source, @BitmapImage, new BitmapImage()
+			source.BeginInit()
+			data fileData	,[#]byte
+			fileData = File.ReadAllBytes(fileName)
+			source.StreamSource = new MemoryStream(fileData)
+			source.EndInit()
+			mreturn source
+
+		endmethod
+
+		;;; <summary>
 		;;; Provides access to the fully qualtified image file name given the image name and file extension.
 		;;; </summary>
 		;;; <param name="imageName"></param>
@@ -111,6 +141,39 @@ namespace AppData
 
 		endmethod
 
+		;;; <summary>
+		;;; Overload method to above.
+		;;; </summary>
+		;;; <param name="imageName"></param>
+		;;; <param name="fileType"></param>
+		;;; <param name="logical"></param>
+		public static method GetImageFileName	,String
+			in req imageName					,String
+			in req fileType						,ImageFileType
+			in req logical						,String
+			endparams
+		proc
+
+			loadImageFolderName(logical)
+
+			data fileExtension	,string
+			using fileType select
+			(ImageFileType.JPGFileType),
+				fileExtension = ".jpg"
+			(ImageFileType.PNGFileType),
+				fileExtension = ".png"
+			endusing
+
+			data fileName	,String	,mImageFolderName + "\" + %atrim(imageName) + fileExtension
+			if (IO.File.Exists(fileName) == false)
+			begin
+				mreturn ^null
+			end
+
+			mreturn fileName
+
+		endmethod
+
 		private static mImageFolderName	,string
 
 		;;build the image folder based on a logical
@@ -119,9 +182,28 @@ namespace AppData
 		proc
 			if (string.IsNullOrEmpty(mImageFolderName) == true)
 			begin
+
 				data logName	,a255
 				data logStatus	,i4
 				getlog('SFEImages', logName, logStatus)
+				mImageFolderName = %atrim(logName)
+			end
+		endmethod
+
+		;;; <summary>
+		;;; Overload method to above.
+		;;; </summary>
+		;;; <param name="logical"></param>
+		private static method loadImageFolderName ,void
+			logical	,string
+			endparams
+		proc
+			if (string.IsNullOrEmpty(mImageFolderName) == true)
+			begin
+
+				data logName	,a255
+				data logStatus	,i4
+				getlog(atrim(logical), logName, logStatus)
 				mImageFolderName = %atrim(logName)
 			end
 		endmethod

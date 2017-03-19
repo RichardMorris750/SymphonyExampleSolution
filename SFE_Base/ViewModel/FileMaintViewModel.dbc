@@ -334,14 +334,24 @@ namespace SFE_Base.ViewModel
 			begin
 				data tmpObj	,@DataObjectBase
 				mCTORArgs[1] = DataObjectEntryItem.SynergyRecord
+
+				if (mClassConstructor == ^null)
+				begin
+					;;we did not use the standard/base list load capability
+
+					data classTypeInfo		,@TypeInfo			,IntrospectionExtensions.GetTypeInfo(mDataObjectItem)
+					data item	,@ConstructorInfo
+					foreach item in classTypeInfo.DeclaredConstructors
+					begin
+						mClassConstructor = item
+						if (mClassConstructor.ToString() == "Void .ctor(System.String)")
+							exitloop
+					end
+				end
+
 				tmpObj = (DataObjectBase)mClassConstructor.Invoke(mCTORArgs)
 				if (mFileAccessObject.CreateRecord(tmpObj) != FileAccessResults.Success) then
 				begin
-;					mDataObjectEntryItem.InitData()
-;					mDataObjectEntryItem.InitDataPlus()
-;					mDataObjectEntryItem.InitialValidateData()
-;					DataObjectEntryItem.OriginalSynergyRecord = DataObjectEntryItem.SynergyRecord 
-;					mDataObjectEntryItem.RestoreOriginalData()
 					ErrorInfo = "Synergy error : " + %string(mFileAccessObject.LastSynergyError)
 					MoveToState(mErrorVisualState)
 				end

@@ -6,9 +6,9 @@
     xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
     xmlns:symControl="clr-namespace:Symphony.Conductor.Controls;assembly=SymphonyConductor"
     xmlns:symTrigger="clr-namespace:Symphony.Conductor.Triggers;assembly=SymphonyConductor"
-        xmlns:localConverter="clr-namespace:SFE_UI.Converters;assembly=SFE_UI"
+    xmlns:localConverter="clr-namespace:SFE_UI.Converters;assembly=SFE_UI"
     xmlns:sfeUICommon="clr-namespace:SFE_UI.Common;assembly=SFE_UI"
-    
+        
     mc:Ignorable="d" 
     Title="Product Group Viewer" Height="600" Width="430" WindowStartupLocation="CenterScreen">
     
@@ -238,33 +238,62 @@
             </DataGrid>
         </Border>
 
-        <Border Grid.Row="3" Margin="5,10,5,5" DataContext="{Binding Path=SelectedProdGroup}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="75"/>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="3"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
-                    <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
-                    <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
-                </Grid.RowDefinitions>
+        <Border Grid.Row="3" Margin="5,10,5,5" >
+            <TabControl DataContext="{Binding Path=SelectedProdGroup}">
+                <TabItem Header="Main"> 
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="75"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="205"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                <Label Style="{StaticResource Product_group_Prod_group_prompt}"/>
-                <symControl:FieldControl Grid.Column="1" Style="{StaticResource Product_group_Prod_group_style}"></symControl:FieldControl>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                            <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                            <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                        </Grid.RowDefinitions>
 
-                <Label  Grid.Row="1" Style="{StaticResource Product_group_Group_desc_prompt}"/>
-                <symControl:FieldControl Grid.Row="1" Grid.Column="1" Style="{StaticResource Product_group_Group_desc_style}"></symControl:FieldControl>
+                        <Label Style="{StaticResource Product_group_Prod_group_prompt}"/>
+                        <symControl:FieldControl Grid.Column="1" Style="{StaticResource Product_group_Prod_group_style}"></symControl:FieldControl> 
 
-                <Border Grid.Row="0" Grid.Column="4" Grid.RowSpan="3" HorizontalAlignment="Center"  VerticalAlignment="Top">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Width="80" Height="80" Source="{Binding Path=ProductGroupImage, Converter={StaticResource nullImgConv}}"></Image>
-                    </StackPanel>
-                </Border>
-            </Grid>
+                        <Border Grid.Row="0" Grid.Column="4" Grid.RowSpan="3" HorizontalAlignment="Center"  VerticalAlignment="Top">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="80" Height="80" Source="{Binding Path=ProductGroupImage, Converter={StaticResource nullImgConv}}"></Image>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Details">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="75"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="3"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                            <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                            <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                        </Grid.RowDefinitions>
+
+                        <Label Style="{StaticResource Product_group_Prod_group_prompt}"/>
+                        <symControl:FieldControl Grid.Column="1" Style="{StaticResource Product_group_Prod_group_style}"></symControl:FieldControl>
+
+                        <Label  Grid.Row="1" Style="{StaticResource Product_group_Group_desc_prompt}"/>
+                        <symControl:FieldControl Grid.Row="1" Grid.Column="1" Style="{StaticResource Product_group_Group_desc_style}"></symControl:FieldControl>
+
+                        <Border Grid.Row="0" Grid.Column="4" Grid.RowSpan="3" HorizontalAlignment="Center"  VerticalAlignment="Top">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="80" Height="80" Source="{Binding Path=ProductGroupImage, Converter={StaticResource nullImgConv}}"></Image>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </TabItem>
+            </TabControl>
         </Border>
 
         <Border Grid.Row="4">

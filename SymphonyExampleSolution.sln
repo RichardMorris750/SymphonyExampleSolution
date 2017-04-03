@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "SystemSetup", "SystemSetup\SystemSetup.synproj", "{78504DA9-412F-490B-B944-471209C6B25F}"
 EndProject
@@ -80,8 +80,6 @@ Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "ProductGroupViewer", "Produ
 		{EE7B1BE6-CA7B-47D7-8CD9-837577C149C2} = {EE7B1BE6-CA7B-47D7-8CD9-837577C149C2}
 	EndProjectSection
 EndProject
-Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "SFE_Supplier", "SFE_Supplier\SFE_Supplier.synproj", "{08FAA65F-1280-4A26-8A67-B115B8FCAC1C}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CountryFLagsImages", "CountryFLagsImages", "{B5C5973E-AB04-4386-ACBE-E6706A93940C}"
 	ProjectSection(SolutionItems) = preProject
 		CountryFlagsImages\uk-s.jpg = CountryFlagsImages\uk-s.jpg
@@ -94,6 +92,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProductGroupImages", "Produ
 		Product Group Images\nut.jpg = Product Group Images\nut.jpg
 		Product Group Images\sd.jpg = Product Group Images\sd.jpg
 	EndProjectSection
+EndProject
+Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "SFE_Supplier", "SFE_Supplier\SFE_Supplier.synproj", "{BABB7DE1-4204-4D7F-A9D4-BAEE92E8F060}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -263,8 +263,8 @@ Global
 		{14590B9B-85D1-46A0-B3D0-88A823AF00EC}.Release|x86.Build.0 = Release|x86
 		{9AF86CF6-EC92-4068-AC22-0A8573287A17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9AF86CF6-EC92-4068-AC22-0A8573287A17}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9AF86CF6-EC92-4068-AC22-0A8573287A17}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{9AF86CF6-EC92-4068-AC22-0A8573287A17}.Debug|x64.Build.0 = Debug|Any CPU
+		{9AF86CF6-EC92-4068-AC22-0A8573287A17}.Debug|x64.ActiveCfg = Debug|x64
+		{9AF86CF6-EC92-4068-AC22-0A8573287A17}.Debug|x64.Build.0 = Debug|x64
 		{9AF86CF6-EC92-4068-AC22-0A8573287A17}.Debug|x86.ActiveCfg = Debug|x86
 		{9AF86CF6-EC92-4068-AC22-0A8573287A17}.Debug|x86.Build.0 = Debug|x86
 		{9AF86CF6-EC92-4068-AC22-0A8573287A17}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -273,18 +273,18 @@ Global
 		{9AF86CF6-EC92-4068-AC22-0A8573287A17}.Release|x64.Build.0 = Release|Any CPU
 		{9AF86CF6-EC92-4068-AC22-0A8573287A17}.Release|x86.ActiveCfg = Release|Any CPU
 		{9AF86CF6-EC92-4068-AC22-0A8573287A17}.Release|x86.Build.0 = Release|Any CPU
-		{08FAA65F-1280-4A26-8A67-B115B8FCAC1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{08FAA65F-1280-4A26-8A67-B115B8FCAC1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{08FAA65F-1280-4A26-8A67-B115B8FCAC1C}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{08FAA65F-1280-4A26-8A67-B115B8FCAC1C}.Debug|x64.Build.0 = Debug|Any CPU
-		{08FAA65F-1280-4A26-8A67-B115B8FCAC1C}.Debug|x86.ActiveCfg = Debug|x86
-		{08FAA65F-1280-4A26-8A67-B115B8FCAC1C}.Debug|x86.Build.0 = Debug|x86
-		{08FAA65F-1280-4A26-8A67-B115B8FCAC1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{08FAA65F-1280-4A26-8A67-B115B8FCAC1C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{08FAA65F-1280-4A26-8A67-B115B8FCAC1C}.Release|x64.ActiveCfg = Release|Any CPU
-		{08FAA65F-1280-4A26-8A67-B115B8FCAC1C}.Release|x64.Build.0 = Release|Any CPU
-		{08FAA65F-1280-4A26-8A67-B115B8FCAC1C}.Release|x86.ActiveCfg = Release|Any CPU
-		{08FAA65F-1280-4A26-8A67-B115B8FCAC1C}.Release|x86.Build.0 = Release|Any CPU
+		{BABB7DE1-4204-4D7F-A9D4-BAEE92E8F060}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BABB7DE1-4204-4D7F-A9D4-BAEE92E8F060}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BABB7DE1-4204-4D7F-A9D4-BAEE92E8F060}.Debug|x64.ActiveCfg = Debug|x64
+		{BABB7DE1-4204-4D7F-A9D4-BAEE92E8F060}.Debug|x64.Build.0 = Debug|x64
+		{BABB7DE1-4204-4D7F-A9D4-BAEE92E8F060}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BABB7DE1-4204-4D7F-A9D4-BAEE92E8F060}.Debug|x86.Build.0 = Debug|Any CPU
+		{BABB7DE1-4204-4D7F-A9D4-BAEE92E8F060}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BABB7DE1-4204-4D7F-A9D4-BAEE92E8F060}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BABB7DE1-4204-4D7F-A9D4-BAEE92E8F060}.Release|x64.ActiveCfg = Release|Any CPU
+		{BABB7DE1-4204-4D7F-A9D4-BAEE92E8F060}.Release|x64.Build.0 = Release|Any CPU
+		{BABB7DE1-4204-4D7F-A9D4-BAEE92E8F060}.Release|x86.ActiveCfg = Release|Any CPU
+		{BABB7DE1-4204-4D7F-A9D4-BAEE92E8F060}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

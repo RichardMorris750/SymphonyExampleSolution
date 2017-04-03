@@ -20,7 +20,7 @@ import System.Runtime.InteropServices
 {assembly: ComVisible(Synergex.SynergyDE.false)}
 
 ; The following GUID is for the ID of the typelib if this project is exposed to COM
-{assembly: GuidAttribute("08faa65f-1280-4a26-8a67-b115b8fcac1c")}
+{assembly: GuidAttribute("babb7de1-4204-4d7f-a9d4-baee92e8f060")}
 
 ; Version information for an assembly consists of the following four values:
 ;

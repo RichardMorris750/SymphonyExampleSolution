@@ -57,6 +57,9 @@
     <DebugOptimize>Debug</DebugOptimize>
     <DocumentationFile>bin\Debug\SFE_Group.xml</DocumentationFile>
     <Prefer32Bit Condition=" '$(TargetFrameworkVersion)'  != 'v4.0' AND '$(Prefer32Bit)' != 'false' ">true</Prefer32Bit>
+    <TargetRuntimeLevel>10030302</TargetRuntimeLevel>
+    <LanguageCompatibilityLevel>10030302</LanguageCompatibilityLevel>
+    <UnevaluatedOutputPath>bin\Debug\</UnevaluatedOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -83,6 +86,9 @@
     <DocumentationFile>bin\Debug\SFE_Group.xml</DocumentationFile>
     <Prefer32Bit Condition=" '$(TargetFrameworkVersion)'  != 'v4.0' AND '$(Prefer32Bit)' != 'false' ">False</Prefer32Bit>
     <OutputPath>bin\x64\Debug\</OutputPath>
+    <TargetRuntimeLevel>10030302</TargetRuntimeLevel>
+    <LanguageCompatibilityLevel>10030302</LanguageCompatibilityLevel>
+    <UnevaluatedOutputPath>bin\x64\Debug\</UnevaluatedOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>

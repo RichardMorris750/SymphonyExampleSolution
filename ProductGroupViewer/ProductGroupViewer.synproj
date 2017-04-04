@@ -140,7 +140,7 @@
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="Microsoft.ServiceBus, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-      <HintPath>..\packages\WindowsAzure.ServiceBus.3.4.6\lib\net45-full\Microsoft.ServiceBus.dll</HintPath>
+      <HintPath>..\packages\WindowsAzure.ServiceBus.3.4.1\lib\net45-full\Microsoft.ServiceBus.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
@@ -151,42 +151,39 @@
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyAdapter, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.14\lib\net45\SymphonyAdapter.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.17\lib\net45\SymphonyAdapter.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyConductor, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyHarmony.3.2.14\lib\net45\SymphonyConductor.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.17\lib\net45\SymphonyConductor.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyConductorWPF, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.14\lib\net45\SymphonyConductorWPF.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.17\lib\net45\SymphonyConductorWPF.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyCore, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyHarmony.3.2.14\lib\net45\SymphonyCore.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.17\lib\net45\SymphonyCore.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyCrescendo, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.14\lib\net45\SymphonyCrescendo.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.17\lib\net45\SymphonyCrescendo.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyHarmony, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyHarmony.3.2.14\lib\net45\SymphonyHarmony.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.17\lib\net45\SymphonyHarmony.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyUIToolkit, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.14\lib\net45\SymphonyUIToolkit.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.17\lib\net45\SymphonyUIToolkit.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
-    </Reference>
-    <Reference Include="synrnt">
-      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -285,13 +282,11 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
-  <Import Project="..\packages\SymphonyFramework.3.2.14\build\net45\SymphonyFramework.targets" Condition="Exists('..\packages\SymphonyFramework.3.2.14\build\net45\SymphonyFramework.targets')" />
+  <Import Project="..\packages\SymphonyFramework.3.2.17\build\net45\SymphonyFramework.targets" Condition="Exists('..\packages\SymphonyFramework.3.2.17\build\net45\SymphonyFramework.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\SymphonyFramework.3.2.14\build\net45\SymphonyFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SymphonyFramework.3.2.14\build\net45\SymphonyFramework.targets'))" />
-    <Error Condition="!Exists('..\packages\SymphonyHarmony.3.2.14\build\net45\SymphonyHarmony.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SymphonyHarmony.3.2.14\build\net45\SymphonyHarmony.targets'))" />
+    <Error Condition="!Exists('..\packages\SymphonyFramework.3.2.17\build\net45\SymphonyFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SymphonyFramework.3.2.17\build\net45\SymphonyFramework.targets'))" />
   </Target>
-  <Import Project="..\packages\SymphonyHarmony.3.2.14\build\net45\SymphonyHarmony.targets" Condition="Exists('..\packages\SymphonyHarmony.3.2.14\build\net45\SymphonyHarmony.targets')" />
 </Project>

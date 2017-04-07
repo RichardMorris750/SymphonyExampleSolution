@@ -163,6 +163,7 @@
     <Compile Include="Common\Toolbar.xaml.dbl">
       <DependentUpon>Common\Toolbar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Content\Buyer_Collection.CodeGen.dbc" />
     <Compile Include="Content\Order_header_Collection.CodeGen.dbc" />
     <Compile Include="Content\Product_Collection.CodeGen.dbc" />
     <Compile Include="Content\Product_group_Collection.CodeGen.dbc" />
@@ -196,6 +197,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Common\Toolbar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Buyer_Content.CodeGen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Buyer_Style.CodeGen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

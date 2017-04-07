@@ -171,6 +171,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Buyer_Data.CodeGen.dbc" />
+    <Compile Include="Buyer_DFM.CodeGen.dbc" />
+    <Compile Include="Buyer_DOCache.CodeGen.dbc" />
+    <Compile Include="Buyer_FileIO.CodeGen.dbc" />
     <Compile Include="DataLogic.dbc" />
     <Compile Include="Order_header_Data.CodeGen.dbc" />
     <Compile Include="Order_header_DFM.CodeGen.dbc" />

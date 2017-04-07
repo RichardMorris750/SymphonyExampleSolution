@@ -1,16 +1,83 @@
  
 ;  SYNERGY DATA LANGUAGE OUTPUT
 ;
-;  REPOSITORY     : C:\SymphonyExampleSolution\Rps\rpsmain.ism
-;                 : C:\SymphonyExampleSolution\Rps\rpstext.ism
+;  REPOSITORY     : C:\SymphonyExampleSolution\\Rps\rpsmain.ism
+;                 : C:\SymphonyExampleSolution\\Rps\rpstext.ism
 ;                 : Version 10.3.1b
 ;
-;  GENERATED      : 19-OCT-2016, 08:17:22
-;                 : Version 10.3.3a
+;  GENERATED      : 07-APR-2017, 11:02:17
+;                 : Version 10.3.3b
 ;  EXPORT OPTIONS : [ALL] 
  
  
-Structure ORDER_HEADER   DBL ISAM
+Structure BUYER   DBL ISAM   Modified 20170407102909
+   Description "Buyer Master File"
+ 
+Field BUYER_KEY   Type ALPHA   Size 32
+   Description "record key; in essense a GUID"
+   Required   Nonull
+ 
+Field CREATED_TIMESTAMP   Type AUTOTIME   Size 8
+   Description "Timestamp when record was created"
+   Readonly
+   Nonull
+ 
+Field MODIFIED_TIMESTAMP   Type AUTOTIME   Size 8
+   Description "Timestamp when record was modified"
+   Readonly
+   Nonull
+ 
+Field NAME   Type ALPHA   Size 30
+   Description "Buyer Name"
+   Prompt "Buyer Name"   Report Heading "Buyer Name"
+   Break   Required
+ 
+Field ADDRESS1   Type ALPHA   Size 30
+   Description "Address Line 1"
+   Prompt "Address"   Report Heading "Address 1"
+   Break   Required
+ 
+Field ADDRESS2   Type ALPHA   Size 30
+   Description "Address Line 2"
+   Report Heading "Address 2"
+ 
+Field ADDRESS3   Type ALPHA   Size 30
+   Description "Address Line 3"
+   Report Heading "Address 3"
+ 
+Field POSTCODE   Type ALPHA   Size 10
+   Description "Post Code"
+   Prompt "Post Code"   Report Heading "Post Code"
+   Break   Required
+ 
+Field PHONE   Type ALPHA   Size 20
+   Description "Phone Number"
+   Prompt "Phone Number"   Report Heading "Phone Number"
+ 
+Field MOBILE_PHONE   Type ALPHA   Size 20
+   Description "Mobile Phone Number"
+   Prompt "Mobile Phone Number"   Report Heading "Mobile Phone Number"
+ 
+Field EMAIL   Type ALPHA   Size 50
+   Description "Email Address"
+   Prompt "Email Address"   Report Heading "Email Address"
+ 
+Field FILLER   Type ALPHA   Size 500
+   Description "Filler"
+ 
+Key PRIMARY   ACCESS   Order ASCENDING   Dups NO
+   Description "Primary Key - GUID"
+   Segment FIELD   BUYER_KEY  SegType ALPHA  SegOrder ASCENDING
+ 
+Key KEY02   ACCESS   Order ASCENDING   Dups NO
+   Description "Alt key - created timestamp"
+   Segment FIELD   CREATED_TIMESTAMP  SegType CTIMESTAMP  SegOrder ASCENDING
+ 
+Key KEY03   ACCESS   Order ASCENDING   Dups NO
+   Description "Alt key - modified timestamp"
+   Segment FIELD   MODIFIED_TIMESTAMP  SegType TIMESTAMP  SegOrder ASCENDING
+ 
+Structure ORDER_HEADER   DBL ISAM   Modified 20170111202035
    Description "Order Header"
  
 Field ORDER_NO   Type DECIMAL   Size 6
@@ -49,6 +116,8 @@ Field TOT_QTY   Type DECIMAL   Size 6
    Description "Total Quantity"
    Prompt "Total Qty"   Report Heading "Total Quantity"
  
+Field FILLER   Type ALPHA   Size 500   Language Noview   Script Noview
+ 
 Key PRIMARY   ACCESS   Order ASCENDING   Dups NO
    Description "Priumary key - order no"
    Segment FIELD   ORDER_NO  SegType DECIMAL  SegOrder ASCENDING
@@ -68,7 +137,7 @@ Key KEY4   ACCESS   Order ASCENDING   Dups NO
    Segment FIELD   REQD_DATE
    Segment FIELD   ORDER_NO
  
-Structure ORDER_LINE   DBL ISAM
+Structure ORDER_LINE   DBL ISAM   Modified 20170111202103
    Description "Order Line"
  
 Field ORDER_NO   Type DECIMAL   Size 6
@@ -107,6 +176,8 @@ Field VAT_VALUE   Type DECIMAL   Size 10   Precision 2
    Description "VAT Value"
    Position 0 0   Prompt "VAT Value"   Report Heading "VAT Value"
  
+Field FILLER   Type ALPHA   Size 500   Language Noview   Script Noview
+ 
 Key PRIMARY   ACCESS   Order ASCENDING   Dups NO
    Description "order number and line"
    Segment FIELD   ORDER_NO
@@ -116,20 +187,20 @@ Key PRODUCT   ACCESS   Order ASCENDING   Dups NO
    Description "product code"
    Segment FIELD   PROD_CODE
  
-Structure PARAMETER   RELATIVE
+Structure PARAMETER   RELATIVE   Modified 20170111202142
    Description "Parameter File"
  
 Field LAST_ORDER_NO   Type DECIMAL   Size 6
    Description "Last Order Number"
    Report Heading "Last Order No"
  
-Field FILLER   Type ALPHA   Size 94   Language Noview
+Field FILLER   Type ALPHA   Size 594   Language Noview   Script Noview
    Report Heading "UNUSED"
  
 Key PRIMARY   ACCESS   Order ASCENDING   Dups NO
    Segment RECORD NUMBER
  
-Structure PRODUCT   DBL ISAM
+Structure PRODUCT   DBL ISAM   Modified 20170111202227
    Description "Product Master File"
  
 Field PROD_CODE   Type ALPHA   Size 6
@@ -142,8 +213,11 @@ Field PROD_DESCRIPTION   Type ALPHA   Size 40
  
 Field SUPP_CODE   Type ALPHA   Size 6
    Description "Supplier Code"
+   Long Description
+      "<SYMPHONY_ALPHA_SIZE=100>"
    Prompt "Supplier"   Report Heading "Supplier"
    Uppercase
+   Drill Method "SupplierCode"
  
 Field COST_PRICE   Type DECIMAL   Size 8   Precision 2
    Description "Cost price"
@@ -165,14 +239,23 @@ Field VAT_CODE   Type DECIMAL   Size 1
  
 Field PROD_GROUP   Type ALPHA   Size 3
    Description "Product Group"
+   Long Description
+      "<SYMPHONY_ALPHA_SIZE=100>"
    Prompt "Product Group"   Report Heading "Product Group"
    Uppercase
+   Drill Method "ProdGroup"
+ 
+Field PROMOTION   Type DECIMAL   Size 1
+   Description "On Promotion ? t/f"
+   Prompt "On Offer ?"   Report Heading "On Offer ?"   Checkbox
+ 
+Field FILLER   Type ALPHA   Size 500   Language Noview   Script Noview
  
 Key PRIMARY   ACCESS   Order ASCENDING   Dups NO
    Description "Primary key - product code"
    Segment FIELD   PROD_CODE  SegType ALPHA  SegOrder ASCENDING
  
-Structure PRODUCT_GROUP   DBL ISAM
+Structure PRODUCT_GROUP   DBL ISAM   Modified 20170111202326
    Description "Product Group"
  
 Field PROD_GROUP   Type ALPHA   Size 3
@@ -184,11 +267,13 @@ Field GROUP_DESC   Type ALPHA   Size 20
    Description "Group Description"
    Prompt "Description"   Report Heading "Description"
  
+Field FILLER   Type ALPHA   Size 500   Language Noview   Script Noview
+ 
 Key PRIMARY   ACCESS   Order ASCENDING   Dups NO
    Description "Primary key - product group"
    Segment FIELD   PROD_GROUP  SegType ALPHA  SegOrder ASCENDING
  
-Structure SELECTIONS   DBL ISAM
+Structure SELECTIONS   DBL ISAM   Modified 20170111202537
    Description "REeport selection fields"
  
 Field START_SUPP   Type ALPHA   Size 6
@@ -213,6 +298,8 @@ Field END_PROD   Type ALPHA   Size 6
  
 Field KEYWORD   Type ALPHA   Size 20
    Description "Keyword"
+   Long Description
+      "<SYMPHONY_UPDATE_TRIGGER=PropertyChanged>"
    Prompt "Key Word"   Report Heading "Key Word"
  
 Field REPORT_TYPE   Type ALPHA   Size 1
@@ -220,7 +307,12 @@ Field REPORT_TYPE   Type ALPHA   Size 1
    Prompt "Report Type"   Report Heading "Report Type"
    Selection List 0 0 0  Entries "Report", "PDF"
  
-Structure SUPPLIER   DBL ISAM
+Field KEYVALUE   Type ALPHA   Size 10
+   Long Description
+      "<SYMPHONY_UPDATE_TRIGGER=PropertyChanged>"
+   Prompt "Key Value"   Report Heading "Key Value"
+ 
+Structure SUPPLIER   DBL ISAM   Modified 20170111202606
    Description "Supplier Master File"
  
 Field SUPP_CODE   Type ALPHA   Size 6
@@ -274,9 +366,15 @@ Field ACCOUNT_STATUS   Type DECIMAL   Size 1
    Selection List 0 0 0  Entries "Active", "Dormant", "Closed"
    Enumerated 10 1 1
  
+Field FLLER   Type ALPHA   Size 500   Language Noview   Script Noview
+ 
 Key PRIMARY   ACCESS   Order ASCENDING   Dups NO
    Description "Primary key - supplier code"
    Segment FIELD   SUPP_CODE  SegType ALPHA  SegOrder ASCENDING
+ 
+File BUYER   DBL ISAM   "SFEDATA:buyer.ism"
+   Description "Buyer Master File"
+   Assign BUYER
  
 File ORDER_HEADER   DBL ISAM   "SFEDATA:order_header.ism"
    Description "Order Header File"

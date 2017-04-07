@@ -23,6 +23,8 @@ namespace AppData
 				fileName = "SFEDATA:product_group.ism"
 			("SUPPLIER "),
 				fileName = "SFEDATA:supplier.ism"
+			("BUYER "),
+				fileName = "SFEDATA:buyer.ism"
 			endusing
 			
 			mreturn fileName

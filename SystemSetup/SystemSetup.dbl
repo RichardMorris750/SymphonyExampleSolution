@@ -38,6 +38,7 @@
 import System
 import System.Collections.Generic
 import System.Text
+import System.Globalization
 
 ;;imports required to use data objects and file IO classes.
 import AppData
@@ -82,6 +83,7 @@ namespace SystemSetup
 			call loadProduct
 			call loadSupplier
 			call loadGroup
+			call loadBuyer
 			
 			writes(ttChn, 'Completed')
 		end
@@ -180,6 +182,22 @@ namespace SystemSetup
 		catch (e, @Exception)
 		begin
 			writes(ttChn,'Error creating OrderLine.ism file: ' + e.Message)
+			hadError = true
+		end
+		endtry
+
+		try
+		begin
+			delet('SFEDATA:buyer.ism')
+			data lineKeyVals	,[3]a*
+			&	,"START=1,LENGTH=32,TYPE=ALPHA,NODUPS"
+			&	,"START=33,LENGTH=8,TYPE=CTIMESTAMP,NODUPS"
+			&	,"START=41,LENGTH=8,TYPE=TIMESTAMP,NODUPS"
+			isamc('SFEDATA:buyer.ism', ^size(STRBuyer), 3, lineKeyVals)	
+		end
+		catch (e, @Exception)
+		begin
+			writes(ttChn,'Error creating Buyer.ism file: ' + e.Message)
 			hadError = true
 		end
 		endtry
@@ -465,6 +483,20 @@ namespace SystemSetup
 
 		call addsupplier
 
+		supplier.str_supp_code			=	'F00001'
+		supplier.str_name				=	'Fruits Company'
+		supplier.str_address1			=	'1 Buckingham Palace Rd'
+		supplier.str_address2			=	'Warminster'
+		supplier.str_address3			=	'London'
+		supplier.str_postcode			=	'SW 1A 1AA'
+		supplier.str_phone				=	'303 1237300'
+		supplier.str_contact			=	'Mr P Mountbatten'
+		supplier.str_email				=	'PMount@fruitsBP.com'
+		supplier.str_create_date		=	currentDate(1:8)
+		supplier.str_account_status		=   1
+
+		call addsupplier
+
 		;;let's display the records to the screen
 
 		writes(ttChn, "Suppliers created:")
@@ -513,15 +545,21 @@ namespace SystemSetup
 	data sup2		,@Supplier_Data		,new Supplier_Data()
 		supplierIO.ReadNextRecord(sup2)
 		supplierIO.UnlockChannel()	;;force no records to be locked!!
+	data sup3		,@Supplier_Data		,new Supplier_Data()
+		supplierIO.ReadNextRecord(sup3)
+		supplierIO.UnlockChannel()	;;force no records to be locked!!
 
 		;; rcm - update supplier named back to what they were
 		sup1.Name = 'Crisp Company'
 		sup2.Name = 'Drinks Company'
+		sup3.Name = 'Fruits Company'
 		
 		;; rcm - update supplier 1
 		supplierIO.UpdateRecordUsingGRFA(sup1)
 		;; rcm - and supplier 2
 		supplierIO.UpdateRecordUsingGRFA(sup2)
+		;; as - and supplier 3
+		supplierIO.UpdateRecordUsingGRFA(sup3)
 
 		;; rcm - re-display them with updated names
 		status = supplierIO.ReadFirstRecord(supplierObject)
@@ -606,6 +644,82 @@ namespace SystemSetup
 	addgroup,
 		if (product_groupIO.CreateRecord(new Product_group_Data(product_group)) != FileAccessResults.Success)
 			writes(ttChn, 'Error adding product group record for ' + product_group.str_prod_group + ' : ' + product_groupIO.LastSynergyError.ToString())
+		return
+
+		;-----------------------------------------------------------------------------
+		; populate Buyer file
+	loadBuyer,
+		writes(ttChn, 'loading Buyers')
+
+		; as- create an object which has the file open in update mode
+		data BuyerIO = new Buyer_FileIO(FileOpenMode.UpdateIndexed)
+		data Buyer		,STRBuyer
+				
+
+		; as - populate fields in the structure 
+		;Buyer.str_buyer_key			=	Guid.NewGuid.ToString()
+		Buyer.str_name				=	'Sherlock Holmes'
+		Buyer.str_address1			=	'221B Baker Street'
+		Buyer.str_address2			=	'Westminster'
+		Buyer.str_address3			=	'London'
+		Buyer.str_postcode			=	'NW1'
+		Buyer.str_phone				=	'044 2072243688'
+		Buyer.str_mobile_phone		=	'044 2072243689'
+		Buyer.str_email				=	'holmes@SHPD.com'
+		
+		call addBuyer
+		
+		;Buyer.str_buyer_key			=	Guid.NewGuid.ToString()
+		Buyer.str_name				=	'Richard Starkey'
+		Buyer.str_address1			=	'3 Abbey Road'
+		Buyer.str_address2			=	"St. John's Wood"
+		Buyer.str_address3			=	'London'
+		Buyer.str_postcode			=	'NW8 9AY'
+		Buyer.str_phone				=	'044 2072667000'
+		Buyer.str_mobile_phone		=	
+		Buyer.str_email				=	'ringOH@fab1.com'
+
+		call addBuyer
+
+		;Buyer.str_buyer_key			=	System.Guid.NewGuid.ToString()
+		Buyer.str_name				=	'Henry Tudor'
+		Buyer.str_address1			=	'1 Hampton Court'
+		Buyer.str_address2			=	'Surrey'
+		Buyer.str_address3			=	
+		Buyer.str_postcode			=	'KT8 9AU'
+		Buyer.str_phone				=	'044 2031666000'
+		Buyer.str_mobile_phone		=	'044 2031666001'
+		Buyer.str_email				=	'3C2A1J@sixWives.com'
+
+		call addBuyer
+
+		;; display the records to the screen
+		writes(ttChn, "Buyers created:")
+
+		data BuyerObject = new Buyer_Data()
+		data buyStatus		,FileAccessResults		,BuyerIO.ReadFirstRecord(BuyerObject)
+		
+		while (buyStatus == FileAccessResults.Success)
+		begin
+			writes(ttChn, BuyerObject.Name + ",  " + BuyerObject.Email)
+			
+			buyStatus = BuyerIO.ReadNextRecord(BuyerObject)
+		end
+		
+		;;close the channel
+		BuyerIO.CloseChannel()
+		
+		writes(ttChn, "Press <RETURN> to continue")
+		reads(ttChn, ans)		
+
+		return
+		
+		;---------------------------------------------------------
+	addBuyer,
+		; as - create an object from the structure and pass it to the file obejct. Display Error if applicable 
+;		if (BuyerIO.CreateRecord(new Buyer_Data(Buyer)) != FileAccessResults.Success)
+;			writes(ttChn, 'Error adding Buyer record for ' + Buyer.str_name + ' : ' + BuyerIO.LastSynergyError.ToString())
+		
 		return
 		
 		

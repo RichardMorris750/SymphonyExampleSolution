@@ -38,7 +38,6 @@
 import System
 import System.Collections.Generic
 import System.Text
-import System.Globalization
 
 ;;imports required to use data objects and file IO classes.
 import AppData
@@ -539,7 +538,7 @@ namespace SystemSetup
 		;; rcm - we can also update a record without having it locked - you must have read it first :)
 		;; rcm - when the FileIO objects are used we store the GRFA and so can use this.  The GRFA
 		;; rcm - is stored in the data object.
-		;; rcm - let's just re-read the first 2 records.
+		;; rcm - let's just re-read the first 2 records; as - lets make it 3 :)
 	data sup1		,@Supplier_Data		,new Supplier_Data()
 		supplierIO.ReadFirstRecord(sup1)
 	data sup2		,@Supplier_Data		,new Supplier_Data()
@@ -657,7 +656,7 @@ namespace SystemSetup
 				
 
 		; as - populate fields in the structure 
-		;Buyer.str_buyer_key			=	Guid.NewGuid.ToString()
+		Buyer.str_buyer_key			=	Guid.NewGuid().ToString()
 		Buyer.str_name				=	'Sherlock Holmes'
 		Buyer.str_address1			=	'221B Baker Street'
 		Buyer.str_address2			=	'Westminster'
@@ -669,7 +668,7 @@ namespace SystemSetup
 		
 		call addBuyer
 		
-		;Buyer.str_buyer_key			=	Guid.NewGuid.ToString()
+		Buyer.str_buyer_key			=	Guid.NewGuid().ToString()
 		Buyer.str_name				=	'Richard Starkey'
 		Buyer.str_address1			=	'3 Abbey Road'
 		Buyer.str_address2			=	"St. John's Wood"
@@ -681,7 +680,7 @@ namespace SystemSetup
 
 		call addBuyer
 
-		;Buyer.str_buyer_key			=	System.Guid.NewGuid.ToString()
+		Buyer.str_buyer_key			=	Guid.NewGuid().ToString()
 		Buyer.str_name				=	'Henry Tudor'
 		Buyer.str_address1			=	'1 Hampton Court'
 		Buyer.str_address2			=	'Surrey'
@@ -717,8 +716,8 @@ namespace SystemSetup
 		;---------------------------------------------------------
 	addBuyer,
 		; as - create an object from the structure and pass it to the file obejct. Display Error if applicable 
-;		if (BuyerIO.CreateRecord(new Buyer_Data(Buyer)) != FileAccessResults.Success)
-;			writes(ttChn, 'Error adding Buyer record for ' + Buyer.str_name + ' : ' + BuyerIO.LastSynergyError.ToString())
+		if (BuyerIO.CreateRecord(new Buyer_Data(Buyer)) != FileAccessResults.Success)
+			writes(ttChn, 'Error adding Buyer record for ' + Buyer.str_name + ' : ' + BuyerIO.LastSynergyError.ToString())
 		
 		return
 		

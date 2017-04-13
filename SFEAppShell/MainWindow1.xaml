@@ -7,6 +7,7 @@
     xmlns:sfeuiSupplier="clr-namespace:SFE_Supplier.View;assembly=SFE_Supplier"
     xmlns:sfeuiProduct="clr-namespace:SFE_Product.View;assembly=SFE_Product"
     xmlns:sfeuiGroup="clr-namespace:SFE_Group.View;assembly=SFE_Group"
+    xmlns:sfeuiBuyer="clr-namespace:SFE_Buyer.View;assembly=SFE_Buyer"
         Loaded="Window_Loaded" WindowStartupLocation="CenterScreen"
     Height="600" Width="900" WindowStyle="ToolWindow" Title="SFE Application">
     <Window.Resources>

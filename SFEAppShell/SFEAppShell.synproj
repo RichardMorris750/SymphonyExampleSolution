@@ -239,6 +239,7 @@
     <Folder Include="Properties" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\Icons\Buyer.png" />
     <Resource Include="Images\Icons\Group.png" />
     <Resource Include="Images\Icons\Menu-64.png" />
     <Resource Include="Images\Icons\Menu-64_mouseOver.png" />
@@ -246,6 +247,11 @@
     <Resource Include="Images\Icons\Supplier.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SFE_Buyer\SFE_Buyer.synproj">
+      <Name>SFE_Buyer</Name>
+      <Project>{8380be9c-5505-40ac-8b74-9d5018a22d52}</Project>
+      <Private>True</Private>
+    </ProjectReference>
     <ProjectReference Include="..\SFE_Group\SFE_Group.synproj">
       <Name>SFE_Group</Name>
       <Project>{ffc1c590-e1ad-4b25-a78b-673fd68adcd5}</Project>

@@ -49,15 +49,17 @@ import Symphony.Conductor.Commands
 
 namespace SFE_Base.ViewModel
 	
+
 	public class FileMaintViewModel extends BaseViewModel
 		
-		public method FileMaintViewModel
-			in req sender					,@FrameworkElement
-			in req dataItem					,@Type
-			in req fileAccess				,@FileIO
-			in req errorVisualState			,string
-			endparams
-			parent(sender)
+		; constructor for no detail lines
+			public method FileMaintViewModel
+		in req sender				,@FrameworkElement
+		in req dataItem				,@Type
+		in req fileAccess			,@FileIO
+		in req errorVisualState		,string
+		endparams
+		parent(sender)
 		proc
 			
 			;;store the passed info
@@ -72,10 +74,36 @@ namespace SFE_Base.ViewModel
 
 		endmethod
 
+		; constructor for 1 set fo detail lines
+		
+			public method FileMaintViewModel
+			in req sender				,@FrameworkElement
+			in req dataItem				,@Type
+			in req fileAccess			,@FileIO
+			in req errorVisualState		,string
+			in req detailItem			,@Type
+			endparams
+			parent(sender)
+			proc
+			
+				;;store the passed info
+				mDataObjectItem = dataItem
+				mDataObjectDetailItem = detailItem 
+				mFileAccessObject = fileAccess
+				mErrorVisualState = errorVisualState
+			
+				this.AfterNavigateState += doAfterStateNavigation
+
+				;;create our base collection
+				DataObjectCollection = new AsyncObservableCollection<DataObjectBase>()
+				DataObjectDetailCollection = new AsyncObservableCollection<DataObjectBase>()
+
+			endmethod
+
 .region "List controlling and loading methods"
 		
-		public method LoadDetailList, void
-			endparams
+		public method LoadDetailList,void
+		endparams
 		proc
 			;;if we have a valid file object let's load the initial list
 			if (!mFileAccessObject.LastSynergyError)
@@ -86,11 +114,11 @@ namespace SFE_Base.ViewModel
 
 .region "Visual state details"
 		
-		private mErrorVisualState	,string
+		private mErrorVisualState		,string
 
-		private method doAfterStateNavigation, void
-			eArgs, @Symphony.Conductor.ViewModel.NavigateFromStateEventArgs 
-			endparams
+		private method doAfterStateNavigation,void
+		eArgs		,@Symphony.Conductor.ViewModel.NavigateFromStateEventArgs 
+		endparams
 		proc
 			if (eArgs.CurrentStateName == mErrorVisualState)
 			begin
@@ -102,14 +130,14 @@ namespace SFE_Base.ViewModel
 		
 .region "Event processing"
 		
-		public delegate ProgramModeChangedEventandler	,void
-			in req currentMode							,ProgramMode
+		public delegate ProgramModeChangedEventandler,void
+		in req currentMode					,ProgramMode
 		enddelegate
 		
-		public event ProgramModeChanged	,@ProgramModeChangedEventandler
+		public event ProgramModeChanged		,@ProgramModeChangedEventandler
 		
-		private method raiseProgramModeChanged	,void
-			endparams
+		private method raiseProgramModeChanged,void
+		endparams
 		proc
 			if (mLastProgramMode != mProgramMode)
 			begin
@@ -117,31 +145,51 @@ namespace SFE_Base.ViewModel
 				raiseevent(ProgramModeChanged, mProgramMode)
 			end
 		endmethod
+
+
+		public delegate ProgramDetailModeChangedEventandler,void
+		in req currentDetailMode					,ProgramMode
+		enddelegate
+		
+		public event ProgramDetailModeChanged		,@ProgramDetailModeChangedEventandler
+		
+		private method raiseProgramDetailModeChanged,void
+		endparams
+		proc
+			if (mLastProgramDetailMode != mProgramDetailMode)
+			begin
+				mLastProgramDetailMode = mProgramDetailMode
+				raiseevent(ProgramDetailModeChanged, mProgramDetailMode)
+			end
+		endmethod
 		
 .endregion
 		
 .region "private class members"
 		
-		private mDataObjectItem			,@Type
-		private mFileAccessObject		,@FileIO
-		
+		private mDataObjectItem				,@Type
+		private mFileAccessObject			,@FileIO
+
+		private mDataObjectDetailItem		,@Type
+		private mDetailClassConstructor		,@ConstructorInfo
+		private mDetailCTORArgs				,[#]@Object		,new Object[1]
 .endregion
 		
 .region "load base item list"
 		
-		private mClassConstructor	,@ConstructorInfo
-		private mCTORArgs			,[#]@Object	,new Object[1]
+		private mClassConstructor			,@ConstructorInfo
+		private mCTORArgs					,[#]@Object		,new Object[1]
 
-		public virtual method LoadBaseItemCollection, void
-			endparams
+		public virtual method LoadBaseItemCollection,void
+		endparams
 		proc
 			
-			data firstTime	,boolean	,true
+		data firstTime							,boolean				,true
 			
-			data classTypeInfo		,@TypeInfo			,IntrospectionExtensions.GetTypeInfo(mDataObjectItem)
+		data classTypeInfo						,@TypeInfo				,IntrospectionExtensions.GetTypeInfo(mDataObjectItem)
 			if (classTypeInfo != ^null)
 			begin
-				data item	,@ConstructorInfo
+			data item							,@ConstructorInfo
 				foreach item in classTypeInfo.DeclaredConstructors
 				begin
 					mClassConstructor = item
@@ -157,10 +205,10 @@ namespace SFE_Base.ViewModel
 				mDataObjectEntryItem.IsDataModifiedChanged += DoIsDataModified
 				
 				
-				data status	,FileAccessResults	,FileAccessResults.Success
+			data status							,FileAccessResults		,FileAccessResults.Success
 				while (status == FileAccessResults.Success)
 				begin
-					data classInstance = mClassConstructor.Invoke(mCTORArgs)
+				data classInstance = mClassConstructor.Invoke(mCTORArgs)
 					
 					if (firstTime) then
 						status = mFileAccessObject.ReadFirstRecord((DataObjectBase)classInstance)
@@ -178,16 +226,16 @@ namespace SFE_Base.ViewModel
 			end
 		endmethod
 		
-		public property DataObjectCollection, @AsyncObservableCollection<DataObjectBase>
+		public property DataObjectCollection	,@AsyncObservableCollection<DataObjectBase>
 			method get
 			endmethod
 			method set
 			endmethod
 		endproperty
 		
-		private mSelectedItemIndex	,int
+		private mSelectedItemIndex				,int
 		
-		public property SelectedItemIndex, int
+		public property SelectedItemIndex		,int
 			method get
 			proc
 				mreturn mSelectedItemIndex
@@ -195,14 +243,19 @@ namespace SFE_Base.ViewModel
 			method set
 			proc
 				mSelectedItemIndex = value
+
+				; master record in list selected.  Now load the DataObjectDetailCollection
+
 				RaisePropertyChanged("SelectedItemIndex")
 			endmethod
 		endproperty
 		
+		private mIgnoreDetailDataChanged			,boolean
+
 		
-		private mSelectedCollectionItem	,@DataObjectBase
+		private mSelectedCollectionItem				,@DataObjectBase
 		
-		public property SelectedCollectionItem, @DataObjectBase
+		public property SelectedCollectionItem		,@DataObjectBase
 			method get
 			proc
 				mreturn mSelectedCollectionItem
@@ -213,8 +266,18 @@ namespace SFE_Base.ViewModel
 				if (value != ^null) then
 				begin
 					mSelectedCollectionItem = value
+
+
 					mDataObjectEntryItem.SynergyRecord = mSelectedCollectionItem.SynergyRecord
 					mDataObjectEntryItem.OriginalSynergyRecord = mSelectedCollectionItem.SynergyRecord
+
+
+					LoadDetailLines()
+
+					DetailGridIsEnabled = true
+
+					SelectedDetailItemIndex = 0
+
 					raiseProgramModeChanged()
 				end
 				else
@@ -224,17 +287,25 @@ namespace SFE_Base.ViewModel
 					SaveCommand.ExecuteState = false
 					CancelCommand.ExecuteState = false
 					DeleteCommand.ExecuteState = false
-					raiseProgramModeChanged()
+
 				end
 
+				NewDetailCommand.ExecuteState = true
+				SaveDetailCommand.ExecuteState = false
+				CancelDetailCommand.ExecuteState = false
+				DeleteDetailCommand.ExecuteState = false
+
+				raiseProgramModeChanged()
 				RaisePropertyChanged("SelectedCollectionItem")
+
+
 
 			endmethod
 		endproperty
 		
-		private mDataObjectEntryItem	,@DataObjectBase
+		private mDataObjectEntryItem			,@DataObjectBase
 		
-		public property DataObjectEntryItem, @DataObjectBase
+		public property DataObjectEntryItem		,@DataObjectBase
 			method get
 			proc
 				mreturn mDataObjectEntryItem
@@ -247,13 +318,100 @@ namespace SFE_Base.ViewModel
 		
 .endregion
 		
+
+
+.region 'detail lines'
+		public property DataObjectDetailCollection		,@AsyncObservableCollection<DataObjectBase>
+			method get
+			endmethod
+			method set
+			endmethod
+		endproperty
+		
+		private mSelectedDetailItemIndex			,int
+		
+		public property SelectedDetailItemIndex		,int
+			method get
+			proc
+				mreturn mSelectedDetailItemIndex
+			endmethod
+			method set
+			proc
+				mSelectedDetailItemIndex = value
+				RaisePropertyChanged("SelectedDetailItemIndex")
+			endmethod
+		endproperty
+		
+		
+		private mSelectedDetailCollectionItem			,@DataObjectBase
+		
+		public property SelectedDetailCollectionItem	,@DataObjectBase
+			method get
+			proc
+				mreturn mSelectedDetailCollectionItem
+			endmethod
+			method set
+			proc
+				mProgramDetailMode = ProgramMode.Enquiry
+				if (value != ^null) then
+				begin
+					mSelectedDetailCollectionItem = value
+					mIgnoreDetailDataChanged = true
+					mDataObjectDetailEntryItem.SynergyRecord			= mSelectedDetailCollectionItem.SynergyRecord
+					mDataObjectDetailEntryItem.OriginalSynergyRecord	= mSelectedDetailCollectionItem.SynergyRecord
+					mIgnoreDetailDataChanged = false
+					DeleteDetailCommand.ExecuteState = true
+					RaisePropertyChanged(^null)
+
+				end
+				else
+				begin
+					mSelectedDetailCollectionItem = value
+					NewDetailCommand.ExecuteState = true
+					SaveDetailCommand.ExecuteState = false
+					CancelDetailCommand.ExecuteState = false
+					DeleteDetailCommand.ExecuteState = false
+					raiseProgramDetailModeChanged()
+				end
+
+				RaisePropertyChanged("SelectedDetailCollectionItem")
+
+			endmethod
+		endproperty
+		
+		private mDataObjectDetailEntryItem				,@DataObjectBase
+		
+		public property DataObjectDetailEntryItem		,@DataObjectBase
+			method get
+			proc
+				mreturn mDataObjectDetailEntryItem
+			endmethod
+			method set
+			proc
+				mDataObjectDetailEntryItem = value
+			endmethod
+		endproperty
+		
+
+		; this will always be overridden in the vie wmodel to perform specific processing
+		public virtual method LoadDetailLines,void
+		proc
+			nop
+		endmethod
+
+		
+.endregion 
+
+
 .region "Data entry event handlers"
 		
 		private mProgramMode		,ProgramMode
-		private mLastProgramMode		,ProgramMode
+		private mLastProgramMode	,ProgramMode
+
+
 		
-		public method DoIsDataModified, void
-			endparams
+		public method DoIsDataModified,void
+		endparams
 		proc
 			GridIsEnabled = !mDataObjectEntryItem.IsDataModified
 			SaveCommand.ExecuteState = mDataObjectEntryItem.IsDataModified && mDataObjectEntryItem.IsDataValid
@@ -266,13 +424,49 @@ namespace SFE_Base.ViewModel
 				raiseProgramModeChanged()
 			end
 		endmethod
+
+		private mProgramDetailMode			,ProgramMode
+		private mLastProgramDetailMode		,ProgramMode
+
+
+		public method DoIsDetailDataModified,void
+		endparams
+		proc
+			if (!mIgnoreDetailDataChanged)
+			begin
+
+				DetailGridIsEnabled = !mDataObjectDetailEntryItem.IsDataModified
+				SaveDetailCommand.ExecuteState = mDataObjectDetailEntryItem.IsDataModified && mDataObjectDetailEntryItem.IsDataValid
+				CancelDetailCommand.ExecuteState = mDataObjectDetailEntryItem.IsDataModified
+				DeleteDetailCommand.ExecuteState = SelectedDetailCollectionItem != ^null && !mDataObjectDetailEntryItem.IsDataModified
+				NewDetailCommand.ExecuteState = !mDataObjectDetailEntryItem.IsDataModified
+				if (mDataObjectDetailEntryItem.IsDataModified && mDataObjectDetailEntryItem.IsDataValid && mProgramDetailMode == ProgramMode.Enquiry)
+				begin
+					mProgramDetailMode = ProgramMode.Modify
+					raiseProgramDetailModeChanged()
+				end
+
+				if (!mDetailGridIsEnabled)
+				begin
+					GridIsEnabled = false
+					NewCommand.ExecuteState = false
+					DeleteCommand.ExecuteState = false
+					CancelCommand.ExecuteState = true
+					SaveCommand.ExecuteState = false
+				end
+
+			end
+
+
+		endmethod
+
 .endregion
 		
 .region "Standard commands"
 		
-		private mNewCommand	,@GenericCommand
+		private mNewCommand				,@GenericCommand
 		
-		public property NewCommand, @GenericCommand
+		public property NewCommand		,@GenericCommand
 			method get
 			proc
 				if (mNewCommand == ^null)
@@ -284,22 +478,23 @@ namespace SFE_Base.ViewModel
 			endmethod
 		endproperty
 		
-		private method doNewCommand, void
-			sender						,@Object
-			param						,string
-			endparams
+		private method doNewCommand,void
+		sender							,@Object
+		param							,string
+		endparams
 		proc
 			DataObjectEntryItem.InitData()
 			DataObjectEntryItem.InitDataPlus()
 			DataObjectEntryItem.InitialValidateData()
 			NewCommand.ExecuteState = false
+			DataObjectEntryItem.SetFieldEnabledStatus(true, "*ALL*")
 			mProgramMode = ProgramMode.Add
 			raiseProgramModeChanged()
 		endmethod
 		
-		private mSaveCommand	,@GenericCommand
+		private mSaveCommand			,@GenericCommand
 		
-		public property SaveCommand, @GenericCommand
+		public property SaveCommand		,@GenericCommand
 			method get
 			proc
 				if (mSaveCommand == ^null)
@@ -311,13 +506,14 @@ namespace SFE_Base.ViewModel
 			endmethod
 		endproperty
 		
-		private method doSaveCommand, void
-			sender						,@Object
-			param						,string
-			endparams
+		private method doSaveCommand,void
+		sender								,@Object
+		param								,string
+		endparams
 		proc
+
 			using mProgramMode select
-			(ProgramMode.Modify),
+			(ProgramMode.Modify)			,
 			begin
 				;;restore the data to the colleciton item and update the file.
 				SelectedCollectionItem.SynergyRecord = DataObjectEntryItem.SynergyRecord
@@ -325,22 +521,32 @@ namespace SFE_Base.ViewModel
 				begin
 					mDataObjectEntryItem.RestoreOriginalData()
 					ErrorInfo = "Synergy error : " + %string(mFileAccessObject.LastSynergyError)
+					using (mFileAccessObject.LastSynergyError) select
+					(54),	ErrorDetails = ' You are trying to add a record with a key which already exists - please use a different code.'
+					(431),	ErrorDetails = 'Someone else has updated this record before you saved your changes.  Your changes have been lost.  Please try again.'
+					(40),	ErrorDetails = 'Another program is holding this record locked and your changes cannot be saved.  Please try again.'
+					(),		ErrorDetails = 'Your changes have not been saved.  Please try again and refer to support if the problem persists.'
+					endusing
+
 					MoveToState(mErrorVisualState)
 				end
+
+				SaveDetailLines()
+
 				DataObjectEntryItem.OriginalSynergyRecord = SelectedCollectionItem.SynergyRecord 
 				mDataObjectEntryItem.RestoreOriginalData()
 			end
-			(ProgramMode.Add),
+			(ProgramMode.Add)				,
 			begin
-				data tmpObj	,@DataObjectBase
+			data tmpObj						,@DataObjectBase
 				mCTORArgs[1] = DataObjectEntryItem.SynergyRecord
 
 				if (mClassConstructor == ^null)
 				begin
 					;;we did not use the standard/base list load capability
 
-					data classTypeInfo		,@TypeInfo			,IntrospectionExtensions.GetTypeInfo(mDataObjectItem)
-					data item	,@ConstructorInfo
+				data classTypeInfo			,@TypeInfo		,IntrospectionExtensions.GetTypeInfo(mDataObjectItem)
+				data item					,@ConstructorInfo
 					foreach item in classTypeInfo.DeclaredConstructors
 					begin
 						mClassConstructor = item
@@ -348,11 +554,16 @@ namespace SFE_Base.ViewModel
 							exitloop
 					end
 				end
-
 				tmpObj = (DataObjectBase)mClassConstructor.Invoke(mCTORArgs)
 				if (mFileAccessObject.CreateRecord(tmpObj) != FileAccessResults.Success) then
 				begin
 					ErrorInfo = "Synergy error : " + %string(mFileAccessObject.LastSynergyError)
+					using (mFileAccessObject.LastSynergyError) select
+					(54),	ErrorDetails = ' You are trying to add a record with a key which already exists - please use a different code.'
+					(431),	ErrorDetails = 'Someone else has updated this record before you saved your changes.  Your changes have been lost.  Please try again.'
+					(40),	ErrorDetails = 'Another program is holding this record locked and your changes cannot be saved.  Please try again.'
+					(),		ErrorDetails = 'Your changes have not been saved.  Please try again and refer to support if the problem persists.'
+					endusing
 					MoveToState(mErrorVisualState)
 				end
 				else
@@ -361,6 +572,8 @@ namespace SFE_Base.ViewModel
 					DataObjectEntryItem.OriginalSynergyRecord = DataObjectEntryItem.SynergyRecord 
 					mDataObjectEntryItem.RestoreOriginalData()
 					SelectedCollectionItem = tmpObj
+
+					SaveDetailLines()
 				end
 			end
 			endusing
@@ -373,9 +586,9 @@ namespace SFE_Base.ViewModel
 			GridIsEnabled = true
 		endmethod
 		
-		private mCancelCommand	,@GenericCommand
+		private mCancelCommand				,@GenericCommand
 		
-		public property CancelCommand, @GenericCommand
+		public property CancelCommand		,@GenericCommand
 			method get
 			proc
 				if (mCancelCommand == ^null)
@@ -387,10 +600,10 @@ namespace SFE_Base.ViewModel
 			endmethod
 		endproperty
 		
-		private method doCancelCommand, void
-			sender						,@Object
-			param						,string
-			endparams
+		private method doCancelCommand,void
+		sender								,@Object
+		param								,string
+		endparams
 		proc
 			mDataObjectEntryItem.RestoreOriginalData()
 			mDataObjectEntryItem.InitialValidateData()
@@ -402,9 +615,9 @@ namespace SFE_Base.ViewModel
 			raiseProgramModeChanged()
 		endmethod
 		
-		private mDeleteCommand	,@GenericCommand
+		private mDeleteCommand				,@GenericCommand
 		
-		public property DeleteCommand, @GenericCommand
+		public property DeleteCommand		,@GenericCommand
 			method get
 			proc
 				if (mDeleteCommand == ^null)
@@ -416,13 +629,14 @@ namespace SFE_Base.ViewModel
 			endmethod
 		endproperty
 		
-		private method doDeleteCommand, void
-			sender						,@Object
-			param						,string
-			endparams
+		private method doDeleteCommand,void
+		sender		,@Object
+		param		,string
+		endparams
 		proc
 			if (SelectedCollectionItem != ^null)
 			begin
+
 				if (mFileAccessObject.DeleteRecordUsingGRFA(SelectedCollectionItem) != FileAccessResults.Success) then
 				begin
 					ErrorInfo = "Synergy error : " + %string(mFileAccessObject.LastSynergyError)
@@ -431,6 +645,9 @@ namespace SFE_Base.ViewModel
 				else
 				begin
 					;;remove the item from the list
+
+					DeleteDetailLines ()
+
 					DataObjectCollection.Remove(SelectedCollectionItem)
 					SelectedCollectionItem  = ^null
 					
@@ -446,16 +663,263 @@ namespace SFE_Base.ViewModel
 				raiseProgramModeChanged()
 			end
 		endmethod
-		
-		
+	
+
+
+		; dummy method which can be overridden in view models which require the ability to update detail lines
+		public virtual method SaveDetailLines,void
+
+		endparams
+		proc
+			nop
+		endmethod
+
+		; dummy method which can be overridden in view models which require the ability to update detail lines
+		public virtual method DeleteDetailLines,void
+
+		endparams
+		proc
+			nop
+		endmethod
+
 		
 .endregion
+
+;---------------------------------------- detail lines ------------------------------------------------------------------------	
+.region "detail line commands"
+		
+		private mNewDetailCommand			,@GenericCommand
+		
+		public property NewDetailCommand	,@GenericCommand
+			method get
+			proc
+				if (mNewDetailCommand == ^null)
+				begin
+					mNewDetailCommand = new GenericCommand("NEW", doNewDetailCommand)
+					mNewDetailCommand.ExecuteState = true
+				end
+				mreturn mNewDetailCommand
+			endmethod
+		endproperty
+		
+		private method doNewDetailCommand,void
+		sender									,@Object
+		param									,string
+		endparams
+		proc
+			DataObjectDetailEntryItem.InitData()
+			DataObjectDetailEntryItem.InitDataPlus()
+			DataObjectDetailEntryItem.InitialValidateData()
+			NewDetailCommand.ExecuteState = false
+			DataObjectDetailEntryItem.SetFieldEnabledStatus(true, "*ALL*")
+			mProgramDetailMode = ProgramMode.Add
+			mDeleteDetailCommand.ExecuteState = false
+			mSaveDetailCommand.ExecuteState = false
+			mCancelDetailCommand.ExecuteState = true		
+			raiseProgramDetailModeChanged()
+
+		endmethod
+		
+		private mSaveDetailCommand				,@GenericCommand
+		
+		public property SaveDetailCommand		,@GenericCommand
+			method get
+			proc
+				if (mSaveDetailCommand == ^null)
+				begin
+					mSaveDetailCommand = new GenericCommand("SAVE", doSaveDetailCommand)
+					mSaveDetailCommand.ExecuteState = false
+				end
+				mreturn mSaveDetailCommand
+			endmethod
+		endproperty
+		
+		private method doSaveDetailCommand,void
+		sender									,@Object
+		param									,string
+		endparams
+		proc
+
+			using mProgramDetailMode select
+			(ProgramMode.Modify)				,
+			begin
+				;;restore the data to the colleciton item
+				SelectedDetailCollectionItem.SynergyRecord = DataObjectDetailEntryItem.SynergyRecord
+				DataObjectDetailEntryItem.OriginalSynergyRecord = SelectedDetailCollectionItem.SynergyRecord 
+				mDataObjectDetailEntryItem.RestoreOriginalData()
+			end
+
+			(ProgramMode.Add)					,
+			begin
+			data tmpObj							,@DataObjectBase
+				 
+				mDetailCTORArgs[1] = DataObjectDetailEntryItem.SynergyRecord
+
+				if (mDetailClassConstructor == ^null)
+				begin
+					;;we did not use the standard/base list load capability
+
+				data classTypeInfo				,@TypeInfo		,IntrospectionExtensions.GetTypeInfo(mDataObjectDetailItem)
+				data item						,@ConstructorInfo
+					foreach item in classTypeInfo.DeclaredConstructors
+					begin
+						mDetailClassConstructor = item
+						if (mDetailClassConstructor.ToString() == "Void .ctor(System.String)")
+							exitloop
+					end	
+				end	
+				tmpObj = (DataObjectBase)mDetailClassConstructor.Invoke(mDetailCTORArgs)
+				DataObjectDetailCollection.AddToCollection(tmpObj)
+					
+				DataObjectDetailEntryItem.OriginalSynergyRecord = DataObjectDetailEntryItem.SynergyRecord 
+				mDataObjectDetailEntryItem.RestoreOriginalData()
+				SelectedDetailCollectionItem = tmpObj
+				SelectedDetailItemIndex = DataObjectDetailCollection.Count
+
+;				DataObjectDetailCollection.AddToCollection(DataObjectDetailEntryItem)
+;				DataObjectDetailEntryItem.OriginalSynergyRecord = DataObjectDetailEntryItem.SynergyRecord 
+;				mDataObjectDetailEntryItem.RestoreOriginalData()
+;				SelectedDetailCollectionItem = DataObjectDetailEntryItem
+;				SelectedDetailItemIndex = DataObjectDetailCollection.Count
+			end
+			endusing
+			
+			
+
+			if (SelectedDetailItemIndex >= 0) then
+			begin
+				DeleteDetailCommand.ExecuteState = true
+				SaveDetailCommand.ExecuteState = false
+				CancelDetailCommand.ExecuteState = false
+			end
+			else
+			begin
+				DeleteDetailCommand.ExecuteState = false
+				SaveDetailCommand.ExecuteState = false
+				CancelDetailCommand.ExecuteState = false
+			end
+			NewDetailCommand.ExecuteState = true
+			mProgramDetailMode = ProgramMode.Enquiry
+			raiseProgramDetailModeChanged()
+			DetailGridIsEnabled = true
+
+			if (mDataObjectEntryItem.IsDataValid)
+				SaveCommand.ExecuteState = true
+			CancelCommand.ExecuteState = true
+			NewCommand.ExecuteState = false
+			DeleteCommand.ExecuteState= false
+			GridIsEnabled = false
+
+		endmethod
+		
+
+		private mCancelDetailCommand			,@GenericCommand
+		
+		public property CancelDetailCommand		,@GenericCommand
+			method get
+			proc
+				if (mCancelDetailCommand == ^null)
+				begin
+					mCancelDetailCommand = new GenericCommand("CANCEL", doCancelDetailCommand)
+					mCancelDetailCommand.ExecuteState = false
+				end
+				mreturn mCancelDetailCommand
+			endmethod
+		endproperty
+		
+		private method doCancelDetailCommand,void
+		sender									,@Object
+		param									,string
+		endparams
+		proc
+			mDataObjectDetailEntryItem.RestoreOriginalData()
+			mDataObjectDetailEntryItem.InitialValidateData()
+			mDataObjectDetailEntryItem.RestoreOriginalData()
+
+			NewDetailCommand.ExecuteState = true
+
+			if (SelectedDetailItemIndex) then
+			begin
+				DeleteDetailCommand.ExecuteState = true
+				SaveDetailCommand.ExecuteState = false
+				CancelDetailCommand.ExecuteState = false
+			end
+			else
+			begin
+				DeleteDetailCommand.ExecuteState = false
+				SaveDetailCommand.ExecuteState = false
+				CancelDetailCommand.ExecuteState = false
+			end
+
+			NewDetailCommand.ExecuteState = true
+			DetailGridIsEnabled = true
+			mProgramDetailMode = ProgramMode.Enquiry
+			raiseProgramDetailModeChanged()
+		endmethod
+		
+		private mDeleteDetailCommand			,@GenericCommand
+		
+		public property DeleteDetailCommand		,@GenericCommand
+			method get
+			proc
+				if (mDeleteDetailCommand == ^null)
+				begin
+					mDeleteDetailCommand = new GenericCommand("DELETE", doDeleteDetailCommand)
+					mDeleteDetailCommand.ExecuteState = false
+				end
+				mreturn mDeleteDetailCommand
+			endmethod
+		endproperty
+		
+		private method doDeleteDetailCommand,void
+		sender								,@Object
+		param								,string
+		endparams
+		proc
+			if (SelectedDetailCollectionItem != ^null)
+			begin
+;					;;remove the item from the list
+				DataObjectDetailCollection.Remove(SelectedDetailCollectionItem)
+				SelectedDetailCollectionItem  = ^null
+					
+				;;init the entry object
+				DataObjectDetailEntryItem.InitData()
+
+			end
+
+			if (SelectedDetailItemIndex) then
+			begin
+				DeleteDetailCommand.ExecuteState = true
+				SaveDetailCommand.ExecuteState = false
+				CancelDetailCommand.ExecuteState = false
+			end
+			else
+			begin
+				DeleteDetailCommand.ExecuteState = false
+				SaveDetailCommand.ExecuteState = false
+				CancelDetailCommand.ExecuteState = false
+			end
+			NewDetailCommand.ExecuteState = true
+			DetailGridIsEnabled = true			
+			SaveCommand.ExecuteState = true
+			CancelCommand.ExecuteState = true
+			NewCommand.ExecuteState = false
+			DeleteCommand.ExecuteState= false
+			GridIsEnabled = false
+
+			mProgramDetailMode = ProgramMode.Enquiry
+			raiseProgramDetailModeChanged()
+
+		endmethod
+
+.endregion
+
 		
 .region "list/grid options"
 		
-		private mGridIsEnabled	,boolean	,true
+		private mGridIsEnabled				,boolean		,true
 		
-		public property GridIsEnabled, boolean
+		public property GridIsEnabled		,boolean
 			method get
 			proc
 				mreturn mGridIsEnabled
@@ -469,15 +933,33 @@ namespace SFE_Base.ViewModel
 				end
 			endmethod
 		endproperty
+
+
+		private mDetailGridIsEnabled			,boolean		,true
+		
+		public property DetailGridIsEnabled		,boolean
+			method get
+			proc
+				mreturn mDetailGridIsEnabled
+			endmethod
+			method set
+			proc
+				if (mDetailGridIsEnabled != value)
+				begin
+					mDetailGridIsEnabled = value
+					RaisePropertyChanged("DetailGridIsEnabled")
+				end
+			endmethod
+		endproperty
 		
 		
 .endregion
 		
 .region "Error information"
 		
-		private mErrorInfo	,string
+		private mErrorInfo				,string
 		
-		public property ErrorInfo, string
+		public property ErrorInfo		,string
 			method get
 			proc
 				mreturn mErrorInfo
@@ -489,7 +971,19 @@ namespace SFE_Base.ViewModel
 			endmethod
 		endproperty
 		
+		private mErrorDetails				,string
 		
+		public property ErrorDetails		,string
+			method get
+			proc
+				mreturn mErrorDetails
+			endmethod
+			method set
+			proc
+				mErrorDetails = value
+				RaisePropertyChanged("ErrorDetails")
+			endmethod
+		endproperty	
 .endregion
 	endclass
 	

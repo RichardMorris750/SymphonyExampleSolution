@@ -1,0 +1,349 @@
+;;**********************************************************************
+;;
+;; Title:       PurchaseOrderViewModel.dbc
+;;
+;; Type:        Class
+;;
+;; Description: Purchase Order Entry
+;;
+;; Author:      Gordon Ireland
+;;
+;; Copyright (c) 2012, Synergex International, Inc. All rights reserved.
+;;
+;; Redistribution and use in source and binary forms, with or without
+;; modification, are permitted provided that the following conditions are met:
+;;
+;; * Redistributions of source code must retain the above copyright notice,
+;;   this list of conditions and the following disclaimer.
+;;
+;; * Redistributions in binary form must reproduce the above copyright notice,
+;;   this list of conditions and the following disclaimer in the documentation
+;;   and/or other materials provided with the distribution.
+;;
+;; THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+;; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+;; IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+;; ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+;; LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+;; CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+;; SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+;; INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+;; CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+;; ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+;; POSSIBILITY OF SUCH DAMAGE.
+;;
+;;*****************************************************************************
+import System
+import System.Collections.Generic
+import System.Text
+import SFE_Base.ViewModel
+import System.Windows
+import AppData
+import Symphony.Conductor.DataIO
+import Symphony.Conductor.ViewModel
+
+;;use the extension methods
+import System.Linq
+import Symphony.Conductor.Model
+import Symphony.Conductor.Commands
+import Symphony.Conductor.DataIO
+import Symphony.Conductor.Types
+
+namespace SFE_Orders.ViewModel
+
+	public class PurchaseOrderViewModel extends FileMaintViewModel
+
+		private static mOrder_Header	,@Order_Header_Data		,new Order_Header_Data()
+		private static mOrder_Line		,@Order_Line_Data		,new Order_Line_Data()
+
+		public method PurchaseOrderViewModel
+		sender		,@FrameworkElement
+		endparams
+		parent(sender, mOrder_Header.GetType(), new Order_Header_FileIO(FileOpenMode.UpdateIndexed), "ShowErrorState",mOrder_Line.GetType())
+		proc
+			this.ProgramModeChanged += doProgramModeChanged
+
+			;;we can use the stndard list loding method built into the base class or
+			;;load the list ourselves
+			DataObjectEntryItem = (DataObjectBase)new Order_Header_Data()
+			DataObjectEntryItem.IsDataModifiedChanged += DoIsDataModified
+			
+			DataObjectDetailEntryItem = (DataObjectBase)new Order_Line_Data()
+			DataObjectDetailEntryItem.IsDataModifiedChanged += DoIsDetailDataModified
+
+			this.LoadDetailList()
+		endmethod
+
+		;--------------------------------------------------------------------------------------
+		private method doProgramModeChanged,void
+		in req currentMode		,ProgramMode
+		endparams
+		proc
+			;;this event handler allows us to prevent the user from being able to change field
+			;;that would break the data integrity - for example the key fields when in amend mode.
+
+			using currentMode select
+			(ProgramMode.Modify),
+			begin
+				DataObjectEntryItem.SetFieldReadOnlyStatus(true, "ORDER_NO")
+			end
+			(ProgramMode.Add)	,
+			begin
+				DataObjectEntryItem.SetFieldReadOnlyStatus(false, "ORDER_NO")
+			end
+			(ProgramMode.Enquiry),
+			begin
+				DataObjectEntryItem.SetFieldReadOnlyStatus(true, "ORDER_NO")
+			end
+			endusing
+
+
+			DataObjectEntryItem.SetFieldReadOnlyStatus(true, "LINE_COUNT")
+			DataObjectEntryItem.SetFieldReadOnlyStatus(true, "TOT_QTY")
+			DataObjectEntryItem.SetFieldReadOnlyStatus(true, "TOT_VALUE")
+			DataObjectEntryItem.SetFieldReadOnlyStatus(true, "TOT_VAT")
+
+		endmethod
+
+
+		private method doProgramDetailModeChanged,void
+		in req currentDetailMode	,ProgramMode
+		endparams
+		proc
+			;;this event handler allows us to prevent the user from being able to change field
+			;;that would break the data integrity - for example the key fields when in amend mode.
+
+			; NOTE - this code works, but is not needed - bar code can be changed OK
+
+;			using currentDetailMode select
+;			(ProgramMode.Modify)	,
+;			begin
+
+;				DataObjectDetailEntryItem.SetFieldReadOnlyStatus(true, "PBCBARCODE")
+;			end
+;			(ProgramMode.Add)		,
+;			begin
+;				DataObjectDetailEntryItem.SetFieldReadOnlyStatus(false, "PBCBARCODE")
+;			end
+;			(ProgramMode.Enquiry)	,
+;			begin
+;;				DataObjectDetailEntryItem.SetFieldReadOnlyStatus(true, "PBCBARCODE")
+;			end
+;			endusing
+		endmethod
+
+;-----------------------------------------------------------------------------------
+		public override method LoadBaseItemCollection,void
+		endparams
+		
+		proc	
+
+		data item = new Order_Header_Data()
+		data Order_HeaderIO = new Order_Header_FileIO()
+		
+			;;clear the list down
+			this.DataObjectCollection.ClearCollection()
+
+		
+			SaveDetailCommand.ExecuteState = false
+			CancelDetailCommand.ExecuteState = false
+			DeleteDetailCommand.ExecuteState = false
+			NewDetailCommand.ExecuteState = false
+
+		data foundRecs				,int					,false
+
+		data Order_HeaderStatus		,FileAccessResults		,Order_HeaderIO.ReadFirstRecord(item)
+			while (Order_HeaderStatus == FileAccessResults.Success)
+			begin
+			data add				,boolean				,false
+			data kWord				,a50
+			data Desc				,a50
+				kWord = mKeyWord
+				upcase kWord
+;;				Desc = item.Name
+				upcase desc
+			
+				if (!mKeyValue && !mKeyWord)
+					add = true
+				
+				if  (mKeyValue && !mKeyWord ) &&  (mKeyValue == item.Order_no)
+					add=true
+.ifdef gi				
+				if  (mKeyWord != ^null && !mKeyValue) && (instr(1,desc,atrim(kWord)))
+					add=true
+				
+				if  (mKeyWord != ^null && mKeyValue != ^null) && (instr(1,Desc,atrim(kWord)))  &&  (atrim(mKeyValue) == item.Order_no)
+					add=true
+
+.endc				
+				if (add)
+				begin
+				data tmpDO = new Order_Header_Data(item.SynergyRecord)
+					tmpDO.GlobalRFA = item.GlobalRFA
+					this.DataObjectCollection.AddToCollection((DataObjectBase)tmpDO)	
+					foundRecs = true								
+				end
+				Order_HeaderStatus = Order_HeaderIO.ReadNextRecord(item)
+			end
+
+
+			if (foundRecs)
+			begin
+				SaveDetailCommand.ExecuteState = false
+				CancelDetailCommand.ExecuteState = false
+				DeleteDetailCommand.ExecuteState = true
+				NewDetailCommand.ExecuteState = true
+				DataObjectEntryItem.SetFieldEnabledStatus(true, "*ALL*")
+			end
+		endmethod
+
+
+
+;----------------------------------------------------------------------------------------------
+		private mKeyWord			,string
+	
+		public property KeyWord		,string
+			method get
+			proc
+				mreturn mKeyWord
+			endmethod
+			method set
+			proc
+				mKeyWord = value
+				RaisePropertyChanged("KeyWord")
+			endmethod
+		
+		endproperty
+	
+	
+		private	mKeyValue			,int
+	
+		public property KeyValue	,int
+			method get
+			proc
+				mreturn mKeyValue
+			endmethod
+			method set
+			proc
+				mKeyValue = value
+				RaisePropertyChanged("KeyValue")
+			endmethod
+		endproperty
+	
+;------------------------------------------------------------------------------------------------------
+	
+		private mSearchCommand				,@GenericCommand
+	
+		public property SearchCommand		,@GenericCommand
+			method get
+			proc
+			
+				if (mSearchCommand == ^null)
+				begin
+					lambda doCommand(sender, param)
+					begin
+						LoadBaseItemCollection()
+					end
+					mSearchCommand = new GenericCommand("SEARCH", doCommand)
+				end
+			
+				mreturn mSearchCommand
+			endmethod
+		endproperty
+	
+	
+		private mPrintCommand			,@GenericCommand
+	
+		public property PrintCommand	,@GenericCommand
+			method get
+			proc
+			
+				if (mPrintCommand == ^null)
+				begin
+					lambda doCommand(sender, param)
+					begin
+;;						SFE_Supplier.SupplierReport.Print("R",mKeyValue,mKeyWord)
+						nop
+					end
+					mPrintCommand = new GenericCommand("PRINT", doCommand)
+				end
+			
+				mreturn mPrintCommand
+			endmethod
+		endproperty
+	
+		private mPDFCommand				,@GenericCommand
+	
+		public property PDFCommand		,@GenericCommand
+			method get
+			proc
+			
+				if (mPDFCommand == ^null)
+				begin
+					lambda doCommand(sender, param)
+					begin
+;;						SFE_Supplier.SupplierReport.Print("P",mKeyValue,mKeyWord)
+						nop
+					end
+					mPDFCommand = new GenericCommand("PDF", doCommand)
+				end
+			
+				mreturn mPDFCommand
+			endmethod
+		endproperty
+	
+		
+;---------------------------handle detail lines-----------------------------------------------------------------------
+.region 'detail line handling'
+
+		public async override method SaveDetailLines,void
+		
+		proc
+
+		data orderLineList		,@AsyncObservableCollection<Order_line_Data>
+		data orderLine			,@Order_Line_Data
+
+			orderLineList = new AsyncObservableCollection<Order_Line_Data>()
+			orderLineList.ClearCollection()
+
+			foreach orderLine in DataObjectDetailCollection
+				orderLineList.AddToCollection(^as(orderLine, Order_Line_Data))
+				
+			((Order_Header_Data)DataObjectEntryItem).OrderLineList = orderLineList
+
+			((Order_Header_Data)DataObjectEntryItem).SaveOrderLineList()
+
+		endmethod
+
+
+		public async override method DeleteDetailLines,void
+		proc
+
+			((Order_Header_Data)DataObjectEntryItem).DeleteOrderLineList()
+
+		endmethod
+
+
+
+		public async override method LoadDetailLines,void
+
+		proc
+
+			SelectedDetailCollectionItem = (DataObjectBase)new Order_Line_Data()
+
+		data	orderLineObj	,@Order_Line_Data		,new Order_Line_Data()
+						
+			this.DataObjectDetailCollection.ClearCollection()
+										
+			foreach orderLineObj in ((Order_Header_Data)DataObjectEntryItem).OrderLineList
+				this.DataObjectDetailCollection.AddToCollection(orderLineObj)
+
+			RaisePropertyChanged ("DataObjectDetailCollection")
+
+		endmethod
+
+.endregion
+
+
+	endclass
+endnamespace

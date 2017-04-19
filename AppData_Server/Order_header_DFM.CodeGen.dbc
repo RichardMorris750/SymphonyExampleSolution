@@ -103,7 +103,7 @@ namespace AppData
 		    begin
 			    fieldDescription.LanguageName = "COMMENTS"
 			    fieldDescription.DataType = FieldDataType.AlphaField
-			    fieldDescription.ElementSize = 100
+			    fieldDescription.ElementSize = 40
 			    fieldDescription.StructurePosition = 29
 			    fieldDescription.DecimalPrecision = 0
 		    end
@@ -112,7 +112,7 @@ namespace AppData
 			    fieldDescription.LanguageName = "LINE_COUNT"
 			    fieldDescription.DataType = FieldDataType.DecimalField
 			    fieldDescription.ElementSize = 5
-			    fieldDescription.StructurePosition = 129
+			    fieldDescription.StructurePosition = 69
 			    fieldDescription.DecimalPrecision = 0
 		    end
 		    ("TOT_VALUE "),
@@ -120,7 +120,7 @@ namespace AppData
 			    fieldDescription.LanguageName = "TOT_VALUE"
 			    fieldDescription.DataType = FieldDataType.ImpliedDecimal
 			    fieldDescription.ElementSize = 10
-			    fieldDescription.StructurePosition = 134
+			    fieldDescription.StructurePosition = 74
 			    fieldDescription.DecimalPrecision = 02
 		    end
 		    ("TOT_VAT "),
@@ -128,7 +128,7 @@ namespace AppData
 			    fieldDescription.LanguageName = "TOT_VAT"
 			    fieldDescription.DataType = FieldDataType.ImpliedDecimal
 			    fieldDescription.ElementSize = 10
-			    fieldDescription.StructurePosition = 144
+			    fieldDescription.StructurePosition = 84
 			    fieldDescription.DecimalPrecision = 02
 		    end
 		    ("TOT_QTY "),
@@ -136,7 +136,7 @@ namespace AppData
 			    fieldDescription.LanguageName = "TOT_QTY"
 			    fieldDescription.DataType = FieldDataType.DecimalField
 			    fieldDescription.ElementSize = 6
-			    fieldDescription.StructurePosition = 154
+			    fieldDescription.StructurePosition = 94
 			    fieldDescription.DecimalPrecision = 0
 		    end
 		    endusing

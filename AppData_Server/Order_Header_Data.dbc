@@ -1,0 +1,264 @@
+
+import System
+import System.Collections.Generic
+import System.Text
+import Symphony.Conductor.Model
+import Symphony.Conductor.ViewModel
+import Symphony.Conductor.Types
+import Symphony.Conductor.Commands
+import Symphony.Conductor.DataIO
+import Symphony.Harmony
+
+;;imports required to use data objects and file IO classes.
+import AppData
+import Symphony.Conductor.DataIO
+import System.Windows.Media
+import System.Collections.ObjectModel
+import System.Reflection
+import System.Linq
+
+
+namespace AppData
+	
+	public partial class Order_Header_Data
+		
+		protected override method extendedConstructor, void
+		endparams
+		proc
+			ValidateData += doDataChanged
+			SynergyRecordChanged += synergychanged
+			SynergyRecordChanged += refreshData
+
+			;;if we have data passed to the constructor) then use it to populate the 
+			;;aditional fields
+			if (trim(order_header_main.str_supp_code)) synergychanged()
+			
+			
+		endmethod
+		
+		private method doDataChanged, void
+		inout req message			,@DataChangedMessage
+		endparams
+		proc
+
+
+			using message.FieldName select
+
+			("SUPP_CODE"),
+			begin
+				;;call the find-supplier method to validate the changed/entered value
+				;;invalid values will signal a validation error so the UI can display appropriate details.
+				if (findSupplier() != FileAccessResults.Success) then
+				begin
+					message.FailReason = "Supplier does not exist"
+					message.ValidationState = DataValidationState.Error
+				end
+				else
+					message.ValidationState = DataValidationState.OK
+			end
+
+			endusing
+
+		endmethod
+		
+
+;; this is where I can populate the extra fields I add to my data object		
+		private method synergychanged, void
+		endparams
+		proc
+			findSupplier()
+
+			mOrderLineList = new AsyncObservableCollection<Order_Line_Data>()
+		endmethod
+		
+		private method refreshData, void
+		endparams
+		proc
+			RaisePropertyChanged(^null)
+		endmethod
+		
+		private mSupplierName	,string
+
+
+		public property SupplierName, string
+			method get
+			proc
+				mreturn mSupplierName
+			endmethod
+			private method set
+			proc
+				mSupplierName = value
+				RaisePropertyChanged("SupplierName")
+			endmethod
+		endproperty
+	
+
+		;; set supplier name
+		private method findSupplier, FileAccessResults
+		endparams
+
+		proc
+		data response	,FileAccessResults
+		data tmpDO = Supplier_DOCache.DataObject(supp_code)
+			
+			if (tmpDO != ^null) then
+			begin
+				response = FileAccessResults.Success
+				SupplierName = tmpDO.Name
+			end
+			else
+			begin
+				response = FileAccessResults.RecordNotFound
+				SupplierName = 'Supplier name...' + Supp_code
+			end
+
+			mreturn response
+		endmethod
+
+		
+		private static mConnector		,@DBConnector
+
+		private mOrderLineList			,@AsyncObservableCollection<Order_line_Data>
+
+		private mOriginalOrderLineList	,@AsyncObservableCollection<Order_line_Data>
+
+		public property OrderLineList		,@AsyncObservableCollection<Order_line_Data>
+			method get
+			proc
+				if (mOrderLineList.Count == 0)
+					loadOrderLineList()
+				mreturn mOrderLineList
+			endmethod
+			method set
+			proc
+				mOrderLineList = Value
+				RaisePropertyChanged("OrderLineList")
+			endmethod
+		endproperty
+
+
+		private method loadOrderLineList,void
+		endparams
+		proc
+			mConnector = new DBConnector("SYMLOCAL:richard/morris!AppData.TableMapper.MapTableToFile")
+			;;To enable case insensitive comparisons:
+			mConnector.SetCaseSensitivity(false)
+			try
+			begin				
+				;;the list is instanced so we need to load each item individually
+
+				mOrderLineList.ClearCollection()
+
+			data item		,@Order_Line_Data
+
+				foreach item in new DataSelect(mConnector, "select * from order_line where Order_no = :1", new Order_Line_Data(),this.Order_no)
+				begin
+					mOrderLineList.AddToCollection(^as(item, Order_Line_Data))
+				end
+			end
+			catch (e, @Exception)
+			begin
+				;;oops
+			end
+			endtry
+
+		data item			,@Order_Line_Data
+			; now copy the list for comparison when saving
+			mOriginalOrderLineList.ClearCollection()
+			foreach item in mOrderLineList
+				mOriginalOrderLineList.AddtoCollection(^as(item, Order_Line_Data))
+		endmethod
+
+
+
+		public method SaveOrderLineList,void		
+
+		proc
+
+	
+		data sameCount		,int
+		data itemCount		,int
+		data origOrderLine	,@Order_Line_Data
+		data orderLine		,@Order_Line_Data
+
+		data orderLineIO = new Order_Line_FileIO(FileOpenMode.UpdateIndexed)
+
+		data status			,@FileAccessResults
+
+			sameCount = mOrderLineList.Count
+			if (mOriginalOrderLineList.Count < sameCount)
+				sameCount = mOriginalOrderLineList.Count
+		
+			clear itemCount
+
+			for ItemCount from 0 thru sameCount-1
+			begin
+				orderLine = mOrderLineList[itemCount]
+				origOrderLine = mOriginalOrderLineList[itemCount]
+				
+				orderLine.Order_no = this.Order_no
+				orderLine.Line_no = itemCount + 1
+				if orderLine.SynergyRecord != origOrderLine.OriginalSynergyRecord
+				begin
+					origOrderLine.SynergyRecord = orderLine.SynergyRecord
+								
+					if  (orderLineIO.UpdateRecordUsingGRFA(origOrderLine) != FileAccessResults.Success)
+					begin
+					data	errNo		,string
+						errNo =orderLineIO.LastSynergyError.ToString()
+						nop
+					end
+		
+				end
+
+			end
+
+			if (mOrderLineList.Count > sameCount) 
+			begin
+				for itemCount from  sameCount thru mOrderLineList.Count -1
+				begin
+					orderLine = mOrderLineList[itemCount]
+					orderLine.Order_no = this.Order_no
+					orderLine.Line_no = itemCount + 1
+					if (orderLineIO.CreateRecord(orderLine)!= FileAccessResults.Success)
+						nop			;; ignore errors for now
+				end
+			end
+
+			if (mOrderLineList.Count < mOriginalOrderLineList.Count) 		
+			begin
+				foreach orderLine in new DataSelect(mConnector, "select * from order_line where Order_no = :1 and Line_No > :2",					new Order_Line_Data(),this.Order_No,OrderLineList.count)
+				begin
+					if (orderLineIO.DeleteRecordUsingGRFA(orderLine)!= FileAccessResults.Success)
+						nop			;; ignore errors for now	
+				end
+			end
+
+
+
+		endmethod
+
+
+		;-----------------------------------------------------------------------------------------------------------------
+
+		public method DeleteOrderLineList,void
+		proc
+
+		data orderLineIO = new Order_Line_FileIO(FileOpenMode.UpdateIndexed)
+		data orderLine				,@Order_Line_Data
+
+			foreach orderLine in new DataSelect(mConnector, "select * from order_line where Order_No = :1",new Order_Line_Data(),this.Order_No)
+			begin
+				if (orderLineIO.DeleteRecordUsingGRFA(orderLine)!= FileAccessResults.Success)
+					nop			;; ignore errors for now	
+			end
+
+
+		endmethod
+
+
+
+
+	endclass
+	
+endnamespace

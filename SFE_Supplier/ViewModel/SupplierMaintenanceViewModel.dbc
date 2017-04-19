@@ -1,6 +1,6 @@
 ;;**********************************************************************
 ;;
-;; Title:       SupplierMaintentanceViewModel.dbc
+;; Title:       SupplierMaintenanceViewModel.dbc
 ;;
 ;; Type:        Class
 ;;
@@ -51,11 +51,11 @@ import Symphony.Conductor.Types
 
 namespace SFE_Supplier.ViewModel
 
-	public class SupplierMaintentanceViewModel extends FileMaintViewModel
+	public class SupplierMaintenanceViewModel extends FileMaintViewModel
 
 		private static mSupplier	,@Supplier_Data	,new Supplier_Data()
 
-		public method SupplierMaintentanceViewModel
+		public method SupplierMaintenanceViewModel
 			sender									,@FrameworkElement
 			endparams
 			parent(sender, mSupplier.GetType(), new Supplier_FileIO(FileOpenMode.UpdateIndexed), "ShowErrorState")

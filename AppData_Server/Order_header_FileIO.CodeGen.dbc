@@ -28,7 +28,7 @@ namespace AppData
 		;;; </summary>
 		public method Order_header_FileIO
 			endparams
-			parent(659)
+			parent(599)
 		proc
 			mOpenMode = FileOpenMode.Input
 			openTheFile("SFEDATA:order_header.ism")
@@ -40,7 +40,7 @@ namespace AppData
 		public method Order_header_FileIO
 			in req openMode		,FileOpenMode
 			endparams
-			parent(659)
+			parent(599)
 		proc
 			mOpenMode = openMode
 			openTheFile("SFEDATA:order_header.ism")

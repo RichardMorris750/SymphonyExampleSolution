@@ -11,28 +11,18 @@ import System.Windows.Media
 import System.Windows.Media.Imaging
 import System.Windows.Navigation
 import System.Windows.Shapes
-import SFE_Supplier.ViewModel
 
-namespace SFE_Supplier.View
+namespace SFE_Orders.View
 
     ;;; <summary>
-    ;;; Interaction logic for Maintenance.xaml
+    ;;; Interaction logic for SearchCriteria.xaml
     ;;; </summary>
-    public partial class Maintenance extends UserControl
+    public partial class SearchCriteria extends UserControl
     
-        public method Maintenance
+        public method SearchCriteria
         endparams
         proc
-			this.InitializeComponent()
-		endmethod
-		
-		private method UserControl_Loaded, void
-			sender, @object 
-			e, @System.Windows.RoutedEventArgs 
-			endparams
-		proc
-			this.DataContext = new SupplierMaintenanceViewModel(this)
-		endmethod
-		
+            this.InitializeComponent()
+        endmethod
     endclass
 endnamespace

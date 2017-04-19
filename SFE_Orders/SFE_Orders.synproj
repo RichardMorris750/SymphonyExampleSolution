@@ -2,43 +2,22 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Name>"AppData_Server"</Name>
+    <Name>"SFE_Orders"</Name>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{1c61e987-fbd9-49b8-b987-8a30d6ef3218}</ProjectGuid>
+    <ProjectGuid>1c9279b7-b70b-41fb-b610-d5ed84e975e8</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>AppData</RootNamespace>
-    <AssemblyName>AppData</AssemblyName>
+    <RootNamespace>SFE_Orders</RootNamespace>
+    <AssemblyName>SFE_Orders</AssemblyName>
     <MainFile>Class.dbl</MainFile>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <TargetPlatform>v452</TargetPlatform>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
-    <DBL_qWarnLevel>3 - Don't display warning levels higher than 3</DBL_qWarnLevel>
+    <DBL_qWarnLevel>3</DBL_qWarnLevel>
     <DBL_qWarn>True</DBL_qWarn>
     <DBLCmdOptions> -W3 -qstack</DBLCmdOptions>
     <Language>Synergy</Language>
     <DBL_unQulRecStm>Stack</DBL_unQulRecStm>
     <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
-    <StartupObject>(Not set)</StartupObject>
-    <ApplicationIcon />
-    <ResourceType>Icon</ResourceType>
-    <ResourceName />
-    <NoWin32Manifest />
-    <ProjEnvVars>RPSMFIL=$(SolutionDir)Rps\rpsmain.ism;RPSTFIL=$(SolutionDir)Rps\rpstext.ism</ProjEnvVars>
-    <Install>True</Install>
-    <ApplicationVersion>1.0.0.*</ApplicationVersion>
-    <ApplicationRevision>0</ApplicationRevision>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>False</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>False</UpdatePeriodically>
-    <UpdateRequired>False</UpdateRequired>
-    <MapFileExtensions>True</MapFileExtensions>
-    <IsWebBootstrapper>False</IsWebBootstrapper>
-    <UseApplicationTrust>False</UseApplicationTrust>
-    <BootstrapperEnabled>True</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <IncludeDebugInformation>true</IncludeDebugInformation>
@@ -46,32 +25,8 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
     <DebugOptimize>Debug</DebugOptimize>
-    <DocumentationFile>bin\Debug\AppData_Server.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\SFE_Orders.xml</DocumentationFile>
     <Prefer32Bit Condition=" '$(TargetFrameworkVersion)'  != 'v4.0' AND '$(Prefer32Bit)' != 'false' ">true</Prefer32Bit>
-    <TargetRuntimeLevel>10030302</TargetRuntimeLevel>
-    <LanguageCompatibilityLevel>10030302</LanguageCompatibilityLevel>
-    <UnevaluatedOutputPath>bin\Debug\</UnevaluatedOutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
-    <IncludeDebugInformation>true</IncludeDebugInformation>
-    <PlatformTarget>x64</PlatformTarget>
-    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
-    <DebugOptimize>Debug</DebugOptimize>
-    <DocumentationFile>bin\Debug\AppData_Server.xml</DocumentationFile>
-    <Prefer32Bit Condition=" '$(TargetFrameworkVersion)'  != 'v4.0' AND '$(Prefer32Bit)' != 'false' ">False</Prefer32Bit>
-    <OutputPath>bin\x64\Debug\</OutputPath>
-    <TargetRuntimeLevel>10030302</TargetRuntimeLevel>
-    <LanguageCompatibilityLevel>10030302</LanguageCompatibilityLevel>
-    <UnevaluatedOutputPath>bin\x64\Debug\</UnevaluatedOutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <IncludeDebugInformation>true</IncludeDebugInformation>
-    <PlatformTarget>x86</PlatformTarget>
-    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
-    <DebugOptimize>Debug</DebugOptimize>
-    <DocumentationFile>bin\Debug\AppData_Server.xml</DocumentationFile>
-    <Prefer32Bit Condition=" '$(TargetFrameworkVersion)'  != 'v4.0' AND '$(Prefer32Bit)' != 'false' ">False</Prefer32Bit>
-    <OutputPath>bin\x86\Debug\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <IncludeDebugInformation>true</IncludeDebugInformation>
@@ -79,26 +34,8 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
     <DebugOptimize>Optimize</DebugOptimize>
-    <DocumentationFile>bin\Release\AppData_Server.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\SFE_Orders.xml</DocumentationFile>
     <Prefer32Bit Condition=" '$(TargetFrameworkVersion)'  != 'v4.0' AND '$(Prefer32Bit)' != 'false' ">true</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
-    <IncludeDebugInformation>False</IncludeDebugInformation>
-    <PlatformTarget>x64</PlatformTarget>
-    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
-    <DebugOptimize>Optimize</DebugOptimize>
-    <DocumentationFile>bin\Release\AppData_Server.xml</DocumentationFile>
-    <Prefer32Bit Condition=" '$(TargetFrameworkVersion)'  != 'v4.0' AND '$(Prefer32Bit)' != 'false' ">False</Prefer32Bit>
-    <OutputPath>bin\x64\Release\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <IncludeDebugInformation>true</IncludeDebugInformation>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
-    <DebugOptimize>Optimize</DebugOptimize>
-    <DocumentationFile>bin\Release\AppData_Server.xml</DocumentationFile>
-    <Prefer32Bit Condition=" '$(TargetFrameworkVersion)'  != 'v4.0' AND '$(Prefer32Bit)' != 'false' ">true</Prefer32Bit>
-    <OutputPath>bin\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
@@ -159,67 +96,84 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>..\packages\Blend.Interctivity.WPF.v4.0.1.0.3\lib\net40\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Buyer_Data.CodeGen.dbc" />
-    <Compile Include="Buyer_DFM.CodeGen.dbc" />
-    <Compile Include="Buyer_DOCache.CodeGen.dbc" />
-    <Compile Include="Buyer_FileIO.CodeGen.dbc" />
-    <Compile Include="DataLogic.dbc" />
-    <Compile Include="Order_header_Data.CodeGen.dbc" />
-    <Compile Include="Order_Header_Data.dbc" />
-    <Compile Include="Order_header_DFM.CodeGen.dbc" />
-    <Compile Include="Order_header_FileIO.CodeGen.dbc" />
-    <Compile Include="Order_line_Data.CodeGen.dbc" />
-    <Compile Include="Order_line_DFM.CodeGen.dbc" />
-    <Compile Include="Order_line_FileIO.CodeGen.dbc" />
-    <Compile Include="Parameter_Data.CodeGen.dbc" />
-    <Compile Include="Parameter_FileIO.dbc" />
-    <Compile Include="Product_Data.CodeGen.dbc" />
-    <Compile Include="Product_Data.dbc" />
-    <Compile Include="Product_DFM.CodeGen.dbc" />
-    <Compile Include="Product_FileIO.CodeGen.dbc" />
-    <Compile Include="Product_group_Data.CodeGen.dbc" />
-    <Compile Include="Product_group_Data.dbc" />
-    <Compile Include="Product_group_DFM.CodeGen.dbc" />
-    <Compile Include="Product_group_DOCache.CodeGen.dbc" />
-    <Compile Include="Product_group_FileIO.CodeGen.dbc" />
     <Compile Include="Properties\AssemblyInfo.dbl" />
-    <Compile Include="Selections_Data.CodeGen.dbc" />
-    <Compile Include="Supplier_Data.CodeGen.dbc" />
-    <Compile Include="Supplier_Data.dbc" />
-    <Compile Include="Supplier_DFM.CodeGen.dbc" />
-    <Compile Include="Supplier_DOCache.CodeGen.dbc" />
-    <Compile Include="Supplier_FileIO.CodeGen.dbc" />
-    <Compile Include="TableMapper.dbc" />
+    <Compile Include="ViewModel\PurchaseOrderViewModel.dbc" />
+    <Compile Include="View\FullInput.xaml.dbl">
+      <DependentUpon>View\FullInput.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Maintenance.xaml.dbl">
+      <DependentUpon>View\Maintenance.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\OverviewList.xaml.dbl">
+      <DependentUpon>View\OverviewList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SearchCriteria.xaml.dbl">
+      <DependentUpon>View\SearchCriteria.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Model" />
+    <Folder Include="ViewModel" />
+    <Folder Include="View" />
     <Folder Include="Properties" />
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
-      <Install>True</Install>
-      <ProductName>Microsoft .NET Framework 4.5.2 (x86 and x64)</ProductName>
-      <Visible>False</Visible>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Install>False</Install>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Visible>False</Visible>
-    </BootstrapperPackage>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\AppData_Server\AppData_Server.synproj">
+      <Name>AppData_Server</Name>
+      <Project>{1c61e987-fbd9-49b8-b987-8a30d6ef3218}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\SFEUtilities\SFEUtilities.synproj">
+      <Name>SFEUtilities</Name>
+      <Project>{d7acad11-026e-4daa-acf9-b481f8e298a3}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\SFE_Base\SFE_Base.synproj">
+      <Name>SFE_Base</Name>
+      <Project>{ee7b1be6-ca7b-47d7-8cd9-837577c149c2}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\SFE_UI\SFE_UI.synproj">
+      <Name>SFE_UI</Name>
+      <Project>{042c6fdf-2e91-4cba-a1ac-336122022826}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="View\FullInput.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Maintenance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\OverviewList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SearchCriteria.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Synergex\VS2010\Synergex.SynergyDE.targets" />
   <PropertyGroup>

@@ -79,10 +79,16 @@ namespace SystemSetup
 			call create
 			
 			call setParameter
+
 			call loadProduct
+			
 			call loadSupplier
+			
 			call loadGroup
+			
 			call loadBuyer
+			
+			call loadOrders
 			
 			writes(ttChn, 'Completed')
 		end
@@ -496,6 +502,20 @@ namespace SystemSetup
 
 		call addsupplier
 
+		supplier.str_supp_code			=	'N00001'
+		supplier.str_name				=	'Nuts R Us'
+		supplier.str_address1			=	'1 23 High Street'
+		supplier.str_address2			=	'Leeds'
+		supplier.str_address3			=	''
+		supplier.str_postcode			=	'L12 4AB'
+		supplier.str_phone				=	'303 1237300'
+		supplier.str_contact			=	'Mr P Nuts'
+		supplier.str_email				=	'PNuts@nutsrus.com'
+		supplier.str_create_date		=	currentDate(1:8)
+		supplier.str_account_status		=   1
+
+		call addsupplier
+
 		;;let's display the records to the screen
 
 		writes(ttChn, "Suppliers created:")
@@ -721,8 +741,168 @@ namespace SystemSetup
 		
 		return
 		
+
+
+		;-----------------------------------------------------------------------------
+		; populate order files
+	loadOrders,
+		writes(ttChn, 'loading orders')
+
+	data order_HeaderIO = new Order_Header_FileIO(FileOpenMode.UpdateIndexed)
+			
+	data order_Header		,STROrder_header
+	
+	data order_LineIO = new Order_Line_FileIO(FileOpenMode.UpdateIndexed)
+			
+	data order_Line		,STROrder_line
+			
+		; order 1
+		order_Header.str_order_no		= 1
+		order_Header.str_Supp_code		= 'C00001'
+		order_Header.str_Order_date		= 20170505
+		order_Header.str_Reqd_date		= 20170510
+		order_Header.str_Comments		= 'Urgent order!!!'
+		order_Header.str_Line_count		= 3
+		order_Header.str_Tot_value		= 750.00
+		order_Header.str_Tot_vat		= 150.00
+		order_Header.str_Tot_qty		= 60
+
+		call addOrderHeader
+
+		order_Line.str_Order_no			= 1
+		order_Line.str_Line_no			= 1
+		order_Line.str_Prod_code		= 'CRISP1'
+		order_Line.str_Prod_description = 'Ready Salted Crisps'
+		order_Line.str_Qty				= 10
+		order_Line.str_Price			= 12.50
+		order_Line.str_Line_value		= 125.00
+		order_Line.str_Vat_rate			= 20.00
+		order_Line.str_Vat_value		= 25.00
+
+		call addOrderLine
+
+		order_Line.str_Order_no			= 1
+		order_Line.str_Line_no			= 2
+		order_Line.str_Prod_code		= 'CRISP2'
+		order_Line.str_Prod_description = 'Salt and Vinegar Crisps'
+		order_Line.str_Qty				= 20
+		order_Line.str_Price			= 12.50
+		order_Line.str_Line_value		= 250.00
+		order_Line.str_Vat_rate			= 20.00
+		order_Line.str_Vat_value		= 50.00
+
+		call addOrderLine
+
+		order_Line.str_Order_no			= 1
+		order_Line.str_Line_no			= 3
+		order_Line.str_Prod_code		= 'CRISP3'
+		order_Line.str_Prod_description = 'Cheese and Onion Crisps'
+		order_Line.str_Qty				= 30
+		order_Line.str_Price			= 12.50
+		order_Line.str_Line_value		= 375.00
+		order_Line.str_Vat_rate			= 20.00
+		order_Line.str_Vat_value		= 75.00
+
+		call addOrderLine
+
+
+		; order 2
+		order_Header.str_order_no		= 2
+		order_Header.str_Supp_code		= 'C00001'
+		order_Header.str_Order_date		= 20170506
+		order_Header.str_Reqd_date		= 20170520
+		order_Header.str_Comments		= 'deliver before 2.00pm please'
+		order_Header.str_Line_count		= 2
+		order_Header.str_Tot_value		= 2500.00
+		order_Header.str_Tot_vat		= 500.00
+		order_Header.str_Tot_qty		= 200
+
+		call addOrderHeader
+
+		order_Line.str_Order_no			= 2
+		order_Line.str_Line_no			= 1
+		order_Line.str_Prod_code		= 'CRISP1'
+		order_Line.str_Prod_description = 'Ready Salted Crisps'
+		order_Line.str_Qty				= 100
+		order_Line.str_Price			= 12.50
+		order_Line.str_Line_value		= 1250.00
+		order_Line.str_Vat_rate			= 20.00
+		order_Line.str_Vat_value		= 250.00
+
+		call addOrderLine
+
+		order_Line.str_Order_no			= 2
+		order_Line.str_Line_no			= 2
+		order_Line.str_Prod_code		= 'CRISP2'
+		order_Line.str_Prod_description = 'Salt and Vinegar Crisps'
+		order_Line.str_Qty				= 100
+		order_Line.str_Price			= 12.50
+		order_Line.str_Line_value		= 1250.00
+		order_Line.str_Vat_rate			= 20.00
+		order_Line.str_Vat_value		= 250.00
+
+		call addOrderLine
+
+
+
+		; order 3
+		order_Header.str_order_no		= 3
+		order_Header.str_Supp_code		= 'D00001'
+		order_Header.str_Order_date		= 20170406
+		order_Header.str_Reqd_date		= 20170420
+		order_Header.str_Comments		= 'deliver before 2.00pm please'
+		order_Header.str_Line_count		= 2
+		order_Header.str_Tot_value		= 1580.00
+		order_Header.str_Tot_vat		= 316.00
+		order_Header.str_Tot_qty		= 110
+
+		call addOrderHeader
+
+		order_Line.str_Order_no			= 3
+		order_Line.str_Line_no			= 1
+		order_Line.str_Prod_code		= 'COK001'
+		order_Line.str_Prod_description = 'Coke Cans'
+		order_Line.str_Qty				= 100
+		order_Line.str_Price			= 15.00
+		order_Line.str_Line_value		= 1500.00
+		order_Line.str_Vat_rate			= 20.00
+		order_Line.str_Vat_value		= 300.00
+
+		call addOrderLine
+
+		order_Line.str_Order_no			= 3
+		order_Line.str_Line_no			= 2
+		order_Line.str_Prod_code		= 'COK002'
+		order_Line.str_Prod_description = 'Coke 1Ltr Bottles'
+		order_Line.str_Qty				= 10
+		order_Line.str_Price			= 8.00
+		order_Line.str_Line_value		= 80.00
+		order_Line.str_Vat_rate			= 20.00
+		order_Line.str_Vat_value		= 16.00
+
+		call addOrderLine
+
+		writes(ttChn, "Press <RETURN> to continue")
+		reads(ttChn, ans)		
+
+		return
 		
+		;---------------------------------------------------------
+	addOrderHeader,
+		if (order_HeaderIO.CreateRecord(new Order_header_Data(order_Header)) != FileAccessResults.Success)
+			writes(ttChn, 'Error adding order header record for ' + string(order_Header.str_order_no) + ' : ' + Order_HeaderIO.LastSynergyError.ToString())
 		
+		return
+		
+	addOrderLine,
+		if (order_LineIO.CreateRecord(new Order_Line_Data(order_Line)) != FileAccessResults.Success)
+			writes(ttChn, 'Error adding order line record for ' + string(order_Line.str_order_no) + '/' + string (order_Line.str_line_no) + ' : ' + order_LineIO.LastSynergyError.ToString())
+		
+		return
+
+
+
+
 	endmain
 	
 endnamespace

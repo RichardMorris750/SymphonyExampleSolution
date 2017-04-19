@@ -136,7 +136,7 @@
   <ItemGroup>
     <Compile Include="Model\SupplierReport.dbc" />
     <Compile Include="Properties\AssemblyInfo.dbl" />
-    <Compile Include="ViewModel\SupplierMaintentanceViewModel.dbc" />
+    <Compile Include="ViewModel\SupplierMaintenanceViewModel.dbc" />
     <Compile Include="View\FullInput.xaml.dbl">
       <DependentUpon>View\FullInput.xaml</DependentUpon>
     </Compile>

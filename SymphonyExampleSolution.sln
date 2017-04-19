@@ -97,6 +97,8 @@ Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "SFE_Supplier", "SFE_Supplie
 EndProject
 Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "SFE_Buyer", "SFE_Buyer\SFE_Buyer.synproj", "{8380BE9C-5505-40AC-8B74-9D5018A22D52}"
 EndProject
+Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "SFE_Orders", "SFE_Orders\SFE_Orders.synproj", "{1C9279B7-B70B-41FB-B610-D5ED84E975E8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -299,6 +301,18 @@ Global
 		{8380BE9C-5505-40AC-8B74-9D5018A22D52}.Release|x64.Build.0 = Release|Any CPU
 		{8380BE9C-5505-40AC-8B74-9D5018A22D52}.Release|x86.ActiveCfg = Release|Any CPU
 		{8380BE9C-5505-40AC-8B74-9D5018A22D52}.Release|x86.Build.0 = Release|Any CPU
+		{1C9279B7-B70B-41FB-B610-D5ED84E975E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C9279B7-B70B-41FB-B610-D5ED84E975E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C9279B7-B70B-41FB-B610-D5ED84E975E8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1C9279B7-B70B-41FB-B610-D5ED84E975E8}.Debug|x64.Build.0 = Debug|Any CPU
+		{1C9279B7-B70B-41FB-B610-D5ED84E975E8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1C9279B7-B70B-41FB-B610-D5ED84E975E8}.Debug|x86.Build.0 = Debug|Any CPU
+		{1C9279B7-B70B-41FB-B610-D5ED84E975E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C9279B7-B70B-41FB-B610-D5ED84E975E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C9279B7-B70B-41FB-B610-D5ED84E975E8}.Release|x64.ActiveCfg = Release|Any CPU
+		{1C9279B7-B70B-41FB-B610-D5ED84E975E8}.Release|x64.Build.0 = Release|Any CPU
+		{1C9279B7-B70B-41FB-B610-D5ED84E975E8}.Release|x86.ActiveCfg = Release|Any CPU
+		{1C9279B7-B70B-41FB-B610-D5ED84E975E8}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

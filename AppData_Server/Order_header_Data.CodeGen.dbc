@@ -59,7 +59,7 @@ namespace AppData
 		public static SynergyMemberInfo, @List<System.Reflection.MemberInfo>
 
 		public const RPSStructureName	,String	,"ORDER_HEADER"
-		public const RPSStructureSize	,Int32	,659
+		public const RPSStructureSize	,Int32	,599
 
 		private order_header_main	,STROrder_header
 
@@ -114,31 +114,31 @@ namespace AppData
 
 			
 			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "COMMENTS", "Comments",  "", "",
-			&	"", "COMMENTS", 29, 100,
+			&	"", "COMMENTS", 29, 40,
 			&	0, 0, 0, 0,
 			&	"ALPHA", false, 0, 0)
 
 			
 			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "LINE_COUNT", "Line_count",  "", "",
-			&	"", "LINE_COUNT", 129, 5,
+			&	"", "LINE_COUNT", 69, 5,
 			&	0, 0, 0, 0,
 			&	"DECIMAL", false, 0, 99999)
 
 			
 			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "TOT_VALUE", "Tot_value",  "", "",
-			&	"", "TOT_VALUE", 134, 10,
+			&	"", "TOT_VALUE", 74, 10,
 			&	0, 0, 0, 0,
 			&	"IMPLIED", false, 0, 99999999.99)
 
 			
 			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "TOT_VAT", "Tot_vat",  "", "",
-			&	"", "TOT_VAT", 144, 10,
+			&	"", "TOT_VAT", 84, 10,
 			&	0, 0, 0, 0,
 			&	"IMPLIED", false, 0, 99999999.99)
 
 			
 			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "TOT_QTY", "Tot_qty",  "", "",
-			&	"", "TOT_QTY", 154, 6,
+			&	"", "TOT_QTY", 94, 6,
 			&	0, 0, 0, 0,
 			&	"DECIMAL", false, 0, 999999)
 
@@ -370,7 +370,7 @@ namespace AppData
 		endproperty
         ;;Comments
 		{JsonProperty}
-		public property Comments, a100
+		public property Comments, a40
 			method get
 			proc
 				mreturn %atrim(order_header_main.STR_Comments)

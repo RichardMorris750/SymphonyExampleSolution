@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(SolutionDir)Common.props" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Name>"SFE_Buyer"</Name>
@@ -18,6 +19,7 @@
     <Language>Synergy</Language>
     <DBL_unQulRecStm>Stack</DBL_unQulRecStm>
     <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+    <EnableCommonProperties>True</EnableCommonProperties>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <IncludeDebugInformation>true</IncludeDebugInformation>
@@ -26,6 +28,10 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
     <DebugOptimize>Debug</DebugOptimize>
     <DocumentationFile>bin\Debug\SFE_Buyer.xml</DocumentationFile>
+    <TargetRuntimeLevel>10030302</TargetRuntimeLevel>
+    <LanguageCompatibilityLevel>10030302</LanguageCompatibilityLevel>
+    <UnevaluatedOutputPath>bin\Debug\</UnevaluatedOutputPath>
+    <Prefer32Bit>True</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <IncludeDebugInformation>true</IncludeDebugInformation>
@@ -88,9 +94,6 @@
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
-    <Reference Include="synrnt">
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -110,8 +113,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.dbl" />
+    <Compile Include="Properties\Resources.Designer.dbl">
+      <DependentUpon>Properties\Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="View\FullInput.xaml.dbl">
       <DependentUpon>View\FullInput.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\OverviewList.xaml.dbl">
+      <DependentUpon>View\OverviewList.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -147,9 +156,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\OverviewList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Synergex\VS2010\Synergex.SynergyDE.targets" />
   <PropertyGroup>

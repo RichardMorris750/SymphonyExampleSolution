@@ -1,0 +1,41 @@
+﻿import System
+import System.Collections.Generic
+import System.Linq
+import System.Text
+import System.Windows
+import System.Windows.Controls
+import System.Windows.Data
+import System.Windows.Documents
+import System.Windows.Input
+import System.Windows.Media
+import System.Windows.Media.Imaging
+import System.Windows.Navigation
+import System.Windows.Shapes
+
+import SFE_Buyer.ViewModel
+
+namespace SFE_Buyer.View
+
+    ;;; <summary>
+    ;;; Interaction logic for Maintenance.xaml
+    ;;; </summary>
+    public partial class Maintenance extends UserControl
+    
+        public method Maintenance
+        endparams
+        proc
+            this.InitializeComponent()
+		endmethod
+
+		private method UserControl_Loaded, void
+			sender, @Object
+			e, @System.Windows.RoutedEventArgs
+			endparams
+
+		proc
+			this.DataContext = new BuyerMaintenanceViewModel(this)
+		endmethod
+
+	endclass
+
+endnamespace

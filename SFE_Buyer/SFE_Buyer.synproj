@@ -116,8 +116,12 @@
     <Compile Include="Properties\Resources.Designer.dbl">
       <DependentUpon>Properties\Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\BuyerMaintenanceViewModel.dbc" />
     <Compile Include="View\FullInput.xaml.dbl">
       <DependentUpon>View\FullInput.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Maintenance.xaml.dbl">
+      <DependentUpon>View\Maintenance.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\OverviewList.xaml.dbl">
       <DependentUpon>View\OverviewList.xaml</DependentUpon>
@@ -153,6 +157,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="View\FullInput.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Maintenance.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

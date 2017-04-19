@@ -1,0 +1,206 @@
+;;**********************************************************************
+;;
+;; Title:       BuyerMaintentanceViewModel.dbc
+;;
+;; Type:        Class
+;;
+;; Description: Buyer maintenance
+;;
+;; Author:      Allan Shikhvarg, Synergex PSG Consultant
+;;
+;; Copyright (c) 2012, Synergex International, Inc. All rights reserved.
+;;
+;; Redistribution and use in source and binary forms, with or without
+;; modification, are permitted provided that the following conditions are met:
+;;
+;; * Redistributions of source code must retain the above copyright notice,
+;;   this list of conditions and the following disclaimer.
+;;
+;; * Redistributions in binary form must reproduce the above copyright notice,
+;;   this list of conditions and the following disclaimer in the documentation
+;;   and/or other materials provided with the distribution.
+;;
+;; THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+;; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+;; IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+;; ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+;; LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+;; CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+;; SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+;; INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+;; CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+;; ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+;; POSSIBILITY OF SUCH DAMAGE.
+;;
+;;*****************************************************************************
+
+
+import System
+import System.Collections.Generic
+import System.Text
+import System.Windows
+import System.Linq
+import SFE_Base.ViewModel
+
+import AppData								;required for 'models'
+
+import Symphony.Harmony
+import Symphony.Conductor.Model
+import Symphony.Conductor.ViewModel			;required for BaseViewModel, etc.
+import Symphony.Conductor.Commands			;required for GenericCommand, etc.
+import Symphony.Conductor.DataIO
+import Symphony.Conductor.Types
+
+
+namespace SFE_Buyer.ViewModel
+
+	public class BuyerMaintenanceViewModel extends FileMaintViewModel
+		private static mBuyer	,@Buyer_Data ,new Buyer_Data()
+
+		public method BuyerMaintenanceViewModel
+			sender	,@FrameworkElement
+			endparams
+			parent(sender, mBuyer.GetType(), new Buyer_FileIO(FileOpenMode.UpdateIndexed), "ShowErrorState")
+
+		proc
+			this.ProgramModeChanged += doProgramModeChanged
+
+			; standard load method to load the list
+			DataObjectEntryItem = (DataObjectBase)new Buyer_Data()
+			DataObjectEntryItem.IsDataModifiedChanged += DoIsDataModified
+
+			this.LoadDetailList()
+		endmethod
+
+;;-------------------------------------------------------------------
+		private method doProgramModeChanged	,void
+			in req currentMode	,ProgramMode
+			endparams
+
+		proc
+
+		endmethod
+
+;;------------------------------------------------------------------
+		public override method LoadBaseItemCollection, void
+			endparams
+		
+		proc	
+
+			data item = new Buyer_Data()
+			data BuyerIO = new Buyer_FileIO()
+		
+			;;clear the list down
+			this.DataObjectCollection.ClearCollection()
+		
+			data buyerStatus	,FileAccessResults	,BuyerIO.ReadFirstRecord(item)
+			while (buyerStatus == FileAccessResults.Success)
+			begin
+				data add	,boolean, false
+				data kWord	,a30
+				data kName	,a30
+				
+				kWord = mKeyWord
+				upcase kWord
+
+				kName = item.Name
+				upcase kName
+							
+				if (!mKeyWord)
+					add = true
+				
+				if  (mKeyWord != ^null) && (instr(1,kName,atrim(kWord)))
+					add=true
+								
+				if (add)
+				begin
+					data tmpDO = new Buyer_Data(item.SynergyRecord)
+					tmpDO.GlobalRFA = item.GlobalRFA
+					this.DataObjectCollection.AddToCollection((DataObjectBase)tmpDO)									
+				end
+				buyerStatus = BuyerIO.ReadNextRecord(item)
+			end
+		
+		endmethod
+
+
+
+;----------------------------------------------------------------------------------------------
+		private mKeyWord	,string
+	
+		public property KeyWord, string
+			method get
+			proc
+				mreturn mKeyWord
+			endmethod
+			method set
+			proc
+				mKeyWord = value
+				RaisePropertyChanged("KeyWord")
+			endmethod
+		
+		endproperty
+
+;-------------------------------------------------------------------------------------------------
+		private mSearchCommand	,@GenericCommand
+
+		public property SearchCommand	,@GenericCommand
+			method get
+			proc
+				if (mSearchCommand == ^null)
+				begin
+					lambda doCommand(sender, param)
+					begin
+						LoadBaseItemCollection()
+					end
+					mSearchCommand = new GenericCommand("SEARCH", doCommand)
+				end
+
+				mreturn mSearchCommand
+			endmethod
+		
+		endproperty
+		
+		private mPrintCommand	,@GenericCommand
+
+		public property PrintCommand	,@GenericCommand 
+			method get
+			proc
+				if (mPrintCommand == ^null)
+				begin
+					lambda doCommand(sender, param)
+					begin
+;						SFE_Buyer.BuyerReport.Print("R",mKeyWord)
+					end
+					mPrintCommand = new GenericCommand("PRINT", doCommand)
+				end
+
+				mreturn mPrintCommand
+			endmethod
+			
+		endproperty
+
+		private mPDFCommand	,@GenericCommand
+
+		public property PDFCommand	,@GenericCommand
+			method get
+			proc
+				if (mPDFCommand == ^null)
+				begin
+					lambda doCommand(Sender, param)
+					begin
+;						SFE_Buyer.BuyerReport.Print("P", mKeyWord)
+					end
+
+					mPDFCommand = new GenericCommand("PDF", doCommand)	
+				end
+
+				mreturn mPDFCommand
+			endmethod
+			
+		endproperty
+			
+	
+	endclass
+
+endnamespace

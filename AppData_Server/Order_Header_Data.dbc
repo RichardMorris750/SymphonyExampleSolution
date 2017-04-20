@@ -11,7 +11,6 @@ import Symphony.Harmony
 
 ;;imports required to use data objects and file IO classes.
 import AppData
-import Symphony.Conductor.DataIO
 import System.Windows.Media
 import System.Collections.ObjectModel
 import System.Reflection
@@ -69,6 +68,8 @@ namespace AppData
 			findSupplier()
 
 			mOrderLineList = new AsyncObservableCollection<Order_Line_Data>()
+			mOriginalOrderLineList = new AsyncObservableCollection<Order_Line_Data>()
+
 		endmethod
 		
 		private method refreshData, void
@@ -149,12 +150,13 @@ namespace AppData
 
 				mOrderLineList.ClearCollection()
 
-			data item		,@Order_Line_Data
+			data orderline		,@Order_Line_Data
 
-				foreach item in new DataSelect(mConnector, "select * from order_line where Order_no = :1", new Order_Line_Data(),this.Order_no)
+				foreach orderline in new DataSelect(mConnector, "select * from order_line where Order_no = :1", new Order_Line_Data(),this.Order_no)
+;				foreach item in new DataSelect(mConnector, "select * from order_line", new Order_Line_Data())
 				begin
-					mOrderLineList.AddToCollection(^as(item, Order_Line_Data))
-				end
+					mOrderLineList.AddToCollection(^as(orderline, Order_Line_Data))
+					end
 			end
 			catch (e, @Exception)
 			begin
@@ -162,11 +164,11 @@ namespace AppData
 			end
 			endtry
 
-		data item			,@Order_Line_Data
+		data orderLine			,@Order_Line_Data, new Order_Line_Data()
 			; now copy the list for comparison when saving
 			mOriginalOrderLineList.ClearCollection()
-			foreach item in mOrderLineList
-				mOriginalOrderLineList.AddtoCollection(^as(item, Order_Line_Data))
+			foreach orderLine in mOrderLineList
+				mOriginalOrderLineList.AddtoCollection(^as(orderLine, Order_Line_Data))
 		endmethod
 
 

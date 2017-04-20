@@ -180,8 +180,8 @@ namespace SystemSetup
 		begin
 			delet('SFEDATA:order_line.ism')
 		data lineKeyVals	,[2]a*
-			&				,"START=1:6,LENGTH=5:6,TYPE=DECIMAL:DECIMAL,NODUPS"
-			&	,"START=12:1:6,LENGTH=10:5:6,TYPE=ALPHA:DECIMAL:DECIMAL,NODUPS"
+			&				,"START=1:7,LENGTH=6:5,TYPE=DECIMAL:DECIMAL,NODUPS"
+			&	,"START=12:1:7,LENGTH=10:6:5,TYPE=ALPHA:DECIMAL:DECIMAL,DUPS"
 			isamc('SFEDATA:order_line.ism', ^size(STROrder_line), 2, lineKeyVals)	
 		end
 		catch (e, @Exception)

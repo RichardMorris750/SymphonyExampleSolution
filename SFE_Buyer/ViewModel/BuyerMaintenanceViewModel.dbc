@@ -63,7 +63,7 @@ namespace SFE_Buyer.ViewModel
 			parent(sender, mBuyer.GetType(), new Buyer_FileIO(FileOpenMode.UpdateIndexed), "ShowErrorState")
 
 		proc
-			this.ProgramModeChanged += doProgramModeChanged
+			;this.ProgramModeChanged += doProgramModeChanged
 
 			; standard load method to load the list
 			DataObjectEntryItem = (DataObjectBase)new Buyer_Data()
@@ -97,21 +97,24 @@ namespace SFE_Buyer.ViewModel
 			while (buyerStatus == FileAccessResults.Success)
 			begin
 				data add	,boolean, false
-				data kWord	,a30
-				data kName	,a30
-				
-				kWord = mKeyWord
-				upcase kWord
-
-				kName = item.Name
-				upcase kName
-							
-				if (!mKeyWord)
-					add = true
-				
-				if  (mKeyWord != ^null) && (instr(1,kName,atrim(kWord)))
-					add=true
 								
+				if (!mKeyWord) then
+					add = true
+				else
+				begin
+					data kWord	,a30
+					data kName	,a30
+
+					kWord = mKeyWord
+					upcase kWord
+
+					kName = item.Name
+					upcase kName
+											
+					if  (mKeyWord != ^null) && (instr(1,kName,atrim(kWord)))
+						add=true
+				end
+										
 				if (add)
 				begin
 					data tmpDO = new Buyer_Data(item.SynergyRecord)

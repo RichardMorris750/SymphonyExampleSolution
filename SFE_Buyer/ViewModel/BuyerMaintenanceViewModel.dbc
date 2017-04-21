@@ -82,11 +82,20 @@ namespace SFE_Buyer.ViewModel
 		endmethod
 
 ;;------------------------------------------------------------------
-		public override method LoadBaseItemCollection, void
-			endparams
-		
-		proc	
+		private static mConnector		,@DBConnector
 
+;.define FileObjects
+
+.ifdef FileObjects
+		public override method LoadBaseItemCollection, void
+.else
+		public async override method LoadBaseItemCollection, void
+.endc
+			endparams
+
+		proc
+
+.ifdef FileObjects	
 			data item = new Buyer_Data()
 			data BuyerIO = new Buyer_FileIO()
 		
@@ -123,6 +132,28 @@ namespace SFE_Buyer.ViewModel
 				end
 				buyerStatus = BuyerIO.ReadNextRecord(item)
 			end
+.else
+			mConnector = new DBConnector("SYMLOCAL:richard/morris!AppData.TableMapper.MapTableToFile")
+			
+			;;To enable case insensitive comparisons:
+			mConnector.SetCaseSensitivity(false)
+
+			data buyerObj	,@Buyer_Data	,new Buyer_Data()
+			
+			data dataSearch	,@DataSelect
+			
+			this.DataObjectCollection.ClearCollection()
+
+			if (!mKeyWord) then
+				dataSearch =  DataSelect.RunDataSelect(mConnector, "select * from buyer", new Buyer_Data()).Result
+			else
+				if (mKeyWord != ^null)
+					dataSearch = DataSelect.RunDataSelect(mConnector, "select * from buyer where name like:1", new Buyer_Data(), mKeyWord).Result
+				
+			foreach buyerObj in dataSearch
+				this.DataObjectCollection.AddToCollection(buyerObj)	
+
+.endc
 		
 		endmethod
 

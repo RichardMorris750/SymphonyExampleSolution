@@ -1,16 +1,16 @@
  
 ;  SYNERGY DATA LANGUAGE OUTPUT
 ;
-;  REPOSITORY     : C:\SymphonyExampleSolution\\Rps\rpsmain.ism
-;                 : C:\SymphonyExampleSolution\\Rps\rpstext.ism
+;  REPOSITORY     : C:\SymphonyExampleSolution\Rps\rpsmain.ism
+;                 : C:\SymphonyExampleSolution\Rps\rpstext.ism
 ;                 : Version 10.3.1b
 ;
-;  GENERATED      : 07-APR-2017, 11:02:17
+;  GENERATED      : 24-APR-2017, 15:22:28
 ;                 : Version 10.3.3b
 ;  EXPORT OPTIONS : [ALL] 
  
  
-Structure BUYER   DBL ISAM   Modified 20170407102909
+Structure BUYER   DBL ISAM   Modified 20170424152157
    Description "Buyer Master File"
  
 Field BUYER_KEY   Type ALPHA   Size 32
@@ -19,7 +19,7 @@ Field BUYER_KEY   Type ALPHA   Size 32
  
 Field CREATED_TIMESTAMP   Type AUTOTIME   Size 8
    Description "Timestamp when record was created"
-   Readonly
+   Prompt "Created on:"   Readonly
    Nonull
  
 Field MODIFIED_TIMESTAMP   Type AUTOTIME   Size 8
@@ -77,7 +77,7 @@ Key KEY03   ACCESS   Order ASCENDING   Dups NO
    Description "Alt key - modified timestamp"
    Segment FIELD   MODIFIED_TIMESTAMP  SegType TIMESTAMP  SegOrder ASCENDING
  
-Structure ORDER_HEADER   DBL ISAM   Modified 20170111202035
+Structure ORDER_HEADER   DBL ISAM   Modified 20170419200220
    Description "Order Header"
  
 Field ORDER_NO   Type DECIMAL   Size 6
@@ -96,7 +96,7 @@ Field REQD_DATE   Type DATE   Size 8   Stored YYYYMMDD
    Description "required delivery date"
    Prompt "Required by"   Report Heading "Required by"
  
-Field COMMENTS   Type ALPHA   Size 100
+Field COMMENTS   Type ALPHA   Size 40
    Description "Comments"
    Prompt "Comments"   Report Heading "Comments"
  

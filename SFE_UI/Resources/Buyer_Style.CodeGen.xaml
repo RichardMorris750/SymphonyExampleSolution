@@ -101,6 +101,7 @@
     </Style>
     
 
+    <clr:String x:Key="Buyer_Created_timestamp_heading">Created on</clr:String>
 
 
     <Style x:Key="Buyer_Created_timestamp_prompt" TargetType="{x:Type Label}">
@@ -108,7 +109,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Label}">
                     <Label
-                        Content=""
+                        Content="Created on"
                         IsEnabled="{Binding Path=Created_timestampIsEnabled}">
                     </Label>
                 </ControlTemplate>

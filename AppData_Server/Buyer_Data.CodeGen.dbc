@@ -170,7 +170,7 @@ namespace AppData
 			mStaticFieldNameList.Add("Buyer_key")
 			mStaticFieldHeadingList.Add("BUYER_KEY")
 			mStaticFieldNameList.Add("Created_timestamp")
-			mStaticFieldHeadingList.Add("CREATED_TIMESTAMP")
+			mStaticFieldHeadingList.Add("Created on:")
 			mStaticFieldNameList.Add("Modified_timestamp")
 			mStaticFieldHeadingList.Add("MODIFIED_TIMESTAMP")
 			mStaticFieldNameList.Add("Name")

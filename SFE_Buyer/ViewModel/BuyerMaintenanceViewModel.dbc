@@ -63,7 +63,7 @@ namespace SFE_Buyer.ViewModel
 			parent(sender, mBuyer.GetType(), new Buyer_FileIO(FileOpenMode.UpdateIndexed), "ShowErrorState")
 
 		proc
-			this.ProgramModeChanged += doProgramModeChanged
+			;this.ProgramModeChanged += doProgramModeChanged
 
 			; standard load method to load the list
 			DataObjectEntryItem = (DataObjectBase)new Buyer_Data()
@@ -82,44 +82,89 @@ namespace SFE_Buyer.ViewModel
 		endmethod
 
 ;;------------------------------------------------------------------
-		public override method LoadBaseItemCollection, void
-			endparams
-		
-		proc	
+		private static mConnector		,@DBConnector
 
-			data item = new Buyer_Data()
-			data BuyerIO = new Buyer_FileIO()
-		
+;.define FileObjects
+
+.ifdef FileObjects
+		public override method LoadBaseItemCollection, void
+.else
+		public async override method LoadBaseItemCollection, void
+.endc
+			endparams
+
+		proc
+			
+			SelectedCollectionItem  = ^null
+			
 			;;clear the list down
 			this.DataObjectCollection.ClearCollection()
-		
+
+.ifdef FileObjects	
+			data item = new Buyer_Data()
+			data BuyerIO = new Buyer_FileIO()
+				
 			data buyerStatus	,FileAccessResults	,BuyerIO.ReadFirstRecord(item)
 			while (buyerStatus == FileAccessResults.Success)
 			begin
 				data add	,boolean, false
-				data kWord	,a30
-				data kName	,a30
-				
-				kWord = mKeyWord
-				upcase kWord
-
-				kName = item.Name
-				upcase kName
-							
-				if (!mKeyWord)
-					add = true
-				
-				if  (mKeyWord != ^null) && (instr(1,kName,atrim(kWord)))
-					add=true
 								
+				if (!mKeyWord) then
+					add = true
+				else
+				begin
+					data kWord	,a30
+					data kName	,a30
+
+					kWord = mKeyWord
+					upcase kWord
+
+					kName = item.Name
+					upcase kName
+											
+					if  (mKeyWord != ^null) && (instr(1,kName,atrim(kWord)))
+						add=true
+				end
+										
 				if (add)
 				begin
 					data tmpDO = new Buyer_Data(item.SynergyRecord)
 					tmpDO.GlobalRFA = item.GlobalRFA
-					this.DataObjectCollection.AddToCollection((DataObjectBase)tmpDO)									
+					this.DataObjectCollection.AddToCollection((DataObjectBase)tmpDO)	
+			
+					;;display top record of the list
+					if (DataObjectCollection.Count == 1)
+						SelectedCollectionItem = ((DataObjectBase)tmpDO)								
 				end
 				buyerStatus = BuyerIO.ReadNextRecord(item)
 			end
+.else
+			mConnector = new DBConnector("SYMLOCAL:richard/morris!AppData.TableMapper.MapTableToFile")
+			
+			;;To enable case insensitive comparisons:
+			mConnector.SetCaseSensitivity(false)
+
+			data buyerObj	,@Buyer_Data	,new Buyer_Data()
+			
+			data dataSearch	,@DataSelect
+			
+			;this.DataObjectCollection.ClearCollection()
+
+			if (!mKeyWord) then
+				dataSearch =  DataSelect.RunDataSelect(mConnector, "select * from buyer", new Buyer_Data()).Result
+			else
+				if (mKeyWord != ^null)
+					dataSearch = DataSelect.RunDataSelect(mConnector, "select * from buyer where name like:1", new Buyer_Data(), mKeyWord).Result
+				
+			foreach buyerObj in dataSearch
+			begin
+				this.DataObjectCollection.AddToCollection(buyerObj)	
+
+				;;display top record of the list
+				if (DataObjectCollection.Count == 1)
+					SelectedCollectionItem = buyerObj
+			end
+.endc
 		
 		endmethod
 

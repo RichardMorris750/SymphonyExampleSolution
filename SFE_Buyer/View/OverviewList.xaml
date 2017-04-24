@@ -31,7 +31,7 @@
         <Border Grid.Row="1">
             <StackPanel Orientation="Horizontal">
                 <Label Content="Buyer Name" Margin="2,2,2,2" VerticalAlignment="Center"></Label>
-                <TextBox Text="{Binding Path=Keyword}" Width="100" Margin="2,2,2,2" MaxLength="10" VerticalAlignment="Center" CharacterCasing="Normal"></TextBox>
+                <TextBox Text="{Binding Path=KeyWord}" Width="100" Margin="2,2,2,2" MaxLength="10" VerticalAlignment="Center" CharacterCasing="Normal"></TextBox>
 
                 <Button Style="{StaticResource MenuButtonStyle}" Command="{Binding SearchCommand}" Width="30" Height="30" Margin="20,0">
                     <Button.Content>
@@ -68,7 +68,8 @@
                     <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="*"></DataGridTextColumn>
                     <DataGridTextColumn Header="Phone No" Binding="{Binding Path=Phone}" Width="*"></DataGridTextColumn>
                     <DataGridTextColumn Header="Email" Binding="{Binding Path=Email}" Width="50"></DataGridTextColumn>
-                    
+                   
+                    <!--
                     <DataGridTemplateColumn >
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -76,7 +77,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-
+                    -->
                 </DataGrid.Columns>
             </DataGrid>
 

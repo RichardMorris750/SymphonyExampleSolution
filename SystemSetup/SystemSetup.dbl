@@ -520,9 +520,10 @@ namespace SystemSetup
 
 		writes(ttChn, "Suppliers created:")
 		
-	data supplierObject = new Supplier_Data()
+		data supplierObject = new Supplier_Data()
 		
-	data status		,FileAccessResults		,supplierIO.ReadFirstRecord(supplierObject)
+		data supplierCount	,d1,	0
+		data status		,FileAccessResults		,supplierIO.ReadFirstRecord(supplierObject)
 		; gi,  this defines the status and calls the "read first record" for the file class and returns a supplier data object and sets the status we just defined
 		;;correct!
 		while (status == FileAccessResults.Success)
@@ -530,17 +531,21 @@ namespace SystemSetup
 			writes(ttChn, supplierObject.Name + " : " + supplierObject.Contact)
 			; we can now access properties of the supplier object.  how would we set them and update the file ?
 
-			;; rcm - if we wanted to update the file.....
-		data storeName		,string		,supplierObject.Name
-			;; rcm - set the "new data"
-			supplierObject.Name = "New Name"
-			;; rcm - update the file
-			if (supplierIO.UpdateRecord(supplierObject) != FileAccessResults.Success)
+			; update only 1st 3 records otherwise "New Name" will overrride any subsequent records we add. IMHO 3 records is enough to show that we can indeed update
+			supplierCount +=1
+			if (supplierCount < 4)
 			begin
-				;;we have an error
-				writes(ttChn, "Error updating record : " + %string(supplierIO.LastSynergyError))
+				;; rcm - if we wanted to update the file.....
+				data storeName		,string		,supplierObject.Name
+				;; rcm - set the "new data"
+				supplierObject.Name = "New Name"
+				;; rcm - update the file
+				if (supplierIO.UpdateRecord(supplierObject) != FileAccessResults.Success)
+				begin
+					;;we have an error
+					writes(ttChn, "Error updating record : " + %string(supplierIO.LastSynergyError))
+				end
 			end
-
 			status = supplierIO.ReadNextRecord(supplierObject)
 			; gi - this then calls a method of the file class to read next record and return as an object ?
 			;; rcm - correct!
@@ -709,6 +714,18 @@ namespace SystemSetup
 		Buyer.str_phone				=	'044 2031666000'
 		Buyer.str_mobile_phone		=	'044 2031666001'
 		Buyer.str_email				=	'3C2A1J@sixWives.com'
+
+		call addBuyer
+
+		Buyer.str_buyer_key			=	Guid.NewGuid().ToString()
+		 xcall fill ("*", Buyer.str_name)
+		Buyer.str_address1			=	'1 Hampton Court'
+		Buyer.str_address2			=	'Surrey'
+		Buyer.str_address3			=	
+		Buyer.str_postcode			=	'KT8 9AU'
+		xcall fill ("*", Buyer.str_phone)
+		Buyer.str_mobile_phone		=	'044 2031666001'
+		xcall fill ("*", Buyer.str_email)
 
 		call addBuyer
 

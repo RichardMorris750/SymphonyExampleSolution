@@ -49,6 +49,12 @@
                     </BooleanAnimationUsingKeyFrames>
                     <Int32Animation Storyboard.TargetName="groupMaintView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
 
+                    <DoubleAnimation Storyboard.TargetName="buyerMaintView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.5" To="0" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="buyerMaintView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="buyerMaintView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+                    
                     <DoubleAnimation Storyboard.TargetName="purchaseOrderView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.5" To="0" />
                     <BooleanAnimationUsingKeyFrames Storyboard.TargetName="purchaseOrderView" Storyboard.TargetProperty="(IsEnabled)">
                         <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
@@ -80,6 +86,11 @@
                     </BooleanAnimationUsingKeyFrames>
                     <Int32Animation Storyboard.TargetName="groupMaintView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
 
+                    <DoubleAnimation Storyboard.TargetName="buyerMaintView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.5" To="1" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="buyerMaintView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="buyerMaintView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
 
                     <DoubleAnimation Storyboard.TargetName="purchaseOrderView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.5" To="0" />
                     <BooleanAnimationUsingKeyFrames Storyboard.TargetName="purchaseOrderView" Storyboard.TargetProperty="(IsEnabled)">
@@ -122,6 +133,11 @@
                     </BooleanAnimationUsingKeyFrames>
                     <Int32Animation Storyboard.TargetName="groupMaintView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
 
+                    <DoubleAnimation Storyboard.TargetName="buyerMaintView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.5" To="1" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="buyerMaintView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="buyerMaintView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
 
                     <DoubleAnimation Storyboard.TargetName="purchaseOrderView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.5" To="0" />
                     <BooleanAnimationUsingKeyFrames Storyboard.TargetName="purchaseOrderView" Storyboard.TargetProperty="(IsEnabled)">
@@ -164,13 +180,17 @@
                     </BooleanAnimationUsingKeyFrames>
                     <Int32Animation Storyboard.TargetName="productMaintView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
 
+                    <DoubleAnimation Storyboard.TargetName="buyerMaintView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.5" To="1" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="buyerMaintView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="buyerMaintView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
 
                     <DoubleAnimation Storyboard.TargetName="purchaseOrderView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.5" To="0" />
                     <BooleanAnimationUsingKeyFrames Storyboard.TargetName="purchaseOrderView" Storyboard.TargetProperty="(IsEnabled)">
                         <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
                     </BooleanAnimationUsingKeyFrames>
                     <Int32Animation Storyboard.TargetName="purchaseOrderView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
-
 
                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="groupMaintView" Storyboard.TargetProperty="(Visibility)" Duration="0:0:0">
                         <DiscreteObjectKeyFrame Value="{x:Static Visibility.Visible}"/>
@@ -181,6 +201,53 @@
                         <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True"/>
                     </BooleanAnimationUsingKeyFrames>
                     <Int32Animation Storyboard.TargetName="groupMaintView" Storyboard.TargetProperty="(Panel.ZIndex)" To="1" />
+
+                </Storyboard>
+            </VisualState>
+
+            <VisualState x:Name="BuyerMaintState">
+                <Storyboard>
+
+                    <DoubleAnimation Storyboard.TargetName="launcherView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.5" To="0" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="launcherView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="launcherView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+                    
+
+                    <DoubleAnimation Storyboard.TargetName="supplierMaintView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.5" To="1" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="supplierMaintView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="supplierMaintView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+
+                    <DoubleAnimation Storyboard.TargetName="productMaintView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.5" To="1" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="productMaintView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="productMaintView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+
+                    <DoubleAnimation Storyboard.TargetName="groupMaintView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.5" To="1" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="groupMaintView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="groupMaintView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+
+                    <DoubleAnimation Storyboard.TargetName="purchaseOrderView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.5" To="1" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="purchaseOrderView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="purchaseOrderView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="buyerMaintView" Storyboard.TargetProperty="(Visibility)" Duration="0:0:0">
+                        <DiscreteObjectKeyFrame Value="{x:Static Visibility.Visible}"/>
+                    </ObjectAnimationUsingKeyFrames>
+
+                    <DoubleAnimation Storyboard.TargetName="buyerMaintView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.5" To="1" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="buyerMaintView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="buyerMaintView" Storyboard.TargetProperty="(Panel.ZIndex)" To="1" />
 
                 </Storyboard>
             </VisualState>
@@ -213,7 +280,12 @@
                         <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="false"/>
                     </BooleanAnimationUsingKeyFrames>
                     <Int32Animation Storyboard.TargetName="groupMaintView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
-                    
+
+                    <DoubleAnimation Storyboard.TargetName="buyerMaintView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.5" To="1" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="buyerMaintView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="buyerMaintView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
 
                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="purchaseOrderView" Storyboard.TargetProperty="(Visibility)" Duration="0:0:0">
                         <DiscreteObjectKeyFrame Value="{x:Static Visibility.Visible}"/>
@@ -276,6 +348,17 @@
                 </Grid.RowDefinitions>
                 <sfeuiCommon:Toolbar Grid.Row="0"></sfeuiCommon:Toolbar>
                 <sfeuiGroup:Maintenance Grid.Row="1"></sfeuiGroup:Maintenance>
+            </Grid>
+        </Border>
+
+        <Border Name="buyerMaintView" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Opacity="1" Visibility="Collapsed">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <sfeuiCommon:Toolbar Grid.Row="0"></sfeuiCommon:Toolbar>
+                <sfeuiBuyer:Maintenance Grid.Row="1"></sfeuiBuyer:Maintenance>
             </Grid>
         </Border>
 

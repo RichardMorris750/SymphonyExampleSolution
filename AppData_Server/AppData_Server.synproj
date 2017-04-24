@@ -172,6 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Buyer_Data.CodeGen.dbc" />
+    <Compile Include="Buyer_Data.dbc" />
     <Compile Include="Buyer_DFM.CodeGen.dbc" />
     <Compile Include="Buyer_DOCache.CodeGen.dbc" />
     <Compile Include="Buyer_FileIO.CodeGen.dbc" />

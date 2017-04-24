@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:sfeuiCommon="clr-namespace:SFE_UI.Common;assembly=SFE_UI"
              xmlns:ui="clr-namespace:SFE_Buyer.View"
-             mc:Ignorable="d" 
+             mc:Ignorable="d" Loaded="UserControl_Loaded" 
              d:DesignHeight="300" d:DesignWidth="300">
 
 

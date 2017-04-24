@@ -6,8 +6,7 @@
              xmlns:sfeuiCommon="clr-namespace:SFE_UI.Common;assembly=SFE_UI"
              xmlns:symControl="clr-namespace:Symphony.Conductor.Controls;assembly=SymphonyConductor"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="1000
-             ">
+             d:DesignHeight="300" d:DesignWidth="300">
 
     <UserControl.Resources>
         <ResourceDictionary>

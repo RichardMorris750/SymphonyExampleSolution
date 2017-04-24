@@ -94,6 +94,9 @@
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
+    <Reference Include="synrnt, Version=4.0.0.10, Culture=neutral, PublicKeyToken=114c5dbb1312a8bc">
+      <HintPath>..\..\Program Files (x86)\Common Files\Synergex\CLR40\synrnt.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />

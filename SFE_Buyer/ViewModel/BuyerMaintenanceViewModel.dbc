@@ -94,14 +94,16 @@ namespace SFE_Buyer.ViewModel
 			endparams
 
 		proc
+			
+			SelectedCollectionItem  = ^null
+			
+			;;clear the list down
+			this.DataObjectCollection.ClearCollection()
 
 .ifdef FileObjects	
 			data item = new Buyer_Data()
 			data BuyerIO = new Buyer_FileIO()
-		
-			;;clear the list down
-			this.DataObjectCollection.ClearCollection()
-		
+				
 			data buyerStatus	,FileAccessResults	,BuyerIO.ReadFirstRecord(item)
 			while (buyerStatus == FileAccessResults.Success)
 			begin
@@ -128,7 +130,11 @@ namespace SFE_Buyer.ViewModel
 				begin
 					data tmpDO = new Buyer_Data(item.SynergyRecord)
 					tmpDO.GlobalRFA = item.GlobalRFA
-					this.DataObjectCollection.AddToCollection((DataObjectBase)tmpDO)									
+					this.DataObjectCollection.AddToCollection((DataObjectBase)tmpDO)	
+			
+					;;display top record of the list
+					if (DataObjectCollection.Count == 1)
+						SelectedCollectionItem = ((DataObjectBase)tmpDO)								
 				end
 				buyerStatus = BuyerIO.ReadNextRecord(item)
 			end
@@ -142,7 +148,7 @@ namespace SFE_Buyer.ViewModel
 			
 			data dataSearch	,@DataSelect
 			
-			this.DataObjectCollection.ClearCollection()
+			;this.DataObjectCollection.ClearCollection()
 
 			if (!mKeyWord) then
 				dataSearch =  DataSelect.RunDataSelect(mConnector, "select * from buyer", new Buyer_Data()).Result
@@ -151,8 +157,13 @@ namespace SFE_Buyer.ViewModel
 					dataSearch = DataSelect.RunDataSelect(mConnector, "select * from buyer where name like:1", new Buyer_Data(), mKeyWord).Result
 				
 			foreach buyerObj in dataSearch
+			begin
 				this.DataObjectCollection.AddToCollection(buyerObj)	
 
+				;;display top record of the list
+				if (DataObjectCollection.Count == 1)
+					SelectedCollectionItem = buyerObj
+			end
 .endc
 		
 		endmethod

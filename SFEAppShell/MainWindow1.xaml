@@ -10,7 +10,7 @@
     xmlns:sfeuiBuyer="clr-namespace:SFE_Buyer.View;assembly=SFE_Buyer"
     xmlns:sfeuiPO="clr-namespace:SFE_Orders.View;assembly=SFE_Orders"
         Loaded="Window_Loaded" WindowStartupLocation="CenterScreen"
-    Height="600" Width="900" WindowStyle="SingleBorderWindow" Title="SFE Application">
+    Height="700" Width="1100" WindowStyle="SingleBorderWindow" Title="SFE Application">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

@@ -113,6 +113,12 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.dbl" />
     <Compile Include="ViewModel\PurchaseOrderViewModel.dbc" />
+    <Compile Include="View\DetailInput.xaml.dbl">
+      <DependentUpon>View\DetailInput.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DetailList.xaml.dbl">
+      <DependentUpon>View\DetailList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\FullInput.xaml.dbl">
       <DependentUpon>View\FullInput.xaml</DependentUpon>
     </Compile>
@@ -158,6 +164,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="View\DetailInput.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DetailList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\FullInput.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

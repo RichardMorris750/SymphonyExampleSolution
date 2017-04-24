@@ -304,14 +304,33 @@ namespace SFE_Orders.ViewModel
 		data orderLine			,@Order_Line_Data
 
 			orderLineList = new AsyncObservableCollection<Order_Line_Data>()
-			orderLineList.ClearCollection()
-
+			orderLineList.ClearCollection()	
 			foreach orderLine in DataObjectDetailCollection
 				orderLineList.AddToCollection(^as(orderLine, Order_Line_Data))
 				
 			((Order_Header_Data)DataObjectEntryItem).OrderLineList = orderLineList
 
 			((Order_Header_Data)DataObjectEntryItem).SaveOrderLineList()
+
+		endmethod
+
+
+		
+		public async override method AddDetailLines,void
+		
+		proc
+
+		data orderLineList		,@AsyncObservableCollection<Order_line_Data>
+		data orderLine			,@Order_Line_Data
+
+			orderLineList = new AsyncObservableCollection<Order_Line_Data>()
+			orderLineList.ClearCollection()	
+			foreach orderLine in DataObjectDetailCollection
+				orderLineList.AddToCollection(^as(orderLine, Order_Line_Data))
+				
+			((Order_Header_Data)DataObjectEntryItem).OrderLineList = orderLineList
+
+			((Order_Header_Data)DataObjectEntryItem).AddOrderLineList()
 
 		endmethod
 

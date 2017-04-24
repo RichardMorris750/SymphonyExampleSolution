@@ -13,6 +13,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/SFE_UI;component/Resources/AppStyling.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SymphonyConductor;component/Resources/Converters.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -33,9 +34,10 @@
 
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Order No" Binding="{Binding Path=Order_no}" Width="75" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="Supplier" Binding="{Binding Path=Supp_code}" Width="*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Order Date" Binding="{Binding Path=Order_date}" Width="*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Reqd By" Binding="{Binding Path=Reqd_date}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Supplier" Binding="{Binding Path=Supp_code}" Width="75"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Order Date" Binding="{Binding Path=Order_date, Converter={StaticResource decimalDateConverter}, 
+                        ConverterParameter=FORMAT:YYYYMMDD|NODEFAULTODAY}" Width="60"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Reqd By" Binding="{Binding Path=Reqd_date, Converter={StaticResource decimalDateConverter}}" Width="60"></DataGridTextColumn>
                     <DataGridTextColumn Header="Comments" Binding="{Binding Path=Comments}" Width="*"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>

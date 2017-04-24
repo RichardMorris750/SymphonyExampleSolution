@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="SFE_Orders.View.DetailInput"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:sfeuiCommon="clr-namespace:SFE_UI.Common;assembly=SFE_UI"
+             xmlns:symControl="clr-namespace:Symphony.Conductor.Controls;assembly=SymphonyConductor"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:symTrigger="clr-namespace:Symphony.Conductor.Triggers;assembly=SymphonyConductor"
+             xmlns:localConverter="clr-namespace:SFE_UI.Converters;assembly=SFE_UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/SFE_UI;component/Resources/AppStyling.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SymphonyConductor;component/Resources/Converters.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SFE_UI;component/Resources/Order_line_style.CodeGen.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+
+
+    <Border Margin="4" Padding="4"  BorderThickness="1" CornerRadius="5" BorderBrush="{StaticResource BorderBrush}">
+
+        <Grid DataContext="{Binding Path=DataObjectDetailEntryItem}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource Order_line_Prod_code_prompt}"></Label>
+            <symControl:FieldControl Grid.Row="0" Grid.Column="2" Style="{StaticResource Order_line_Prod_code_style}"></symControl:FieldControl>
+
+            <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource Order_line_Prod_description_prompt}"></Label>
+            <symControl:FieldControl Grid.Row="1" Grid.Column="2" Style="{StaticResource Order_line_Prod_description_style}"></symControl:FieldControl>
+
+            <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource Order_line_Qty_prompt}"></Label>
+            <symControl:FieldControl Grid.Row="2" Grid.Column="2" Style="{StaticResource Order_line_Qty_style}"></symControl:FieldControl>
+
+            <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource Order_line_Price_prompt}"></Label>
+            <symControl:FieldControl Grid.Row="3" Grid.Column="2" Style="{StaticResource Order_line_Price_style}"></symControl:FieldControl>
+
+            <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource Order_line_Line_value_prompt}"></Label>
+            <symControl:FieldControl Grid.Row="4" Grid.Column="2" Style="{StaticResource Order_line_Line_value_style}"></symControl:FieldControl>
+
+        </Grid>
+    </Border>
+</UserControl>

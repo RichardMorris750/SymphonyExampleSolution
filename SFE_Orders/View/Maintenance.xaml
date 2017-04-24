@@ -74,12 +74,14 @@
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <ui:SearchCriteria Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"></ui:SearchCriteria>
                 <ui:OverviewList Grid.Row="1" Grid.Column="0"></ui:OverviewList>
                 <ui:FullInput Grid.Row="1" Grid.Column="1"></ui:FullInput>
+                <ui:DetailList Grid.Row="2" Grid.Column="0"></ui:DetailList>
+                <ui:DetailInput Grid.Row="2" Grid.Column="1"></ui:DetailInput>
             </Grid>            
         </Border>
 

@@ -21,7 +21,7 @@ namespace AppData
 	
 	public partial class Order_Header_Data
 		
-		protected override method extendedConstructor, void
+		protected override method extendedConstructor,void
 		endparams
 		proc
 			ValidateData += doDataChanged
@@ -35,15 +35,15 @@ namespace AppData
 			
 		endmethod
 		
-		private method doDataChanged, void
-		inout req message			,@DataChangedMessage
+		private method doDataChanged,void
+		inout req message		,@DataChangedMessage
 		endparams
 		proc
 
 
 			using message.FieldName select
 
-			("SUPP_CODE"),
+			("SUPP_CODE")		,
 			begin
 				;;call the find-supplier method to validate the changed/entered value
 				;;invalid values will signal a validation error so the UI can display appropriate details.
@@ -62,7 +62,7 @@ namespace AppData
 		
 
 ;; this is where I can populate the extra fields I add to my data object		
-		private method synergychanged, void
+		private method synergychanged,void
 		endparams
 		proc
 			findSupplier()
@@ -72,16 +72,16 @@ namespace AppData
 
 		endmethod
 		
-		private method refreshData, void
+		private method refreshData,void
 		endparams
 		proc
 			RaisePropertyChanged(^null)
 		endmethod
 		
-		private mSupplierName	,string
+		private mSupplierName			,string
 
 
-		public property SupplierName, string
+		public property SupplierName	,string
 			method get
 			proc
 				mreturn mSupplierName
@@ -95,11 +95,11 @@ namespace AppData
 	
 
 		;; set supplier name
-		private method findSupplier, FileAccessResults
+		private method findSupplier,FileAccessResults
 		endparams
 
 		proc
-		data response	,FileAccessResults
+		data response						,FileAccessResults
 		data tmpDO = Supplier_DOCache.DataObject(supp_code)
 			
 			if (tmpDO != ^null) then
@@ -117,11 +117,11 @@ namespace AppData
 		endmethod
 
 		
-		private static mConnector		,@DBConnector
+		private static mConnector			,@DBConnector
 
-		private mOrderLineList			,@AsyncObservableCollection<Order_line_Data>
+		private mOrderLineList				,@AsyncObservableCollection<Order_line_Data>
 
-		private mOriginalOrderLineList	,@AsyncObservableCollection<Order_line_Data>
+		private mOriginalOrderLineList		,@AsyncObservableCollection<Order_line_Data>
 
 		public property OrderLineList		,@AsyncObservableCollection<Order_line_Data>
 			method get
@@ -156,7 +156,7 @@ namespace AppData
 ;				foreach item in new DataSelect(mConnector, "select * from order_line", new Order_Line_Data())
 				begin
 					mOrderLineList.AddToCollection(^as(orderline, Order_Line_Data))
-					end
+				end
 			end
 			catch (e, @Exception)
 			begin
@@ -164,7 +164,7 @@ namespace AppData
 			end
 			endtry
 
-		data orderLine			,@Order_Line_Data, new Order_Line_Data()
+		data orderLine			,@Order_Line_Data		,new Order_Line_Data()
 			; now copy the list for comparison when saving
 			mOriginalOrderLineList.ClearCollection()
 			foreach orderLine in mOrderLineList
@@ -178,14 +178,14 @@ namespace AppData
 		proc
 
 	
-		data sameCount		,int
-		data itemCount		,int
-		data origOrderLine	,@Order_Line_Data
-		data orderLine		,@Order_Line_Data
+		data sameCount					,int
+		data itemCount					,int
+		data origOrderLine				,@Order_Line_Data
+		data orderLine					,@Order_Line_Data
 
 		data orderLineIO = new Order_Line_FileIO(FileOpenMode.UpdateIndexed)
 
-		data status			,@FileAccessResults
+		data status						,@FileAccessResults
 
 			sameCount = mOrderLineList.Count
 			if (mOriginalOrderLineList.Count < sameCount)
@@ -240,6 +240,30 @@ namespace AppData
 
 		endmethod
 
+		;-----------------------------------------------------------------------------------------------------------------
+		
+		public method AddOrderLineList	,void		
+
+		proc
+
+		data itemCount		,int
+		data orderLine		,@Order_Line_Data
+
+		data orderLineIO = new Order_Line_FileIO(FileOpenMode.UpdateIndexed)
+
+		data status			,@FileAccessResults
+		
+			clear itemCount
+
+			foreach orderline in mOrderLineList
+			begin				
+				orderLine.Order_no = this.Order_no
+				orderLine.Line_no = itemCount + 1
+				if (orderLineIO.CreateRecord(orderLine)!= FileAccessResults.Success)
+					nop			;; ignore errors for now
+		
+			end
+		endmethod
 
 		;-----------------------------------------------------------------------------------------------------------------
 
@@ -247,7 +271,7 @@ namespace AppData
 		proc
 
 		data orderLineIO = new Order_Line_FileIO(FileOpenMode.UpdateIndexed)
-		data orderLine				,@Order_Line_Data
+		data orderLine		,@Order_Line_Data
 
 			foreach orderLine in new DataSelect(mConnector, "select * from order_line where Order_No = :1",new Order_Line_Data(),this.Order_No)
 			begin

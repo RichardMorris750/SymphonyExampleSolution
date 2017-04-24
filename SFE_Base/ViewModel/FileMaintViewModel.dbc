@@ -53,7 +53,7 @@ namespace SFE_Base.ViewModel
 	public class FileMaintViewModel extends BaseViewModel
 		
 		; constructor for no detail lines
-			public method FileMaintViewModel
+		public method FileMaintViewModel
 		in req sender				,@FrameworkElement
 		in req dataItem				,@Type
 		in req fileAccess			,@FileIO
@@ -72,37 +72,45 @@ namespace SFE_Base.ViewModel
 			;;create our base collection
 			DataObjectCollection = new AsyncObservableCollection<DataObjectBase>()
 
+			mNumberOfDetailLineSets = 0
+
 		endmethod
 
 		; constructor for 1 set fo detail lines
 		
-			public method FileMaintViewModel
-			in req sender				,@FrameworkElement
-			in req dataItem				,@Type
-			in req fileAccess			,@FileIO
-			in req errorVisualState		,string
-			in req detailItem			,@Type
-			endparams
-			parent(sender)
-			proc
+		public method FileMaintViewModel
+		in req sender						,@FrameworkElement
+		in req dataItem						,@Type
+		in req fileAccess					,@FileIO
+		in req errorVisualState				,string
+		in req detailItem					,@Type
+		endparams
+		parent(sender)
+		proc
 			
-				;;store the passed info
-				mDataObjectItem = dataItem
-				mDataObjectDetailItem = detailItem 
-				mFileAccessObject = fileAccess
-				mErrorVisualState = errorVisualState
+			;;store the passed info
+			mDataObjectItem = dataItem
+			mDataObjectDetailItem = detailItem 
+			mFileAccessObject = fileAccess
+			mErrorVisualState = errorVisualState
 			
-				this.AfterNavigateState += doAfterStateNavigation
+			this.AfterNavigateState += doAfterStateNavigation
 
-				;;create our base collection
-				DataObjectCollection = new AsyncObservableCollection<DataObjectBase>()
-				DataObjectDetailCollection = new AsyncObservableCollection<DataObjectBase>()
+			;;create our base collection
+			DataObjectCollection = new AsyncObservableCollection<DataObjectBase>()
+			DataObjectDetailCollection = new AsyncObservableCollection<DataObjectBase>()
 
-			endmethod
+			mNumberOfDetailLineSets = 1
+
+		endmethod
+
+
+		private mNumberOfDetailLineSets		,int
+
 
 .region "List controlling and loading methods"
 		
-		public method LoadDetailList,void
+		public method LoadDetailList		,void
 		endparams
 		proc
 			;;if we have a valid file object let's load the initial list
@@ -293,7 +301,7 @@ namespace SFE_Base.ViewModel
 				NewDetailCommand.ExecuteState = true
 				SaveDetailCommand.ExecuteState = false
 				CancelDetailCommand.ExecuteState = false
-				DeleteDetailCommand.ExecuteState = false
+				DeleteDetailCommand.ExecuteState = true
 
 				raiseProgramModeChanged()
 				RaisePropertyChanged("SelectedCollectionItem")
@@ -361,6 +369,7 @@ namespace SFE_Base.ViewModel
 					mDataObjectDetailEntryItem.OriginalSynergyRecord	= mSelectedDetailCollectionItem.SynergyRecord
 					mIgnoreDetailDataChanged = false
 					DeleteDetailCommand.ExecuteState = true
+					CancelDetailCommand.ExecuteState = false
 					RaisePropertyChanged(^null)
 
 				end
@@ -486,6 +495,15 @@ namespace SFE_Base.ViewModel
 			DataObjectEntryItem.InitData()
 			DataObjectEntryItem.InitDataPlus()
 			DataObjectEntryItem.InitialValidateData()
+
+			if (mNumberOfDetailLineSets)
+			begin
+				DataObjectDetailEntryItem.InitData()
+				DataObjectDetailEntryItem.InitDataPlus()
+				DataObjectDetailEntryItem.InitialValidateData()
+				DataObjectDetailCollection.ClearCollection()
+			end
+
 			NewCommand.ExecuteState = false
 			DataObjectEntryItem.SetFieldEnabledStatus(true, "*ALL*")
 			mProgramMode = ProgramMode.Add
@@ -522,10 +540,10 @@ namespace SFE_Base.ViewModel
 					mDataObjectEntryItem.RestoreOriginalData()
 					ErrorInfo = "Synergy error : " + %string(mFileAccessObject.LastSynergyError)
 					using (mFileAccessObject.LastSynergyError) select
-					(54),	ErrorDetails = ' You are trying to add a record with a key which already exists - please use a different code.'
-					(431),	ErrorDetails = 'Someone else has updated this record before you saved your changes.  Your changes have been lost.  Please try again.'
-					(40),	ErrorDetails = 'Another program is holding this record locked and your changes cannot be saved.  Please try again.'
-					(),		ErrorDetails = 'Your changes have not been saved.  Please try again and refer to support if the problem persists.'
+					(54)					,ErrorDetails = ' You are trying to add a record with a key which already exists - please use a different code.'
+					(431)					,ErrorDetails = 'Someone else has updated this record before you saved your changes.  Your changes have been lost.  Please try again.'
+					(40)					,ErrorDetails = 'Another program is holding this record locked and your changes cannot be saved.  Please try again.'
+					()						,ErrorDetails = 'Your changes have not been saved.  Please try again and refer to support if the problem persists.'
 					endusing
 
 					MoveToState(mErrorVisualState)
@@ -555,25 +573,25 @@ namespace SFE_Base.ViewModel
 					end
 				end
 				tmpObj = (DataObjectBase)mClassConstructor.Invoke(mCTORArgs)
+	
 				if (mFileAccessObject.CreateRecord(tmpObj) != FileAccessResults.Success) then
 				begin
 					ErrorInfo = "Synergy error : " + %string(mFileAccessObject.LastSynergyError)
 					using (mFileAccessObject.LastSynergyError) select
-					(54),	ErrorDetails = ' You are trying to add a record with a key which already exists - please use a different code.'
-					(431),	ErrorDetails = 'Someone else has updated this record before you saved your changes.  Your changes have been lost.  Please try again.'
-					(40),	ErrorDetails = 'Another program is holding this record locked and your changes cannot be saved.  Please try again.'
-					(),		ErrorDetails = 'Your changes have not been saved.  Please try again and refer to support if the problem persists.'
+					(54)					,ErrorDetails = ' You are trying to add a record with a key which already exists - please use a different code.'
+					(431)					,ErrorDetails = 'Someone else has updated this record before you saved your changes.  Your changes have been lost.  Please try again.'
+					(40)					,ErrorDetails = 'Another program is holding this record locked and your changes cannot be saved.  Please try again.'
+					()						,ErrorDetails = 'Your changes have not been saved.  Please try again and refer to support if the problem persists.'
 					endusing
 					MoveToState(mErrorVisualState)
 				end
 				else
 				begin
+					AddDetailLines()
 					DataObjectCollection.AddToCollection(tmpObj)
 					DataObjectEntryItem.OriginalSynergyRecord = DataObjectEntryItem.SynergyRecord 
 					mDataObjectEntryItem.RestoreOriginalData()
 					SelectedCollectionItem = tmpObj
-
-					SaveDetailLines()
 				end
 			end
 			endusing
@@ -649,18 +667,19 @@ namespace SFE_Base.ViewModel
 					DeleteDetailLines ()
 
 					DataObjectCollection.Remove(SelectedCollectionItem)
-					SelectedCollectionItem  = ^null
+					SelectedItemIndex  = 0
 					
 					;;init the entry object
-					DataObjectEntryItem.InitData()
+;					DataObjectEntryItem.InitData()
 					GridIsEnabled = true
 				end
 				SaveCommand.ExecuteState = false
 				CancelCommand.ExecuteState = false
-				DeleteCommand.ExecuteState = false
+				DeleteCommand.ExecuteState = true
 				NewCommand.ExecuteState = true
 				mProgramMode = ProgramMode.Enquiry
 				raiseProgramModeChanged()
+				RaisePropertyChanged(^null)
 			end
 		endmethod
 	
@@ -668,6 +687,14 @@ namespace SFE_Base.ViewModel
 
 		; dummy method which can be overridden in view models which require the ability to update detail lines
 		public virtual method SaveDetailLines,void
+
+		endparams
+		proc
+			nop
+		endmethod
+
+		; dummy method which can be overridden in view models which require the ability to update detail lines
+		public virtual method AddDetailLines,void
 
 		endparams
 		proc
@@ -838,18 +865,18 @@ namespace SFE_Base.ViewModel
 
 			NewDetailCommand.ExecuteState = true
 
-			if (SelectedDetailItemIndex) then
-			begin
-				DeleteDetailCommand.ExecuteState = true
-				SaveDetailCommand.ExecuteState = false
-				CancelDetailCommand.ExecuteState = false
-			end
-			else
-			begin
-				DeleteDetailCommand.ExecuteState = false
-				SaveDetailCommand.ExecuteState = false
-				CancelDetailCommand.ExecuteState = false
-			end
+;			if (SelectedDetailItemIndex) then
+;			begin
+;				DeleteDetailCommand.ExecuteState = true
+;				SaveDetailCommand.ExecuteState = false
+;				CancelDetailCommand.ExecuteState = false
+;			end
+;			else
+;			begin
+			DeleteDetailCommand.ExecuteState = true
+			SaveDetailCommand.ExecuteState = false
+			CancelDetailCommand.ExecuteState = false
+;			end
 
 			NewDetailCommand.ExecuteState = true
 			DetailGridIsEnabled = true
@@ -971,9 +998,9 @@ namespace SFE_Base.ViewModel
 			endmethod
 		endproperty
 		
-		private mErrorDetails				,string
+		private mErrorDetails			,string
 		
-		public property ErrorDetails		,string
+		public property ErrorDetails	,string
 			method get
 			proc
 				mreturn mErrorDetails

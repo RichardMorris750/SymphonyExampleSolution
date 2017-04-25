@@ -258,9 +258,36 @@ namespace SFE_Base.ViewModel
 			endmethod
 		endproperty
 		
+		;-----these are set to avoid enableing and disabling fields fgagging up data is modified
+
 		private mIgnoreDetailDataChanged			,boolean
 
+		public property IgnoreDetailDataChanged		,boolean
+			method get
+			proc
+				mreturn mIgnoreDetailDataChanged
+			endmethod
+			method set
+			proc
+				mIgnoreDetailDataChanged = value
+			endmethod
+		endproperty
+
+		private mIgnoreDataChanged				,boolean
+
+		public property IgnoreDataChanged		,boolean
+			method get
+			proc
+				mreturn mIgnoreDataChanged
+			endmethod
+			method set
+			proc
+				mIgnoreDataChanged = value
+			endmethod
+		endproperty
 		
+		;--------------------------------------------------------------------------
+
 		private mSelectedCollectionItem				,@DataObjectBase
 		
 		public property SelectedCollectionItem		,@DataObjectBase
@@ -270,23 +297,28 @@ namespace SFE_Base.ViewModel
 			endmethod
 			method set
 			proc
-				mProgramMode = ProgramMode.Enquiry
+
+
 				if (value != ^null) then
 				begin
+
 					mSelectedCollectionItem = value
 
+					mProgramMode = ProgramMode.Enquiry
+					raiseProgramModeChanged()
 
+					mIgnoreDataChanged = true
 					mDataObjectEntryItem.SynergyRecord = mSelectedCollectionItem.SynergyRecord
 					mDataObjectEntryItem.OriginalSynergyRecord = mSelectedCollectionItem.SynergyRecord
-
-
+					mIgnoreDataChanged = false	
+					
 					LoadDetailLines()
 
 					DetailGridIsEnabled = true
 
 					SelectedDetailItemIndex = 0
 
-					raiseProgramModeChanged()
+
 				end
 				else
 				begin
@@ -298,12 +330,17 @@ namespace SFE_Base.ViewModel
 
 				end
 
-				NewDetailCommand.ExecuteState = true
-				SaveDetailCommand.ExecuteState = false
-				CancelDetailCommand.ExecuteState = false
-				DeleteDetailCommand.ExecuteState = true
+				if (mNumberOfDetailLineSets)
+				begin
+					NewDetailCommand.ExecuteState = true
+					SaveDetailCommand.ExecuteState = false
+					CancelDetailCommand.ExecuteState = false
 
-				raiseProgramModeChanged()
+
+					if (DataObjectDetailCollection.Count)
+						DeleteDetailCommand.ExecuteState = true
+				end
+
 				RaisePropertyChanged("SelectedCollectionItem")
 
 
@@ -345,6 +382,9 @@ namespace SFE_Base.ViewModel
 			endmethod
 			method set
 			proc
+
+				mProgramDetailMode = ProgramMode.Enquiry
+				raiseProgramDetailModeChanged()
 				mSelectedDetailItemIndex = value
 				RaisePropertyChanged("SelectedDetailItemIndex")
 			endmethod
@@ -360,14 +400,18 @@ namespace SFE_Base.ViewModel
 			endmethod
 			method set
 			proc
+
 				mProgramDetailMode = ProgramMode.Enquiry
+				raiseProgramDetailModeChanged()
 				if (value != ^null) then
 				begin
 					mSelectedDetailCollectionItem = value
+
 					mIgnoreDetailDataChanged = true
 					mDataObjectDetailEntryItem.SynergyRecord			= mSelectedDetailCollectionItem.SynergyRecord
 					mDataObjectDetailEntryItem.OriginalSynergyRecord	= mSelectedDetailCollectionItem.SynergyRecord
 					mIgnoreDetailDataChanged = false
+
 					DeleteDetailCommand.ExecuteState = true
 					CancelDetailCommand.ExecuteState = false
 					RaisePropertyChanged(^null)
@@ -380,7 +424,6 @@ namespace SFE_Base.ViewModel
 					SaveDetailCommand.ExecuteState = false
 					CancelDetailCommand.ExecuteState = false
 					DeleteDetailCommand.ExecuteState = false
-					raiseProgramDetailModeChanged()
 				end
 
 				RaisePropertyChanged("SelectedDetailCollectionItem")
@@ -418,20 +461,29 @@ namespace SFE_Base.ViewModel
 		private mLastProgramMode	,ProgramMode
 
 
+
 		
 		public method DoIsDataModified,void
 		endparams
 		proc
-			GridIsEnabled = !mDataObjectEntryItem.IsDataModified
-			SaveCommand.ExecuteState = mDataObjectEntryItem.IsDataModified && mDataObjectEntryItem.IsDataValid
-			CancelCommand.ExecuteState = mDataObjectEntryItem.IsDataModified
-			DeleteCommand.ExecuteState = SelectedCollectionItem != ^null && !mDataObjectEntryItem.IsDataModified
-			NewCommand.ExecuteState = !mDataObjectEntryItem.IsDataModified
-			if (mDataObjectEntryItem.IsDataModified && mDataObjectEntryItem.IsDataValid && mProgramMode == ProgramMode.Enquiry)
+
+			if (!mIgnoreDataChanged)
 			begin
-				mProgramMode = ProgramMode.Modify
-				raiseProgramModeChanged()
+				GridIsEnabled = !mDataObjectEntryItem.IsDataModified
+				SaveCommand.ExecuteState = mDataObjectEntryItem.IsDataModified && mDataObjectEntryItem.IsDataValid
+				CancelCommand.ExecuteState = mDataObjectEntryItem.IsDataModified
+				DeleteCommand.ExecuteState = SelectedCollectionItem != ^null && !mDataObjectEntryItem.IsDataModified
+				NewCommand.ExecuteState = !mDataObjectEntryItem.IsDataModified
+				if (mDataObjectEntryItem.IsDataModified && mDataObjectEntryItem.IsDataValid && mProgramMode == ProgramMode.Enquiry)
+				begin
+					if (mProgramMode != ProgramMode.Add)
+					begin
+						mProgramMode = ProgramMode.Modify
+						raiseProgramModeChanged()
+					end
+				end
 			end
+
 		endmethod
 
 		private mProgramDetailMode			,ProgramMode
@@ -453,6 +505,11 @@ namespace SFE_Base.ViewModel
 				begin
 					mProgramDetailMode = ProgramMode.Modify
 					raiseProgramDetailModeChanged()
+					if (mProgramMode != ProgramMode.Add)
+					begin
+						mProgramMode = ProgramMode.Modify
+						raiseProgramModeChanged()
+					end
 				end
 
 				if (!mDetailGridIsEnabled)
@@ -505,7 +562,9 @@ namespace SFE_Base.ViewModel
 			end
 
 			NewCommand.ExecuteState = false
+			mIgnoreDataChanged = true
 			DataObjectEntryItem.SetFieldEnabledStatus(true, "*ALL*")
+			mIgnoreDataChanged = false
 			mProgramMode = ProgramMode.Add
 			raiseProgramModeChanged()
 		endmethod
@@ -742,9 +801,11 @@ namespace SFE_Base.ViewModel
 			DataObjectDetailEntryItem.InitData()
 			DataObjectDetailEntryItem.InitDataPlus()
 			DataObjectDetailEntryItem.InitialValidateData()
-			NewDetailCommand.ExecuteState = false
+			
 			DataObjectDetailEntryItem.SetFieldEnabledStatus(true, "*ALL*")
-			mProgramDetailMode = ProgramMode.Add
+			mProgramDetailMode = ProgramMode.Add	
+			NewDetailCommand.ExecuteState = false
+
 			mDeleteDetailCommand.ExecuteState = false
 			mSaveDetailCommand.ExecuteState = false
 			mCancelDetailCommand.ExecuteState = true		
@@ -808,15 +869,11 @@ namespace SFE_Base.ViewModel
 				SelectedDetailCollectionItem = tmpObj
 				SelectedDetailItemIndex = DataObjectDetailCollection.Count
 
-;				DataObjectDetailCollection.AddToCollection(DataObjectDetailEntryItem)
-;				DataObjectDetailEntryItem.OriginalSynergyRecord = DataObjectDetailEntryItem.SynergyRecord 
-;				mDataObjectDetailEntryItem.RestoreOriginalData()
-;				SelectedDetailCollectionItem = DataObjectDetailEntryItem
-;				SelectedDetailItemIndex = DataObjectDetailCollection.Count
 			end
 			endusing
 			
-			
+			mProgramDetailMode = ProgramMode.Enquiry
+			raiseProgramDetailModeChanged()		
 
 			if (SelectedDetailItemIndex >= 0) then
 			begin
@@ -831,8 +888,7 @@ namespace SFE_Base.ViewModel
 				CancelDetailCommand.ExecuteState = false
 			end
 			NewDetailCommand.ExecuteState = true
-			mProgramDetailMode = ProgramMode.Enquiry
-			raiseProgramDetailModeChanged()
+
 			DetailGridIsEnabled = true
 
 			if (mDataObjectEntryItem.IsDataValid)
@@ -841,6 +897,12 @@ namespace SFE_Base.ViewModel
 			NewCommand.ExecuteState = false
 			DeleteCommand.ExecuteState= false
 			GridIsEnabled = false
+
+			if (mProgramMode == ProgramMode.Enquiry)
+			begin
+				mProgramMode = ProgramMode.Modify
+				raiseProgramModeChanged()
+			end
 
 		endmethod
 		
@@ -868,25 +930,19 @@ namespace SFE_Base.ViewModel
 			mDataObjectDetailEntryItem.InitialValidateData()
 			mDataObjectDetailEntryItem.RestoreOriginalData()
 
+			mProgramDetailMode = ProgramMode.Enquiry
+			raiseProgramDetailModeChanged()
+			
 			NewDetailCommand.ExecuteState = true
 
-;			if (SelectedDetailItemIndex) then
-;			begin
-;				DeleteDetailCommand.ExecuteState = true
-;				SaveDetailCommand.ExecuteState = false
-;				CancelDetailCommand.ExecuteState = false
-;			end
-;			else
-;			begin
+
 			DeleteDetailCommand.ExecuteState = true
 			SaveDetailCommand.ExecuteState = false
 			CancelDetailCommand.ExecuteState = false
-;			end
 
 			NewDetailCommand.ExecuteState = true
 			DetailGridIsEnabled = true
-			mProgramDetailMode = ProgramMode.Enquiry
-			raiseProgramDetailModeChanged()
+
 		endmethod
 		
 		private mDeleteDetailCommand			,@GenericCommand
@@ -919,6 +975,9 @@ namespace SFE_Base.ViewModel
 
 			end
 
+			mProgramDetailMode = ProgramMode.Enquiry
+			raiseProgramDetailModeChanged()
+			
 			if (SelectedDetailItemIndex) then
 			begin
 				DeleteDetailCommand.ExecuteState = true
@@ -939,8 +998,11 @@ namespace SFE_Base.ViewModel
 			DeleteCommand.ExecuteState= false
 			GridIsEnabled = false
 
-			mProgramDetailMode = ProgramMode.Enquiry
-			raiseProgramDetailModeChanged()
+			if (mProgramMode == ProgramMode.Enquiry)
+			begin
+				mProgramMode = ProgramMode.Modify
+				raiseProgramModeChanged()
+			end
 
 		endmethod
 

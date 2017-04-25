@@ -595,13 +595,15 @@ namespace SFE_Base.ViewModel
 				end
 			end
 			endusing
+
+			raiseProgramModeChanged()
+			GridIsEnabled = true
 			NewCommand.ExecuteState = true
 			SaveCommand.ExecuteState = false
 			CancelCommand.ExecuteState = false
 			DeleteCommand.ExecuteState = true
 			mProgramMode = ProgramMode.Enquiry
-			raiseProgramModeChanged()
-			GridIsEnabled = true
+
 		endmethod
 		
 		private mCancelCommand				,@GenericCommand
@@ -623,14 +625,17 @@ namespace SFE_Base.ViewModel
 		param								,string
 		endparams
 		proc
+			mProgramMode = ProgramMode.Enquiry
+			raiseProgramModeChanged()
 			mDataObjectEntryItem.RestoreOriginalData()
 			mDataObjectEntryItem.InitialValidateData()
 			mDataObjectEntryItem.RestoreOriginalData()
+			NewCommand.ExecuteState = true
 			SaveCommand.ExecuteState = false
 			CancelCommand.ExecuteState = false
+			DeleteCommand.ExecuteState = true
 			GridIsEnabled = true
-			mProgramMode = ProgramMode.Enquiry
-			raiseProgramModeChanged()
+
 		endmethod
 		
 		private mDeleteCommand				,@GenericCommand
@@ -673,13 +678,13 @@ namespace SFE_Base.ViewModel
 ;					DataObjectEntryItem.InitData()
 					GridIsEnabled = true
 				end
+				mProgramMode = ProgramMode.Enquiry
+				raiseProgramModeChanged()
 				SaveCommand.ExecuteState = false
 				CancelCommand.ExecuteState = false
 				DeleteCommand.ExecuteState = true
 				NewCommand.ExecuteState = true
-				mProgramMode = ProgramMode.Enquiry
-				raiseProgramModeChanged()
-				RaisePropertyChanged(^null)
+				GridIsEnabled = true
 			end
 		endmethod
 	

@@ -108,7 +108,10 @@
         <Setter Property="Foreground" Value="{StaticResource ButtonTextBrush}"></Setter>
         <Style.Triggers>
             <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Visibility" Value="Collapsed"></Setter>
+                <!--
                 <Setter Property="Foreground" Value="{StaticResource ButtonDisabledTextBrush}"></Setter>
+                -->
             </Trigger>
             <Trigger Property="Button.IsMouseOver" Value="True">
                 <Setter Property="Button.RenderTransform">

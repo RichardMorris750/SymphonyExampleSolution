@@ -19,8 +19,8 @@
     </UserControl.Resources>
 
     <Grid>
- 
-        <Border Margin="4" Padding="4" BorderThickness="0" CornerRadius="5" BorderBrush="{StaticResource BorderBrush}"> 
+
+        <Border Margin="4" Padding="4"  BorderThickness="1" CornerRadius="5" BorderBrush="{StaticResource BorderBrush}">
 
             <DataGrid ItemsSource="{Binding Path=DataObjectCollection}" AutoGenerateColumns="False" IsReadOnly="True" IsEnabled="{Binding Path=GridIsEnabled}"
                   SelectedItem="{Binding Path=SelectedCollectionItem}" SelectedIndex="{Binding Path=SelectedItemIndex}"
@@ -33,12 +33,14 @@
                 </i:Interaction.Triggers>
 
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Order No" Binding="{Binding Path=Order_no}" Width="75" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="Supplier" Binding="{Binding Path=Supp_code}" Width="75"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Order No" Binding="{Binding Path=Order_no}" Width="60" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Supplier" Binding="{Binding Path=Supp_code}" Width="60"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Supplier Name" Binding="{Binding Path=SupplierName}" Width="120"></DataGridTextColumn>
                     <DataGridTextColumn Header="Order Date" Binding="{Binding Path=Order_date, Converter={StaticResource decimalDateConverter}, 
-                        ConverterParameter=FORMAT:YYYYMMDD|NODEFAULTODAY}" Width="60"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Reqd By" Binding="{Binding Path=Reqd_date, Converter={StaticResource decimalDateConverter}}" Width="60"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Comments" Binding="{Binding Path=Comments}" Width="*"></DataGridTextColumn>
+                        ConverterParameter=FORMAT:YYYYMMDD|NODEFAULTODAY, StringFormat=\{0:d\}}" Width="75"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Order Date" Binding="{Binding Path=Reqd_date, Converter={StaticResource decimalDateConverter}, 
+                        ConverterParameter=FORMAT:YYYYMMDD|NODEFAULTODAY, StringFormat=\{0:d\}}" Width="75"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Comments" Binding="{Binding Path=Comments}" Width="150"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
 

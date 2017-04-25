@@ -209,6 +209,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Resource Include="Images\Icons\add_64px.png" />
+    <Resource Include="Images\Icons\Cancel_64px.png" />
+    <Resource Include="Images\Icons\Delete_64px.png" />
+    <Resource Include="Images\Icons\Retry_64px.png" />
+    <Resource Include="Images\Icons\Save_64px.png" />
     <Resource Include="Resources\Order_line_Content.CodeGen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

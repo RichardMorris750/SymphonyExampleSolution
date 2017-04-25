@@ -50,6 +50,9 @@ import Symphony.Conductor.Commands
 import Symphony.Conductor.DataIO
 import Symphony.Conductor.Types
 
+import SFE_UI.ViewModel
+
+
 namespace SFE_Orders.ViewModel
 
 	public class PurchaseOrderViewModel extends FileMaintViewModel
@@ -63,6 +66,7 @@ namespace SFE_Orders.ViewModel
 		parent(sender, mOrder_Header.GetType(), new Order_Header_FileIO(FileOpenMode.UpdateIndexed), "ShowErrorState",mOrder_Line.GetType())
 		proc
 			this.ProgramModeChanged += doProgramModeChanged
+			this.ProgramDetailModeChanged += doProgramDetailModeChanged
 
 			;;we can use the stndard list loding method built into the base class or
 			;;load the list ourselves
@@ -73,6 +77,13 @@ namespace SFE_Orders.ViewModel
 			DataObjectDetailEntryItem.IsDataModifiedChanged += DoIsDetailDataModified
 
 			this.LoadDetailList()
+
+			buildSupplierCodeLookup()
+
+			;;when we navigate viausl states we need to execute logic, so define an event handler
+			;;that is called when we do navitate visual stated
+			BeforeNavigateState += doBeforeNavigateState
+
 		endmethod
 
 		;--------------------------------------------------------------------------------------
@@ -82,6 +93,8 @@ namespace SFE_Orders.ViewModel
 		proc
 			;;this event handler allows us to prevent the user from being able to change field
 			;;that would break the data integrity - for example the key fields when in amend mode.
+
+			IgnoreDataChanged = true
 
 			using currentMode select
 			(ProgramMode.Modify),
@@ -104,6 +117,8 @@ namespace SFE_Orders.ViewModel
 			DataObjectEntryItem.SetFieldReadOnlyStatus(true, "TOT_VALUE")
 			DataObjectEntryItem.SetFieldReadOnlyStatus(true, "TOT_VAT")
 
+			IgnoreDataChanged = false
+
 		endmethod
 
 
@@ -114,7 +129,8 @@ namespace SFE_Orders.ViewModel
 			;;this event handler allows us to prevent the user from being able to change field
 			;;that would break the data integrity - for example the key fields when in amend mode.
 
-
+			IgnoreDetailDataChanged = true
+			
 			using currentDetailMode select
 			(ProgramMode.Modify)	,
 			begin
@@ -133,6 +149,9 @@ namespace SFE_Orders.ViewModel
 
 			DataObjectDetailEntryItem.SetFieldReadOnlyStatus(true, "PROD_DESCRIPTION")
 			DataObjectDetailEntryItem.SetFieldReadOnlyStatus(true, "LINE_VALUE")
+
+			IgnoreDetailDataChanged = false
+
 		endmethod
 
 ;-----------------------------------------------------------------------------------
@@ -392,6 +411,78 @@ namespace SFE_Orders.ViewModel
 		endmethod
 
 .endregion
+
+; lookups --------------------------------------------------------------------------------
+
+
+.region "Visual State managment"
+		
+		private method doBeforeNavigateState,void
+		eArgs		,@NavigateToStateEventArgs 
+		endparams
+		proc
+			using eArgs.NewStateName select
+
+			("SupplierCodeDrillState"),
+			begin
+				mSuppCodeLookupVM.LoadList()
+			end
+
+			()		,
+				nop
+			endusing
+		endmethod
+
+
+
+
+.endregion
+
+.region "Supplier Code lookup elements"
+		
+		private method buildSupplierCodeLookup,void
+		endparams
+		proc
+			;;create the supplier code lookup view model
+			mSuppCodeLookupVM = new SupplierCodeLookupViewModel()
+
+			;;need event handlers for when they select/quit the lookup
+			mSuppCodeLookupVM.ItemSelected += doSuppCodeItemSelected
+			mSuppCodeLookupVM.CancelSearch += doSuppCodeItemCanceled
+		endmethod
+
+
+		private method doSuppCodeItemSelected,void
+		sender		,@SelectedItemEventArgs 
+		endparams
+		proc
+			;;we have a supplier item selected.  first, lets restore back the visual state
+			StateCompleted()
+
+			;;now let's set the data.  this will update the UI and cuase the supplier name to be loaded.
+			((Order_header_Data)DataObjectEntryItem).supp_code = ((Supplier_Data)sender.ItemValue).Supp_Code
+
+		endmethod
+
+		private method doSuppCodeItemCanceled,void
+		endparams
+		proc
+			;;they want to cancel from the search so just abort the lookup visual state
+			StateAborted()
+		endmethod
+
+		private mSuppCodeLookupVM			,@SupplierCodeLookupViewModel
+
+		public property SuppCodeLookupVM	,@SupplierCodeLookupViewModel
+			method get
+			proc
+				mreturn mSuppCodeLookupVM
+			endmethod
+		endproperty
+		
+
+.endregion
+
 
 
 	endclass

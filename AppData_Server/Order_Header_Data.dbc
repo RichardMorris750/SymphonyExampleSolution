@@ -229,7 +229,7 @@ namespace AppData
 
 			if (mOrderLineList.Count < mOriginalOrderLineList.Count) 		
 			begin
-				foreach orderLine in new DataSelect(mConnector, "select * from order_line where Order_no = :1 and Line_No > :2",					new Order_Line_Data(),this.Order_No,OrderLineList.count)
+				foreach orderLine in new DataSelect(mConnector, "select * from order_line where Order_no = :1 and Line_No > :2",					new Order_Line_Data(),this.Order_No,mOrderLineList.count)
 				begin
 					if (orderLineIO.DeleteRecordUsingGRFA(orderLine)!= FileAccessResults.Success)
 						nop			;; ignore errors for now	

@@ -164,9 +164,9 @@ namespace SystemSetup
 			delet('SFEDATA:order_header.ism')
 		data headerKeyVals		,[4]a*
 			&					,"START=1,LENGTH=6,TYPE=DECIMAL,NODUPS"
-			&	,"START=7:1,LENGTH=6:6,TYPE=ALPHA:DECIMAL,NODUPS"
-			&	,"START=13:1,LENGTH=8:6,TYPE=DECIMAL:DECIMAL,NODUPS"
-			&	,"START=21:1,LENGTH=8:6,TYPE=DECIMAL:DECIMAL,NODUPS"
+			&	,"START=7:1,LENGTH=6:6,TYPE=ALPHA:DECIMAL,NODUPS,MODIFY"
+			&	,"START=13:1,LENGTH=8:6,TYPE=DECIMAL:DECIMAL,NODUPS,MODIFY"
+			&	,"START=21:1,LENGTH=8:6,TYPE=DECIMAL:DECIMAL,NODUPS,MODIFY"
 			isamc('SFEDATA:order_header.ism', ^size(STROrder_header), 4, headerKeyVals)	
 		end
 		catch (e, @Exception)
@@ -181,7 +181,7 @@ namespace SystemSetup
 			delet('SFEDATA:order_line.ism')
 		data lineKeyVals	,[2]a*
 			&				,"START=1:7,LENGTH=6:5,TYPE=DECIMAL:DECIMAL,NODUPS"
-			&	,"START=12:1:7,LENGTH=10:6:5,TYPE=ALPHA:DECIMAL:DECIMAL,DUPS"
+			&	,"START=12:1:7,LENGTH=10:6:5,TYPE=ALPHA:DECIMAL:DECIMAL,DUPS,MODIFY"
 			isamc('SFEDATA:order_line.ism', ^size(STROrder_line), 2, lineKeyVals)	
 		end
 		catch (e, @Exception)

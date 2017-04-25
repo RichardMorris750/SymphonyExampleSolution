@@ -41,6 +41,7 @@ import System.Windows
 import AppData
 import Symphony.Conductor.DataIO
 import Symphony.Conductor.ViewModel
+import Symphony.Harmony
 
 ;;use the extension methods
 import System.Linq
@@ -113,34 +114,54 @@ namespace SFE_Orders.ViewModel
 			;;this event handler allows us to prevent the user from being able to change field
 			;;that would break the data integrity - for example the key fields when in amend mode.
 
-			; NOTE - this code works, but is not needed - bar code can be changed OK
 
-;			using currentDetailMode select
-;			(ProgramMode.Modify)	,
-;			begin
+			using currentDetailMode select
+			(ProgramMode.Modify)	,
+			begin
 
-;				DataObjectDetailEntryItem.SetFieldReadOnlyStatus(true, "PBCBARCODE")
-;			end
-;			(ProgramMode.Add)		,
-;			begin
-;				DataObjectDetailEntryItem.SetFieldReadOnlyStatus(false, "PBCBARCODE")
-;			end
-;			(ProgramMode.Enquiry)	,
-;			begin
-;;				DataObjectDetailEntryItem.SetFieldReadOnlyStatus(true, "PBCBARCODE")
-;			end
-;			endusing
+				DataObjectDetailEntryItem.SetFieldReadOnlyStatus(true, "PROD_CODE")
+			end
+			(ProgramMode.Add)		,
+			begin
+				DataObjectDetailEntryItem.SetFieldReadOnlyStatus(false, "PROD_CODE")
+			end
+			(ProgramMode.Enquiry)	,
+			begin
+				DataObjectDetailEntryItem.SetFieldReadOnlyStatus(true, "PROD_CODE")
+			end
+			endusing
+
+			DataObjectDetailEntryItem.SetFieldReadOnlyStatus(true, "PROD_DESCRIPTION")
+			DataObjectDetailEntryItem.SetFieldReadOnlyStatus(true, "LINE_VALUE")
 		endmethod
 
 ;-----------------------------------------------------------------------------------
+		private static mConnector				,@DBConnector
+
 		public override method LoadBaseItemCollection,void
 		endparams
 		
 		proc	
+			mConnector = new DBConnector("SYMLOCAL:richard/morris!AppData.TableMapper.MapTableToFile")
+			
+			;;To enable case insensitive comparisons:
+			mConnector.SetCaseSensitivity(false)
+
+		data dataSearch						,@DataSelect
 
 		data item = new Order_Header_Data()
-		data Order_HeaderIO = new Order_Header_FileIO()
-		
+;		data Order_HeaderIO = new Order_Header_FileIO()
+
+		data whereString		,string
+
+			if (mKeyValue) then
+				whereString = "where order_no = :1"
+			else
+				if (mKeySupplier) then
+					whereString = "where supp_code like " + mKeySupplier
+				else
+					whereString = ^null 
+
 			;;clear the list down
 			this.DataObjectCollection.ClearCollection()
 
@@ -149,72 +170,44 @@ namespace SFE_Orders.ViewModel
 			CancelDetailCommand.ExecuteState = false
 			DeleteDetailCommand.ExecuteState = false
 			NewDetailCommand.ExecuteState = false
+			SaveCommand.ExecuteState = false
+			CancelCommand.ExecuteState = false
+			DeleteCommand.ExecuteState = false
+			NewCommand.ExecuteState = true
+			GridIsEnabled = false
+
 
 		data foundRecs				,int					,false
 
-		data Order_HeaderStatus		,FileAccessResults		,Order_HeaderIO.ReadFirstRecord(item)
-			while (Order_HeaderStatus == FileAccessResults.Success)
+		dataSearch = DataSelect.RunDataSelect(mConnector, "select * from Order_Header " + whereString , 
+			&	new Order_header_Data()	,mKeyValue).Result
+								
+			foreach item in dataSearch
 			begin
-			data add				,boolean				,false
-			data kWord				,a50
-			data Desc				,a50
-				kWord = mKeyWord
-				upcase kWord
-;;				Desc = item.Name
-				upcase desc
-			
-				if (!mKeyValue && !mKeyWord)
-					add = true
-				
-				if  (mKeyValue && !mKeyWord ) &&  (mKeyValue == item.Order_no)
-					add=true
-.ifdef gi				
-				if  (mKeyWord != ^null && !mKeyValue) && (instr(1,desc,atrim(kWord)))
-					add=true
-				
-				if  (mKeyWord != ^null && mKeyValue != ^null) && (instr(1,Desc,atrim(kWord)))  &&  (atrim(mKeyValue) == item.Order_no)
-					add=true
-
-.endc				
-				if (add)
-				begin
-				data tmpDO = new Order_Header_Data(item.SynergyRecord)
-					tmpDO.GlobalRFA = item.GlobalRFA
-					this.DataObjectCollection.AddToCollection((DataObjectBase)tmpDO)	
-					foundRecs = true								
-				end
-				Order_HeaderStatus = Order_HeaderIO.ReadNextRecord(item)
+				foundRecs = true
+				this.DataObjectCollection.AddToCollection(item)
 			end
 
 
 			if (foundRecs)
 			begin
+				DataObjectEntryItem.SetFieldEnabledStatus(true, "*ALL*")
 				SaveDetailCommand.ExecuteState = false
 				CancelDetailCommand.ExecuteState = false
 				DeleteDetailCommand.ExecuteState = true
 				NewDetailCommand.ExecuteState = true
-				DataObjectEntryItem.SetFieldEnabledStatus(true, "*ALL*")
+				SaveCommand.ExecuteState = false
+				CancelCommand.ExecuteState = false
+				DeleteCommand.ExecuteState = true
+				NewCommand.ExecuteState = true
+				GridIsEnabled = true
+				SelectedItemIndex=0
 			end
 		endmethod
 
 
 
 ;----------------------------------------------------------------------------------------------
-		private mKeyWord			,string
-	
-		public property KeyWord		,string
-			method get
-			proc
-				mreturn mKeyWord
-			endmethod
-			method set
-			proc
-				mKeyWord = value
-				RaisePropertyChanged("KeyWord")
-			endmethod
-		
-		endproperty
-	
 	
 		private	mKeyValue			,int
 	
@@ -230,6 +223,20 @@ namespace SFE_Orders.ViewModel
 			endmethod
 		endproperty
 	
+
+		private	mKeySupplier			,string
+	
+		public property KeySupplier	,string
+			method get
+			proc
+				mreturn mKeySupplier
+			endmethod
+			method set
+			proc
+				mKeySupplier = value
+				RaisePropertyChanged("KeySupplier")
+			endmethod
+		endproperty
 ;------------------------------------------------------------------------------------------------------
 	
 		private mSearchCommand				,@GenericCommand
@@ -251,6 +258,29 @@ namespace SFE_Orders.ViewModel
 			endmethod
 		endproperty
 	
+		private mClearCommand				,@GenericCommand	
+			
+		public property ClearCommand		,@GenericCommand
+			method get
+			proc
+
+				if (mClearCommand == ^null)
+				begin
+					lambda doCommand(sender, param)
+					begin
+						mKeyValue=0
+						mKeySupplier= ^null
+
+						LoadBaseItemCollection()
+						RaisePropertyChanged(^null)
+					end
+					mClearCommand = new GenericCommand("CLEAR", doCommand)
+				end
+
+				mreturn mClearCommand
+			endmethod
+		endproperty
+
 	
 		private mPrintCommand			,@GenericCommand
 	

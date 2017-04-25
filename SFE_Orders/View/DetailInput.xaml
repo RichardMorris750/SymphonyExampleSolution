@@ -23,45 +23,62 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
 
+        <Border Grid.Row="0" Margin="4" Padding="4"  BorderThickness="1" CornerRadius="5" BorderBrush="{StaticResource BorderBrush}">
 
+            <Grid DataContext="{Binding Path=DataObjectDetailEntryItem}">
 
-    <Border Margin="4" Padding="4"  BorderThickness="1" CornerRadius="5" BorderBrush="{StaticResource BorderBrush}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
 
-        <Grid DataContext="{Binding Path=DataObjectDetailEntryItem}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                    <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                    <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                    <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                    <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="auto" />
-            </Grid.ColumnDefinitions>
+                </Grid.RowDefinitions>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
-                <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
-                <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
-                <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
-                <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource Order_line_Prod_code_prompt}"></Label>
+                <symControl:FieldControl Grid.Row="0" Grid.Column="2" Style="{StaticResource Order_line_Prod_code_style}"></symControl:FieldControl>
 
-            </Grid.RowDefinitions>
+                <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource Order_line_Prod_description_prompt}"></Label>
+                <symControl:FieldControl Grid.Row="1" Grid.Column="2" Style="{StaticResource Order_line_Prod_description_style}"></symControl:FieldControl>
 
-            <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource Order_line_Prod_code_prompt}"></Label>
-            <symControl:FieldControl Grid.Row="0" Grid.Column="2" Style="{StaticResource Order_line_Prod_code_style}"></symControl:FieldControl>
+                <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource Order_line_Qty_prompt}"></Label>
+                <symControl:FieldControl Grid.Row="2" Grid.Column="2" Style="{StaticResource Order_line_Qty_style}"></symControl:FieldControl>
 
-            <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource Order_line_Prod_description_prompt}"></Label>
-            <symControl:FieldControl Grid.Row="1" Grid.Column="2" Style="{StaticResource Order_line_Prod_description_style}"></symControl:FieldControl>
+                <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource Order_line_Price_prompt}"></Label>
+                <symControl:FieldControl Grid.Row="3" Grid.Column="2" Style="{StaticResource Order_line_Price_style}"></symControl:FieldControl>
 
-            <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource Order_line_Qty_prompt}"></Label>
-            <symControl:FieldControl Grid.Row="2" Grid.Column="2" Style="{StaticResource Order_line_Qty_style}"></symControl:FieldControl>
+                <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource Order_line_Line_value_prompt}"></Label>
+                <symControl:FieldControl Grid.Row="4" Grid.Column="2" Style="{StaticResource Order_line_Line_value_style}"></symControl:FieldControl>
 
-            <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource Order_line_Price_prompt}"></Label>
-            <symControl:FieldControl Grid.Row="3" Grid.Column="2" Style="{StaticResource Order_line_Price_style}"></symControl:FieldControl>
+            </Grid>
+        </Border>
 
-            <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource Order_line_Line_value_prompt}"></Label>
-            <symControl:FieldControl Grid.Row="4" Grid.Column="2" Style="{StaticResource Order_line_Line_value_style}"></symControl:FieldControl>
+        <!-- button options -->
+        <Border Grid.Row="1" Margin="4" Padding="4"  BorderThickness="1" CornerRadius="5" BorderBrush="{StaticResource BorderBrush}">
 
-        </Grid>
-    </Border>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                <Button  Style="{StaticResource StandardButtonStyle}" Command="{Binding Path=NewDetailCommand}" Width="75">New Line</Button>
+                <Button  Style="{StaticResource StandardButtonStyle}" Command="{Binding Path=SaveDetailCommand}" Width="75">Save Line</Button>
+                <Button  Style="{StaticResource StandardButtonStyle}" Command="{Binding Path=CancelDetailCommand}" Width="75">Cancel Line</Button>
+                <Button  Style="{StaticResource StandardButtonStyle}" Command="{Binding Path=DeleteDetailCommand}" Width="75">Delete Line</Button>
+            </StackPanel>
+        </Border>
+    </Grid>
+    
+    
 </UserControl>

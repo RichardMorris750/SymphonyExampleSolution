@@ -35,6 +35,7 @@ import Symphony.Conductor.Model
 ;;imports required to use data objects and file IO classes.
 import AppData
 import Symphony.Conductor.DataIO
+import Symphony.Conductor.Converters
 import System.Windows.Media
 
 
@@ -44,7 +45,10 @@ namespace AppData
 
 ;;=============================================================================
 .region "Private Variables"
-		private mBuyerImage		,@ImageSource
+		private mDateCreated		,string
+		private mBuyerImage			,@ImageSource
+		private mDateConverter		,@SynergyDecimalDateConverter	,new SynergyDecimalDateConverter()
+		private	mAlphaDateConverter	,@SynergyAlphaDateTimeConverter	,new SynergyAlphaDateTimeConverter()
 
 .endregion
 
@@ -79,6 +83,28 @@ namespace AppData
 			endmethod
 		endproperty
 
+;;-----------------------------------------------------------------------------	
+		public property DateCreated, string
+			method get
+			proc
+				if (mDateCreated == ^null)
+				begin
+					data datetime	,a20
+					data tmpTime, String
+					data tmpDate, String
+
+					datetime = %datetime_from_i8( this.Created_timestamp)
+
+					SplitSynergyDatetime(datetime,tmpDate, tmpTime) 
+					mDateCreated = tmpDate
+				end
+				
+				mreturn mDateCreated
+			endmethod
+
+		endproperty
+
+
 .endregion
 
 ;;=============================================================================
@@ -96,6 +122,33 @@ namespace AppData
 			if (trim(buyer_main.STR_Name)) 
 				synergychanged()
 						
+		endmethod
+
+
+;;-----------------------------------------------------------------------------	
+		;;; <summary>
+		;;;	Take a string that contains a Synergy %datetime value (YYYYMMDDhhmmssuuuuuu format) and split it into it's constituent parts (date + time).
+		;;; </summary>
+		;;; <param name="aDateTime">The inbound String to convert in Synergy %datetime format</param>
+		;;; <param name="aDate">The date component of the incoming string in the format "mm/dd/yyyy"</param>
+		;;; <param name="aTime">The time component of the incoming string in the format "hh:mm:ss AP"</param>
+		public method SplitSynergyDatetime, void
+			required in aDatetime, String
+			required out aDate, String
+			required out aTime, String
+			endparams
+		proc
+			if (aDatetime !=string.Empty)
+			begin
+				data tmpDatetime, @String
+				tmpDatetime = ((DateTime)mAlphaDateConverter.Convert(aDatetime, ^null, "NODEFAULTODAY", ^null)).ToString()	
+
+				if (tmpDatetime != string.Empty)
+				begin
+					aDate = tmpDatetime.Split(' ')[1]
+					aTime = tmpDatetime.Split(' ')[2] + tmpDatetime.Split(' ')[3]					
+				end
+			end
 		endmethod
 
 ;;-----------------------------------------------------------------------------	
@@ -116,6 +169,7 @@ namespace AppData
 		proc
 			;; populate any extra fields that are added to data object	
 			mBuyerImage = ^null
+			mDateCreated = ^null
 
 		endmethod
 

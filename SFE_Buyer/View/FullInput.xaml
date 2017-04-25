@@ -5,11 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:sfeuiCommon="clr-namespace:SFE_UI.Common;assembly=SFE_UI"
              xmlns:symControl="clr-namespace:Symphony.Conductor.Controls;assembly=SymphonyConductor"
+             xmlns:localConverter="clr-namespace:SFE_UI.Converters;assembly=SFE_UI"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
     <UserControl.Resources>
         <ResourceDictionary>
+            <localConverter:NullImageConverter x:Key="nullImgConv"></localConverter:NullImageConverter>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/SFE_UI;component/Resources/AppStyling.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/SymphonyConductor;component/Resources/Converters.xaml"/>
@@ -17,7 +19,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
@@ -38,7 +40,7 @@
                         <ColumnDefinition Width="20" />
                         <ColumnDefinition Width="auto" />
                         <ColumnDefinition Width="4" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="100" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="25" />
@@ -56,13 +58,13 @@
 
                     <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource Buyer_Address1_prompt}"></Label>
                     <symControl:FieldControl Grid.Row="1" Grid.Column="2" Style="{StaticResource Buyer_Address1_style}"></symControl:FieldControl>
-                    
+
                     <symControl:FieldControl Grid.Row="2" Grid.Column="2" Style="{StaticResource Buyer_Address2_style}"></symControl:FieldControl>
 
                     <symControl:FieldControl Grid.Row="3" Grid.Column="2" Style="{StaticResource Buyer_Address3_style}"></symControl:FieldControl>
 
                     <symControl:FieldControl Grid.Row="4" Grid.Column="2" Style="{StaticResource Buyer_Postcode_style}"></symControl:FieldControl>
- 
+
                     <Label Grid.Row="5" Grid.Column="0" Style="{StaticResource Buyer_Phone_prompt}"></Label>
                     <symControl:FieldControl Grid.Row="5" Grid.Column="2" Style="{StaticResource Buyer_Phone_style}"></symControl:FieldControl>
 
@@ -72,8 +74,16 @@
                     <Label Grid.Row="7" Grid.Column="0" Style="{StaticResource Buyer_Email_prompt}"></Label>
                     <symControl:FieldControl Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="3" Style="{StaticResource Buyer_Email_style}"></symControl:FieldControl>
 
-                    <Label Grid.Row="1" Grid.Column="4" Style="{StaticResource Buyer_Created_timestamp_prompt}"></Label>
-                    <symControl:FieldControl Grid.Row="1" Grid.Column="6" Style="{StaticResource Buyer_Created_timestamp_style}"></symControl:FieldControl>
+                    <Label Grid.Row="1" Grid.Column="6" Style="{StaticResource Buyer_Created_timestamp_prompt}"></Label>
+                    <TextBlock Grid.Row="1" Grid.Column="6" Foreground="{StaticResource InputForegroundBrush}" Width="79" Margin="0,4,-52,5" HorizontalAlignment="Right" VerticalAlignment="Center" 
+                               IsEnabled="False" Text="{Binding Path=DateCreated}"></TextBlock>
+
+                    <!-- image -->
+                    <Border Grid.Row="0" Grid.Column="4" Grid.RowSpan="5" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,0,10,0">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="150" Height="150" Source="{Binding Path=BuyerImage, Converter={StaticResource nullImgConv}}"></Image>
+                        </StackPanel>
+                    </Border>
                 </Grid>
 
                 <!-- button options -->

@@ -99,6 +99,32 @@ Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "SFE_Buyer", "SFE_Buyer\SFE_
 EndProject
 Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "SFE_Orders", "SFE_Orders\SFE_Orders.synproj", "{1C9279B7-B70B-41FB-B610-D5ED84E975E8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SFEImages", "SFEImages", "{94FB3522-F740-4F89-89F2-C7C0501A9267}"
+	ProjectSection(SolutionItems) = preProject
+		SFEImages\7UP001.jpg = SFEImages\7UP001.jpg
+		SFEImages\7UP002.jpg = SFEImages\7UP002.jpg
+		SFEImages\7UP003.jpg = SFEImages\7UP003.jpg
+		SFEImages\cho.jpg = SFEImages\cho.jpg
+		SFEImages\COK001.jpg = SFEImages\COK001.jpg
+		SFEImages\COK002.jpg = SFEImages\COK002.jpg
+		SFEImages\COK003.jpg = SFEImages\COK003.jpg
+		SFEImages\COK004.jpg = SFEImages\COK004.jpg
+		SFEImages\COK005.jpg = SFEImages\COK005.jpg
+		SFEImages\COK006.jpg = SFEImages\COK006.jpg
+		SFEImages\cr.jpg = SFEImages\cr.jpg
+		SFEImages\CRISP1.jpg = SFEImages\CRISP1.jpg
+		SFEImages\CRISP2.jpg = SFEImages\CRISP2.jpg
+		SFEImages\CRISP3.jpg = SFEImages\CRISP3.jpg
+		SFEImages\HenryTudor.jpg = SFEImages\HenryTudor.jpg
+		SFEImages\nut.jpg = SFEImages\nut.jpg
+		SFEImages\PhotoStack.jpg = SFEImages\PhotoStack.jpg
+		SFEImages\RichardStarkey.jpg = SFEImages\RichardStarkey.jpg
+		SFEImages\sale.jpg = SFEImages\sale.jpg
+		SFEImages\Sale.png = SFEImages\Sale.png
+		SFEImages\sd.jpg = SFEImages\sd.jpg
+		SFEImages\SherlockHolmes.jpg = SFEImages\SherlockHolmes.jpg
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

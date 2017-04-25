@@ -65,19 +65,17 @@
                 </i:Interaction.Triggers>
 
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Phone No" Binding="{Binding Path=Phone}" Width="*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Email" Binding="{Binding Path=Email}" Width="50"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="250"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Phone No" Binding="{Binding Path=Phone}" Width="200"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Email" Binding="{Binding Path=Email}" Width="300"></DataGridTextColumn>
                    
-                    <!--
                     <DataGridTemplateColumn >
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Image Source="{Binding Path=BuyerImage, Converter={StaticResource nullImgConv}}" Width="30" Margin="2" />
+                                <Image Source="{Binding Path=BuyerImage, Converter={StaticResource nullImgConv}}" Width="30" Height="30" Margin="2" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    -->
                 </DataGrid.Columns>
             </DataGrid>
 

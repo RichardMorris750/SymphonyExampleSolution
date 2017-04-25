@@ -115,6 +115,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\BuyerReport.dbc" />
     <Compile Include="Properties\AssemblyInfo.dbl" />
     <Compile Include="Properties\Resources.Designer.dbl">
       <DependentUpon>Properties\Resources.resx</DependentUpon>

@@ -55,7 +55,8 @@ import Symphony.Conductor.Types
 namespace SFE_Buyer.ViewModel
 
 	public class BuyerMaintenanceViewModel extends FileMaintViewModel
-		private static mBuyer	,@Buyer_Data ,new Buyer_Data()
+
+		private static mBuyer		,@Buyer_Data					,new Buyer_Data()
 
 		public method BuyerMaintenanceViewModel
 			sender	,@FrameworkElement
@@ -63,7 +64,7 @@ namespace SFE_Buyer.ViewModel
 			parent(sender, mBuyer.GetType(), new Buyer_FileIO(FileOpenMode.UpdateIndexed), "ShowErrorState")
 
 		proc
-			;this.ProgramModeChanged += doProgramModeChanged
+			this.ProgramModeChanged += doProgramModeChanged
 
 			; standard load method to load the list
 			DataObjectEntryItem = (DataObjectBase)new Buyer_Data()
@@ -78,9 +79,16 @@ namespace SFE_Buyer.ViewModel
 			endparams
 
 		proc
-
+			using currentMode select
+			(ProgramMode.Add),
+			begin
+				mBuyer.Buyer_key = Guid.NewGuid().ToString()
+				nop
+				
+			end
+			endusing
 		endmethod
-
+			
 ;;------------------------------------------------------------------
 		private static mConnector		,@DBConnector
 
@@ -94,7 +102,6 @@ namespace SFE_Buyer.ViewModel
 			endparams
 
 		proc
-			
 			SelectedCollectionItem  = ^null
 			
 			;;clear the list down
@@ -147,8 +154,6 @@ namespace SFE_Buyer.ViewModel
 			data buyerObj	,@Buyer_Data	,new Buyer_Data()
 			
 			data dataSearch	,@DataSelect
-			
-			;this.DataObjectCollection.ClearCollection()
 
 			if (!mKeyWord) then
 				dataSearch =  DataSelect.RunDataSelect(mConnector, "select * from buyer", new Buyer_Data()).Result
@@ -167,8 +172,6 @@ namespace SFE_Buyer.ViewModel
 .endc
 		
 		endmethod
-
-
 
 ;----------------------------------------------------------------------------------------------
 		private mKeyWord	,string
@@ -215,7 +218,7 @@ namespace SFE_Buyer.ViewModel
 				begin
 					lambda doCommand(sender, param)
 					begin
-;						SFE_Buyer.BuyerReport.Print("R",mKeyWord)
+						SFE_Buyer.BuyerReport.Print("R",mKeyWord)
 					end
 					mPrintCommand = new GenericCommand("PRINT", doCommand)
 				end
@@ -234,7 +237,7 @@ namespace SFE_Buyer.ViewModel
 				begin
 					lambda doCommand(Sender, param)
 					begin
-;						SFE_Buyer.BuyerReport.Print("P", mKeyWord)
+						SFE_Buyer.BuyerReport.Print("P", mKeyWord)
 					end
 
 					mPDFCommand = new GenericCommand("PDF", doCommand)	

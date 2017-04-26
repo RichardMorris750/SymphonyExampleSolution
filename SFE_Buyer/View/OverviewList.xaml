@@ -31,19 +31,31 @@
         <Border Grid.Row="1">
             <StackPanel Orientation="Horizontal">
                 <Label Content="Buyer Name" Margin="2,2,2,2" VerticalAlignment="Center"></Label>
-                <TextBox Text="{Binding Path=KeyWord}" Width="100" Margin="2,2,2,2" MaxLength="10" VerticalAlignment="Center" CharacterCasing="Normal"></TextBox>
+                <TextBox Text="{Binding Path=KeyWord}" Width="100" Margin="2,2,2,2" MaxLength="30" VerticalAlignment="Center" CharacterCasing="Normal"></TextBox>
 
-                <Button Style="{StaticResource MenuButtonStyle}" Command="{Binding SearchCommand}" Width="30" Height="30" Margin="20,0">
+                <Button Style="{StaticResource MenuButtonStyle}" Command="{Binding ClearCommand}" Width="30" Height="30" Margin="20,0"
+                        ToolTip="Reset search filter and display all buyers" IsEnabled="{Binding Path=IsNameEmpty}">
+                    <Button.Content>
+                        <Image Grid.Row="0" Source="pack://application:,,,/SFE_UI;component/Images/Icons/Retry_64px.png"></Image>
+                    </Button.Content>
+                </Button>
+
+                <Button Style="{StaticResource MenuButtonStyle}" Command="{Binding SearchCommand}" Width="30" Height="30" Margin="20,0"
+                        ToolTip="Search for buyers matching the search fields">
                     <Button.Content>
                         <Image Source="pack://application:,,,/SFE_UI;component/Images/Icons/search.png"></Image>
                     </Button.Content>
                 </Button>
-                <Button Style="{StaticResource MenuButtonStyle}" Command="{Binding PrintCommand}" Width="30" Height="30" Margin="20,0">
+                
+                <Button Style="{StaticResource MenuButtonStyle}" Command="{Binding PrintCommand}" Width="30" Height="30" Margin="20,0"
+                        ToolTip="Print Buyer report">
                     <Button.Content>
                         <Image Source="pack://application:,,,/SFE_UI;component/Images/Icons/Print_64px.png"></Image>
                     </Button.Content>
                 </Button>
-                <Button Style="{StaticResource MenuButtonStyle}" Command="{Binding PDFCommand}" Width="30" Height="30" Margin="20,0">
+                
+                <Button Style="{StaticResource MenuButtonStyle}" Command="{Binding PDFCommand}" Width="30" Height="30" Margin="20,0"
+                        ToolTip="Create PDF Buyer report">
                     <Button.Content>
                         <Image Source="pack://application:,,,/SFE_UI;component/Images/Icons/PDF.png"></Image>
                     </Button.Content>

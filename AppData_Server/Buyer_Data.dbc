@@ -46,6 +46,8 @@ namespace AppData
 ;;=============================================================================
 .region "Private Variables"
 		private mDateCreated		,string
+		private mDefaultImageName	,a*	,"PhotoStack"	
+		private mBuyerImageName		,a30
 		private mBuyerImage			,@ImageSource
 		private mDateConverter		,@SynergyDecimalDateConverter	,new SynergyDecimalDateConverter()
 		private	mAlphaDateConverter	,@SynergyAlphaDateTimeConverter	,new SynergyAlphaDateTimeConverter()
@@ -54,33 +56,40 @@ namespace AppData
 
 ;;=============================================================================
 .region 'Properties'
+		public property BuyerImageFile, string
+			method get
+			proc
+				data returnedName	,string
+
+				setBuyerImageName()
+				
+				returnedName = AppData.DataLogic.GetImageFileName(mBuyerImageName, ImageFileType.JPGFileType)
+				if (!returnedName)
+					returnedName = AppData.DataLogic.GetImageFileName(mDefaultImageName, ImageFileType.JPGFileType)
+
+				mreturn returnedName
+			endmethod
+
+		endproperty
+
+;;-----------------------------------------------------------------------------	
 		public property BuyerImage, @ImageSource
 			method get
 			proc
 				if (mBuyerImage == ^null)
 				begin
 					data defaultImage	,a*	,"PhotoStack"
-					data buyerName		,a30
-					data pos			,d2 ,0
 
-					buyerName = atrim(buyer_main.STR_Name)
-					repeat
-					begin
-						pos = instr(1,atrim(buyerName), " ")
-						if !pos
-							exitloop
-
-						buyerName = buyerName(1:(pos-1)) + buyerName((pos+1),30)
-					end
-					
-					mBuyerImage = AppData.DataLogic.GetImageSource(buyerName, ImageFileType.JPGFileType)	;,"BuyerImages")
+					setBuyerImageName()
+					mBuyerImage = AppData.DataLogic.GetImageSource(mBuyerImageName, ImageFileType.JPGFileType)
 
 					if (mBuyerImage == ^null)
-						mBuyerImage = AppData.DataLogic.GetImageSource(defaultImage, ImageFileType.JPGFileType)	;,"BuyerImages")
+						mBuyerImage = AppData.DataLogic.GetImageSource(mDefaultImageName, ImageFileType.JPGFileType)
 				end
 									
 				mreturn mBuyerImage
 			endmethod
+
 		endproperty
 
 ;;-----------------------------------------------------------------------------	
@@ -124,7 +133,6 @@ namespace AppData
 						
 		endmethod
 
-
 ;;-----------------------------------------------------------------------------	
 		;;; <summary>
 		;;;	Take a string that contains a Synergy %datetime value (YYYYMMDDhhmmssuuuuuu format) and split it into it's constituent parts (date + time).
@@ -149,6 +157,7 @@ namespace AppData
 					aTime = tmpDatetime.Split(' ')[2] + tmpDatetime.Split(' ')[3]					
 				end
 			end
+
 		endmethod
 
 ;;-----------------------------------------------------------------------------	
@@ -183,6 +192,26 @@ namespace AppData
 		endmethod
 
 ;;-----------------------------------------------------------------------------	
+		private method setBuyerImageName, void
+			endparams
+
+		proc
+			data pos			,d2 ,0
+
+			mBuyerImageName = atrim(buyer_main.STR_Name)
+			repeat
+			begin
+				pos = instr(1,atrim(mBuyerImageName), " ")
+				if !pos
+					exitloop
+
+				mBuyerImageName = mBuyerImageName(1:(pos-1)) + mBuyerImageName((pos+1),30)
+			end
+
+		endmethod
+
+
+
 .endregion
 	
 	endclass

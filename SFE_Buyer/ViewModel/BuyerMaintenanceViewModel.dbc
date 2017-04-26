@@ -56,7 +56,137 @@ namespace SFE_Buyer.ViewModel
 
 	public class BuyerMaintenanceViewModel extends FileMaintViewModel
 
-		private static mBuyer		,@Buyer_Data					,new Buyer_Data()
+;;=============================================================================
+.region "Private Variables"
+		private static mBuyer			,@Buyer_Data		,new Buyer_Data()
+		private static mConnector		,@DBConnector
+
+		private mKeyWord				,string
+		private mIsNameEmpty			,boolean			,false
+
+		private mClearCommand			,@GenericCommand
+		private mSearchCommand			,@GenericCommand
+		private mPrintCommand			,@GenericCommand
+		private mPDFCommand				,@GenericCommand
+		
+.endregion
+
+;;=============================================================================
+.region 'Properties'
+
+		public property KeyWord, string
+			method get
+			proc
+				mreturn mKeyWord
+			endmethod
+			method set
+			proc
+				mKeyWord = value
+				RaisePropertyChanged("KeyWord")
+
+				if (mKeyWord != ^null)
+					IsNameEmpty = true
+			endmethod
+		
+		endproperty
+
+;-------------------------------------------------------------------------------------------------
+		public property IsNameEmpty, boolean
+			method get
+			proc
+				mreturn mIsNameEmpty
+			endmethod
+			method set
+			proc
+				mIsNameEmpty = value
+				RaisePropertyChanged("IsNameEmpty")
+			endmethod
+
+		endproperty
+		
+;-------------------------------------------------------------------------------------------------
+		public property ClearCommand		,@GenericCommand
+			method get
+			proc
+
+				if (mClearCommand == ^null)
+				begin
+					lambda doCommand(sender, param)
+					begin
+						mKeyWord = ^null
+						IsNameEmpty = false
+
+						LoadBaseItemCollection()
+						RaisePropertyChanged(^null)
+					end
+					mClearCommand = new GenericCommand("CLEAR", doCommand)
+				end
+
+				mreturn mClearCommand
+			endmethod
+
+		endproperty
+
+;-------------------------------------------------------------------------------------------------
+		public property SearchCommand	,@GenericCommand
+			method get
+			proc
+				if (mSearchCommand == ^null)
+				begin
+					lambda doCommand(sender, param)
+					begin
+						LoadBaseItemCollection()
+					end
+					mSearchCommand = new GenericCommand("SEARCH", doCommand)
+				end
+
+				mreturn mSearchCommand
+			endmethod
+		
+		endproperty
+
+;-------------------------------------------------------------------------------------------------
+		public property PrintCommand	,@GenericCommand 
+			method get
+			proc
+				if (mPrintCommand == ^null)
+				begin
+					lambda doCommand(sender, param)
+					begin
+						SFE_Buyer.BuyerReport.Print("R",mKeyWord)
+					end
+					mPrintCommand = new GenericCommand("PRINT", doCommand)
+				end
+
+				mreturn mPrintCommand
+			endmethod
+			
+		endproperty
+
+;-------------------------------------------------------------------------------------------------
+		public property PDFCommand	,@GenericCommand
+			method get
+			proc
+				if (mPDFCommand == ^null)
+				begin
+					lambda doCommand(Sender, param)
+					begin
+						SFE_Buyer.BuyerReport.Print("P", mKeyWord)
+					end
+
+					mPDFCommand = new GenericCommand("PDF", doCommand)	
+				end
+
+				mreturn mPDFCommand
+			endmethod
+			
+		endproperty
+		
+		
+.endregion
+
+;;=============================================================================
+.region 'Methods'
 
 		public method BuyerMaintenanceViewModel
 			sender	,@FrameworkElement
@@ -71,6 +201,7 @@ namespace SFE_Buyer.ViewModel
 			DataObjectEntryItem.IsDataModifiedChanged += DoIsDataModified
 
 			this.LoadDetailList()
+
 		endmethod
 
 ;;-------------------------------------------------------------------
@@ -87,10 +218,10 @@ namespace SFE_Buyer.ViewModel
 				
 			end
 			endusing
+
 		endmethod
 			
 ;;------------------------------------------------------------------
-		private static mConnector		,@DBConnector
 
 ;.define FileObjects
 
@@ -170,84 +301,11 @@ namespace SFE_Buyer.ViewModel
 					SelectedCollectionItem = buyerObj
 			end
 .endc
-		
 		endmethod
 
-;----------------------------------------------------------------------------------------------
-		private mKeyWord	,string
-	
-		public property KeyWord, string
-			method get
-			proc
-				mreturn mKeyWord
-			endmethod
-			method set
-			proc
-				mKeyWord = value
-				RaisePropertyChanged("KeyWord")
-			endmethod
-		
-		endproperty
 
-;-------------------------------------------------------------------------------------------------
-		private mSearchCommand	,@GenericCommand
 
-		public property SearchCommand	,@GenericCommand
-			method get
-			proc
-				if (mSearchCommand == ^null)
-				begin
-					lambda doCommand(sender, param)
-					begin
-						LoadBaseItemCollection()
-					end
-					mSearchCommand = new GenericCommand("SEARCH", doCommand)
-				end
-
-				mreturn mSearchCommand
-			endmethod
-		
-		endproperty
-		
-		private mPrintCommand	,@GenericCommand
-
-		public property PrintCommand	,@GenericCommand 
-			method get
-			proc
-				if (mPrintCommand == ^null)
-				begin
-					lambda doCommand(sender, param)
-					begin
-						SFE_Buyer.BuyerReport.Print("R",mKeyWord)
-					end
-					mPrintCommand = new GenericCommand("PRINT", doCommand)
-				end
-
-				mreturn mPrintCommand
-			endmethod
-			
-		endproperty
-
-		private mPDFCommand	,@GenericCommand
-
-		public property PDFCommand	,@GenericCommand
-			method get
-			proc
-				if (mPDFCommand == ^null)
-				begin
-					lambda doCommand(Sender, param)
-					begin
-						SFE_Buyer.BuyerReport.Print("P", mKeyWord)
-					end
-
-					mPDFCommand = new GenericCommand("PDF", doCommand)	
-				end
-
-				mreturn mPDFCommand
-			endmethod
-			
-		endproperty
-			
+.endregion
 	
 	endclass
 

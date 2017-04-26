@@ -55,14 +55,19 @@ namespace SFE_Buyer
 
 	public class BuyerReport
 
+;;=============================================================================
+.region "Private Variables"
 		private static mConnector		,@DBConnector
-		
+
+.endregion
+
+;;=============================================================================
+.region 'Methods'
+				
 		public static method Print		, void
 			in req ReportType	,a		;R = Print API, P = PDF
 			in req KeyWord		,a		; description key word
-
 			endparams
-			
 			
 		proc
 			;;load the data using Symphony Harmony and a local connection
@@ -72,7 +77,7 @@ namespace SFE_Buyer
 			mConnector.SetCaseSensitivity(false)			
 			
 			;;open printer
-			SFEUtilities.SFEPrinting.PrinterOpen(ReportType,false,110,100,200,200,100,true,true)			
+			SFEUtilities.SFEPrinting.PrinterOpen(ReportType,true,145,,,50,50,true,true)			
 
 			data buyerObj	,@Buyer_Data	,new Buyer_Data()
 			data dataSearch	,@DataSelect
@@ -95,24 +100,29 @@ namespace SFE_Buyer
 					
 					firstPage = false
 						
-					SFEUtilities.SFEPrinting.SetFont("Cambria",14)
+					SFEUtilities.SFEPrinting.SetFont("Cambria",14,,"blue")
 					SFEUtilities.SFEPrinting.PrintField(1,1,"Buyer Listing Report")
 					SFEUtilities.SFEPrinting.SetFont("Cambria",12)
 					SFEUtilities.SFEPrinting.PrintField(3,1,"Name & Address")
-					SFEUtilities.SFEPrinting.PrintField(3,33,"Phone No")
-					SFEUtilities.SFEPrinting.PrintField(3,50,"Mobile Phone No")
-					SFEUtilities.SFEPrinting.PrintField(3,70,"Email")
+					SFEUtilities.SFEPrinting.PrintField(3,32,"Phone No")
+					SFEUtilities.SFEPrinting.PrintField(3,52,"Mobile Phone No")
+					SFEUtilities.SFEPrinting.PrintField(3,76,"Email")
+
 					lineCount = 4					
 					SFEUtilities.SFEPrinting.SetFont("Calibri",10)
 				end
-					
-					
+									
 				incr lineCount
+				SFEUtilities.SFEPrinting.SetFont("Calibri",10,,"black")
+												
 				SFEUtilities.SFEPrinting.PrintField(lineCount,1,buyerObj.Name)
-				SFEUtilities.SFEPrinting.PrintField(lineCount,33,buyerObj.Phone)
-				SFEUtilities.SFEPrinting.PrintField(lineCount,50,buyerObj.Mobile_phone)
-				SFEUtilities.SFEPrinting.PrintField(lineCount,70,buyerObj.Email)
-					
+				SFEUtilities.SFEPrinting.PrintField(lineCount,32,buyerObj.Phone)
+				SFEUtilities.SFEPrinting.PrintField(lineCount,53,buyerObj.Mobile_phone)
+				SFEUtilities.SFEPrinting.PrintField(lineCount,75,buyerObj.Email)
+
+				if (buyerObj.BuyerImageFile != ^null)
+					SFEUtilities.SFEPrinting.PrintImage(buyerObj.BuyerImageFile,lineCount,120,lineCount+6,18)
+								
 				if (buyerObj.address1)
 				begin
 					incr lineCount
@@ -137,7 +147,7 @@ namespace SFE_Buyer
 					SFEUtilities.SFEPrinting.PrintField(lineCount,1,buyerObj.Postcode)		
 				end
 					
-				incr lineCount
+				lineCount +=1
 				SFEUtilities.SFEPrinting.SetFont(,10)
 			end
 			
@@ -146,6 +156,8 @@ namespace SFE_Buyer
 			mreturn
 			
 		endmethod
+	
+.endregion
 	
 	endclass
 

@@ -98,19 +98,19 @@ namespace AppData
 			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "SUPP_CODE", "Supp_code",  "", "",
 			&	"", "SUPP_CODE", 7, 6,
 			&	0, 0, 0, 0,
-			&	"ALPHA", false, 0, 0)
+			&	"ALPHA", true, 0, 0)
 
 			
 			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "ORDER_DATE", "Order_date",  "", "",
 			&	"", "ORDER_DATE", 13, 8,
 			&	0, 0, 0, 0,
-			&	"DATE", false, 0, 99999999)
+			&	"DATE", true, 0, 99999999)
 
 			
 			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "REQD_DATE", "Reqd_date",  "", "",
 			&	"", "REQD_DATE", 21, 8,
 			&	0, 0, 0, 0,
-			&	"DATE", false, 0, 99999999)
+			&	"DATE", true, 0, 99999999)
 
 			
 			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "COMMENTS", "Comments",  "", "",

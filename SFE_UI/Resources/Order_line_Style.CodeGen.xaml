@@ -203,15 +203,72 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type symphonyControls:FieldControl}">
-                    <TextBox
+                    <symphonyUI:SearchTextBox
                         
-                        CaretBrush="{StaticResource CaretBrush}"
+                        HorizontalAlignment="Left"
                         Name="ctlOrder_line_Prod_code"
                         Text="{Binding Path=Prod_code, Converter={StaticResource alphaConverter}, UpdateSourceTrigger=Default,
                                 ValidatesOnDataErrors=True}"
                                 Validation.ErrorTemplate="{StaticResource validationTemplate}"
+                        SearchMode="Delayed"
+                                                Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.NavigateState}"
+                        CommandParameter="ProductCodeDrillState"
                         MaxLength="10"
-                        Width="120"
+                        Width="100"
+                        IsEnabled="{Binding Path=Prod_codeIsEnabled}"
+                        IsReadOnly="{Binding Path=Prod_codeIsReadOnly}"
+                        VerticalAlignment="Center"
+                        ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
+                                    <i:Interaction.Behaviors>
+                                      <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
+                                    </i:Interaction.Behaviors>
+                        <symphonyUI:SearchTextBox.Style>
+                            <Style>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=Prod_codeIsFocused}" Value="true">
+                                        <Setter Property="FocusManager.FocusedElement"
+                                                Value="{Binding ElementName=ctlOrder_line_Prod_code}"></Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
+                                        <Setter Property="TextBox.Foreground" Value="{StaticResource InputInErrorForegroundBrush}" />
+                                        <Setter Property="TextBox.Background">
+                                            <Setter.Value>
+                                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                    <LinearGradientBrush.GradientStops>
+                                                        <GradientStop Offset="0.2" Color="Gray" />
+                                                        <GradientStop Offset="3" Color="Red" />
+                                                    </LinearGradientBrush.GradientStops>
+                                                </LinearGradientBrush>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="False">
+                                        <Setter Property="TextBox.Foreground" Value="{StaticResource InputForegroundBrush}" />
+                                        <Setter Property="TextBox.Background" Value="Transparent"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </symphonyUI:SearchTextBox.Style>
+                    </symphonyUI:SearchTextBox>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="Order_line_Prod_code_noDrill_style" TargetType="{x:Type symphonyControls:FieldControl}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Focusable" Value="False"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type symphonyControls:FieldControl}">
+                    <TextBox
+                        
+                        CaretBrush="{StaticResource CaretBrush}"
+                        Name="ctlOrder_line_Prod_code_noDrill"
+                        Text="{Binding Path=Prod_code, Converter={StaticResource alphaConverter}, UpdateSourceTrigger=Default,
+                                ValidatesOnDataErrors=True}"
+                                Validation.ErrorTemplate="{StaticResource validationTemplate}"
+                        MaxLength="10"
+                        Width="100"
                         IsEnabled="{Binding Path=Prod_codeIsEnabled}"
                         IsReadOnly="{Binding Path=Prod_codeIsReadOnly}"
                         VerticalAlignment="Center"
@@ -225,7 +282,7 @@
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding Path=Prod_codeIsFocused}" Value="true">
                                         <Setter Property="FocusManager.FocusedElement"
-                                                Value="{Binding ElementName=ctlOrder_line_Prod_code}"></Setter>
+                                                Value="{Binding ElementName=ctlOrder_line_Prod_code_noDrill}"></Setter>
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
                                         <Setter Property="TextBox.Foreground" Value="{StaticResource InputInErrorForegroundBrush}" />

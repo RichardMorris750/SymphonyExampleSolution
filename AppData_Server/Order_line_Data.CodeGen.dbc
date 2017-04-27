@@ -104,7 +104,7 @@ namespace AppData
 			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "PROD_CODE", "Prod_code",  "", "",
 			&	"", "PROD_CODE", 12, 10,
 			&	0, 0, 0, 0,
-			&	"ALPHA", false, 0, 0)
+			&	"ALPHA", true, 0, 0)
 
 			
 			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "PROD_DESCRIPTION", "Prod_description",  "", "",
@@ -116,7 +116,7 @@ namespace AppData
 			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "QTY", "Qty",  "", "",
 			&	"", "QTY", 62, 6,
 			&	0, 0, 0, 0,
-			&	"DECIMAL", false, 0, 999999)
+			&	"DECIMAL", true, 0, 999999)
 
 			
 			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "PRICE", "Price",  "", "",

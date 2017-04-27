@@ -1,0 +1,109 @@
+
+import System
+import System.Collections.Generic
+import System.Text
+import Symphony.Conductor.Model
+import Symphony.Conductor.ViewModel
+import Symphony.Conductor.Types
+import Symphony.Conductor.Commands
+import Symphony.Conductor.DataIO
+import Symphony.Harmony
+
+;;imports required to use data objects and file IO classes.
+import AppData
+import System.Windows.Media
+import System.Collections.ObjectModel
+import System.Reflection
+import System.Linq
+
+
+namespace AppData
+	
+	public partial class Order_Line_Data
+		
+		protected override method extendedConstructor,void
+		endparams
+		proc
+			ValidateData += doDataChanged
+			SynergyRecordChanged += synergychanged
+			SynergyRecordChanged += refreshData
+
+			;;if we have data passed to the constructor) then use it to populate the 
+			;;aditional fields
+			if (trim(order_line_main.str_prod_code)) 
+				synergychanged()
+			
+			
+		endmethod
+		
+		private method doDataChanged,void
+		inout req message				,@DataChangedMessage
+		endparams
+		proc
+
+
+			using message.FieldName select
+
+			("PROD_CODE")				,
+			begin
+
+				if (Prod_Code)
+				begin
+				data	ProductIO		,@Product_FileIO		,new Product_FileIO()
+				data ProductObj			,@Product_Data			,new Product_Data()
+
+					ProductObj.Prod_code = Prod_code
+					if (ProductIO.ReadRecord(ProductObj) != FileAccessResults.Success) then
+					begin
+						message.FailReason = "Product does not exist"
+						message.ValidationState = DataValidationState.Error
+					end
+					else
+					begin
+						message.ValidationState = DataValidationState.OK
+						prod_description = productObj.prod_description
+						using (ProductObj.Vat_code) select
+						(1),	Vat_rate = 20.00
+						(2),	Vat_rate = 5.00
+						(),		Vat_rate = 0.00
+						endusing
+						Price = ProductObj.Sell_price
+						raisePropertyChanged ("Prod_description")
+						raisePropertyChanged ("Price")
+						raisePropertyChanged ("Vat_rate")
+					end
+				end
+			end
+
+			("QTY","PRICE"),
+			begin
+				Line_value = Qty * Price
+				Vat_value = (Line_value * Vat_rate)/100
+				raisePropertyChanged ("Line_value")
+				raisePropertyChanged ("Vat_value")
+			end
+
+			endusing
+		endmethod
+		
+
+;; this is where I can populate the extra fields I add to my data object		
+		private method synergychanged	,void
+		endparams
+		proc
+			nop
+
+		endmethod
+		
+		private method refreshData,void
+		endparams
+		proc
+			RaisePropertyChanged(^null)
+		endmethod
+		
+	
+
+
+	endclass
+	
+endnamespace

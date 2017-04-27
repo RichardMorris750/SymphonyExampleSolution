@@ -31,12 +31,17 @@
                     <Int32Animation Storyboard.TargetName="mainView" Storyboard.TargetProperty="(Panel.ZIndex)" To="1" />
 
                     
-                    <DoubleAnimation Storyboard.TargetName="suppCodeLookupView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.2" To="1" />
+                    <DoubleAnimation Storyboard.TargetName="suppCodeLookupView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.2" To="0" />
                     <BooleanAnimationUsingKeyFrames Storyboard.TargetName="suppCodeLookupView" Storyboard.TargetProperty="(IsEnabled)">
                         <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
                     </BooleanAnimationUsingKeyFrames>
                     <Int32Animation Storyboard.TargetName="suppCodeLookupView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
-                    
+
+                    <DoubleAnimation Storyboard.TargetName="prodCodeLookupView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.2" To="0" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="prodCodeLookupView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="prodCodeLookupView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
                     
                     <DoubleAnimation Storyboard.TargetName="errorView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0" To="0" />
                     <BooleanAnimationUsingKeyFrames Storyboard.TargetName="errorView" Storyboard.TargetProperty="(IsEnabled)">
@@ -51,6 +56,12 @@
             <VisualState x:Name="SupplierCodeDrillState">
                 <Storyboard>
 
+                    <DoubleAnimation Storyboard.TargetName="suppCodeLookupView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.2" To="1" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="suppCodeLookupView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="suppCodeLookupView" Storyboard.TargetProperty="(Panel.ZIndex)" To="1" />
+                    
                     <DoubleAnimation Storyboard.TargetName="mainView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.2" To="0.2" />
                     <BooleanAnimationUsingKeyFrames Storyboard.TargetName="mainView" Storyboard.TargetProperty="(IsEnabled)">
                         <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
@@ -63,16 +74,47 @@
                     </BooleanAnimationUsingKeyFrames>
                     <Int32Animation Storyboard.TargetName="errorView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
 
-
-                    <DoubleAnimation Storyboard.TargetName="suppCodeLookupView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.2" To="1" />
-                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="suppCodeLookupView" Storyboard.TargetProperty="(IsEnabled)">
-                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True"/>
+                    <DoubleAnimation Storyboard.TargetName="prodCodeLookupView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.2" To="0" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="prodCodeLookupView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
                     </BooleanAnimationUsingKeyFrames>
-                    <Int32Animation Storyboard.TargetName="suppCodeLookupView" Storyboard.TargetProperty="(Panel.ZIndex)" To="1" />
+                    <Int32Animation Storyboard.TargetName="prodCodeLookupView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+
 
                 </Storyboard>
             </VisualState>
 
+
+            <VisualState x:Name="ProductCodeDrillState">
+                <Storyboard>
+
+                    <DoubleAnimation Storyboard.TargetName="prodCodeLookupView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.2" To="1" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="prodCodeLookupView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="prodCodeLookupView" Storyboard.TargetProperty="(Panel.ZIndex)" To="1" />
+
+                    <DoubleAnimation Storyboard.TargetName="mainView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.2" To="0.2" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="mainView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="mainView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+
+                    <DoubleAnimation Storyboard.TargetName="errorView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0" To="0" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="errorView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="errorView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+
+                    <DoubleAnimation Storyboard.TargetName="suppCodeLookupView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.2" To="1" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="suppCodeLookupView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="suppCodeLookupView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+
+
+                </Storyboard>
+            </VisualState>
 
             <VisualState x:Name="ShowErrorState">
                 <Storyboard>
@@ -153,6 +195,9 @@
             <sfeuiCommon:SupplierCodeLookup DataContext="{Binding Path=SuppCodeLookupVM}"></sfeuiCommon:SupplierCodeLookup>
         </Border>
 
+        <Border Name="prodCodeLookupView" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <sfeuiCommon:ProductCodeLookup DataContext="{Binding Path=ProdCodeLookupVM}"></sfeuiCommon:ProductCodeLookup>
+        </Border>
     </Grid>
 
 </UserControl>

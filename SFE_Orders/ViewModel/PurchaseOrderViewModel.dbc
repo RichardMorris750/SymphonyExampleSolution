@@ -80,6 +80,8 @@ namespace SFE_Orders.ViewModel
 
 			buildSupplierCodeLookup()
 
+			buildProductCodeLookup()
+
 			;;when we navigate viausl states we need to execute logic, so define an event handler
 			;;that is called when we do navitate visual stated
 			BeforeNavigateState += doBeforeNavigateState
@@ -99,19 +101,19 @@ namespace SFE_Orders.ViewModel
 			using currentMode select
 			(ProgramMode.Modify),
 			begin
-				DataObjectEntryItem.SetFieldReadOnlyStatus(true, "ORDER_NO")
+				DataObjectEntryItem.SetFieldReadOnlyStatus(true, "SUPP_CODE")
 			end
 			(ProgramMode.Add)	,
 			begin
-				DataObjectEntryItem.SetFieldReadOnlyStatus(false, "ORDER_NO")
+				DataObjectEntryItem.SetFieldReadOnlyStatus(false, "SUPP_CODE")
 			end
 			(ProgramMode.Enquiry),
 			begin
-				DataObjectEntryItem.SetFieldReadOnlyStatus(true, "ORDER_NO")
+				DataObjectEntryItem.SetFieldReadOnlyStatus(true, "SUPP_CODE")
 			end
 			endusing
 
-
+			DataObjectEntryItem.SetFieldReadOnlyStatus(true, "ORDER_NO")
 			DataObjectEntryItem.SetFieldReadOnlyStatus(true, "LINE_COUNT")
 			DataObjectEntryItem.SetFieldReadOnlyStatus(true, "TOT_QTY")
 			DataObjectEntryItem.SetFieldReadOnlyStatus(true, "TOT_VALUE")
@@ -123,7 +125,7 @@ namespace SFE_Orders.ViewModel
 
 
 		private method doProgramDetailModeChanged,void
-		in req currentDetailMode	,ProgramMode
+		in req currentDetailMode		,ProgramMode
 		endparams
 		proc
 			;;this event handler allows us to prevent the user from being able to change field
@@ -132,16 +134,16 @@ namespace SFE_Orders.ViewModel
 			IgnoreDetailDataChanged = true
 			
 			using currentDetailMode select
-			(ProgramMode.Modify)	,
+			(ProgramMode.Modify)		,
 			begin
 
 				DataObjectDetailEntryItem.SetFieldReadOnlyStatus(true, "PROD_CODE")
 			end
-			(ProgramMode.Add)		,
+			(ProgramMode.Add)			,
 			begin
 				DataObjectDetailEntryItem.SetFieldReadOnlyStatus(false, "PROD_CODE")
 			end
-			(ProgramMode.Enquiry)	,
+			(ProgramMode.Enquiry)		,
 			begin
 				DataObjectDetailEntryItem.SetFieldReadOnlyStatus(true, "PROD_CODE")
 			end
@@ -155,7 +157,7 @@ namespace SFE_Orders.ViewModel
 		endmethod
 
 ;-----------------------------------------------------------------------------------
-		private static mConnector				,@DBConnector
+		private static mConnector		,@DBConnector
 
 		public override method LoadBaseItemCollection,void
 		endparams
@@ -171,7 +173,7 @@ namespace SFE_Orders.ViewModel
 		data item = new Order_Header_Data()
 ;		data Order_HeaderIO = new Order_Header_FileIO()
 
-		data whereString		,string
+		data whereString					,string
 
 			if (mKeyValue) then
 				whereString = "where order_no = :1"
@@ -196,10 +198,10 @@ namespace SFE_Orders.ViewModel
 			GridIsEnabled = false
 
 
-		data foundRecs				,int					,false
+		data foundRecs						,int		,false
 
-		dataSearch = DataSelect.RunDataSelect(mConnector, "select * from Order_Header " + whereString , 
-			&	new Order_header_Data()	,mKeyValue).Result
+			dataSearch = DataSelect.RunDataSelect(mConnector, "select * from Order_Header " + whereString , 
+			&	new Order_header_Data()		,mKeyValue).Result
 								
 			foreach item in dataSearch
 			begin
@@ -228,9 +230,9 @@ namespace SFE_Orders.ViewModel
 
 ;----------------------------------------------------------------------------------------------
 	
-		private	mKeyValue			,int
+		private	mKeyValue					,int
 	
-		public property KeyValue	,int
+		public property KeyValue			,int
 			method get
 			proc
 				mreturn mKeyValue
@@ -245,7 +247,7 @@ namespace SFE_Orders.ViewModel
 
 		private	mKeySupplier			,string
 	
-		public property KeySupplier	,string
+		public property KeySupplier		,string
 			method get
 			proc
 				mreturn mKeySupplier
@@ -277,9 +279,9 @@ namespace SFE_Orders.ViewModel
 			endmethod
 		endproperty
 	
-		private mClearCommand				,@GenericCommand	
+		private mClearCommand			,@GenericCommand	
 			
-		public property ClearCommand		,@GenericCommand
+		public property ClearCommand	,@GenericCommand
 			method get
 			proc
 
@@ -340,8 +342,38 @@ namespace SFE_Orders.ViewModel
 				mreturn mPDFCommand
 			endmethod
 		endproperty
+
+;---------------------------set key to order header record-----------------------------------------------------------
+		public async override method SetKeyForNewRecord,void
+
+		proc
+		data parameterIO = new Parameter_fileIO(FileOpenMode.UpdateRelative)
+
+		data paramObj		,@Parameter_Data		,new Parameter_Data()
+
+			;;read the first record (record number 1).  We ignore any "not found" errors.
+			parameterIO.ReadRecord(paramObj, 1)
+
+			;;set values		
+			paramObj.Last_order_no += 1
+
+			;;update record #1
+			if (parameterIO.UpdateRecord(paramObj) != FileAccessResults.Success) then
+			begin
+				ErrorInfo = "Synergy error : " + %string(parameterIO.LastSynergyError) + ' allocating next order no'
+				MoveToState("ShowErrorState")
+			end
+			else
+			begin
+;				ErrorInfo = 'Your Purchase Order Number is ' +  string(paramObj.Last_order_no)
+;				MoveToState("ShowErrorState")		; this is not an error, but uses the same display visual state
+				nop
+			end
+
+			((Order_Header_Data)DataObjectEntryItem).Order_No = paramObj.Last_order_no
+
+		endmethod
 	
-		
 ;---------------------------handle detail lines-----------------------------------------------------------------------
 .region 'detail line handling'
 
@@ -404,11 +436,50 @@ namespace SFE_Orders.ViewModel
 			this.DataObjectDetailCollection.ClearCollection()
 										
 			foreach orderLineObj in ((Order_Header_Data)DataObjectEntryItem).OrderLineList
-				this.DataObjectDetailCollection.AddToCollection(orderLineObj)
+			this.DataObjectDetailCollection.AddToCollection(orderLineObj)
 
 			RaisePropertyChanged ("DataObjectDetailCollection")
 
 		endmethod
+
+		public async override method UpdateTotals,void
+		in req Mode		,string		; program Mode - add, modify or delete
+
+		proc
+
+			using (Mode) select
+			('Add')		,
+			begin
+				((Order_Header_Data)DataObjectEntryItem).line_Count += 1
+				((Order_Header_Data)DataObjectEntryItem).Tot_Qty +=   ((Order_Line_Data)DataObjectDetailEntryItem).Qty
+				((Order_Header_Data)DataObjectEntryItem).Tot_Value += ((Order_Line_Data)DataObjectDetailEntryItem).Line_Value
+				((Order_Header_Data)DataObjectEntryItem).Tot_Vat +=   ((Order_Line_Data)DataObjectDetailEntryItem).Vat_Value
+			end
+			('Modify')	,
+			begin
+				((Order_Header_Data)DataObjectEntryItem).Tot_Qty -=   ((Order_Line_Data)SelectedDetailCollectionItem).Qty
+				((Order_Header_Data)DataObjectEntryItem).Tot_Value -= ((Order_Line_Data)SelectedDetailCollectionItem).Line_Value
+				((Order_Header_Data)DataObjectEntryItem).Tot_Vat -=   ((Order_Line_Data)SelectedDetailCollectionItem).Vat_Value
+				((Order_Header_Data)DataObjectEntryItem).Tot_Qty +=   ((Order_Line_Data)DataObjectDetailEntryItem).Qty
+				((Order_Header_Data)DataObjectEntryItem).Tot_Value += ((Order_Line_Data)DataObjectDetailEntryItem).Line_Value
+				((Order_Header_Data)DataObjectEntryItem).Tot_Vat +=   ((Order_Line_Data)DataObjectDetailEntryItem).Vat_Value
+			end
+			('Delete')	,
+			begin
+				((Order_Header_Data)DataObjectEntryItem).line_Count -= 1
+				((Order_Header_Data)DataObjectEntryItem).Tot_Qty -=   ((Order_Line_Data)DataObjectDetailEntryItem).Qty
+				((Order_Header_Data)DataObjectEntryItem).Tot_Value -= ((Order_Line_Data)DataObjectDetailEntryItem).Line_Value
+				((Order_Header_Data)DataObjectEntryItem).Tot_Vat -=   ((Order_Line_Data)DataObjectDetailEntryItem).Vat_Value
+			end
+
+			endusing
+
+			RaisePropertyChanged ("Line_count")
+			RaisePropertyChanged ("Tot_qty")
+			RaisePropertyChanged ("Tot_value")
+			RaisePropertyChanged ("Tot_vat")
+		endmethod
+
 
 .endregion
 
@@ -428,6 +499,10 @@ namespace SFE_Orders.ViewModel
 				mSuppCodeLookupVM.LoadList()
 			end
 
+			("ProductCodeDrillState"),
+			begin
+				mProdCodeLookupVM.LoadList()
+			end
 			()		,
 				nop
 			endusing
@@ -482,6 +557,52 @@ namespace SFE_Orders.ViewModel
 		
 
 .endregion
+
+.region "Product Code lookup elements"
+		
+		private method buildProductCodeLookup,void
+		endparams
+		proc
+			;;create the product code lookup view model
+			mProdCodeLookupVM = new ProductCodeLookupViewModel()
+
+			;;need event handlers for when they select/quit the lookup
+			mProdCodeLookupVM.ItemSelected += doProdCodeItemSelected
+			mProdCodeLookupVM.CancelSearch += doProdCodeItemCanceled
+		endmethod
+
+
+		private method doProdCodeItemSelected,void
+		sender		,@SelectedItemEventArgs 
+		endparams
+		proc
+			;;we have a product item selected.  first, lets restore back the visual state
+			StateCompleted()
+
+			;;now let's set the data.  this will update the UI and cuase the supplier name to be loaded.
+			((Order_Line_Data)DataObjectDetailEntryItem).prod_code = ((Product_Data)sender.ItemValue).Prod_Code
+
+		endmethod
+
+		private method doProdCodeItemCanceled,void
+		endparams
+		proc
+			;;they want to cancel from the search so just abort the lookup visual state
+			StateAborted()
+		endmethod
+
+		private mProdCodeLookupVM			,@ProductCodeLookupViewModel
+
+		public property ProdCodeLookupVM	,@ProductCodeLookupViewModel
+			method get
+			proc
+				mreturn mProdCodeLookupVM
+			endmethod
+		endproperty
+		
+
+.endregion
+
 
 
 

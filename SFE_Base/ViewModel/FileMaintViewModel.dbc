@@ -615,6 +615,10 @@ namespace SFE_Base.ViewModel
 			end
 			(ProgramMode.Add)				,
 			begin
+
+			; allow key value to be set in program specific view model
+			SetKeyForNewRecord()
+
 			data tmpObj						,@DataObjectBase
 				mCTORArgs[1] = DataObjectEntryItem.SynergyRecord
 
@@ -665,6 +669,15 @@ namespace SFE_Base.ViewModel
 
 		endmethod
 		
+		; dummy method which can be overridden in view models which require the ability to set automatic key(s) for new record
+		public virtual method SetKeyForNewRecord,void
+
+		endparams
+		proc
+			nop
+		endmethod
+
+
 		private mCancelCommand				,@GenericCommand
 		
 		public property CancelCommand		,@GenericCommand
@@ -773,6 +786,13 @@ namespace SFE_Base.ViewModel
 			nop
 		endmethod
 
+		; dummy method which can be overridden in view models which require the ability to update on screen totals
+		public virtual method UpdateTotals,void
+		in req mode		,string					; mode - add, modify or delete
+		endparams
+		proc
+			nop
+		endmethod
 		
 .endregion
 
@@ -836,6 +856,9 @@ namespace SFE_Base.ViewModel
 			using mProgramDetailMode select
 			(ProgramMode.Modify)				,
 			begin
+				;; update totals when changing lines
+				UpdateTotals('Modify')
+
 				;;restore the data to the colleciton item
 				SelectedDetailCollectionItem.SynergyRecord = DataObjectDetailEntryItem.SynergyRecord
 				DataObjectDetailEntryItem.OriginalSynergyRecord = SelectedDetailCollectionItem.SynergyRecord 
@@ -845,6 +868,9 @@ namespace SFE_Base.ViewModel
 			(ProgramMode.Add)					,
 			begin
 			data tmpObj							,@DataObjectBase
+				;; update totals when changing lines
+				UpdateTotals('Add')
+
 				 
 				mDetailCTORArgs[1] = DataObjectDetailEntryItem.SynergyRecord
 
@@ -966,7 +992,10 @@ namespace SFE_Base.ViewModel
 		proc
 			if (SelectedDetailCollectionItem != ^null)
 			begin
-;					;;remove the item from the list
+				;; update totals when deleting lines
+				UpdateTotals('Delete')
+
+				;;remove the item from the list
 				DataObjectDetailCollection.Remove(SelectedDetailCollectionItem)
 				SelectedDetailCollectionItem  = ^null
 					

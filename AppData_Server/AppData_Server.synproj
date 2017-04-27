@@ -182,6 +182,7 @@
     <Compile Include="Order_header_DFM.CodeGen.dbc" />
     <Compile Include="Order_header_FileIO.CodeGen.dbc" />
     <Compile Include="Order_line_Data.CodeGen.dbc" />
+    <Compile Include="Order_Line_Data.dbc" />
     <Compile Include="Order_line_DFM.CodeGen.dbc" />
     <Compile Include="Order_line_FileIO.CodeGen.dbc" />
     <Compile Include="Parameter_Data.CodeGen.dbc" />

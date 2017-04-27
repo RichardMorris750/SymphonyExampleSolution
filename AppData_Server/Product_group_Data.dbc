@@ -60,7 +60,7 @@ namespace AppData
 			method get
 			proc
 				if (mProductGroupImage == ^null)
-					mProductGroupImage = AppData.DataLogic.GetImageSource(product_group_main.STR_Prod_group, ImageFileType.JPGFileType,"GroupImages")
+					mProductGroupImage = AppData.DataLogic.GetImageSource(product_group_main.STR_Prod_group, ImageFileType.JPGFileType)	;,"GroupImages")
 									
 				mreturn mProductGroupImage
 			endmethod

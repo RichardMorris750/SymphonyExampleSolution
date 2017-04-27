@@ -35,6 +35,7 @@ import Symphony.Conductor.Model
 ;;imports required to use data objects and file IO classes.
 import AppData
 import Symphony.Conductor.DataIO
+import Symphony.Conductor.Converters
 import System.Windows.Media
 
 
@@ -44,40 +45,74 @@ namespace AppData
 
 ;;=============================================================================
 .region "Private Variables"
-		private mBuyerImage		,@ImageSource
+		private mDateCreated		,string
+		private mDefaultImageName	,a*	,"PhotoStack"	
+		private mBuyerImageName		,a30
+		private mBuyerImage			,@ImageSource
+		private mDateConverter		,@SynergyDecimalDateConverter	,new SynergyDecimalDateConverter()
+		private	mAlphaDateConverter	,@SynergyAlphaDateTimeConverter	,new SynergyAlphaDateTimeConverter()
 
 .endregion
 
 ;;=============================================================================
 .region 'Properties'
+		public property BuyerImageFile, string
+			method get
+			proc
+				data returnedName	,string
+
+				setBuyerImageName()
+				
+				returnedName = AppData.DataLogic.GetImageFileName(mBuyerImageName, ImageFileType.JPGFileType)
+				if (!returnedName)
+					returnedName = AppData.DataLogic.GetImageFileName(mDefaultImageName, ImageFileType.JPGFileType)
+
+				mreturn returnedName
+			endmethod
+
+		endproperty
+
+;;-----------------------------------------------------------------------------	
 		public property BuyerImage, @ImageSource
 			method get
 			proc
 				if (mBuyerImage == ^null)
 				begin
 					data defaultImage	,a*	,"PhotoStack"
-					data buyerName		,a30
-					data pos			,d2 ,0
 
-					buyerName = atrim(buyer_main.STR_Name)
-					repeat
-					begin
-						pos = instr(1,atrim(buyerName), " ")
-						if !pos
-							exitloop
-
-						buyerName = buyerName(1:(pos-1)) + buyerName((pos+1),30)
-					end
-					
-					mBuyerImage = AppData.DataLogic.GetImageSource(buyerName, ImageFileType.JPGFileType)	;,"BuyerImages")
+					setBuyerImageName()
+					mBuyerImage = AppData.DataLogic.GetImageSource(mBuyerImageName, ImageFileType.JPGFileType)
 
 					if (mBuyerImage == ^null)
-						mBuyerImage = AppData.DataLogic.GetImageSource(defaultImage, ImageFileType.JPGFileType)	;,"BuyerImages")
+						mBuyerImage = AppData.DataLogic.GetImageSource(mDefaultImageName, ImageFileType.JPGFileType)
 				end
 									
 				mreturn mBuyerImage
 			endmethod
+
 		endproperty
+
+;;-----------------------------------------------------------------------------	
+		public property DateCreated, string
+			method get
+			proc
+				if (mDateCreated == ^null)
+				begin
+					data datetime	,a20
+					data tmpTime, String
+					data tmpDate, String
+
+					datetime = %datetime_from_i8( this.Created_timestamp)
+
+					SplitSynergyDatetime(datetime,tmpDate, tmpTime) 
+					mDateCreated = tmpDate
+				end
+				
+				mreturn mDateCreated
+			endmethod
+
+		endproperty
+
 
 .endregion
 
@@ -99,6 +134,33 @@ namespace AppData
 		endmethod
 
 ;;-----------------------------------------------------------------------------	
+		;;; <summary>
+		;;;	Take a string that contains a Synergy %datetime value (YYYYMMDDhhmmssuuuuuu format) and split it into it's constituent parts (date + time).
+		;;; </summary>
+		;;; <param name="aDateTime">The inbound String to convert in Synergy %datetime format</param>
+		;;; <param name="aDate">The date component of the incoming string in the format "mm/dd/yyyy"</param>
+		;;; <param name="aTime">The time component of the incoming string in the format "hh:mm:ss AP"</param>
+		public method SplitSynergyDatetime, void
+			required in aDatetime, String
+			required out aDate, String
+			required out aTime, String
+			endparams
+		proc
+			if (aDatetime !=string.Empty)
+			begin
+				data tmpDatetime, @String
+				tmpDatetime = ((DateTime)mAlphaDateConverter.Convert(aDatetime, ^null, "NODEFAULTODAY", ^null)).ToString()	
+
+				if (tmpDatetime != string.Empty)
+				begin
+					aDate = tmpDatetime.Split(' ')[1]
+					aTime = tmpDatetime.Split(' ')[2] + tmpDatetime.Split(' ')[3]					
+				end
+			end
+
+		endmethod
+
+;;-----------------------------------------------------------------------------	
 		private method doDataChanged, void
 			inout req message			,@DataChangedMessage
 			endparams
@@ -116,6 +178,7 @@ namespace AppData
 		proc
 			;; populate any extra fields that are added to data object	
 			mBuyerImage = ^null
+			mDateCreated = ^null
 
 		endmethod
 
@@ -129,6 +192,26 @@ namespace AppData
 		endmethod
 
 ;;-----------------------------------------------------------------------------	
+		private method setBuyerImageName, void
+			endparams
+
+		proc
+			data pos			,d2 ,0
+
+			mBuyerImageName = atrim(buyer_main.STR_Name)
+			repeat
+			begin
+				pos = instr(1,atrim(mBuyerImageName), " ")
+				if !pos
+					exitloop
+
+				mBuyerImageName = mBuyerImageName(1:(pos-1)) + mBuyerImageName((pos+1),30)
+			end
+
+		endmethod
+
+
+
 .endregion
 	
 	endclass

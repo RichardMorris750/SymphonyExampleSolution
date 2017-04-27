@@ -1,0 +1,164 @@
+;;**********************************************************************
+;;
+;; Title:       BuyerReport.dbc
+;;
+;; Type:        Class
+;;
+;; Description: Buyer Report
+;;
+;; Author:      Allan Shikhvarg, Synergex PSG Consultant
+;;
+;; Copyright (c) 2012, Synergex International, Inc. All rights reserved.
+;;
+;; Redistribution and use in source and binary forms, with or without
+;; modification, are permitted provided that the following conditions are met:
+;;
+;; * Redistributions of source code must retain the above copyright notice,
+;;   this list of conditions and the following disclaimer.
+;;
+;; * Redistributions in binary form must reproduce the above copyright notice,
+;;   this list of conditions and the following disclaimer in the documentation
+;;   and/or other materials provided with the distribution.
+;;
+;; THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+;; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+;; IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+;; ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+;; LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+;; CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+;; SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+;; INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+;; CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+;; ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+;; POSSIBILITY OF SUCH DAMAGE.
+;;
+;;*****************************************************************************
+
+import System
+import System.Collections.Generic
+import System.Text
+import System.Windows
+import System.Linq
+import SFE_Base.ViewModel
+
+import AppData								;required for 'models'
+
+import Symphony.Harmony
+import Symphony.Conductor.Model
+import Symphony.Conductor.ViewModel			;required for BaseViewModel, etc.
+import Symphony.Conductor.Commands			;required for GenericCommand, etc.
+import Symphony.Conductor.DataIO
+import Symphony.Conductor.Types
+
+
+namespace SFE_Buyer
+
+	public class BuyerReport
+
+;;=============================================================================
+.region "Private Variables"
+		private static mConnector		,@DBConnector
+
+.endregion
+
+;;=============================================================================
+.region 'Methods'
+				
+		public static method Print		, void
+			in req ReportType	,a		;R = Print API, P = PDF
+			in req KeyWord		,a		; description key word
+			endparams
+			
+		proc
+			;;load the data using Symphony Harmony and a local connection
+			mConnector = new DBConnector("SYMLOCAL:richard/morris!AppData.TableMapper.MapTableToFile")
+			
+			;;To enable case insensitive comparisons:
+			mConnector.SetCaseSensitivity(false)			
+			
+			;;open printer
+			SFEUtilities.SFEPrinting.PrinterOpen(ReportType,true,145,,,50,50,true,true)			
+
+			data buyerObj	,@Buyer_Data	,new Buyer_Data()
+			data dataSearch	,@DataSelect
+			
+			data lineCount	,i4	
+			data firstPage	,boolean	,true
+
+			if (!KeyWord) then
+				dataSearch =  DataSelect.RunDataSelect(mConnector, "select * from buyer", new Buyer_Data()).Result
+			else
+				dataSearch = DataSelect.RunDataSelect(mConnector, "select * from buyer where name like:1", new Buyer_Data(), KeyWord).Result
+
+			foreach buyerObj in dataSearch
+			begin
+				SFEUtilities.SFEPrinting.SetFont("Calibri",10)
+				if (firstPage || SFEUtilities.SFEPrinting.LinesLeft < 8)
+				begin
+					if (!firstPage)
+						SFEUtilities.SFEPrinting.FormFeed()
+					
+					firstPage = false
+						
+					SFEUtilities.SFEPrinting.SetFont("Cambria",14,,"blue")
+					SFEUtilities.SFEPrinting.PrintField(1,1,"Buyer Listing Report")
+					SFEUtilities.SFEPrinting.SetFont("Cambria",12)
+					SFEUtilities.SFEPrinting.PrintField(3,1,"Name & Address")
+					SFEUtilities.SFEPrinting.PrintField(3,32,"Phone No")
+					SFEUtilities.SFEPrinting.PrintField(3,52,"Mobile Phone No")
+					SFEUtilities.SFEPrinting.PrintField(3,76,"Email")
+
+					lineCount = 4					
+					SFEUtilities.SFEPrinting.SetFont("Calibri",10)
+				end
+									
+				incr lineCount
+				SFEUtilities.SFEPrinting.SetFont("Calibri",10,,"black")
+												
+				SFEUtilities.SFEPrinting.PrintField(lineCount,1,buyerObj.Name)
+				SFEUtilities.SFEPrinting.PrintField(lineCount,32,buyerObj.Phone)
+				SFEUtilities.SFEPrinting.PrintField(lineCount,53,buyerObj.Mobile_phone)
+				SFEUtilities.SFEPrinting.PrintField(lineCount,75,buyerObj.Email)
+
+				if (buyerObj.BuyerImageFile != ^null)
+					SFEUtilities.SFEPrinting.PrintImage(buyerObj.BuyerImageFile,lineCount,120,lineCount+6,18)
+								
+				if (buyerObj.address1)
+				begin
+					incr lineCount
+					SFEUtilities.SFEPrinting.PrintField(lineCount,1,buyerObj.Address1)			
+				end
+					
+				if (buyerObj.address2)
+				begin
+					incr lineCount
+					SFEUtilities.SFEPrinting.PrintField(lineCount,1,buyerObj.Address2)		
+				end
+					
+				if (buyerObj.address3)
+				begin
+					incr lineCount
+					SFEUtilities.SFEPrinting.PrintField(lineCount,1,buyerObj.Address3)		
+				end
+					
+				if (buyerObj.postcode)
+				begin				
+					incr lineCount
+					SFEUtilities.SFEPrinting.PrintField(lineCount,1,buyerObj.Postcode)		
+				end
+					
+				lineCount +=1
+				SFEUtilities.SFEPrinting.SetFont(,10)
+			end
+			
+			SFEUtilities.SFEPrinting.PrinterClose()
+			
+			mreturn
+			
+		endmethod
+	
+.endregion
+	
+	endclass
+
+endnamespace

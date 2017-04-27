@@ -31,13 +31,13 @@ import System
 import System.Collections.Generic
 import System.Text
 import Symphony.Conductor.Model
+import Symphony.Conductor.ViewModel	
 
 ;;imports required to use data objects and file IO classes.
 import AppData
 import Symphony.Conductor.DataIO
 import Symphony.Conductor.Converters
 import System.Windows.Media
-
 
 namespace AppData
 
@@ -89,6 +89,11 @@ namespace AppData
 									
 				mreturn mBuyerImage
 			endmethod
+			method set
+			proc
+				mBuyerImage = value
+				RaisePropertyChanged("BuyerImage")
+			endmethod
 
 		endproperty
 
@@ -99,16 +104,36 @@ namespace AppData
 				if (mDateCreated == ^null)
 				begin
 					data datetime	,a20
-					data tmpTime, String
-					data tmpDate, String
+					data tmpDate	,String
 
-					datetime = %datetime_from_i8( this.Created_timestamp)
+					if (this.Created_timestamp) then
+						datetime = %datetime_from_i8( this.Created_timestamp)
+					else
+						datetime = %datetime
 
-					SplitSynergyDatetime(datetime,tmpDate, tmpTime) 
+					SplitSynergyDatetime(datetime,tmpDate)
 					mDateCreated = tmpDate
 				end
 				
 				mreturn mDateCreated
+			endmethod
+			method set
+			proc
+				mDateCreated = value
+				if (mDateCreated == ^null)
+				begin
+					data datetime	,a20
+					data tmpDate	,String
+
+					if (this.Created_timestamp) then
+						datetime = %datetime_from_i8( this.Created_timestamp)
+					else
+						datetime = %datetime
+
+					SplitSynergyDatetime(datetime,tmpDate)
+					mDateCreated = tmpDate
+				end
+				RaisePropertyChanged("DateCreated")
 			endmethod
 
 		endproperty
@@ -126,8 +151,8 @@ namespace AppData
 			ValidateData		 += doDataChanged
 			SynergyRecordChanged += synergyChanged
 			SynergyRecordChanged += refreshData
-
-			;;if data passed is to the constructor then use it to populate the aditional fields
+			
+			;;if data is passed to the constructor then use it to populate the aditional fields
 			if (trim(buyer_main.STR_Name)) 
 				synergychanged()
 						
@@ -139,11 +164,9 @@ namespace AppData
 		;;; </summary>
 		;;; <param name="aDateTime">The inbound String to convert in Synergy %datetime format</param>
 		;;; <param name="aDate">The date component of the incoming string in the format "mm/dd/yyyy"</param>
-		;;; <param name="aTime">The time component of the incoming string in the format "hh:mm:ss AP"</param>
 		public method SplitSynergyDatetime, void
 			required in aDatetime, String
 			required out aDate, String
-			required out aTime, String
 			endparams
 		proc
 			if (aDatetime !=string.Empty)
@@ -152,10 +175,7 @@ namespace AppData
 				tmpDatetime = ((DateTime)mAlphaDateConverter.Convert(aDatetime, ^null, "NODEFAULTODAY", ^null)).ToString()	
 
 				if (tmpDatetime != string.Empty)
-				begin
 					aDate = tmpDatetime.Split(' ')[1]
-					aTime = tmpDatetime.Split(' ')[2] + tmpDatetime.Split(' ')[3]					
-				end
 			end
 
 		endmethod
@@ -166,7 +186,8 @@ namespace AppData
 			endparams
 		proc
 			using message.FieldName select
-
+			("CREATED_TIMESTAMP")	,SetFieldValidationStatus(false,"CREATED_TIMESTAMP")	; no need to validate these fields as they are auto populated when
+			("MODIFIED_TIMESTAMP")	,SetFieldValidationStatus(false,"MODIFIED_TIMESTAMP")	; adding records
 			endusing
 
 		endmethod

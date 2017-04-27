@@ -213,9 +213,13 @@ namespace SFE_Buyer.ViewModel
 			using currentMode select
 			(ProgramMode.Add),
 			begin
-				mBuyer.Buyer_key = Guid.NewGuid().ToString()
-				nop
+				; this populates our hidden key so it will get validated
+				if (!((Buyer_Data)DataObjectEntryItem).Buyer_key)
+					((Buyer_Data)DataObjectEntryItem).Buyer_key	 = Guid.NewGuid().ToString()
 				
+				; set the displays to show todays date as Created and the 'default' image				
+				((Buyer_Data)DataObjectEntryItem).DateCreated = ^null				
+				((Buyer_Data)DataObjectEntryItem).BuyerImage  = ^null
 			end
 			endusing
 
@@ -300,6 +304,9 @@ namespace SFE_Buyer.ViewModel
 				if (DataObjectCollection.Count == 1)
 					SelectedCollectionItem = buyerObj
 			end
+
+			if (DataObjectCollection.Count)
+				DeleteCommand.ExecuteState = true
 .endc
 		endmethod
 

@@ -175,6 +175,8 @@ namespace SFE_Product.ViewModel
 			;;this event handler allows us to prevent the user from being able to change field
 			;;that would break the data integrity - for example the key fields when in amend mode.
 
+			IgnoreDataChanged = true
+
 			using currentMode select
 			(ProgramMode.Modify),
 			begin
@@ -189,6 +191,9 @@ namespace SFE_Product.ViewModel
 				DataObjectEntryItem.SetFieldReadOnlyStatus(true, "PROD_CODE")
 			end
 			endusing
+
+			IgnoreDataChanged = false
+
 		endmethod
 	
 		private mKeyWord	,string

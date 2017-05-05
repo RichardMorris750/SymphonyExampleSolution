@@ -98,6 +98,12 @@ namespace SFE_Orders.ViewModel
 
 			IgnoreDataChanged = true
 
+			DataObjectEntryItem.SetFieldReadOnlyStatus(true, "ORDER_NO")
+			DataObjectEntryItem.SetFieldReadOnlyStatus(true, "LINE_COUNT")
+			DataObjectEntryItem.SetFieldReadOnlyStatus(true, "TOT_QTY")
+			DataObjectEntryItem.SetFieldReadOnlyStatus(true, "TOT_VALUE")
+			DataObjectEntryItem.SetFieldReadOnlyStatus(true, "TOT_VAT")
+
 			using currentMode select
 			(ProgramMode.Modify),
 			begin
@@ -106,6 +112,7 @@ namespace SFE_Orders.ViewModel
 			(ProgramMode.Add)	,
 			begin
 				DataObjectEntryItem.SetFieldReadOnlyStatus(false, "SUPP_CODE")
+				DataObjectEntryItem.SetFieldFocusFlag("ORDER_NO")
 			end
 			(ProgramMode.Enquiry),
 			begin
@@ -113,11 +120,7 @@ namespace SFE_Orders.ViewModel
 			end
 			endusing
 
-			DataObjectEntryItem.SetFieldReadOnlyStatus(true, "ORDER_NO")
-			DataObjectEntryItem.SetFieldReadOnlyStatus(true, "LINE_COUNT")
-			DataObjectEntryItem.SetFieldReadOnlyStatus(true, "TOT_QTY")
-			DataObjectEntryItem.SetFieldReadOnlyStatus(true, "TOT_VALUE")
-			DataObjectEntryItem.SetFieldReadOnlyStatus(true, "TOT_VAT")
+
 
 			IgnoreDataChanged = false
 
@@ -142,6 +145,7 @@ namespace SFE_Orders.ViewModel
 			(ProgramMode.Add)			,
 			begin
 				DataObjectDetailEntryItem.SetFieldReadOnlyStatus(false, "PROD_CODE")
+;;				DataObjectEntryItem.SetFieldFocusFlag(true, "PPROD_CODE")
 			end
 			(ProgramMode.Enquiry)		,
 			begin

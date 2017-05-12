@@ -318,17 +318,17 @@ namespace SFE_Base.ViewModel
 
 					SelectedDetailItemIndex = 0
 
+					DeleteCommand.ExecuteState = true
 
 				end
 				else
 				begin
-					mSelectedCollectionItem = value
-					NewCommand.ExecuteState = true
-					SaveCommand.ExecuteState = false
-					CancelCommand.ExecuteState = false
 					DeleteCommand.ExecuteState = false
-
 				end
+
+				NewCommand.ExecuteState = true
+				SaveCommand.ExecuteState = false
+				CancelCommand.ExecuteState = false
 
 				if (mNumberOfDetailLineSets)
 				begin

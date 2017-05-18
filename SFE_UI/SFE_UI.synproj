@@ -151,6 +151,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\BaseUserControl.dbc" />
+    <Compile Include="Common\BuyerLookup.xaml.dbl">
+      <DependentUpon>Common\BuyerLookup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Common\ErrorDialog.xaml.dbl">
       <DependentUpon>Common\ErrorDialog.xaml</DependentUpon>
     </Compile>
@@ -174,6 +177,7 @@
     <Compile Include="Content\Supplier_Collection.CodeGen.dbc" />
     <Compile Include="Converters\NullConverter.dbc" />
     <Compile Include="Properties\AssemblyInfo.dbl" />
+    <Compile Include="ViewModel\BuyerLookupViewModel.dbc" />
     <Compile Include="ViewModel\ProductCodeLookupViewModel.dbc" />
     <Compile Include="ViewModel\ProductGroupLookupViewModel.dbc" />
     <Compile Include="ViewModel\SupplierCodeLookupViewModel.dbc" />
@@ -189,6 +193,10 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Common\BuyerLookup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Common\ErrorDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

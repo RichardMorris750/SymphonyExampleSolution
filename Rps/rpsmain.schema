@@ -5,8 +5,8 @@
 ;                 : C:\SymphonyExampleSolution\Rps\rpstext.ism
 ;                 : Version 10.3.1b
 ;
-;  GENERATED      : 24-APR-2017, 15:22:28
-;                 : Version 10.3.3b
+;  GENERATED      : 17-MAY-2017, 20:24:25
+;                 : Version 10.3.3c
 ;  EXPORT OPTIONS : [ALL] 
  
  
@@ -77,7 +77,7 @@ Key KEY03   ACCESS   Order ASCENDING   Dups NO
    Description "Alt key - modified timestamp"
    Segment FIELD   MODIFIED_TIMESTAMP  SegType TIMESTAMP  SegOrder ASCENDING
  
-Structure ORDER_HEADER   DBL ISAM   Modified 20170419200220
+Structure ORDER_HEADER   DBL ISAM   Modified 20170427080413
    Description "Order Header"
  
 Field ORDER_NO   Type DECIMAL   Size 6
@@ -86,15 +86,21 @@ Field ORDER_NO   Type DECIMAL   Size 6
  
 Field SUPP_CODE   Type ALPHA   Size 6
    Description "Supplier Code"
+   Long Description
+      "<SYMPHONY_ALPHA_SIZE=100>"
    Prompt "Supplier"   Report Heading "Supplier"
+   Required
+   Drill Method "SupplierCode"
  
 Field ORDER_DATE   Type DATE   Size 8   Stored YYYYMMDD
    Description "Order date"
    Position 0 0   Prompt "Order Date"   Report Heading "Order Date"
+   Required
  
 Field REQD_DATE   Type DATE   Size 8   Stored YYYYMMDD
    Description "required delivery date"
    Prompt "Required by"   Report Heading "Required by"
+   Required
  
 Field COMMENTS   Type ALPHA   Size 40
    Description "Comments"
@@ -137,7 +143,7 @@ Key KEY4   ACCESS   Order ASCENDING   Dups NO
    Segment FIELD   REQD_DATE
    Segment FIELD   ORDER_NO
  
-Structure ORDER_LINE   DBL ISAM   Modified 20170111202103
+Structure ORDER_LINE   DBL ISAM   Modified 20170426073051
    Description "Order Line"
  
 Field ORDER_NO   Type DECIMAL   Size 6
@@ -150,7 +156,11 @@ Field LINE_NO   Type DECIMAL   Size 5
  
 Field PROD_CODE   Type ALPHA   Size 10
    Description "Product Code"
+   Long Description
+      "<SYMPHONY_ALPHA_SIZE=100>"
    Prompt "Product Code"   Report Heading "Product Code"
+   Required
+   Drill Method "ProductCode"
  
 Field PROD_DESCRIPTION   Type ALPHA   Size 40
    Description "Description"
@@ -159,6 +169,7 @@ Field PROD_DESCRIPTION   Type ALPHA   Size 40
 Field QTY   Type DECIMAL   Size 6
    Description "Quantity Ordered"
    Prompt "Quantity Ordered"   Report Heading "Quantity"
+   Required
  
 Field PRICE   Type DECIMAL   Size 8   Precision 2
    Description "Price"
@@ -312,7 +323,7 @@ Field KEYVALUE   Type ALPHA   Size 10
       "<SYMPHONY_UPDATE_TRIGGER=PropertyChanged>"
    Prompt "Key Value"   Report Heading "Key Value"
  
-Structure SUPPLIER   DBL ISAM   Modified 20170111202606
+Structure SUPPLIER   DBL ISAM   Modified 20170517151243
    Description "Supplier Master File"
  
 Field SUPP_CODE   Type ALPHA   Size 6
@@ -366,7 +377,12 @@ Field ACCOUNT_STATUS   Type DECIMAL   Size 1
    Selection List 0 0 0  Entries "Active", "Dormant", "Closed"
    Enumerated 10 1 1
  
-Field FLLER   Type ALPHA   Size 500   Language Noview   Script Noview
+Field BUYER_KEY   Type ALPHA   Size 32
+   Description "Buyer"
+   Prompt "Buyer"   Report Heading "Buyer"
+   Drill Method "Buyer"
+ 
+Field FLLER   Type ALPHA   Size 468   Language Noview   Script Noview
  
 Key PRIMARY   ACCESS   Order ASCENDING   Dups NO
    Description "Primary key - supplier code"

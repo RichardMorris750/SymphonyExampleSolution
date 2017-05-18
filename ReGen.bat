@@ -18,7 +18,7 @@ codegen %OPTS% -s BUYER -t Symphony_DOCache_v3_3.tpl 	-o %ROOT%\AppData_Server -
 
 codegen %OPTS% -s BUYER -t Symphony_Collection_v3_2.tpl -o %ROOT%\SFE_UI\Content -n SFE_UI.Content
 
-codegen %OPTS% -s BUYER -t Symphony_Content.tpl 	-o %ROOT%SFE_UI\Resources -n SFE_UI.Resources -ut ASSEMBLYNAME=SFE_UI
+codegen %OPTS% -s BUYER -t Symphony_Content.tpl 	-o %ROOT%SFE_UI\Resources -n SFE_UI.Content -ut ASSEMBLYNAME=SFE_UI
 codegen %OPTS% -s BUYER -t Symphony_Style_v3_2 		-o %ROOT%SFE_UI\Resources -n SFE_UI.Resources -ut ASSEMBLYNAME=SFE_UI
 
 

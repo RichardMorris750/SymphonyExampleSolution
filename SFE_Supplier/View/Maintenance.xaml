@@ -36,6 +36,12 @@
                     </BooleanAnimationUsingKeyFrames>
                     <Int32Animation Storyboard.TargetName="errorView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
 
+                    <DoubleAnimation Storyboard.TargetName="buyerLookupView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0" To="0" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="buyerLookupView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="buyerLookupView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+
                 </Storyboard>
             </VisualState>
 
@@ -48,11 +54,41 @@
                     </BooleanAnimationUsingKeyFrames>
                     <Int32Animation Storyboard.TargetName="mainView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
 
+                    <DoubleAnimation Storyboard.TargetName="buyerLookupView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0" To="0" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="buyerLookupView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="buyerLookupView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+
                     <DoubleAnimation Storyboard.TargetName="errorView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.2" To="1" />
                     <BooleanAnimationUsingKeyFrames Storyboard.TargetName="errorView" Storyboard.TargetProperty="(IsEnabled)">
                         <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True"/>
                     </BooleanAnimationUsingKeyFrames>
                     <Int32Animation Storyboard.TargetName="errorView" Storyboard.TargetProperty="(Panel.ZIndex)" To="1" />
+
+                </Storyboard>
+            </VisualState>
+
+            <VisualState x:Name="BuyerDrillState">
+                <Storyboard>
+
+                    <DoubleAnimation Storyboard.TargetName="mainView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.2" To="0.2" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="mainView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="mainView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+
+                    <DoubleAnimation Storyboard.TargetName="errorView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0" To="0" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="errorView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="errorView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+                    
+                    <DoubleAnimation Storyboard.TargetName="buyerLookupView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.2" To="1" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="buyerLookupView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="buyerLookupView" Storyboard.TargetProperty="(Panel.ZIndex)" To="1" />
 
                 </Storyboard>
             </VisualState>
@@ -94,6 +130,10 @@
                 
             </Grid>
 
+        </Border>
+
+        <Border Name="buyerLookupView" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <sfeuiCommon:BuyerLookup DataContext="{Binding Path=BuyerLookupVM}"></sfeuiCommon:BuyerLookup>
         </Border>
 
     </Grid>

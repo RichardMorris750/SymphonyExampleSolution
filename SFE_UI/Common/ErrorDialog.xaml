@@ -17,13 +17,15 @@
     <Grid>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="200"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Text="{Binding Path=ErrorInfo}" FontSize="16" Foreground="White"></TextBlock>
+        <TextBlock Grid.Row="1" Text="{Binding Path=ErrorDetails}" FontSize="16" Foreground="White"></TextBlock>
 
-        <Button Grid.Row="1" Style="{StaticResource StandardButtonStyle}" Command="{Binding Path=QuitState}">
+        <Button Grid.Row="2" Style="{StaticResource StandardButtonStyle}" Command="{Binding Path=QuitState}">
             <Button.Content>
                 <Image Height="34" Width="40" Source="pack://application:,,,/SFE_UI;component/Images/Icons/Ok-64.png">
                     <Image.Style>

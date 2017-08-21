@@ -62,7 +62,7 @@ namespace SFE_Supplier.ViewModel
 		public method SupplierMaintenanceViewModel
 			sender									,@FrameworkElement
 			endparams
-			parent(sender, mSupplier.GetType(), new Supplier_FileIO(FileOpenMode.UpdateIndexed), "ShowErrorState")
+			parent(sender, mSupplier.GetType(), new Supplier_FileIO(FileOpenMode.UpdateIndexed), "ShowErrorState", "DialogViewState")
 		proc
 			this.ProgramModeChanged += doProgramModeChanged
 

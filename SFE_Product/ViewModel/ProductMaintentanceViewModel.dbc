@@ -62,7 +62,7 @@ namespace SFE_Product.ViewModel
 		public method ProductMaintentanceViewModel
 			sender									,@FrameworkElement
 			endparams
-			parent(sender, mProduct.GetType(), new Product_FileIO(FileOpenMode.UpdateIndexed), "ShowErrorState")
+			parent(sender, mProduct.GetType(), new Product_FileIO(FileOpenMode.UpdateIndexed), "ShowErrorState", "DialogViewState")
 		proc
 			this.ProgramModeChanged += doProgramModeChanged
 

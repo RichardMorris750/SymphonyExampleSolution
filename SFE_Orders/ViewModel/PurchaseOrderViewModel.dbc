@@ -63,7 +63,7 @@ namespace SFE_Orders.ViewModel
 		public method PurchaseOrderViewModel
 		sender		,@FrameworkElement
 		endparams
-		parent(sender, mOrder_Header.GetType(), new Order_Header_FileIO(FileOpenMode.UpdateIndexed), "ShowErrorState",mOrder_Line.GetType())
+			parent(sender, mOrder_Header.GetType(), new Order_Header_FileIO(FileOpenMode.UpdateIndexed), "ShowErrorState",mOrder_Line.GetType(), "DialogViewState")
 		proc
 			this.ProgramModeChanged += doProgramModeChanged
 			this.ProgramDetailModeChanged += doProgramDetailModeChanged

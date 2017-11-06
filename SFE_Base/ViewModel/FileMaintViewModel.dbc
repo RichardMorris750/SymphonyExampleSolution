@@ -58,14 +58,19 @@ namespace SFE_Base.ViewModel
 		in req dataItem				,@Type
 		in req fileAccess			,@FileIO
 		in req errorVisualState		,string
+		in dialogVisualState		,string
 		endparams
 		parent(sender)
 		proc
-			
+			configureDialog(sender)
+
 			;;store the passed info
 			mDataObjectItem = dataItem
 			mFileAccessObject = fileAccess
 			mErrorVisualState = errorVisualState
+
+			if  (%passed(dialogVisualState))
+				mDialogVisualState = dialogVisualState
 			
 			this.AfterNavigateState += doAfterStateNavigation
 
@@ -84,15 +89,19 @@ namespace SFE_Base.ViewModel
 		in req fileAccess					,@FileIO
 		in req errorVisualState				,string
 		in req detailItem					,@Type
+		in dialogVisualState				,string
 		endparams
 		parent(sender)
 		proc
-			
+			configureDialog(sender)
+
 			;;store the passed info
 			mDataObjectItem = dataItem
 			mDataObjectDetailItem = detailItem 
 			mFileAccessObject = fileAccess
 			mErrorVisualState = errorVisualState
+			if  (%passed(dialogVisualState))
+				mDialogVisualState = dialogVisualState
 			
 			this.AfterNavigateState += doAfterStateNavigation
 
@@ -122,7 +131,8 @@ namespace SFE_Base.ViewModel
 
 .region "Visual state details"
 		
-		private mErrorVisualState		,string
+		private mErrorVisualState		,string		
+		private mDialogVisualState		,string
 
 		private method doAfterStateNavigation,void
 		eArgs		,@Symphony.Conductor.ViewModel.NavigateFromStateEventArgs 
@@ -131,6 +141,24 @@ namespace SFE_Base.ViewModel
 			if (eArgs.CurrentStateName == mErrorVisualState)
 			begin
 				doCancelCommand(^null, "")
+			end
+
+			if (eArgs.OldStateName == mDialogVisualState)
+			begin
+				using mDialogResult select
+				(DialogResult.No),
+					doCancelCommand(^null, "")
+				(DialogResult.Cancel),
+					doCancelCommand(^null, "")
+				(DialogResult.Yes),
+					doDeleteCommand(^null, "")
+				(DialogResult.Retry),
+					nop
+				(DialogResult.OK),
+					nop
+				(),
+					nop
+				endusing
 			end
 		endmethod
 
@@ -152,6 +180,8 @@ namespace SFE_Base.ViewModel
 				mLastProgramMode = mProgramMode
 				raiseevent(ProgramModeChanged, mProgramMode)
 			end
+
+			mDialogResult = ^null
 		endmethod
 
 
@@ -731,27 +761,37 @@ namespace SFE_Base.ViewModel
 		proc
 			if (SelectedCollectionItem != ^null)
 			begin
-
-				if (mFileAccessObject.DeleteRecordUsingGRFA(SelectedCollectionItem) != FileAccessResults.Success) then
+				if mDialogResult == ^null then
 				begin
-					ErrorInfo = "Synergy error : " + %string(mFileAccessObject.LastSynergyError)
-					MoveToState(mErrorVisualState)
+					DialogVM.Message = "Are you SURE you want to Delete this Record?."
+					DialogVM.Icon = DialogIcon.Question
+					DialogVM.Style = DialogStyle.YesNo
+				
+					MoveToState("DialogViewState")
 				end
 				else
 				begin
-					;;remove the item from the list
+					if (mFileAccessObject.DeleteRecordUsingGRFA(SelectedCollectionItem) != FileAccessResults.Success) then
+					begin
+						ErrorInfo = "Synergy error : " + %string(mFileAccessObject.LastSynergyError)
+						MoveToState(mErrorVisualState)
+					end
+					else
+					begin
+						;;remove the item from the list
 
-					DeleteDetailLines ()
+						DeleteDetailLines ()
 
-					DataObjectCollection.Remove(SelectedCollectionItem)
-					SelectedItemIndex  = 0
+						DataObjectCollection.Remove(SelectedCollectionItem)
+						SelectedItemIndex  = 0
 					
-					;;init the entry object
-;					DataObjectEntryItem.InitData()
-					GridIsEnabled = true
+						;;init the entry object
+	;					DataObjectEntryItem.InitData()
+						GridIsEnabled = true
+					end
+					mProgramMode = ProgramMode.Enquiry
+					raiseProgramModeChanged()
 				end
-				mProgramMode = ProgramMode.Enquiry
-				raiseProgramModeChanged()
 				SaveCommand.ExecuteState = false
 				CancelCommand.ExecuteState = false
 				DeleteCommand.ExecuteState = true
@@ -1107,6 +1147,44 @@ namespace SFE_Base.ViewModel
 				RaisePropertyChanged("ErrorDetails")
 			endmethod
 		endproperty	
+.endregion
+
+.region "Dialog Control Detail"
+		
+		private mDialogVM		,@Symphony.Conductor.ViewModel.DialogControlViewModel
+		private mDialogResult	,@DialogResult
+		
+		private method configureDialog	,void
+			sender						,@FrameworkElement
+			endparams
+		proc
+			mDialogVM = new DialogControlViewModel(sender)
+			mDialogVM.Title = "SFE Project"
+			mDialogVM.Icon = DialogIcon.Exclamation
+			mDialogVM.Style = DialogStyle.OK
+			
+			lambda doCloseDialog(result)
+			begin
+				mDialogResult = result
+				this.StateCompleted()
+			end
+			addhandler(mDialogVM.DialogProcessed, doCloseDialog)
+			
+		endmethod
+		
+		public property DialogVM, @Symphony.Conductor.ViewModel.DialogControlViewModel
+			method get
+			proc
+				mreturn mDialogVM
+			endmethod
+			method set
+			proc
+				mDialogVM = value
+				RaisePropertyChanged("DialogVM")
+			endmethod
+		endproperty
+		
+		
 .endregion
 	endclass
 	

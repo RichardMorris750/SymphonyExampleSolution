@@ -63,6 +63,8 @@ namespace AppData
 			    ("10 "),	actualName = "CREATE_DATE"
 			    
 			    ("11 "),	actualName = "ACCOUNT_STATUS"
+			    
+			    ("12 "),	actualName = "BUYER_KEY"
 			    endusing
 		    end
 		    else
@@ -157,6 +159,14 @@ namespace AppData
 			    fieldDescription.DataType = FieldDataType.DecimalField
 			    fieldDescription.ElementSize = 1
 			    fieldDescription.StructurePosition = 245
+			    fieldDescription.DecimalPrecision = 0
+		    end
+		    ("BUYER_KEY "),
+		    begin
+			    fieldDescription.LanguageName = "BUYER_KEY"
+			    fieldDescription.DataType = FieldDataType.AlphaField
+			    fieldDescription.ElementSize = 32
+			    fieldDescription.StructurePosition = 246
 			    fieldDescription.DecimalPrecision = 0
 		    end
 		    endusing

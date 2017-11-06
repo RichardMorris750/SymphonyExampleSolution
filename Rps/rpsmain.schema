@@ -5,8 +5,13 @@
 ;                 : C:\Projects\SymphonyExampleSolution\Rps\rpstext.ism
 ;                 : Version 10.3.1b
 ;
+<<<<<<< HEAD
 ;  GENERATED      : 02-NOV-2017, 17:09:27
 ;                 : Version 10.3.3d
+=======
+;  GENERATED      : 17-MAY-2017, 20:24:25
+;                 : Version 10.3.3c
+>>>>>>> debe6e2e7fe0424826d1ffabcc9c07a4f3121c36
 ;  EXPORT OPTIONS : [ALL] 
  
  
@@ -77,7 +82,11 @@ Key KEY03   ACCESS   Order ASCENDING   Dups NO
    Description "Alt key - modified timestamp"
    Segment FIELD   MODIFIED_TIMESTAMP  SegType TIMESTAMP  SegOrder ASCENDING
  
+<<<<<<< HEAD
 Structure ORDER_HEADER   DBL ISAM
+=======
+Structure ORDER_HEADER   DBL ISAM   Modified 20170427080413
+>>>>>>> debe6e2e7fe0424826d1ffabcc9c07a4f3121c36
    Description "Order Header"
  
 Field ORDER_NO   Type DECIMAL   Size 6
@@ -143,7 +152,11 @@ Key KEY4   ACCESS   Order ASCENDING   Dups NO
    Segment FIELD   REQD_DATE
    Segment FIELD   ORDER_NO
  
+<<<<<<< HEAD
 Structure ORDER_LINE   DBL ISAM
+=======
+Structure ORDER_LINE   DBL ISAM   Modified 20170426073051
+>>>>>>> debe6e2e7fe0424826d1ffabcc9c07a4f3121c36
    Description "Order Line"
  
 Field ORDER_NO   Type DECIMAL   Size 6
@@ -321,7 +334,11 @@ Field KEYVALUE   Type ALPHA   Size 10
       "<SYMPHONY_UPDATE_TRIGGER=PropertyChanged>"
    Prompt "Key Value"   Report Heading "Key Value"
  
+<<<<<<< HEAD
 Structure SUPPLIER   DBL ISAM
+=======
+Structure SUPPLIER   DBL ISAM   Modified 20170517151243
+>>>>>>> debe6e2e7fe0424826d1ffabcc9c07a4f3121c36
    Description "Supplier Master File"
  
 Field SUPP_CODE   Type ALPHA   Size 6
@@ -375,7 +392,12 @@ Field ACCOUNT_STATUS   Type DECIMAL   Size 1
    Selection List 0 0 0  Entries "Active", "Dormant", "Closed"
    Enumerated 10 1 1
  
-Field FLLER   Type ALPHA   Size 500   Language Noview   Script Noview
+Field BUYER_KEY   Type ALPHA   Size 32
+   Description "Buyer"
+   Prompt "Buyer"   Report Heading "Buyer"
+   Drill Method "Buyer"
+ 
+Field FLLER   Type ALPHA   Size 468   Language Noview   Script Noview
  
 Key PRIMARY   ACCESS   Order ASCENDING   Dups NO
    Description "Primary key - supplier code"

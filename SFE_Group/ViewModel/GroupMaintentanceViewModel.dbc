@@ -58,7 +58,7 @@ namespace SFE_Group.ViewModel
 		public method GroupMaintentanceViewModel
 			sender									,@FrameworkElement
 			endparams
-			parent(sender, mGroup.GetType(), new Product_group_FileIO(FileOpenMode.UpdateIndexed), "ShowErrorState")
+			parent(sender, mGroup.GetType(), new Product_group_FileIO(FileOpenMode.UpdateIndexed), "ShowErrorState","DialogViewState")
 		proc
 			this.ProgramModeChanged += doProgramModeChanged
 
@@ -86,6 +86,7 @@ namespace SFE_Group.ViewModel
 			(ProgramMode.Add),
 			begin
 				DataObjectEntryItem.SetFieldReadOnlyStatus(false, "PROD_GROUP")
+				((Product_group_Data)DataObjectEntryItem).ProductGroupImage  = ^null
 			end
 			(ProgramMode.Enquiry),
 			begin

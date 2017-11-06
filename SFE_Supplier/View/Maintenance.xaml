@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:sfeuiCommon="clr-namespace:SFE_UI.Common;assembly=SFE_UI"
+             xmlns:CrescendoUI="clr-namespace:Symphony.Crescendo.Presentation;assembly=SymphonyCrescendo"
              xmlns:ui="clr-namespace:SFE_Supplier.View"
              mc:Ignorable="d" Loaded="UserControl_Loaded"
              d:DesignHeight="300" d:DesignWidth="300">
@@ -36,6 +37,18 @@
                     </BooleanAnimationUsingKeyFrames>
                     <Int32Animation Storyboard.TargetName="errorView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
 
+                    <DoubleAnimation Storyboard.TargetName="buyerLookupView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0" To="0" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="buyerLookupView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="buyerLookupView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+
+                    <DoubleAnimation Storyboard.TargetName="dialogView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0" To="0" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="dialogView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"></DiscreteBooleanKeyFrame>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="dialogView" Storyboard.TargetProperty="(Panel.ZIndex)" To="1" />
+
                 </Storyboard>
             </VisualState>
 
@@ -48,12 +61,82 @@
                     </BooleanAnimationUsingKeyFrames>
                     <Int32Animation Storyboard.TargetName="mainView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
 
+                    <DoubleAnimation Storyboard.TargetName="buyerLookupView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0" To="0" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="buyerLookupView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="buyerLookupView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+
+                    <DoubleAnimation Storyboard.TargetName="dialogView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0" To="0" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="dialogView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"></DiscreteBooleanKeyFrame>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="dialogView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+
                     <DoubleAnimation Storyboard.TargetName="errorView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.2" To="1" />
                     <BooleanAnimationUsingKeyFrames Storyboard.TargetName="errorView" Storyboard.TargetProperty="(IsEnabled)">
                         <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True"/>
                     </BooleanAnimationUsingKeyFrames>
                     <Int32Animation Storyboard.TargetName="errorView" Storyboard.TargetProperty="(Panel.ZIndex)" To="1" />
 
+                </Storyboard>
+            </VisualState>
+
+            <VisualState x:Name="BuyerDrillState">
+                <Storyboard>
+
+                    <DoubleAnimation Storyboard.TargetName="mainView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.2" To="0.2" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="mainView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="mainView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+
+                    <DoubleAnimation Storyboard.TargetName="errorView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0" To="0" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="errorView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="errorView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+
+                    <DoubleAnimation Storyboard.TargetName="dialogView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0" To="0" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="dialogView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"></DiscreteBooleanKeyFrame>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="dialogView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+
+                    <DoubleAnimation Storyboard.TargetName="buyerLookupView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.2" To="1" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="buyerLookupView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="buyerLookupView" Storyboard.TargetProperty="(Panel.ZIndex)" To="1" />
+
+                </Storyboard>
+            </VisualState>
+
+            <VisualState x:Name="DialogViewState">
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="mainView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.2" To="0.2" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="mainView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="mainView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+
+                    <DoubleAnimation Storyboard.TargetName="errorView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0" To="0" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="errorView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="errorView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+
+                    <DoubleAnimation Storyboard.TargetName="buyerLookupView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0" To="0" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="buyerLookupView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="buyerLookupView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
+
+                    <DoubleAnimation Storyboard.TargetName="dialogView" Storyboard.TargetProperty="(Opacity)" Duration="0:0:0.2" To="1" />
+                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="dialogView" Storyboard.TargetProperty="(IsEnabled)">
+                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True"></DiscreteBooleanKeyFrame>
+                    </BooleanAnimationUsingKeyFrames>
+                    <Int32Animation Storyboard.TargetName="dialogView" Storyboard.TargetProperty="(Panel.ZIndex)" To="1" />
                 </Storyboard>
             </VisualState>
 
@@ -94,6 +177,29 @@
                 
             </Grid>
 
+        </Border>
+
+        <Border Name="buyerLookupView" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <sfeuiCommon:BuyerLookup DataContext="{Binding Path=BuyerLookupVM}"></sfeuiCommon:BuyerLookup>
+        </Border>
+
+        <Border Name="dialogView" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <CrescendoUI:DialogControl Grid.Row="1" Grid.Column="1" DataContext="{Binding Path=DialogVM}"></CrescendoUI:DialogControl>
+
+            </Grid>
         </Border>
 
     </Grid>

@@ -64,6 +64,11 @@ namespace AppData
 									
 				mreturn mProductGroupImage
 			endmethod
+			method set
+			proc
+				mProductGroupImage = value
+				RaisePropertyChanged("ProductGroupImage")
+			endmethod
 		endproperty
 
 .endregion

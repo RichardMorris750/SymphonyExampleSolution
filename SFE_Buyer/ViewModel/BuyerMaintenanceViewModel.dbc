@@ -191,7 +191,7 @@ namespace SFE_Buyer.ViewModel
 		public method BuyerMaintenanceViewModel
 			sender	,@FrameworkElement
 			endparams
-			parent(sender, mBuyer.GetType(), new Buyer_FileIO(FileOpenMode.UpdateIndexed), "ShowErrorState")
+			parent(sender, mBuyer.GetType(), new Buyer_FileIO(FileOpenMode.UpdateIndexed), "ShowErrorState","DialogViewState")
 
 		proc
 			this.ProgramModeChanged += doProgramModeChanged

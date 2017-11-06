@@ -37,10 +37,14 @@ import System
 import System.Collections.Generic
 import System.Text
 import SFE_Base.ViewModel
+import SFE_UI.ViewModel
 import System.Windows
 import AppData
 import Symphony.Conductor.DataIO
 import Symphony.Conductor.ViewModel
+
+import System.Collections.ObjectModel
+import Symphony.Harmony
 
 ;;use the extension methods
 import System.Linq
@@ -58,7 +62,7 @@ namespace SFE_Supplier.ViewModel
 		public method SupplierMaintenanceViewModel
 			sender									,@FrameworkElement
 			endparams
-			parent(sender, mSupplier.GetType(), new Supplier_FileIO(FileOpenMode.UpdateIndexed), "ShowErrorState")
+			parent(sender, mSupplier.GetType(), new Supplier_FileIO(FileOpenMode.UpdateIndexed), "ShowErrorState", "DialogViewState")
 		proc
 			this.ProgramModeChanged += doProgramModeChanged
 
@@ -68,6 +72,11 @@ namespace SFE_Supplier.ViewModel
 			DataObjectEntryItem.IsDataModifiedChanged += DoIsDataModified
 			
 			this.LoadDetailList()
+
+			buildBuyerLookup()
+
+			;;define an event handler that is called when we navitate visual states
+			BeforeNavigateState += doBeforeNavigateState
 		endmethod
 
 		;--------------------------------------------------------------------------------------
@@ -233,6 +242,67 @@ namespace SFE_Supplier.ViewModel
 				mreturn mPDFCommand
 			endmethod
 		endproperty
+
+
+.region "Buyer lookup elements"
+
+		private mBuyerLookupVM	,@BuyerLookupViewModel
+		
+		public property BuyerLookupVM, @BuyerLookupViewModel
+			method get
+			proc
+				mreturn mBuyerLookupVM
+			endmethod
+		endproperty
+		
+		private method buildBuyerLookup, void
+			endparams
+		proc
+			;;create the buyer lookup view model
+			mBuyerLookupVM = new BuyerLookupViewModel()
+
+			;;need event handlers for when they select/quit the lookup
+			mBuyerLookupVM.ItemSelected += doBuyerItemSelected
+			mBuyerLookupVM.CancelSearch += doBuyerItemCanceled
+		endmethod
+
+		private method doBuyerItemSelected	,void
+			sender								,@SelectedItemEventArgs 
+			endparams
+		proc
+			;;we have a buyer item selected.  first, lets restore back the visual state
+			StateCompleted()
+
+			;;now let's set the data.  this will update the UI and load the buyer name
+			((Supplier_Data)DataObjectEntryItem).Buyer_Key = ((Buyer_Data)sender.ItemValue).name ; .buyer_Key
+
+		endmethod
+
+		private method doBuyerItemCanceled, void
+			endparams
+		proc
+			;;user wants to cancel from the search so just abort the lookup visual state
+			StateAborted()
+		endmethod
+
+
+		
+.endregion
+
+.region "Visual State management"
+		
+		private method doBeforeNavigateState	,void
+			eArgs								,@NavigateToStateEventArgs 
+			endparams
+		proc
+			using eArgs.NewStateName select
+			("BuyerDrillState")	,mBuyerLookupVM.LoadList()
+			endusing
+		endmethod
+
+		
+
+.endregion
 	
 	endclass
 endnamespace

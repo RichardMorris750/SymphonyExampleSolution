@@ -286,6 +286,25 @@ namespace SFE_Product.ViewModel
 			endmethod
 		endproperty
 
+
+		private mExitCommand	,@GenericCommand
+
+		public property ExitCommand, @GenericCommand
+			method get
+			proc
+				
+				if (mExitCommand == ^null)
+				begin
+					lambda doCommand(sender, param)
+					begin
+						StateCompleted()
+					end
+					mExitCommand = new GenericCommand("Exit", doCommand)
+				end
+				
+				mreturn mExitCommand
+			endmethod
+		endproperty
 .region "Visual State managment"
 		
 		private method doBeforeNavigateState	,void

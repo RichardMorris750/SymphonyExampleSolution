@@ -4,7 +4,7 @@
 ;;
 ;; Template author:	Richard C. Morris, Synergex Technology Evangelist
 ;;
-;; Template Name:	Symphony Framework : SYMPHONY_FILEIO.tpl
+;; Template Name:	Symphony Framework : SYMPHONY_FILEIO_V3_2.tpl
 ;;****************************************************************************
 
 import System
@@ -15,10 +15,11 @@ import Symphony.Core
 import Symphony.Conductor.Model
 import Symphony.Conductor.DataIO
 
+import AppData
+
 namespace AppData
 
-	;;we will define a tag value, if we have tags fdefined for the structure
-	
+	;;we will define a tag value, if we have tags defined for the structure
 
 
 	public class Order_header_FileIO extends FileIO
@@ -32,6 +33,8 @@ namespace AppData
 		proc
 			mOpenMode = FileOpenMode.Input
 			openTheFile("SFEDATA:order_header.ism")
+			if (this.LastSynergyError)
+				throw new Exception(Symphony.Conductor.DataIO.FileIOErrorToString.ErrorText(this))
 		endmethod
 
 		;;; <summary>
@@ -44,6 +47,8 @@ namespace AppData
 		proc
 			mOpenMode = openMode
 			openTheFile("SFEDATA:order_header.ism")
+			if (this.LastSynergyError)
+				throw new Exception(Symphony.Conductor.DataIO.FileIOErrorToString.ErrorText(this))
 		endmethod
 
 		protected override method checkInRange	,boolean

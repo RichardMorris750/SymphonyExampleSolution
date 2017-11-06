@@ -119,59 +119,6 @@
 
 
 
-    <Style x:Key="Buyer_Created_timestamp_style" TargetType="{x:Type symphonyControls:FieldControl}">
-        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-        <Setter Property="Focusable" Value="False"></Setter>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type symphonyControls:FieldControl}">
-                    <symphonyUI:SynergyIntBox
-                        
-                        CaretBrush="{StaticResource CaretBrush}"
-                        HorizontalAlignment="Left"
-                        Name="ctlBuyer_Created_timestamp"
-                        Text="{Binding Path=Created_timestamp, Converter={StaticResource intConverter}, UpdateSourceTrigger=Default,
-                                ValidatesOnDataErrors=True}"
-                                Validation.ErrorTemplate="{StaticResource validationTemplate}"
-                        IsEnabled="{Binding Path=Created_timestampIsEnabled}"
-                        MaxLength="8"
-                        Width="96"
-                        ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
-                                    <i:Interaction.Behaviors>
-                                      <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
-                                    </i:Interaction.Behaviors>
-                        <symphonyUI:SynergyIntBox.Style>
-                            <Style>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path=Created_timestampIsFocused}" Value="true">
-                                        <Setter Property="FocusManager.FocusedElement"
-                                                Value="{Binding ElementName=ctlBuyer_Created_timestamp}"></Setter>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
-                                        <Setter Property="TextBox.Foreground" Value="{StaticResource InputInErrorForegroundBrush}" />
-                                        <Setter Property="TextBox.Background">
-                                            <Setter.Value>
-                                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                    <LinearGradientBrush.GradientStops>
-                                                        <GradientStop Offset="0.2" Color="Gray" />
-                                                        <GradientStop Offset="3" Color="Red" />
-                                                    </LinearGradientBrush.GradientStops>
-                                                </LinearGradientBrush>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="False">
-                                        <Setter Property="TextBox.Foreground" Value="{StaticResource InputForegroundBrush}" />
-                                        <Setter Property="TextBox.Background" Value="Transparent"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </symphonyUI:SynergyIntBox.Style>
-                    </symphonyUI:SynergyIntBox>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
     
 
 
@@ -191,59 +138,6 @@
 
 
 
-    <Style x:Key="Buyer_Modified_timestamp_style" TargetType="{x:Type symphonyControls:FieldControl}">
-        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-        <Setter Property="Focusable" Value="False"></Setter>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type symphonyControls:FieldControl}">
-                    <symphonyUI:SynergyIntBox
-                        
-                        CaretBrush="{StaticResource CaretBrush}"
-                        HorizontalAlignment="Left"
-                        Name="ctlBuyer_Modified_timestamp"
-                        Text="{Binding Path=Modified_timestamp, Converter={StaticResource intConverter}, UpdateSourceTrigger=Default,
-                                ValidatesOnDataErrors=True}"
-                                Validation.ErrorTemplate="{StaticResource validationTemplate}"
-                        IsEnabled="{Binding Path=Modified_timestampIsEnabled}"
-                        MaxLength="8"
-                        Width="96"
-                        ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
-                                    <i:Interaction.Behaviors>
-                                      <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
-                                    </i:Interaction.Behaviors>
-                        <symphonyUI:SynergyIntBox.Style>
-                            <Style>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path=Modified_timestampIsFocused}" Value="true">
-                                        <Setter Property="FocusManager.FocusedElement"
-                                                Value="{Binding ElementName=ctlBuyer_Modified_timestamp}"></Setter>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
-                                        <Setter Property="TextBox.Foreground" Value="{StaticResource InputInErrorForegroundBrush}" />
-                                        <Setter Property="TextBox.Background">
-                                            <Setter.Value>
-                                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                    <LinearGradientBrush.GradientStops>
-                                                        <GradientStop Offset="0.2" Color="Gray" />
-                                                        <GradientStop Offset="3" Color="Red" />
-                                                    </LinearGradientBrush.GradientStops>
-                                                </LinearGradientBrush>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="False">
-                                        <Setter Property="TextBox.Foreground" Value="{StaticResource InputForegroundBrush}" />
-                                        <Setter Property="TextBox.Background" Value="Transparent"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </symphonyUI:SynergyIntBox.Style>
-                    </symphonyUI:SynergyIntBox>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
     
 
     <clr:String x:Key="Buyer_Name_heading">Buyer Name</clr:String>

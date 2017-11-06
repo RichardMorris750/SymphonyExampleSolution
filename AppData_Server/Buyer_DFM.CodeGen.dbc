@@ -84,7 +84,6 @@ namespace AppData
 		    ("CREATED_TIMESTAMP "),
 		    begin
 			    fieldDescription.LanguageName = "CREATED_TIMESTAMP"
-			    fieldDescription.DataType = FieldDataType.IntegerField
 			    fieldDescription.ElementSize = 8
 			    fieldDescription.StructurePosition = 33
 			    fieldDescription.DecimalPrecision = 0
@@ -92,7 +91,6 @@ namespace AppData
 		    ("MODIFIED_TIMESTAMP "),
 		    begin
 			    fieldDescription.LanguageName = "MODIFIED_TIMESTAMP"
-			    fieldDescription.DataType = FieldDataType.IntegerField
 			    fieldDescription.ElementSize = 8
 			    fieldDescription.StructurePosition = 41
 			    fieldDescription.DecimalPrecision = 0

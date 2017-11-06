@@ -39,10 +39,6 @@ namespace AppData
 .align
 			public csBuyer_key, String
 .align
-			public csCreated_timestamp, Int64
-.align
-			public csModified_timestamp, Int64
-.align
 			public csName, String
 .align
 			public csAddress1, String
@@ -104,13 +100,13 @@ namespace AppData
 			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "CREATED_TIMESTAMP", "Created_timestamp",  "", "",
 			&	"", "CREATED_TIMESTAMP", 33, 8,
 			&	0, 0, 0, 0,
-			&	"INTEGER", false, 0, 9223372036854775807)
+			&	"AUTO TIMESTAMP", false, 0, 0)
 
 			
 			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "MODIFIED_TIMESTAMP", "Modified_timestamp",  "", "",
 			&	"", "MODIFIED_TIMESTAMP", 41, 8,
 			&	0, 0, 0, 0,
-			&	"INTEGER", false, 0, 9223372036854775807)
+			&	"AUTO TIMESTAMP", false, 0, 0)
 
 			
 			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "NAME", "Name",  "", "",
@@ -1517,8 +1513,6 @@ namespace AppData
 			proc
 				data tmpSTR	,clsstrBuyer
 				tmpSTR.csBuyer_key = (string)mAlphaConveter.Convert(buyer_main.STR_buyer_key, ^null, ^null, ^null)
-				tmpSTR.csCreated_timestamp = (int64)mIntegerConveter.Convert(buyer_main.STR_created_timestamp, ^null, ^null, ^null)
-				tmpSTR.csModified_timestamp = (int64)mIntegerConveter.Convert(buyer_main.STR_modified_timestamp, ^null, ^null, ^null)
 				tmpSTR.csName = (string)mAlphaConveter.Convert(buyer_main.STR_name, ^null, ^null, ^null)
 				tmpSTR.csAddress1 = (string)mAlphaConveter.Convert(buyer_main.STR_address1, ^null, ^null, ^null)
 				tmpSTR.csAddress2 = (string)mAlphaConveter.Convert(buyer_main.STR_address2, ^null, ^null, ^null)
@@ -1535,8 +1529,6 @@ namespace AppData
 				data tmpSTR	,clsstrBuyer
 				tmpSTR = byteArrayToStructure(value)
 				buyer_main.STR_Buyer_key = (a)mAlphaConveter.ConvertBack(tmpSTR.csBuyer_key, ^null, ^null, ^null)
-				buyer_main.STR_Created_timestamp = (i)mIntegerConveter.ConvertBack(tmpSTR.csCreated_timestamp, ^null, ^null, ^null)
-				buyer_main.STR_Modified_timestamp = (i)mIntegerConveter.ConvertBack(tmpSTR.csModified_timestamp, ^null, ^null, ^null)
 				buyer_main.STR_Name = (a)mAlphaConveter.ConvertBack(tmpSTR.csName, ^null, ^null, ^null)
 				buyer_main.STR_Address1 = (a)mAlphaConveter.ConvertBack(tmpSTR.csAddress1, ^null, ^null, ^null)
 				buyer_main.STR_Address2 = (a)mAlphaConveter.ConvertBack(tmpSTR.csAddress2, ^null, ^null, ^null)
@@ -1557,8 +1549,6 @@ namespace AppData
 			begin
 				disposable data writer ,@BinaryWriter , new BinaryWriter(stream)
 				writer.Write(tmpSTRUCT.csBuyer_key)
-				writer.Write(tmpSTRUCT.csCreated_timestamp.ToString())
-				writer.Write(tmpSTRUCT.csModified_timestamp.ToString())
 				writer.Write(tmpSTRUCT.csName)
 				writer.Write(tmpSTRUCT.csAddress1)
 				writer.Write(tmpSTRUCT.csAddress2)
@@ -1582,10 +1572,6 @@ namespace AppData
 			begin
 				disposable data reader	,@BinaryReader	,new BinaryReader(stream)
 				tmpSTRUCT.csBuyer_key = reader.ReadString()
-				tmpString = reader.ReadString()
-				tmpSTRUCT.csCreated_timestamp = Convert.ToInt64(tmpString)
-				tmpString = reader.ReadString()
-				tmpSTRUCT.csModified_timestamp = Convert.ToInt64(tmpString)
 				tmpSTRUCT.csName = reader.ReadString()
 				tmpSTRUCT.csAddress1 = reader.ReadString()
 				tmpSTRUCT.csAddress2 = reader.ReadString()

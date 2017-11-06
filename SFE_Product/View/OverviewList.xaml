@@ -57,6 +57,12 @@
                     </Button.Content>
                 </Button>
 
+                <Button Style="{StaticResource MenuButtonStyle}"  Command="{Binding Path=QuitSearch}" Width="30" Height="30" Margin="20,0">
+                    <Button.Content>
+                        <Image Grid.Row="0" Source="pack://application:,,,/SFE_UI;component/Images/Icons/Exit-52.png"></Image>
+                    </Button.Content>
+                </Button>
+
             </StackPanel>
         </Border>
 

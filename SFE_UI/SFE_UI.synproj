@@ -209,14 +209,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\Buyer_Content.CodeGen.xaml">
+    <Resource Include="Resources\Buyer_Content.CodeGen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Resources\Buyer_Style.CodeGen.xaml">
+    </Resource>
+    <Resource Include="Resources\Buyer_Style.CodeGen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
+    </Resource>
     <Resource Include="Images\Icons\add_64px.png" />
     <Resource Include="Images\Icons\Cancel_64px.png" />
     <Resource Include="Images\Icons\Delete_64px.png" />

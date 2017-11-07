@@ -58,8 +58,6 @@ namespace AppData
 			public csCreate_date, DateTime
 .align
 			public csAccount_status, Int32
-.align
-			public csBuyer_key, String
 		endstructure
 		
 		public static SynergyMemberInfo, @List<System.Reflection.MemberInfo>
@@ -160,12 +158,6 @@ namespace AppData
 			&	0, 0, 0, 0,
 			&	"DECIMAL", false, 1, 3)
 
-			
-			staticSetFieldInfo(mStaticFieldList, mStaticFieldDictionary, "BUYER_KEY", "Buyer_key",  "", "",
-			&	"", "BUYER_KEY", 246, 32,
-			&	0, 0, 0, 0,
-			&	"ALPHA", false, 0, 0)
-
 
 			mStaticFieldNameList.Add("Supp_code")
 			mStaticFieldHeadingList.Add("Supplier Code")
@@ -189,8 +181,6 @@ namespace AppData
 			mStaticFieldHeadingList.Add("Creation date")
 			mStaticFieldNameList.Add("Account_status")
 			mStaticFieldHeadingList.Add("Account status")
-			mStaticFieldNameList.Add("Buyer_key")
-			mStaticFieldHeadingList.Add("Buyer")
 
 			mreturn
 		endmethod
@@ -519,23 +509,6 @@ namespace AppData
 				end
 			endmethod
 		endproperty
-        ;;Buyer_key
-		{JsonProperty}
-		public property Buyer_key, a32
-			method get
-			proc
-				mreturn %atrim(supplier_main.STR_Buyer_key)
-            endmethod
-			method set
-			proc
-					if (supplier_main.STR_Buyer_key .nes. value)
-				begin
-										supplier_main.STR_Buyer_key = value
-					ValidateEnteredData(12)
-					RaisePropertyChanged("Buyer_key")
-				end
-			endmethod
-		endproperty
 			
         ;;; <summary>
         ;;; Expose the complete synergy record
@@ -579,8 +552,6 @@ namespace AppData
 									if (mValidateSynergyData) ValidateEnteredData(10)
 				SetFieldValid("Account_status")
 									if (mValidateSynergyData) ValidateEnteredData(11)
-				SetFieldValid("Buyer_key")
-									if (mValidateSynergyData) ValidateEnteredData(12)
 				RaisePropertyChanged(^null)
 				RaiseSynergyRecordChanged()
             endmethod
@@ -627,8 +598,6 @@ namespace AppData
             RaisePropertyChanged("Create_date")
 				            ValidateEnteredData(11)
             RaisePropertyChanged("Account_status")
-				            ValidateEnteredData(12)
-            RaisePropertyChanged("Buyer_key")
 
         endmethod
 
@@ -665,8 +634,6 @@ namespace AppData
             ("CREATE_DATE"), mCurrentField = 10
 			
             ("ACCOUNT_STATUS"), mCurrentField = 11
-			
-            ("BUYER_KEY"), mCurrentField = 12
             (),
                 mCurrentField = 0
             endusing
@@ -704,8 +671,6 @@ namespace AppData
                 (10),    mreturn ""
 				
                 (11),    mreturn ""
-				
-                (12),    mreturn ""
 				(), mreturn ""  ;;if incorrect field value or not configured, ensure we clear the return value
                 endusing
             endmethod
@@ -856,19 +821,6 @@ namespace AppData
                 RaiseNonRPSPropertyChanged("Account_statusIsEnabled")
             endmethod
         endproperty
-		
-
-        public property Buyer_keyIsEnabled, Boolean
-            method get
-            proc
-                mreturn GetFieldEnabledState(12)
-            endmethod
-            method set
-            proc
-                SetFieldEnabledState(12, value)
-                RaiseNonRPSPropertyChanged("Buyer_keyIsEnabled")
-            endmethod
-        endproperty
 
         ;;Expose properties to indicate whether fields are focussed
 		private mSupp_codeIsFocused	,Boolean
@@ -1012,19 +964,6 @@ namespace AppData
 				clearFocus()
 				mAccount_statusIsFocused = value
 				RaiseNonRPSPropertyChanged("Account_statusIsFocused")
-			endmethod
-		endproperty
-		private mBuyer_keyIsFocused	,Boolean
-		public property Buyer_keyIsFocused, Boolean
-			method get
-			proc
-				mreturn mBuyer_keyIsFocused
-			endmethod
-			method set
-			proc
-				clearFocus()
-				mBuyer_keyIsFocused = value
-				RaiseNonRPSPropertyChanged("Buyer_keyIsFocused")
 			endmethod
 		endproperty
 
@@ -1173,19 +1112,6 @@ namespace AppData
 				RaiseNonRPSPropertyChanged("Account_statusIsReadOnly")
 			endmethod
 		endproperty
-		
-
-		public property Buyer_keyIsReadOnly, Boolean
-			method get
-			proc
-				mreturn GetFieldReadOnlyState(12)
-			endmethod
-			method set
-			proc
-				SetFieldReadOnlyState(12, value)
-				RaiseNonRPSPropertyChanged("Buyer_keyIsReadOnly")
-			endmethod
-		endproperty
 
 		private doingClearFocus	,Boolean
 
@@ -1206,7 +1132,6 @@ namespace AppData
 				if (EmailIsFocused) EmailIsFocused = false
 				if (Create_dateIsFocused) Create_dateIsFocused = false
 				if (Account_statusIsFocused) Account_statusIsFocused = false
-				if (Buyer_keyIsFocused) Buyer_keyIsFocused = false
 				doingClearFocus = false
 			end
 		endmethod
@@ -1482,28 +1407,6 @@ namespace AppData
 					end
 				end
 			end
-			("Buyer_key"),
-			begin
-				if (((Supplier_Data)obj1).Buyer_key == ((Supplier_Data)obj2).Buyer_key) then
-					result = 0
-				else
-				begin
-					if (((Supplier_Data)obj1).Buyer_key > ((Supplier_Data)obj2).Buyer_key) then
-					begin
-						if (sortDir == Symphony.Conductor.Framework.SynergySortOrder.Ascending) then
-							result = -1
-						else
-							result = 1
-					end
-					else
-					begin
-						if (sortDir == Symphony.Conductor.Framework.SynergySortOrder.Descending) then
-							result = -1
-						else
-							result = 1
-					end
-				end
-			end
 			(),
 				result = this.CustomCompareObjects(obj1, obj2, colName, sortDir)
 			endusing
@@ -1531,7 +1434,6 @@ namespace AppData
 				if (supplier_main.STR_create_date)
 					tmpSTR.csCreate_date = (datetime?)mDateConveter.Convert(supplier_main.STR_create_date, ^null, "FORMAT:YYYYMMDD", ^null)
 				tmpSTR.csAccount_status = (int32)mIntegerConveter.Convert(supplier_main.STR_account_status, ^null, ^null, ^null)
-				tmpSTR.csBuyer_key = (string)mAlphaConveter.Convert(supplier_main.STR_buyer_key, ^null, ^null, ^null)
 				mreturn structureToByteArray(tmpSTR)
 			endmethod
 			method set
@@ -1549,7 +1451,6 @@ namespace AppData
 				supplier_main.STR_Email = (a)mAlphaConveter.ConvertBack(tmpSTR.csEmail, ^null, ^null, ^null)
 				supplier_main.STR_Create_date = (d)mDateConveter.ConvertBack(tmpSTR.csCreate_date, ^null, "FORMAT:YYYYMMDD", ^null)
 				supplier_main.STR_Account_status = (d)((i)mIntegerConveter.ConvertBack(tmpSTR.csAccount_status, ^null, ^null, ^null))
-				supplier_main.STR_Buyer_key = (a)mAlphaConveter.ConvertBack(tmpSTR.csBuyer_key, ^null, ^null, ^null)
 			endmethod
 		endproperty
 			
@@ -1574,7 +1475,6 @@ namespace AppData
 				else
 					writer.Write("")
 				writer.Write(tmpSTRUCT.csAccount_status.ToString())
-				writer.Write(tmpSTRUCT.csBuyer_key)
 			end
 			mreturn stream.ToArray()
 		endmethod
@@ -1601,7 +1501,6 @@ namespace AppData
 				if (tmpString.Length > 0) tmpSTRUCT.csCreate_date = Convert.ToDateTime(tmpString)
 				tmpString = reader.ReadString()
 				tmpSTRUCT.csAccount_status = Convert.ToInt32(tmpString)
-				tmpSTRUCT.csBuyer_key = reader.ReadString()
 			end
 
 			mreturn tmpSTRUCT

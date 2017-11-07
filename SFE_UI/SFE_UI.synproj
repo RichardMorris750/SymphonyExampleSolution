@@ -219,6 +219,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Resource Include="Images\Icons\Group.png" />
+    <Resource Include="Images\Icons\icons8-customer.png" />
+    <Resource Include="Images\Icons\icons8-manager.png" />
+    <Resource Include="Images\Icons\icons8-purchase-order.png" />
+    <Resource Include="Images\Icons\icons8-shopping-cart.png" />
+    <Resource Include="Images\Icons\Product.png" />
+    <Resource Include="Images\Icons\Supplier.png" />
     <Resource Include="Resources\Buyer_Content.CodeGen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

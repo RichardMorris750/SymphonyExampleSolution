@@ -17,6 +17,20 @@
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
 
+
+            <Button Style="{StaticResource MenuButtonStyle}" Command="{Binding Path=NavigateState}" CommandParameter="CustomerMaintState">
+                <Button.Content>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Image Grid.Row="0" Source="pack://application:,,,/SFE_UI;component/Images/Icons/icons8-customer.png"></Image>
+                        <TextBlock Grid.Row="1" Text="Customers" HorizontalAlignment="Center"></TextBlock>
+                    </Grid>
+                </Button.Content>
+            </Button>
+
             <Button Style="{StaticResource MenuButtonStyle}" Command="{Binding Path=NavigateState}" CommandParameter="SupplierMaintState">
                 <Button.Content>
                     <Grid>
@@ -24,7 +38,7 @@
                             <RowDefinition Height="*"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Image Grid.Row="0" Source="pack://application:,,,/SFEAppShell;component/Images/Icons/Supplier.png"></Image>
+                        <Image Grid.Row="0" Source="pack://application:,,,/SFE_UI;component/Images/Icons/Supplier.png"></Image>
                         <TextBlock Grid.Row="1" Text="Suppliers" HorizontalAlignment="Center"></TextBlock>
                     </Grid>
                 </Button.Content>
@@ -37,7 +51,7 @@
                             <RowDefinition Height="*"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Image Grid.Row="0" Source="pack://application:,,,/SFEAppShell;component/Images/Icons/Product.png"></Image>
+                        <Image Grid.Row="0" Source="pack://application:,,,/SFE_UI;component/Images/Icons/Product.png"></Image>
                         <TextBlock Grid.Row="1" Text="Products" HorizontalAlignment="Center"></TextBlock>
                     </Grid>
                 </Button.Content>
@@ -50,12 +64,13 @@
                             <RowDefinition Height="*"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Image Grid.Row="0" Source="pack://application:,,,/SFEAppShell;component/Images/Icons/Group.png"></Image>
+                        <Image Grid.Row="0" Source="pack://application:,,,/SFE_UI;component/Images/Icons/Group.png"></Image>
                         <TextBlock Grid.Row="1" Text="Product Groups" HorizontalAlignment="Center"></TextBlock>
                     </Grid>
                 </Button.Content>
             </Button>
 
+  
             <Button Style="{StaticResource MenuButtonStyle}" Command="{Binding Path=NavigateState}" CommandParameter="BuyerMaintState">
                 <Button.Content>
                     <Grid>
@@ -63,18 +78,30 @@
                             <RowDefinition Height="*"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Image Grid.Row="0" Source="pack://application:,,,/SFEAppShell;component/Images/Icons/Buyer.png"></Image>
+                        <Image Grid.Row="0" Source="pack://application:,,,/SFE_UI;component/Images/Icons/icons8-manager.png"></Image>
                         <TextBlock Grid.Row="1" Text="Buyers" HorizontalAlignment="Center"></TextBlock>
                     </Grid>
                 </Button.Content>
             </Button>
 
 
-
-
         </StackPanel>
 
+
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+            <Button Style="{StaticResource MenuButtonStyle}" Command="{Binding Path=NavigateState}" CommandParameter="SalesOrderState">
+                <Button.Content>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Image Grid.Row="0" Source="pack://application:,,,/SFE_UI;component/Images/Icons/icons8-shopping-cart.png"></Image>
+                        <TextBlock Grid.Row="1" Text="Sales Orders" HorizontalAlignment="Center"></TextBlock>
+                    </Grid>
+                </Button.Content>
+            </Button>
 
             <Button Style="{StaticResource MenuButtonStyle}" Command="{Binding Path=NavigateState}" CommandParameter="PurchaseOrderState">
                 <Button.Content>
@@ -83,12 +110,13 @@
                             <RowDefinition Height="*"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Image Grid.Row="0" Source="pack://application:,,,/SFEAppShell;component/Images/Icons/PO_64px.png"></Image>
-                        <TextBlock Grid.Row="1" Text="Orders" HorizontalAlignment="Center"></TextBlock>
+                        <Image Grid.Row="0" Source="pack://application:,,,/SFE_UI;component/Images/Icons/icons8-purchase-order.png"></Image>
+                        <TextBlock Grid.Row="1" Text="Purchase Orders" HorizontalAlignment="Center"></TextBlock>
                     </Grid>
                 </Button.Content>
             </Button>
 
         </StackPanel>
+        
     </Grid>
 </UserControl>

@@ -1,15 +1,8 @@
  
 ;  SYNERGY DATA LANGUAGE OUTPUT
-;
-;  REPOSITORY     : C:\Projects\Obsolete\Rps\rpsmain.ism
-;                 : C:\Projects\Obsolete\Rps\rpstext.ism
-;                 : Version 10.3.1b
-;
-;  GENERATED      : 07-NOV-2017, 10:49:55
-;                 : Version 10.3.3d
-;  EXPORT OPTIONS : [ALL] 
+
  
- 
+;---------------------------------------------------------------------------------------------------- 
 Structure BUYER   DBL ISAM
    Description "Buyer Master File"
  
@@ -77,6 +70,12 @@ Key KEY03   ACCESS   Order ASCENDING   Dups NO
    Description "Alt key - modified timestamp"
    Segment FIELD   MODIFIED_TIMESTAMP  SegType TIMESTAMP  SegOrder ASCENDING
  
+  
+File BUYER   DBL ISAM   "SFEDATA:buyer.ism"
+   Description "Buyer Master File"
+   Assign BUYER
+
+ ;----------------------------------------------------------------------------------------------
 Structure ORDER_HEADER   DBL ISAM
    Description "Order Header"
  
@@ -142,7 +141,15 @@ Key KEY4   ACCESS   Order ASCENDING   Dups NO
    Description "required date + order"
    Segment FIELD   REQD_DATE
    Segment FIELD   ORDER_NO
+
+    
+File ORDER_HEADER   DBL ISAM   "SFEDATA:order_header.ism"
+   Description "Order Header File"
+   Assign ORDER_HEADER
  
+ ;-------------------------------------------------------------------------------------------
+
+
 Structure ORDER_LINE   DBL ISAM
    Description "Order Line"
  
@@ -198,6 +205,12 @@ Key PRODUCT   ACCESS   Order ASCENDING   Dups NO
    Description "product code"
    Segment FIELD   PROD_CODE
  
+  
+File ORDER_LINE   DBL ISAM   "SFEDATA:order_line.ism"
+   Description "Order Line File"
+   Assign ORDER_LINE
+
+ ;--------------------------------------------------------------------------------------
 Structure PARAMETER   RELATIVE
    Description "Parameter File"
  
@@ -207,7 +220,15 @@ Field LAST_ORDER_NO   Type DECIMAL   Size 6
  
 Field FILLER   Type ALPHA   Size 594   Language Noview   Script Noview
    Report Heading "UNUSED"
+
+    
+File PARAMETER   RELATIVE   "SFEDATA:parameter.dat"
+   Description "Parameter file"
+   Assign PARAMETER
  
+;---------------------------------------------------------------------------------------
+
+
 Structure PRODUCT   DBL ISAM
    Description "Product Master File"
  
@@ -262,6 +283,13 @@ Field FILLER   Type ALPHA   Size 500   Language Noview   Script Noview
 Key PRIMARY   ACCESS   Order ASCENDING   Dups NO
    Description "Primary key - product code"
    Segment FIELD   PROD_CODE  SegType ALPHA  SegOrder ASCENDING
+
+File PRODUCT   DBL ISAM   "SFEDATA:product.ism"
+   Description "Product Master File"
+   Assign PRODUCT
+ 
+
+;-----------------------------------------------------------------------------------------
  
 Structure PRODUCT_GROUP   DBL ISAM
    Description "Product Group"
@@ -281,6 +309,13 @@ Key PRIMARY   ACCESS   Order ASCENDING   Dups NO
    Description "Primary key - product group"
    Segment FIELD   PROD_GROUP  SegType ALPHA  SegOrder ASCENDING
  
+  
+ File PRODUCT_GROUP   DBL ISAM   "SFEDATA:product_group.ism"
+   Description "Product Group master File"
+   Assign PRODUCT_GROUP
+
+;-------------------------------------------------------------------------------------------
+
 Structure SELECTIONS   DBL ISAM
    Description "REeport selection fields"
  
@@ -319,7 +354,10 @@ Field KEYVALUE   Type ALPHA   Size 10
    Long Description
       "<SYMPHONY_UPDATE_TRIGGER=PropertyChanged>"
    Prompt "Key Value"   Report Heading "Key Value"
+
  
+
+ ;--------------------------------------------------------------------------------------
 Structure SUPPLIER   DBL ISAM
    Description "Supplier Master File"
  
@@ -384,32 +422,212 @@ Field FLLER   Type ALPHA   Size 468   Language Noview   Script Noview
 Key PRIMARY   ACCESS   Order ASCENDING   Dups NO
    Description "Primary key - supplier code"
    Segment FIELD   SUPP_CODE  SegType ALPHA  SegOrder ASCENDING
- 
-File BUYER   DBL ISAM   "SFEDATA:buyer.ism"
-   Description "Buyer Master File"
-   Assign BUYER
- 
-File ORDER_HEADER   DBL ISAM   "SFEDATA:order_header.ism"
-   Description "Order Header File"
-   Assign ORDER_HEADER
- 
-File ORDER_LINE   DBL ISAM   "SFEDATA:order_line.ism"
-   Description "Order Line File"
-   Assign ORDER_LINE
- 
-File PARAMETER   RELATIVE   "SFEDATA:parameter.dat"
-   Description "Parameter file"
-   Assign PARAMETER
- 
-File PRODUCT   DBL ISAM   "SFEDATA:product.ism"
-   Description "Product Master File"
-   Assign PRODUCT
- 
-File PRODUCT_GROUP   DBL ISAM   "SFEDATA:product_group.ism"
-   Description "Product Group master File"
-   Assign PRODUCT_GROUP
- 
+
 File SUPPLIER   DBL ISAM   "SFEDATA:supplier.ism"
    Description "Supplier Master File"
    Assign SUPPLIER
  
+
+;-----------------------------------------------------------------------------------------
+Structure CUSTOMER   DBL ISAM
+   Description "Customer Master File"
+ 
+Field CUST_CODE   Type DECIMAL   Size 6
+   Description "Customer Code"
+   Prompt "Customer Code"  
+   Break   Required
+ 
+Field NAME   Type ALPHA   Size 30
+   Description "Supplier name"
+   Prompt "Supplier Name"   Report Heading "Supplier Name"
+   Break   Required
+ 
+Field ADDRESS1   Type ALPHA   Size 30
+   Description "Address Line 1"
+   Prompt "Address"   Report Heading "Address 1"
+   Break   Required
+ 
+Field ADDRESS2   Type ALPHA   Size 30
+   Description "Address Line 2"
+   Report Heading "Address 2"
+ 
+Field ADDRESS3   Type ALPHA   Size 30
+   Description "Address Line 3"
+   Report Heading "Address 3"
+ 
+Field POSTCODE   Type ALPHA   Size 10
+   Description "Post Code"
+   Prompt "Post Code"   Report Heading "Post Code"
+   Break   Required
+ 
+Field PHONE   Type ALPHA   Size 20
+   Description "Phone Number"
+   Prompt "Phone Number"   Report Heading "Phone No"
+ 
+Field CONTACT   Type ALPHA   Size 30
+   Description "Contact Name"
+   Prompt "Contact Name"   Report Heading "Contact Name"
+ 
+Field EMAIL   Type ALPHA   Size 50
+   Description "Email Address"
+   Prompt "Email Address"   Report Heading "Email"
+ 
+Field CREATE_DATE   Type DATE   Size 8   Stored YYYYMMDD
+   Prompt "Creation date"
+   Date Today
+
+Field FLLER   Type ALPHA   Size 468   Language Noview   Script Noview
+ 
+Key PRIMARY   ACCESS   Order ASCENDING   Dups NO
+   Description "Primary key - customer code"
+   Segment FIELD   CUST_CODE  SegType DECIMAL  SegOrder ASCENDING
+ 
+File CUSTOMER   DBL ISAM   "SFEDATA:customer.ism"
+   Description "Customer Master File"
+   Assign CUSTOMER
+
+
+ ;----------------------------------------------------------------------------------------------
+Structure SALES_ORDER_HEADER   DBL ISAM
+   Description "Sales Order Header"
+ 
+Field ORDER_NO   Type DECIMAL   Size 6
+   Description "Order No"
+   Prompt "Order No"   Report Heading "Order No"
+ 
+Field CUST_CODE   Type DECIMAL   Size 6
+   Description "Customer Code"
+   Long Description
+      "<SYMPHONY_ALPHA_SIZE=100>"
+   Prompt "Customer"   Report Heading "Customer"
+   Required
+   Drill Method "CustomerCode"
+ 
+Field ORDER_DATE   Type DATE   Size 8   Stored YYYYMMDD
+   Description "Order date"
+   Position 0 0   Prompt "Order Date"   Report Heading "Order Date"
+   Required
+ 
+Field REQD_DATE   Type DATE   Size 8   Stored YYYYMMDD
+   Description "required delivery date"
+   Prompt "Required by"   Report Heading "Required by"
+   Required
+ 
+Field COMMENTS   Type ALPHA   Size 40
+   Description "Comments"
+   Prompt "Comments"   Report Heading "Comments"
+ 
+Field LINE_COUNT   Type DECIMAL   Size 5
+   Description "Number of lines"
+   Prompt "No of Lines"   Report Heading "No of Lines"
+ 
+Field TOT_VALUE   Type DECIMAL   Size 10   Precision 2
+   Description "Total Value (ex VAT)"
+   Prompt "Total value (ex VAT)"   Report Heading "Total Value (Ex VAT)"
+ 
+Field TOT_VAT   Type DECIMAL   Size 10   Precision 2
+   Description "Total VAT"
+   Prompt "Total VAT"   Report Heading "Total VAT"
+ 
+Field TOT_QTY   Type DECIMAL   Size 6
+   Description "Total Quantity"
+   Prompt "Total Qty"   Report Heading "Total Quantity"
+ 
+Field FILLER   Type ALPHA   Size 500   Language Noview   Script Noview
+ 
+Key PRIMARY   ACCESS   Order ASCENDING   Dups NO
+   Description "Primary key - order no"
+   Segment FIELD   ORDER_NO  SegType DECIMAL  SegOrder ASCENDING
+ 
+Key KEY2   ACCESS   Order ASCENDING   Dups NO
+   Description "2nd key - customer code + order no"
+   Segment FIELD   CUST_CODE  SegType DECIMAL  SegOrder ASCENDING
+   Segment FIELD   ORDER_NO  SegType DECIMAL  SegOrder ASCENDING
+ 
+Key KEY3   ACCESS   Order ASCENDING   Dups NO
+   Description "order date + order"
+   Segment FIELD   ORDER_DATE
+   Segment FIELD   ORDER_NO
+ 
+Key KEY4   ACCESS   Order ASCENDING   Dups NO
+   Description "required date + order"
+   Segment FIELD   REQD_DATE
+   Segment FIELD   ORDER_NO
+ 
+ File SALES_ORDER_HEADER   DBL ISAM   "SFEDATA:sales_order_header.ism"
+   Description "Sales Order Header File"
+   Assign SALES_ORDER_HEADER
+
+ ;-------------------------------------------------------------------------------------------
+
+
+Structure SALES_ORDER_LINE   DBL ISAM
+   Description "Sales Order Line"
+ 
+Field ORDER_NO   Type DECIMAL   Size 6
+   Description "Order No"
+   Prompt "Order No"   Report Heading "Order No"
+ 
+Field LINE_NO   Type DECIMAL   Size 5
+   Description "Line Seq No"
+   Report Heading "Line Seq No"
+ 
+Field PROD_CODE   Type ALPHA   Size 10
+   Description "Product Code"
+   Long Description
+      "<SYMPHONY_ALPHA_SIZE=100>"
+   Prompt "Product Code"   Report Heading "Product Code"
+   Required
+   Drill Method "ProductCode"
+ 
+Field PROD_DESCRIPTION   Type ALPHA   Size 40
+   Description "Description"
+   Prompt "Description"   Report Heading "Description"
+ 
+Field QTY   Type DECIMAL   Size 6
+   Description "Quantity Ordered"
+   Prompt "Quantity Ordered"   Report Heading "Quantity"
+   Required
+ 
+Field PRICE   Type DECIMAL   Size 8   Precision 2
+   Description "Price"
+   Position Relative 0 0   Prompt "Price"   Report Heading "Price"
+ 
+Field LINE_VALUE   Type DECIMAL   Size 10   Precision 2
+   Description "Line Value, excl VAT"
+   Prompt "Line Value (ex VAT)"   Report Heading "Line Value"
+ 
+Field VAT_RATE   Type DECIMAL   Size 5   Precision 2
+   Description "VAT Rate"
+   Prompt "VAT Rate"   Report Heading "VAT Rate"
+ 
+Field VAT_VALUE   Type DECIMAL   Size 10   Precision 2
+   Description "VAT Value"
+   Position 0 0   Prompt "VAT Value"   Report Heading "VAT Value"
+ 
+Field FILLER   Type ALPHA   Size 500   Language Noview   Script Noview
+ 
+Key PRIMARY   ACCESS   Order ASCENDING   Dups NO
+   Description "order number and line"
+   Segment FIELD   ORDER_NO
+   Segment FIELD   LINE_NO
+ 
+Key PRODUCT   ACCESS   Order ASCENDING   Dups NO
+   Description "product code"
+   Segment FIELD   PROD_CODE
+
+File SALES_ORDER_LINE   DBL ISAM   "SFEDATA:sales_order_line.ism"
+   Description "Sales Order Line File"
+   Assign SALES_ORDER_LINE
+
+
+
+;----------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+

@@ -233,20 +233,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Images" />
-    <Folder Include="Images\Icons" />
     <Folder Include="ViewModel" />
     <Folder Include="View" />
     <Folder Include="Properties" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Icons\Buyer.png" />
-    <Resource Include="Images\Icons\Group.png" />
-    <Resource Include="Images\Icons\Menu-64.png" />
-    <Resource Include="Images\Icons\Menu-64_mouseOver.png" />
-    <Resource Include="Images\Icons\PO_64px.png" />
-    <Resource Include="Images\Icons\Product.png" />
-    <Resource Include="Images\Icons\Supplier.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SFE_Buyer\SFE_Buyer.synproj">

@@ -102,8 +102,6 @@ namespace SFE_Supplier.ViewModel
 			end
 			endusing
 
-			DataObjectEntryItem.SetFieldReadOnlyStatus(false, "CREATE_DATE")
-			DataObjectEntryItem.SetFieldReadOnlyStatus(false, "ACCOUNT_STATUS")
 		endmethod
 
 

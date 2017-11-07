@@ -172,10 +172,13 @@
       <DependentUpon>Common\Toolbar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Content\Buyer_Collection.CodeGen.dbc" />
+    <Compile Include="Content\Customer_Collection.CodeGen.dbc" />
     <Compile Include="Content\Order_header_Collection.CodeGen.dbc" />
     <Compile Include="Content\Order_line_Collection.CodeGen.dbc" />
     <Compile Include="Content\Product_Collection.CodeGen.dbc" />
     <Compile Include="Content\Product_group_Collection.CodeGen.dbc" />
+    <Compile Include="Content\Sales_order_header_Collection.CodeGen.dbc" />
+    <Compile Include="Content\Sales_order_line_Collection.CodeGen.dbc" />
     <Compile Include="Content\Supplier_Collection.CodeGen.dbc" />
     <Compile Include="Converters\NullConverter.dbc" />
     <Compile Include="Properties\AssemblyInfo.dbl" />
@@ -219,6 +222,30 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Resource Include="Resources\Customer_Content.CodeGen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
+    <Resource Include="Resources\Customer_Style.CodeGen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
+    <Resource Include="Resources\Sales_order_header_Content.CodeGen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
+    <Resource Include="Resources\Sales_order_header_Style.CodeGen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
+    <Resource Include="Resources\Sales_order_line_Content.CodeGen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
+    <Resource Include="Resources\Sales_order_line_Style.CodeGen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
     <Resource Include="Images\Icons\Group.png" />
     <Resource Include="Images\Icons\icons8-customer.png" />
     <Resource Include="Images\Icons\icons8-manager.png" />

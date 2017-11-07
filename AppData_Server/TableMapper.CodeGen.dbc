@@ -24,6 +24,8 @@ namespace AppData
 			using tableName + " " select
 			("BUYER "),
 				mreturn "SFEDATA:buyer.ism"
+			("CUSTOMER "),
+				mreturn "SFEDATA:customer.ism"
 			("ORDER_HEADER "),
 				mreturn "SFEDATA:order_header.ism"
 			("ORDER_LINE "),
@@ -34,6 +36,10 @@ namespace AppData
 				mreturn "SFEDATA:product.ism"
 			("PRODUCT_GROUP "),
 				mreturn "SFEDATA:product_group.ism"
+			("SALES_ORDER_HEADER "),
+				mreturn "SFEDATA:sales_order_header.ism"
+			("SALES_ORDER_LINE "),
+				mreturn "SFEDATA:sales_order_line.ism"
 			("SUPPLIER "),
 				mreturn "SFEDATA:supplier.ism"
 			(),

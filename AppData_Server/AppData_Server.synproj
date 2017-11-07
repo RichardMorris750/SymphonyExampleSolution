@@ -180,6 +180,9 @@
     <Compile Include="Buyer_DFM.CodeGen.dbc" />
     <Compile Include="Buyer_DOCache.CodeGen.dbc" />
     <Compile Include="Buyer_FileIO.CodeGen.dbc" />
+    <Compile Include="Customer_Data.CodeGen.dbc" />
+    <Compile Include="Customer_DFM.CodeGen.dbc" />
+    <Compile Include="Customer_FileIO.CodeGen.dbc" />
     <Compile Include="DataLogic.dbc" />
     <Compile Include="Order_header_Data.CodeGen.dbc" />
     <Compile Include="Order_Header_Data.dbc" />
@@ -201,6 +204,12 @@
     <Compile Include="Product_group_DOCache.CodeGen.dbc" />
     <Compile Include="Product_group_FileIO.CodeGen.dbc" />
     <Compile Include="Properties\AssemblyInfo.dbl" />
+    <Compile Include="Sales_order_header_Data.CodeGen.dbc" />
+    <Compile Include="Sales_order_header_DFM.CodeGen.dbc" />
+    <Compile Include="Sales_order_header_FileIO.CodeGen.dbc" />
+    <Compile Include="Sales_order_line_Data.CodeGen.dbc" />
+    <Compile Include="Sales_order_line_DFM.CodeGen.dbc" />
+    <Compile Include="Sales_order_line_FileIO.CodeGen.dbc" />
     <Compile Include="Selections_Data.CodeGen.dbc" />
     <Compile Include="Supplier_Data.CodeGen.dbc" />
     <Compile Include="Supplier_Data.dbc" />

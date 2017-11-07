@@ -33,12 +33,12 @@
                     <RowDefinition Height="auto"></RowDefinition>
                 </Grid.RowDefinitions>
                 <TabControl Grid.Row="0" DataContext="{Binding Path=DataObjectEntryItem}">
-                    <TabItem Header="Details">
+                    <TabItem Header="Details" Foreground="{StaticResource TabItemForegroundBrush}" Background="{StaticResource BackgroundPrimaryBrush}" >
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="73" />
-                                <ColumnDefinition Width="9"/>
-                                <ColumnDefinition Width="120" />
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="auto" />
                                 <ColumnDefinition Width="4" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
@@ -85,12 +85,12 @@
                         </Grid>
 
                     </TabItem>
-                    <TabItem Header="Costings">
+                    <TabItem Header="Costings" Foreground="{StaticResource TabItemForegroundBrush}" Background="{StaticResource BackgroundPrimaryBrush}"  >
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="73" />
-                                <ColumnDefinition Width="9"/>
-                                <ColumnDefinition Width="120" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="auto" />
                                 <ColumnDefinition Width="4" />
                                 <ColumnDefinition Width="auto" />
                                 <ColumnDefinition Width="*" />

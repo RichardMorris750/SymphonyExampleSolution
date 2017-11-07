@@ -121,6 +121,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 		Templates\Symphony_DataFieldMapper.tpl = Templates\Symphony_DataFieldMapper.tpl
 		Templates\Symphony_DOCache_v3_3.tpl = Templates\Symphony_DOCache_v3_3.tpl
 		Templates\Symphony_FileIO.tpl = Templates\Symphony_FileIO.tpl
+		Templates\Symphony_Style_SFE.tpl = Templates\Symphony_Style_SFE.tpl
 		Templates\Symphony_Style_V3_2.tpl = Templates\Symphony_Style_V3_2.tpl
 	EndProjectSection
 EndProject

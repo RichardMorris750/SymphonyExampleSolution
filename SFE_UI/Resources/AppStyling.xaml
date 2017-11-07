@@ -5,8 +5,8 @@
     
     <!--standard values/literals -->
 
-    <GridLength x:Key="StandardInputGridHeight">28</GridLength>
-    <clr:Double x:Key="StandardFontSize">12</clr:Double>
+    <GridLength x:Key="StandardInputGridHeight">30</GridLength>
+    <clr:Double x:Key="StandardFontSize">14</clr:Double>
     <clr:Double x:Key="StandardDataGridHeight">25</clr:Double>
 
     <!-- standard colors -->
@@ -55,6 +55,8 @@
     <SolidColorBrush x:Key="GridItemBackgroundBrush" Color="{StaticResource BlackColour}"></SolidColorBrush>
     <SolidColorBrush x:Key="GridItemForegroundBrush" Color="{StaticResource OrangeColour}"></SolidColorBrush>
     <SolidColorBrush x:Key="GridItemDisabledForegroundBrush" Color="{StaticResource WhiteColour}"></SolidColorBrush>
+
+    <SolidColorBrush x:Key="TabItemForegroundBrush" Color="{StaticResource BlueColour}"></SolidColorBrush>
 
     <SolidColorBrush x:Key="LabelColorBrush" Color="{StaticResource LemonColour}"></SolidColorBrush>
     <SolidColorBrush x:Key="InputBackgroundBrush" Color="{StaticResource WhiteColour}"></SolidColorBrush>

@@ -260,3 +260,7 @@ ModelManifest.xml
 /SFEPDFfiles/gordon113046.pdf
 *.pdf
 *.dep
+
+#GI files
+admin.bat
+*.docx

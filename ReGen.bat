@@ -20,14 +20,6 @@ REM codegen %OPTS% -s BUYER -t Symphony_Content.tpl 	-o %ROOT%SFE_UI\Resources -
 REM codegen %OPTS% -s BUYER -t Symphony_Style_v3_2 		-o %ROOT%SFE_UI\Resources -n SFE_UI.Resources -ut ASSEMBLYNAME=SFE_UI
 
 
-<<<<<<< HEAD
-set OPTS=-e -r -s
-codegen %OPTS% PRODUCT_GROUP SUPPLIER -t Symphony_DOCache_v3_3.tpl 	-o %ROOT%\AppData_Server -n AppData -ut MODELNAMESPACE=AppData -ut ASSEMBLYNAME=AppData
-=======
-codegen %OPTS% -s BUYER -t Symphony_Content.tpl 	-o %ROOT%SFE_UI\Resources -n SFE_UI.Content -ut ASSEMBLYNAME=SFE_UI
-codegen %OPTS% -s BUYER -t Symphony_Style_v3_2 		-o %ROOT%SFE_UI\Resources -n SFE_UI.Resources -ut ASSEMBLYNAME=SFE_UI
->>>>>>> debe6e2e7fe0424826d1ffabcc9c07a4f3121c36
-
 
 codegen %OPTS% BUYER PRODUCT SUPPLIER PRODUCT_GROUP ORDER_HEADER ORDER_LINE PARAMETER -t Symphony_Data_V3_2 -o %ROOT%\AppData_Server -n AppData
 

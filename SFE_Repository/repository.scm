@@ -1,17 +1,12 @@
  
 ;  SYNERGY DATA LANGUAGE OUTPUT
 ;
-;  REPOSITORY     : C:\Projects\SymphonyExampleSolution\Rps\rpsmain.ism
-;                 : C:\Projects\SymphonyExampleSolution\Rps\rpstext.ism
+;  REPOSITORY     : C:\Projects\Obsolete\Rps\rpsmain.ism
+;                 : C:\Projects\Obsolete\Rps\rpstext.ism
 ;                 : Version 10.3.1b
 ;
-<<<<<<< HEAD
-;  GENERATED      : 02-NOV-2017, 17:09:27
+;  GENERATED      : 07-NOV-2017, 10:49:55
 ;                 : Version 10.3.3d
-=======
-;  GENERATED      : 17-MAY-2017, 20:24:25
-;                 : Version 10.3.3c
->>>>>>> debe6e2e7fe0424826d1ffabcc9c07a4f3121c36
 ;  EXPORT OPTIONS : [ALL] 
  
  
@@ -82,11 +77,7 @@ Key KEY03   ACCESS   Order ASCENDING   Dups NO
    Description "Alt key - modified timestamp"
    Segment FIELD   MODIFIED_TIMESTAMP  SegType TIMESTAMP  SegOrder ASCENDING
  
-<<<<<<< HEAD
 Structure ORDER_HEADER   DBL ISAM
-=======
-Structure ORDER_HEADER   DBL ISAM   Modified 20170427080413
->>>>>>> debe6e2e7fe0424826d1ffabcc9c07a4f3121c36
    Description "Order Header"
  
 Field ORDER_NO   Type DECIMAL   Size 6
@@ -152,11 +143,7 @@ Key KEY4   ACCESS   Order ASCENDING   Dups NO
    Segment FIELD   REQD_DATE
    Segment FIELD   ORDER_NO
  
-<<<<<<< HEAD
 Structure ORDER_LINE   DBL ISAM
-=======
-Structure ORDER_LINE   DBL ISAM   Modified 20170426073051
->>>>>>> debe6e2e7fe0424826d1ffabcc9c07a4f3121c36
    Description "Order Line"
  
 Field ORDER_NO   Type DECIMAL   Size 6
@@ -220,7 +207,6 @@ Field LAST_ORDER_NO   Type DECIMAL   Size 6
  
 Field FILLER   Type ALPHA   Size 594   Language Noview   Script Noview
    Report Heading "UNUSED"
-
  
 Structure PRODUCT   DBL ISAM
    Description "Product Master File"
@@ -334,11 +320,7 @@ Field KEYVALUE   Type ALPHA   Size 10
       "<SYMPHONY_UPDATE_TRIGGER=PropertyChanged>"
    Prompt "Key Value"   Report Heading "Key Value"
  
-<<<<<<< HEAD
 Structure SUPPLIER   DBL ISAM
-=======
-Structure SUPPLIER   DBL ISAM   Modified 20170517151243
->>>>>>> debe6e2e7fe0424826d1ffabcc9c07a4f3121c36
    Description "Supplier Master File"
  
 Field SUPP_CODE   Type ALPHA   Size 6

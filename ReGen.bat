@@ -5,8 +5,8 @@ set CODEGEN_TPLDIR=%ROOT%Templates
 
 rem set the required repository environment variables
 
-set RPSMFIL=%ROOT%Rps\rpsmain.ism
-set RPSTFIL=%ROOT%Rps\rpstext.ism
+set RPSMFIL=%ROOT%SFE_Repository\bin\debug\rpsmain.ism
+set RPSTFIL=%ROOT%SFE_Repository\bin\debug\rpstext.ism
 
 set OPTS=-e -r
 
@@ -23,7 +23,7 @@ codegen %OPTS% -s BUYER PRODUCT SUPPLIER PRODUCT_GROUP ORDER_HEADER ORDER_LINE P
 codegen %OPTS% -s BUYER PRODUCT SUPPLIER PRODUCT_GROUP ORDER_HEADER ORDER_LINE  -t Symphony_FileIO_V3_2 -o %ROOT%\AppData_Server -n AppData -ut MODELNAMESPACE=AppData
 REM parameter removed as codegen template does not allow for relative file
 
-codegen %OPTS% -s SUPPLIER PRODUCT_GROUP -t Symphony_DOCache_v3_3.tpl 	-o %ROOT%\AppData_Server -n AppData -ut MODELNAMESPACE=AppData -ut ASSEMBLYNAME=AppData_Server
+codegen %OPTS% -s BUYER SUPPLIER PRODUCT_GROUP -t Symphony_DOCache_v3_3.tpl 	-o %ROOT%\AppData_Server -n AppData -ut MODELNAMESPACE=AppData -ut ASSEMBLYNAME=AppData_Server
 
 codegen %OPTS% -s * -ms -t Symphony_TableMapper_v3_2 -o %ROOT%\AppData_Server -n AppData
 

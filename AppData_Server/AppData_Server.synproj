@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(SolutionDir)Common.props" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Name>"AppData_Server"</Name>
@@ -24,7 +25,8 @@
     <ResourceType>Icon</ResourceType>
     <ResourceName />
     <NoWin32Manifest />
-    <ProjEnvVars>RPSMFIL=$(SolutionDir)Rps\rpsmain.ism;RPSTFIL=$(SolutionDir)Rps\rpstext.ism</ProjEnvVars>
+    <ProjEnvVars>
+    </ProjEnvVars>
     <Install>True</Install>
     <ApplicationVersion>1.0.0.*</ApplicationVersion>
     <ApplicationRevision>0</ApplicationRevision>
@@ -39,6 +41,7 @@
     <IsWebBootstrapper>False</IsWebBootstrapper>
     <UseApplicationTrust>False</UseApplicationTrust>
     <BootstrapperEnabled>True</BootstrapperEnabled>
+    <EnableCommonProperties>True</EnableCommonProperties>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <IncludeDebugInformation>true</IncludeDebugInformation>
@@ -223,6 +226,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SFE_Repository\SFE_Repository.synproj">
+      <Name>SFE_Repository</Name>
+      <Project>{6690b794-0a79-4bac-9b86-9d37f875a9c1}</Project>
+      <Private>True</Private>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Synergex\VS2010\Synergex.SynergyDE.targets" />
   <PropertyGroup>

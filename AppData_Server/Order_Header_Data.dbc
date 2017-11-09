@@ -8,6 +8,7 @@ import Symphony.Conductor.Types
 import Symphony.Conductor.Commands
 import Symphony.Conductor.DataIO
 import Symphony.Harmony
+import System.Linq
 
 ;;imports required to use data objects and file IO classes.
 import AppData
@@ -15,6 +16,8 @@ import System.Windows.Media
 import System.Collections.ObjectModel
 import System.Reflection
 import System.Linq
+import Symphony.Harmony
+import Symphony.Harmony
 
 
 namespace AppData
@@ -152,7 +155,7 @@ namespace AppData
 
 			data orderline		,@Order_Line_Data
 
-				foreach orderline in new DataSelect(mConnector, "select * from order_line where Order_no = :1", new Order_Line_Data(),this.Order_no)
+				foreach orderline in DataSelect.RunDataSelect(mConnector, "select * from order_line where Order_no = :1", new Order_Line_Data(),this.Order_no).Result.OfType<Order_Line_Data>().ToList()
 ;				foreach item in new DataSelect(mConnector, "select * from order_line", new Order_Line_Data())
 				begin
 					mOrderLineList.AddToCollection(^as(orderline, Order_Line_Data))
@@ -229,7 +232,7 @@ namespace AppData
 
 			if (mOrderLineList.Count < mOriginalOrderLineList.Count) 		
 			begin
-				foreach orderLine in new DataSelect(mConnector, "select * from order_line where Order_no = :1 and Line_No > :2",					new Order_Line_Data(),this.Order_No,mOrderLineList.count)
+				foreach orderLine in DataSelect.RunDataSelect(mConnector, "select * from order_line where Order_no = :1 and Line_No > :2", new Order_Line_Data(),this.Order_No,mOrderLineList.count).Result.OfType<Order_Line_Data>().ToList()
 				begin
 					if (orderLineIO.DeleteRecordUsingGRFA(orderLine)!= FileAccessResults.Success)
 						nop			;; ignore errors for now	
@@ -273,7 +276,7 @@ namespace AppData
 		data orderLineIO = new Order_Line_FileIO(FileOpenMode.UpdateIndexed)
 		data orderLine		,@Order_Line_Data
 
-			foreach orderLine in new DataSelect(mConnector, "select * from order_line where Order_No = :1",new Order_Line_Data(),this.Order_No)
+			foreach orderLine in DataSelect.RunDataSelect(mConnector, "select * from order_line where Order_No = :1",new Order_Line_Data(),this.Order_No).Result.OfType<Order_Line_Data>().ToList()
 			begin
 				if (orderLineIO.DeleteRecordUsingGRFA(orderLine)!= FileAccessResults.Success)
 					nop			;; ignore errors for now	

@@ -99,7 +99,7 @@ namespace SFE_Base.ViewModel
 			mDataObjectDetailItem = detailItem 
 			mFileAccessObject = fileAccess
 			mErrorVisualState = errorVisualState
-			if  (%passed(dialogVisualState))
+			if  (!string.IsNullOrEmpty(dialogVisualState))
 				mDialogVisualState = dialogVisualState
 			
 			this.AfterNavigateState += doAfterStateNavigation

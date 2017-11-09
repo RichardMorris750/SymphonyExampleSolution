@@ -54,44 +54,43 @@ namespace SFE_Base.ViewModel
 		
 		; constructor for no detail lines
 		public method FileMaintViewModel
-		in req sender				,@FrameworkElement
-		in req dataItem				,@Type
-		in req fileAccess			,@FileIO
-		in req errorVisualState		,string
-		in dialogVisualState		,string
-		endparams
-		parent(sender)
+			in req sender				,@FrameworkElement
+			in req dataItem				,@Type
+			in req fileAccess			,@FileIO
+			in req errorVisualState		,string
+			in dialogVisualState		,string
+			endparams
+			parent(sender)
 		proc
-			configureDialog(sender)
-
-			;;store the passed info
-			mDataObjectItem = dataItem
-			mFileAccessObject = fileAccess
-			mErrorVisualState = errorVisualState
-
-			if  (%passed(dialogVisualState))
-				mDialogVisualState = dialogVisualState
-			
-			this.AfterNavigateState += doAfterStateNavigation
-
-			;;create our base collection
-			DataObjectCollection = new AsyncObservableCollection<DataObjectBase>()
-
-			mNumberOfDetailLineSets = 0
+			constructorLogic(sender, dataItem, fileAccess, errorVisualState, ^null, dialogVisualState)
 
 		endmethod
 
 		; constructor for 1 set fo detail lines
 		
 		public method FileMaintViewModel
-		in req sender						,@FrameworkElement
-		in req dataItem						,@Type
-		in req fileAccess					,@FileIO
-		in req errorVisualState				,string
-		in req detailItem					,@Type
-		in dialogVisualState				,string
-		endparams
-		parent(sender)
+			in req sender						,@FrameworkElement
+			in req dataItem						,@Type
+			in req fileAccess					,@FileIO
+			in req errorVisualState				,string
+			in req detailItem					,@Type
+			in dialogVisualState				,string
+			endparams
+			parent(sender)
+		proc
+
+			constructorLogic(sender, dataItem, fileAccess, errorVisualState, detailItem, dialogVisualState)
+
+		endmethod
+
+		private method constructorLogic, void
+			in req sender						,@FrameworkElement
+			in req dataItem						,@Type
+			in req fileAccess					,@FileIO
+			in req errorVisualState				,string
+			in req detailItem					,@Type
+			in req dialogVisualState			,string
+			endparams
 		proc
 			configureDialog(sender)
 
@@ -107,12 +106,15 @@ namespace SFE_Base.ViewModel
 
 			;;create our base collection
 			DataObjectCollection = new AsyncObservableCollection<DataObjectBase>()
-			DataObjectDetailCollection = new AsyncObservableCollection<DataObjectBase>()
 
-			mNumberOfDetailLineSets = 1
-
+			mNumberOfDetailLineSets = 0
+			if (detailItem != ^null)
+			begin
+				DataObjectDetailCollection = new AsyncObservableCollection<DataObjectBase>()
+				mNumberOfDetailLineSets = 1
+			end
+			
 		endmethod
-
 
 		private mNumberOfDetailLineSets		,int
 
@@ -120,7 +122,7 @@ namespace SFE_Base.ViewModel
 .region "List controlling and loading methods"
 		
 		public method LoadDetailList		,void
-		endparams
+			endparams
 		proc
 			;;if we have a valid file object let's load the initial list
 			if (!mFileAccessObject.LastSynergyError)
@@ -135,8 +137,8 @@ namespace SFE_Base.ViewModel
 		private mDialogVisualState		,string
 
 		private method doAfterStateNavigation,void
-		eArgs		,@Symphony.Conductor.ViewModel.NavigateFromStateEventArgs 
-		endparams
+			eArgs		,@Symphony.Conductor.ViewModel.NavigateFromStateEventArgs 
+			endparams
 		proc
 			if (eArgs.CurrentStateName == mErrorVisualState)
 			begin
@@ -167,13 +169,13 @@ namespace SFE_Base.ViewModel
 .region "Event processing"
 		
 		public delegate ProgramModeChangedEventandler,void
-		in req currentMode					,ProgramMode
+			in req currentMode					,ProgramMode
 		enddelegate
 		
 		public event ProgramModeChanged		,@ProgramModeChangedEventandler
 		
 		private method raiseProgramModeChanged,void
-		endparams
+			endparams
 		proc
 			if (mLastProgramMode != mProgramMode)
 			begin
@@ -186,13 +188,13 @@ namespace SFE_Base.ViewModel
 
 
 		public delegate ProgramDetailModeChangedEventandler,void
-		in req currentDetailMode					,ProgramMode
+			in req currentDetailMode					,ProgramMode
 		enddelegate
 		
 		public event ProgramDetailModeChanged		,@ProgramDetailModeChangedEventandler
 		
 		private method raiseProgramDetailModeChanged,void
-		endparams
+			endparams
 		proc
 			if (mLastProgramDetailMode != mProgramDetailMode)
 			begin
@@ -219,15 +221,15 @@ namespace SFE_Base.ViewModel
 		private mCTORArgs					,[#]@Object		,new Object[1]
 
 		public virtual method LoadBaseItemCollection,void
-		endparams
+			endparams
 		proc
 			
-		data firstTime							,boolean				,true
+			data firstTime							,boolean				,true
 			
-		data classTypeInfo						,@TypeInfo				,IntrospectionExtensions.GetTypeInfo(mDataObjectItem)
+			data classTypeInfo						,@TypeInfo				,IntrospectionExtensions.GetTypeInfo(mDataObjectItem)
 			if (classTypeInfo != ^null)
 			begin
-			data item							,@ConstructorInfo
+				data item							,@ConstructorInfo
 				foreach item in classTypeInfo.DeclaredConstructors
 				begin
 					mClassConstructor = item
@@ -243,10 +245,10 @@ namespace SFE_Base.ViewModel
 				mDataObjectEntryItem.IsDataModifiedChanged += DoIsDataModified
 				
 				
-			data status							,FileAccessResults		,FileAccessResults.Success
+				data status							,FileAccessResults		,FileAccessResults.Success
 				while (status == FileAccessResults.Success)
 				begin
-				data classInstance = mClassConstructor.Invoke(mCTORArgs)
+					data classInstance = mClassConstructor.Invoke(mCTORArgs)
 					
 					if (firstTime) then
 						status = mFileAccessObject.ReadFirstRecord((DataObjectBase)classInstance)
@@ -494,7 +496,7 @@ namespace SFE_Base.ViewModel
 
 		
 		public method DoIsDataModified,void
-		endparams
+			endparams
 		proc
 
 			if (!mIgnoreDataChanged)
@@ -521,7 +523,7 @@ namespace SFE_Base.ViewModel
 
 
 		public method DoIsDetailDataModified,void
-		endparams
+			endparams
 		proc
 			if (!mIgnoreDetailDataChanged)
 			begin
@@ -575,9 +577,9 @@ namespace SFE_Base.ViewModel
 		endproperty
 		
 		private method doNewCommand,void
-		sender							,@Object
-		param							,string
-		endparams
+			sender							,@Object
+			param							,string
+			endparams
 		proc
 			DataObjectEntryItem.InitData()
 			DataObjectEntryItem.InitDataPlus()
@@ -614,9 +616,9 @@ namespace SFE_Base.ViewModel
 		endproperty
 		
 		private method doSaveCommand,void
-		sender								,@Object
-		param								,string
-		endparams
+			sender								,@Object
+			param								,string
+			endparams
 		proc
 
 			using mProgramMode select
@@ -646,18 +648,18 @@ namespace SFE_Base.ViewModel
 			(ProgramMode.Add)				,
 			begin
 
-			; allow key value to be set in program specific view model
-			SetKeyForNewRecord()
+				; allow key value to be set in program specific view model
+				SetKeyForNewRecord()
 
-			data tmpObj						,@DataObjectBase
+				data tmpObj						,@DataObjectBase
 				mCTORArgs[1] = DataObjectEntryItem.SynergyRecord
 
 				if (mClassConstructor == ^null)
 				begin
 					;;we did not use the standard/base list load capability
 
-				data classTypeInfo			,@TypeInfo		,IntrospectionExtensions.GetTypeInfo(mDataObjectItem)
-				data item					,@ConstructorInfo
+					data classTypeInfo			,@TypeInfo		,IntrospectionExtensions.GetTypeInfo(mDataObjectItem)
+					data item					,@ConstructorInfo
 					foreach item in classTypeInfo.DeclaredConstructors
 					begin
 						mClassConstructor = item
@@ -702,7 +704,7 @@ namespace SFE_Base.ViewModel
 		; dummy method which can be overridden in view models which require the ability to set automatic key(s) for new record
 		public virtual method SetKeyForNewRecord,void
 
-		endparams
+			endparams
 		proc
 			nop
 		endmethod
@@ -723,9 +725,9 @@ namespace SFE_Base.ViewModel
 		endproperty
 		
 		private method doCancelCommand,void
-		sender								,@Object
-		param								,string
-		endparams
+			sender								,@Object
+			param								,string
+			endparams
 		proc
 			mProgramMode = ProgramMode.Enquiry
 			raiseProgramModeChanged()
@@ -755,9 +757,9 @@ namespace SFE_Base.ViewModel
 		endproperty
 		
 		private method doDeleteCommand,void
-		sender		,@Object
-		param		,string
-		endparams
+			sender		,@Object
+			param		,string
+			endparams
 		proc
 			if (SelectedCollectionItem != ^null)
 			begin
@@ -786,7 +788,7 @@ namespace SFE_Base.ViewModel
 						SelectedItemIndex  = 0
 					
 						;;init the entry object
-	;					DataObjectEntryItem.InitData()
+						;					DataObjectEntryItem.InitData()
 						GridIsEnabled = true
 					end
 					mProgramMode = ProgramMode.Enquiry
@@ -805,7 +807,7 @@ namespace SFE_Base.ViewModel
 		; dummy method which can be overridden in view models which require the ability to update detail lines
 		public virtual method SaveDetailLines,void
 
-		endparams
+			endparams
 		proc
 			nop
 		endmethod
@@ -813,7 +815,7 @@ namespace SFE_Base.ViewModel
 		; dummy method which can be overridden in view models which require the ability to update detail lines
 		public virtual method AddDetailLines,void
 
-		endparams
+			endparams
 		proc
 			nop
 		endmethod
@@ -821,15 +823,15 @@ namespace SFE_Base.ViewModel
 		; dummy method which can be overridden in view models which require the ability to update detail lines
 		public virtual method DeleteDetailLines,void
 
-		endparams
+			endparams
 		proc
 			nop
 		endmethod
 
 		; dummy method which can be overridden in view models which require the ability to update on screen totals
 		public virtual method UpdateTotals,void
-		in req mode		,string					; mode - add, modify or delete
-		endparams
+			in req mode		,string					; mode - add, modify or delete
+			endparams
 		proc
 			nop
 		endmethod
@@ -854,9 +856,9 @@ namespace SFE_Base.ViewModel
 		endproperty
 		
 		private method doNewDetailCommand,void
-		sender									,@Object
-		param									,string
-		endparams
+			sender									,@Object
+			param									,string
+			endparams
 		proc
 			DataObjectDetailEntryItem.InitData()
 			DataObjectDetailEntryItem.InitDataPlus()
@@ -888,9 +890,9 @@ namespace SFE_Base.ViewModel
 		endproperty
 		
 		private method doSaveDetailCommand,void
-		sender									,@Object
-		param									,string
-		endparams
+			sender									,@Object
+			param									,string
+			endparams
 		proc
 
 			using mProgramDetailMode select
@@ -907,7 +909,7 @@ namespace SFE_Base.ViewModel
 
 			(ProgramMode.Add)					,
 			begin
-			data tmpObj							,@DataObjectBase
+				data tmpObj							,@DataObjectBase
 				;; update totals when changing lines
 				UpdateTotals('Add')
 
@@ -918,8 +920,8 @@ namespace SFE_Base.ViewModel
 				begin
 					;;we did not use the standard/base list load capability
 
-				data classTypeInfo				,@TypeInfo		,IntrospectionExtensions.GetTypeInfo(mDataObjectDetailItem)
-				data item						,@ConstructorInfo
+					data classTypeInfo				,@TypeInfo		,IntrospectionExtensions.GetTypeInfo(mDataObjectDetailItem)
+					data item						,@ConstructorInfo
 					foreach item in classTypeInfo.DeclaredConstructors
 					begin
 						mDetailClassConstructor = item
@@ -988,9 +990,9 @@ namespace SFE_Base.ViewModel
 		endproperty
 		
 		private method doCancelDetailCommand,void
-		sender									,@Object
-		param									,string
-		endparams
+			sender									,@Object
+			param									,string
+			endparams
 		proc
 			mDataObjectDetailEntryItem.RestoreOriginalData()
 			mDataObjectDetailEntryItem.InitialValidateData()
@@ -1026,9 +1028,9 @@ namespace SFE_Base.ViewModel
 		endproperty
 		
 		private method doDeleteDetailCommand,void
-		sender								,@Object
-		param								,string
-		endparams
+			sender								,@Object
+			param								,string
+			endparams
 		proc
 			if (SelectedDetailCollectionItem != ^null)
 			begin

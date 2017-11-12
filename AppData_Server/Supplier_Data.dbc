@@ -31,6 +31,18 @@ namespace AppData
 			begin
 				message.FailReason = "supplier name is not long enough, must be 5 character or more."
 				message.ValidationState = DataValidationState.Error
+				end
+			("BUYER_KEY"),
+			begin
+				;;call the findBuyer method to validate the changed/entered value
+				;;invalid values will signal a validation error so the UI can display appropriate details.
+				if (findBuyer() != FileAccessResults.Success) then
+				begin
+					message.FailReason = "Buyer does not exist"
+					message.ValidationState = DataValidationState.Error
+				end
+				else
+					message.ValidationState = DataValidationState.OK
 			end
 			(),
 			begin
@@ -97,7 +109,7 @@ namespace AppData
 			else
 			begin
 				response = FileAccessResults.RecordNotFound
-				BuyerName = 'Buyer name...' + Buyer_key
+				BuyerName = 'Search' 
 			end
 
 			mreturn response

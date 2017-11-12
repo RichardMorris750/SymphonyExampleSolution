@@ -275,7 +275,9 @@ namespace SFE_Supplier.ViewModel
 			StateCompleted()
 
 			;;now let's set the data.  this will update the UI and load the buyer name
-			((Supplier_Data)DataObjectEntryItem).Buyer_Key = ((Buyer_Data)sender.ItemValue).name ; .buyer_Key
+			((Supplier_Data)DataObjectEntryItem).Buyer_Key = ((Buyer_Data)sender.ItemValue).buyer_Key
+
+	;		((Supplier_Data)DataObjectEntryItem).BuyerName = ((Buyer_Data)sender.ItemValue).name
 
 		endmethod
 

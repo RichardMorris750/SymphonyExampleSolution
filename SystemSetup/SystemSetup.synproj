@@ -20,7 +20,8 @@
     <Language>Synergy</Language>
     <DBL_unQulRecStm>Stack</DBL_unQulRecStm>
     <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
-    <ProjEnvVars>RPSMFIL=$(SolutionDIR)\Rps\rpsmain.ism;RPSTFIL=$(SolutionDIR)\Rps\rpstext.ism</ProjEnvVars>
+    <ProjEnvVars>
+    </ProjEnvVars>
     <Install>True</Install>
     <ApplicationVersion>1.0.0.*</ApplicationVersion>
     <ApplicationRevision>0</ApplicationRevision>

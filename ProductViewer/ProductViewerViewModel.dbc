@@ -46,7 +46,7 @@ namespace ProductViewer
 				;;the list is instanced so we need to load each item individually
 				mProductList.ClearCollection()
 				data item	,@DataObjectBase
-				foreach item in new DataSelect(mConnector, "select prod_code, prod_description, sell_price from product", new Product_Data())
+				foreach item in DataSelect.RunDataSelect(mConnector, "select prod_code, prod_description, sell_price from product", new Product_Data()).Result.OfType<Product_Data>().ToList()
 				begin
 					mProductList.AddToCollection(^as(item, Product_Data))
 				end

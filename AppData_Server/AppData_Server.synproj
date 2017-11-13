@@ -124,37 +124,41 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="SymphonyAdapter, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.17\lib\net45\SymphonyAdapter.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.22\lib\net45\SymphonyAdapter.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
+    <Reference Include="SymphonyBridgeServerCore, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
+      <HintPath>..\packages\SymphonyFramework.3.2.22\lib\net45\SymphonyBridgeServerCore.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
     <Reference Include="SymphonyConductor, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.17\lib\net45\SymphonyConductor.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.22\lib\net45\SymphonyConductor.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyConductorWPF, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.17\lib\net45\SymphonyConductorWPF.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.22\lib\net45\SymphonyConductorWPF.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyCore, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.17\lib\net45\SymphonyCore.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.22\lib\net45\SymphonyCore.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyCrescendo, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.17\lib\net45\SymphonyCrescendo.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.22\lib\net45\SymphonyCrescendo.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyHarmony, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.17\lib\net45\SymphonyHarmony.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.22\lib\net45\SymphonyHarmony.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
     <Reference Include="SymphonyUIToolkit, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.17\lib\net45\SymphonyUIToolkit.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.22\lib\net45\SymphonyUIToolkit.dll</HintPath>
       <Private>True</Private>
       <CopyLocal>True</CopyLocal>
     </Reference>
@@ -163,8 +167,18 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.30506.0\lib\net40\System.Web.Http.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>..\packages\Blend.Interctivity.WPF.v4.0.1.0.3\lib\net40\System.Windows.Interactivity.dll</HintPath>
@@ -175,48 +189,71 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuyerController.CodeGen.dbc" />
     <Compile Include="Buyer_Data.CodeGen.dbc" />
     <Compile Include="Buyer_Data.dbc" />
+    <Compile Include="Buyer_DataREST.CodeGen.dbc" />
     <Compile Include="Buyer_DFM.CodeGen.dbc" />
     <Compile Include="Buyer_DOCache.CodeGen.dbc" />
     <Compile Include="Buyer_FileIO.CodeGen.dbc" />
+    <Compile Include="CustomerController.CodeGen.dbc" />
     <Compile Include="Customer_Data.CodeGen.dbc" />
+    <Compile Include="Customer_DataREST.CodeGen.dbc" />
     <Compile Include="Customer_DFM.CodeGen.dbc" />
     <Compile Include="Customer_FileIO.CodeGen.dbc" />
     <Compile Include="DataLogic.dbc" />
+    <Compile Include="Order_headerController.CodeGen.dbc" />
     <Compile Include="Order_header_Data.CodeGen.dbc" />
     <Compile Include="Order_Header_Data.dbc" />
+    <Compile Include="Order_header_DataREST.CodeGen.dbc" />
     <Compile Include="Order_header_DFM.CodeGen.dbc" />
     <Compile Include="Order_header_FileIO.CodeGen.dbc" />
+    <Compile Include="Order_lineController.CodeGen.dbc" />
     <Compile Include="Order_line_Data.CodeGen.dbc" />
     <Compile Include="Order_Line_Data.dbc" />
+    <Compile Include="Order_line_DataREST.CodeGen.dbc" />
     <Compile Include="Order_line_DFM.CodeGen.dbc" />
     <Compile Include="Order_line_FileIO.CodeGen.dbc" />
     <Compile Include="Parameter_Data.CodeGen.dbc" />
+    <Compile Include="Parameter_DataREST.CodeGen.dbc" />
+    <Compile Include="Parameter_DFM.CodeGen.dbc" />
     <Compile Include="Parameter_FileIO.dbc" />
+    <Compile Include="ProductController.CodeGen.dbc" />
     <Compile Include="Product_Data.CodeGen.dbc" />
     <Compile Include="Product_Data.dbc" />
+    <Compile Include="Product_DataREST.CodeGen.dbc" />
     <Compile Include="Product_DFM.CodeGen.dbc" />
+    <Compile Include="Product_DOCache.CodeGen.dbc" />
     <Compile Include="Product_FileIO.CodeGen.dbc" />
+    <Compile Include="Product_groupController.CodeGen.dbc" />
     <Compile Include="Product_group_Data.CodeGen.dbc" />
     <Compile Include="Product_group_Data.dbc" />
+    <Compile Include="Product_group_DataREST.CodeGen.dbc" />
     <Compile Include="Product_group_DFM.CodeGen.dbc" />
     <Compile Include="Product_group_DOCache.CodeGen.dbc" />
     <Compile Include="Product_group_FileIO.CodeGen.dbc" />
     <Compile Include="Properties\AssemblyInfo.dbl" />
+    <Compile Include="Sales_order_headerController.CodeGen.dbc" />
     <Compile Include="Sales_order_header_Data.CodeGen.dbc" />
+    <Compile Include="Sales_order_header_DataREST.CodeGen.dbc" />
     <Compile Include="Sales_order_header_DFM.CodeGen.dbc" />
     <Compile Include="Sales_order_header_FileIO.CodeGen.dbc" />
+    <Compile Include="Sales_order_lineController.CodeGen.dbc" />
     <Compile Include="Sales_order_line_Data.CodeGen.dbc" />
+    <Compile Include="Sales_order_line_DataREST.CodeGen.dbc" />
     <Compile Include="Sales_order_line_DFM.CodeGen.dbc" />
     <Compile Include="Sales_order_line_FileIO.CodeGen.dbc" />
     <Compile Include="Selections_Data.CodeGen.dbc" />
+    <Compile Include="StoredProcedures.dbc" />
+    <Compile Include="SupplierController.CodeGen.dbc" />
     <Compile Include="Supplier_Data.CodeGen.dbc" />
     <Compile Include="Supplier_Data.dbc" />
+    <Compile Include="Supplier_DataREST.CodeGen.dbc" />
     <Compile Include="Supplier_DFM.CodeGen.dbc" />
     <Compile Include="Supplier_DOCache.CodeGen.dbc" />
     <Compile Include="Supplier_FileIO.CodeGen.dbc" />
-    <Compile Include="TableMapper.dbc" />
+    <Compile Include="TableMapper.CodeGen.dbc" />
+    <None Include="TableMapper.dbc" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties" />
@@ -250,11 +287,11 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
-  <Import Project="..\packages\SymphonyFramework.3.2.17\build\net45\SymphonyFramework.targets" Condition="Exists('..\packages\SymphonyFramework.3.2.17\build\net45\SymphonyFramework.targets')" />
+  <Import Project="..\packages\SymphonyFramework.3.2.22\build\net45\SymphonyFramework.targets" Condition="Exists('..\packages\SymphonyFramework.3.2.22\build\net45\SymphonyFramework.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\SymphonyFramework.3.2.17\build\net45\SymphonyFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SymphonyFramework.3.2.17\build\net45\SymphonyFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\SymphonyFramework.3.2.22\build\net45\SymphonyFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SymphonyFramework.3.2.22\build\net45\SymphonyFramework.targets'))" />
   </Target>
 </Project>

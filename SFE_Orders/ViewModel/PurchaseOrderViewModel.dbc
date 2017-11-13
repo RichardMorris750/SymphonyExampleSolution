@@ -37,10 +37,13 @@ import System
 import System.Collections.Generic
 import System.Text
 import SFE_Base.ViewModel
+import SFE_UI.ViewModel
 import System.Windows
 import AppData
 import Symphony.Conductor.DataIO
 import Symphony.Conductor.ViewModel
+
+import System.Collections.ObjectModel
 import Symphony.Harmony
 
 ;;use the extension methods
@@ -145,7 +148,7 @@ namespace SFE_Orders.ViewModel
 			(ProgramMode.Add)			,
 			begin
 				DataObjectDetailEntryItem.SetFieldReadOnlyStatus(false, "PROD_CODE")
-;;				DataObjectEntryItem.SetFieldFocusFlag(true, "PPROD_CODE")
+				DataObjectEntryItem.SetFieldFocusFlag("PROD_CODE")
 			end
 			(ProgramMode.Enquiry)		,
 			begin

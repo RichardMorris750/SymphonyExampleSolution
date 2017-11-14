@@ -201,6 +201,9 @@ namespace SFE_Base.ViewModel
 				mLastProgramDetailMode = mProgramDetailMode
 				raiseevent(ProgramDetailModeChanged, mProgramDetailMode)
 			end
+
+		mDialogResult = ^null
+
 		endmethod
 		
 .endregion
@@ -535,7 +538,9 @@ namespace SFE_Base.ViewModel
 				NewDetailCommand.ExecuteState = !mDataObjectDetailEntryItem.IsDataModified
 				if (mDataObjectDetailEntryItem.IsDataModified && mDataObjectDetailEntryItem.IsDataValid && mProgramDetailMode == ProgramMode.Enquiry)
 				begin
-					mProgramDetailMode = ProgramMode.Modify
+					if (mProgramDetailMode != ProgramMode.Add)
+						mProgramDetailMode = ProgramMode.Modify
+
 					raiseProgramDetailModeChanged()
 					if (mProgramMode != ProgramMode.Add)
 					begin
@@ -860,12 +865,14 @@ namespace SFE_Base.ViewModel
 			param									,string
 			endparams
 		proc
+
 			DataObjectDetailEntryItem.InitData()
 			DataObjectDetailEntryItem.InitDataPlus()
 			DataObjectDetailEntryItem.InitialValidateData()
 			
 			DataObjectDetailEntryItem.SetFieldEnabledStatus(true, "*ALL*")
 			mProgramDetailMode = ProgramMode.Add	
+
 			NewDetailCommand.ExecuteState = false
 
 			mDeleteDetailCommand.ExecuteState = false

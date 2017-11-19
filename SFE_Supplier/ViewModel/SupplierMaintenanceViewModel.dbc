@@ -73,7 +73,7 @@ namespace SFE_Supplier.ViewModel
 			
 			this.LoadDetailList()
 
-			buildBuyerLookup()
+			;buildBuyerLookup()
 
 			;;define an event handler that is called when we navitate visual states
 			BeforeNavigateState += doBeforeNavigateState
@@ -299,7 +299,7 @@ namespace SFE_Supplier.ViewModel
 			endparams
 		proc
 			using eArgs.NewStateName select
-			("BuyerDrillState")	,mBuyerLookupVM.LoadList()
+;			("BuyerDrillState")	,mBuyerLookupVM.LoadList()
 			endusing
 		endmethod
 

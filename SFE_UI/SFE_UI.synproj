@@ -198,6 +198,7 @@
     <Compile Include="Content\Sales_order_header_Collection.CodeGen.dbc" />
     <Compile Include="Content\Sales_order_line_Collection.CodeGen.dbc" />
     <Compile Include="Content\Supplier_Collection.CodeGen.dbc" />
+    <Compile Include="Content\Supplier_Collection.dbc" />
     <Compile Include="Converters\NullConverter.dbc" />
     <Compile Include="Properties\AssemblyInfo.dbl" />
     <Compile Include="ViewModel\BuyerLookupViewModel.dbc" />

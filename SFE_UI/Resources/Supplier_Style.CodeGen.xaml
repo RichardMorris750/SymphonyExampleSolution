@@ -979,108 +979,139 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type symphonyControls:FieldControl}">
-                    <symphonyUI:SearchTextBox
-                        
-                        HorizontalAlignment="Left"
-                        Name="ctlSupplier_Buyer_key"
-                        Text="{Binding Path=Buyer_key, Converter={StaticResource alphaConverter}, UpdateSourceTrigger=Default,
-                                ValidatesOnDataErrors=True}"
-                                Validation.ErrorTemplate="{StaticResource validationTemplate}"
-                        SearchMode="Delayed"
-                                                Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.NavigateState}"
-                        CommandParameter="BuyerDrillState"
-                        MaxLength="32"
-                        Width="384"
-                        IsEnabled="{Binding Path=Buyer_keyIsEnabled}"
-                        IsReadOnly="{Binding Path=Buyer_keyIsReadOnly}"
-                        VerticalAlignment="Center"
-                        ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
-                                    <i:Interaction.Behaviors>
-                                      <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
-                                    </i:Interaction.Behaviors>
-                        <symphonyUI:SearchTextBox.Style>
-                            <Style>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path=Buyer_keyIsFocused}" Value="true">
-                                        <Setter Property="FocusManager.FocusedElement"
-                                                Value="{Binding ElementName=ctlSupplier_Buyer_key}"></Setter>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
-                                        <Setter Property="TextBox.Foreground" Value="{StaticResource InputInErrorForegroundBrush}" />
-                                        <Setter Property="TextBox.Background">
-                                            <Setter.Value>
-                                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                    <LinearGradientBrush.GradientStops>
-                                                        <GradientStop Offset="0.2" Color="Gray" />
-                                                        <GradientStop Offset="3" Color="Red" />
-                                                    </LinearGradientBrush.GradientStops>
-                                                </LinearGradientBrush>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="False">
-                                        <Setter Property="TextBox.Foreground" Value="{StaticResource InputForegroundBrush}" />
-                                        <Setter Property="TextBox.Background" Value="Transparent"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </symphonyUI:SearchTextBox.Style>
-                    </symphonyUI:SearchTextBox>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-    <Style x:Key="Supplier_Buyer_key_noDrill_style" TargetType="{x:Type symphonyControls:FieldControl}">
-        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-        <Setter Property="Focusable" Value="False"></Setter>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type symphonyControls:FieldControl}">
-                    <TextBox
-                        
-                        CaretBrush="{StaticResource CaretBrush}"
-                        Name="ctlSupplier_Buyer_key_noDrill"
-                        Text="{Binding Path=Buyer_key, Converter={StaticResource alphaConverter}, UpdateSourceTrigger=Default,
-                                ValidatesOnDataErrors=True}"
-                                Validation.ErrorTemplate="{StaticResource validationTemplate}"
-                        MaxLength="32"
-                        Width="384"
-                        IsEnabled="{Binding Path=Buyer_keyIsEnabled}"
-                        IsReadOnly="{Binding Path=Buyer_keyIsReadOnly}"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Left"
-                        ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
-                                    <i:Interaction.Behaviors>
-                                      <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
-                                    </i:Interaction.Behaviors>
-                                    <TextBox.Style>
-                            <Style>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path=Buyer_keyIsFocused}" Value="true">
-                                        <Setter Property="FocusManager.FocusedElement"
-                                                Value="{Binding ElementName=ctlSupplier_Buyer_key_noDrill}"></Setter>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
-                                        <Setter Property="TextBox.Foreground" Value="{StaticResource InputInErrorForegroundBrush}" />
-                                        <Setter Property="TextBox.Background">
-                                            <Setter.Value>
-                                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                    <LinearGradientBrush.GradientStops>
-                                                        <GradientStop Offset="0.2" Color="Gray" />
-                                                        <GradientStop Offset="3" Color="Red" />
-                                                    </LinearGradientBrush.GradientStops>
-                                                </LinearGradientBrush>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="False">
-                                        <Setter Property="TextBox.Foreground" Value="{StaticResource InputForegroundBrush}" />
-                                        <Setter Property="TextBox.Background" Value="Transparent"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBox.Style>
-                    </TextBox>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <ComboBox Grid.Row="0"
+                            
+                            Foreground="{StaticResource InputForegroundBrush}"
+                            Visibility="{Binding Path=Buyer_keyIsReadOnly, Converter={StaticResource reverseBooleanToVisibilityConverter}}"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Name="ctlSupplier_Buyer_key"
+                            ItemsSource="{Binding Source={StaticResource BUYERLOOKUPitems}}"
+                            DisplayMemberPath="Description"
+                            SelectedValue="{Binding Path=Buyer_key, Converter={StaticResource alphaConverter},
+                            ValidatesOnDataErrors=True}"
+                            Validation.ErrorTemplate="{StaticResource validationTemplate}"
+                            SelectedValuePath="ItemStringValue"
+                            IsEnabled="{Binding Path=Buyer_keyIsEnabled}"
+                            Width="300"
+                            Margin="0,1,0,1"
+                            ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
+                            <ComboBox.Style>
+                                <Style>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=Buyer_keyIsFocused}" Value="true">
+                                            <Setter Property="FocusManager.FocusedElement"
+                                                    Value="{Binding ElementName=ctlSupplier_Buyer_key}"></Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
+                                            <Setter Property="ComboBox.Foreground" Value="{StaticResource InputInErrorForegroundBrush}" />
+                                            <Setter Property="ComboBox.Background">
+                                                <Setter.Value>
+                                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                        <LinearGradientBrush.GradientStops>
+                                                            <GradientStop Offset="0.2" Color="Gray" />
+                                                            <GradientStop Offset="3" Color="Red" />
+                                                        </LinearGradientBrush.GradientStops>
+                                                    </LinearGradientBrush>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+
+                                     <Setter Property="ComboBox.Template">
+                                         <Setter.Value>
+                                             <ControlTemplate TargetType="{x:Type ComboBox}">
+                                                 <Grid>
+                                                     <ToggleButton 
+                                                         Name="ToggleButton" 
+                                                         Template="{StaticResource ComboBoxToggleButton}" 
+                                                         Grid.Column="2" 
+                                                         Focusable="false"
+                                                         IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
+                                                         ClickMode="Press">
+                                                     </ToggleButton>
+                                                     <ContentPresenter Name="ContentSite" IsHitTestVisible="False"  Content="{TemplateBinding SelectionBoxItem}"
+                                                         ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                                         ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                                         Margin="3,3,23,3"
+                                                         VerticalAlignment="Center"
+                                                         HorizontalAlignment="Left" />
+                                                     <TextBox x:Name="PART_EditableTextBox"
+                                                         Style="{x:Null}" 
+                                                         Template="{StaticResource ComboBoxTextBox}" 
+                                                         HorizontalAlignment="Left" 
+                                                         VerticalAlignment="Center" 
+                                                         Margin="3,3,23,3"
+                                                         Focusable="True" 
+                                                         Background="Transparent"
+                                                         Foreground="Green"
+                                                         Visibility="Hidden"
+                                                         IsReadOnly="{TemplateBinding IsReadOnly}"/>
+                                                     <Popup 
+                                                         Name="Popup"
+                                                         Placement="Bottom"
+                                                         IsOpen="{TemplateBinding IsDropDownOpen}"
+                                                         AllowsTransparency="True" 
+                                                         Focusable="False"
+                                                         PopupAnimation="Slide">
+    
+                                                         <Grid Name="DropDown"
+                                                             SnapsToDevicePixels="True"                
+                                                             MinWidth="{TemplateBinding ActualWidth}"
+                                                             MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                                             <Border 
+                                                                 x:Name="DropDownBorder"
+                                                                 Background="Transparent"
+                                                                 BorderThickness="1"
+                                                                 BorderBrush="{StaticResource LabelColorBrush}"/>
+                                                             <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                                                 <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                                             </ScrollViewer>
+                                                         </Grid>
+                                                     </Popup>
+                                                 </Grid>
+                                                 <ControlTemplate.Triggers>
+                                                     <Trigger Property="HasItems" Value="false">
+                                                         <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
+                                                     </Trigger>
+                                                     <Trigger Property="IsEnabled" Value="false">
+                                                         <Setter Property="Foreground" Value="Pink"/>
+                                                     </Trigger>
+                                                     <Trigger Property="IsGrouping" Value="true">
+                                                         <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                                                     </Trigger>
+                                                     <Trigger SourceName="Popup" Property="Popup.AllowsTransparency" Value="true">
+                                                         <Setter TargetName="DropDownBorder" Property="CornerRadius" Value="0"/>
+                                                         <Setter TargetName="DropDownBorder" Property="Margin" Value="0,2,0,0"/>
+                                                     </Trigger>
+                                                     <Trigger Property="IsEditable"  Value="true">
+                                                         <Setter Property="IsTabStop" Value="false"/>
+                                                         <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/>
+                                                         <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden"/>
+                                                     </Trigger>
+                                                 </ControlTemplate.Triggers>
+                                             </ControlTemplate>
+                                         </Setter.Value>
+                                     </Setter>
+    
+                                </Style>
+                            </ComboBox.Style>
+                        </ComboBox>
+                        <TextBox Grid.Row="0"
+                                
+                                 Width="300"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Center"
+                                 Margin="0,1,0,1"
+                                 Text="{Binding ElementName=ctlSupplier_Buyer_key, Path=Text}"
+                                 Visibility="{Binding Path=Buyer_keyIsReadOnly, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                 IsReadOnly="True">
+                        </TextBox>
+                    </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

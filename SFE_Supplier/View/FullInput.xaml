@@ -89,11 +89,9 @@
                     <Label Grid.Row="10" Grid.Column="0" Style="{StaticResource Supplier_Account_status_prompt}"></Label>
                     <symControl:FieldControl Grid.Row="10" Grid.Column="2" Style="{StaticResource Supplier_Account_status_style}"></symControl:FieldControl>
 
-                    <Label Grid.Row="4" Grid.Column="4" Style="{StaticResource Supplier_Buyer_key_prompt}"></Label>
+                    <Label Grid.Row="4" Grid.Column="4"  Style="{StaticResource Supplier_Buyer_key_prompt}" VerticalAlignment="Center"></Label>
                     <symControl:FieldControl Grid.Row="4" Grid.Column="6" Style="{StaticResource Supplier_Buyer_key_style}"></symControl:FieldControl>
-                    <TextBlock Grid.Row="5" Grid.Column="6" Text="{Binding Path=BuyerName}"  IsEnabled="False" Margin="10,0,177,0" ></TextBlock>
-
-                </Grid>
+                  </Grid>
 
                 <!-- button options -->
                 <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Stretch">

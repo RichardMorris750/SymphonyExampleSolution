@@ -415,7 +415,7 @@ Field ACCOUNT_STATUS   Type DECIMAL   Size 1
 Field BUYER_KEY   Type ALPHA   Size 32
    Description "Buyer"
    Prompt "Buyer"   Report Heading "Buyer"
-   Drill Method "Buyer"
+   Selection Window 0 0 "buyerLookup"
  
 Field FLLER   Type ALPHA   Size 468   Language Noview   Script Noview
  

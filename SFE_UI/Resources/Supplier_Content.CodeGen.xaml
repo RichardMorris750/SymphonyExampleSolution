@@ -20,6 +20,7 @@
 
 	
 	  <ObjectDataProvider x:Key="ACCOUNT_STATUSitems" ObjectType="{x:Type content:ACCOUNT_STATUS_Collection}"/>
+	  <ObjectDataProvider x:Key="BUYERLOOKUPitems" ObjectType="{x:Type content:BUYERLOOKUP_Collection}"></ObjectDataProvider>
 	
 </ResourceDictionary>
 

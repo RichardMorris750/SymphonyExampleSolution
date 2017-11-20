@@ -865,6 +865,7 @@ namespace SFE_Base.ViewModel
 			param									,string
 			endparams
 		proc
+			ignoreDetailDataChanged = true
 
 			DataObjectDetailEntryItem.InitData()
 			DataObjectDetailEntryItem.InitDataPlus()
@@ -879,6 +880,8 @@ namespace SFE_Base.ViewModel
 			mSaveDetailCommand.ExecuteState = false
 			mCancelDetailCommand.ExecuteState = true		
 			raiseProgramDetailModeChanged()
+
+			ignoreDetailDataChanged = false
 
 		endmethod
 		

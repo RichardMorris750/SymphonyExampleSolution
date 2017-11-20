@@ -21,13 +21,13 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <IncludeDebugInformation>true</IncludeDebugInformation>
-    <OutputPath>bin\Debug\ </OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
     <DebugOptimize>Debug</DebugOptimize>
     <DocumentationFile>bin\Debug\SFE_Orders.xml</DocumentationFile>
     <Prefer32Bit Condition=" '$(TargetFrameworkVersion)'  != 'v4.0' AND '$(Prefer32Bit)' != 'false' ">true</Prefer32Bit>
-    <UnevaluatedOutputPath>bin\Debug\ </UnevaluatedOutputPath>
+    <UnevaluatedOutputPath>bin\Debug\</UnevaluatedOutputPath>
     <Prefer32Bit>False</Prefer32Bit>
     <TargetRuntimeLevel>10030302</TargetRuntimeLevel>
     <LanguageCompatibilityLevel>10030302</LanguageCompatibilityLevel>

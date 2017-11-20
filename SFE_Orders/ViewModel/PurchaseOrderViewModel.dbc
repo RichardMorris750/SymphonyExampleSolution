@@ -138,6 +138,10 @@ namespace SFE_Orders.ViewModel
 			;;that would break the data integrity - for example the key fields when in amend mode.
 
 			IgnoreDetailDataChanged = true
+
+
+			DataObjectDetailEntryItem.SetFieldReadOnlyStatus(true, "PROD_DESCRIPTION")
+			DataObjectDetailEntryItem.SetFieldReadOnlyStatus(true, "LINE_VALUE")		
 			
 			using currentDetailMode select
 			(ProgramMode.Modify)		,
@@ -147,8 +151,8 @@ namespace SFE_Orders.ViewModel
 			end
 			(ProgramMode.Add)			,
 			begin
-				DataObjectDetailEntryItem.SetFieldReadOnlyStatus(false, "PROD_CODE")
 				DataObjectEntryItem.SetFieldFocusFlag("PROD_CODE")
+				DataObjectDetailEntryItem.SetFieldReadOnlyStatus(false, "PROD_CODE")
 			end
 			(ProgramMode.Enquiry)		,
 			begin
@@ -156,8 +160,7 @@ namespace SFE_Orders.ViewModel
 			end
 			endusing
 
-			DataObjectDetailEntryItem.SetFieldReadOnlyStatus(true, "PROD_DESCRIPTION")
-			DataObjectDetailEntryItem.SetFieldReadOnlyStatus(true, "LINE_VALUE")
+
 
 			IgnoreDetailDataChanged = false
 

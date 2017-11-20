@@ -14,6 +14,7 @@
                 <ResourceDictionary Source="pack://application:,,,/SFE_UI;component/Resources/AppStyling.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/SymphonyConductor;component/Resources/Converters.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/SFE_UI;component/Resources/Supplier_Style.CodeGen.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SFE_UI;component/Resources/Buyer_Style.CodeGen.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -81,18 +82,16 @@
 
                     <Label Grid.Row="8" Grid.Column="0" Style="{StaticResource Supplier_Email_prompt}"></Label>
                     <symControl:FieldControl Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="5" Style="{StaticResource Supplier_Email_style}"></symControl:FieldControl>
-                    
+
                     <Label Grid.Row="9" Grid.Column="0" Style="{StaticResource Supplier_Create_date_prompt}"></Label>
                     <symControl:FieldControl Grid.Row="9" Grid.Column="2" Style="{StaticResource Supplier_Create_date_style}"></symControl:FieldControl>
 
                     <Label Grid.Row="10" Grid.Column="0" Style="{StaticResource Supplier_Account_status_prompt}"></Label>
                     <symControl:FieldControl Grid.Row="10" Grid.Column="2" Style="{StaticResource Supplier_Account_status_style}"></symControl:FieldControl>
-                    
-                    <Label Grid.Row="4" Grid.Column="4" Style="{StaticResource Supplier_Buyer_key_prompt}"></Label>
+
+                    <Label Grid.Row="4" Grid.Column="4"  Style="{StaticResource Supplier_Buyer_key_prompt}" VerticalAlignment="Center"></Label>
                     <symControl:FieldControl Grid.Row="4" Grid.Column="6" Style="{StaticResource Supplier_Buyer_key_style}"></symControl:FieldControl>
-
-
-                </Grid>
+                  </Grid>
 
                 <!-- button options -->
                 <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Stretch">

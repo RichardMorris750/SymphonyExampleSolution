@@ -881,6 +881,8 @@ namespace SFE_Base.ViewModel
 			mCancelDetailCommand.ExecuteState = true		
 			raiseProgramDetailModeChanged()
 
+			GridIsEnabled = false		
+			DetailGridIsEnabled = false
 			ignoreDetailDataChanged = false
 
 		endmethod

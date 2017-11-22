@@ -600,6 +600,7 @@ namespace SFE_Base.ViewModel
 
 			NewCommand.ExecuteState = false
 			mIgnoreDataChanged = true
+			GridIsEnabled = false
 			DataObjectEntryItem.SetFieldEnabledStatus(true, "*ALL*")
 			mIgnoreDataChanged = false
 			mProgramMode = ProgramMode.Add

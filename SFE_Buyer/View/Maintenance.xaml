@@ -42,7 +42,7 @@
                     <BooleanAnimationUsingKeyFrames Storyboard.TargetName="dialogView" Storyboard.TargetProperty="(IsEnabled)">
                         <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"></DiscreteBooleanKeyFrame>
                     </BooleanAnimationUsingKeyFrames>
-                    <Int32Animation Storyboard.TargetName="dialogView" Storyboard.TargetProperty="(Panel.ZIndex)" To="1" />
+                    <Int32Animation Storyboard.TargetName="dialogView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
 
                 </Storyboard>
             </VisualState>
@@ -128,13 +128,6 @@
             </Grid>
         </Border> 
         
-        <!--
-        <Border Name="dialogView" Grid.Row="0" Opacity="0" Panel.ZIndex="0" IsEnabled="False">
-
-            <CrescendoUI:DialogControl DataContext="{Binding Path=DialogVM}"></CrescendoUI:DialogControl>
-
-        </Border> -->
-
         
         <Border Name="dialogView" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid>

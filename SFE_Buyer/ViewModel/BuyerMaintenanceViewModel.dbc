@@ -220,6 +220,10 @@ namespace SFE_Buyer.ViewModel
 				; set the displays to show todays date as Created and the 'default' image				
 				((Buyer_Data)DataObjectEntryItem).DateCreated = ^null				
 				((Buyer_Data)DataObjectEntryItem).BuyerImage  = ^null
+
+				DataObjectEntryItem.SetFieldFocusFlag("NAME")
+				nop
+
 			end
 			endusing
 

@@ -47,7 +47,7 @@
                     <BooleanAnimationUsingKeyFrames Storyboard.TargetName="dialogView" Storyboard.TargetProperty="(IsEnabled)">
                         <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"></DiscreteBooleanKeyFrame>
                     </BooleanAnimationUsingKeyFrames>
-                    <Int32Animation Storyboard.TargetName="dialogView" Storyboard.TargetProperty="(Panel.ZIndex)" To="1" />
+                    <Int32Animation Storyboard.TargetName="dialogView" Storyboard.TargetProperty="(Panel.ZIndex)" To="0" />
 
                 </Storyboard>
             </VisualState>

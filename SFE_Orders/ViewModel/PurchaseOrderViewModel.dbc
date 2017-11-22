@@ -58,7 +58,7 @@ import SFE_UI.ViewModel
 
 namespace SFE_Orders.ViewModel
 
-	public class PurchaseOrderViewModel extends FileMaintViewModel
+	public class PurchaseOrderViewModel extends FileMaintDetailsViewModel
 
 		private static mOrder_Header	,@Order_Header_Data		,new Order_Header_Data()
 		private static mOrder_Line		,@Order_Line_Data		,new Order_Line_Data()

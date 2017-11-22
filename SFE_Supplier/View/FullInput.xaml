@@ -42,21 +42,20 @@
                         <ColumnDefinition Width="40" />
                         <ColumnDefinition Width="auto" />
                         <ColumnDefinition Width="4" />
+                        <ColumnDefinition Width="auto" />
                         <ColumnDefinition Width="*" />
+
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
+                        <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                        <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                        <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                        <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                        <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                        <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                        <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                        <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                        <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
                     </Grid.RowDefinitions>
 
                     <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource Supplier_Supp_code_prompt}"></Label>
@@ -83,11 +82,11 @@
                     <Label Grid.Row="8" Grid.Column="0" Style="{StaticResource Supplier_Email_prompt}"></Label>
                     <symControl:FieldControl Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="5" Style="{StaticResource Supplier_Email_style}"></symControl:FieldControl>
 
-                    <Label Grid.Row="9" Grid.Column="0" Style="{StaticResource Supplier_Create_date_prompt}"></Label>
-                    <symControl:FieldControl Grid.Row="9" Grid.Column="2" Style="{StaticResource Supplier_Create_date_style}"></symControl:FieldControl>
+                    <Label Grid.Row="1" Grid.Column="4" Style="{StaticResource Supplier_Create_date_prompt}"></Label>
+                    <symControl:FieldControl Grid.Row="1" Grid.Column="6" Style="{StaticResource Supplier_Create_date_style}"></symControl:FieldControl>
 
-                    <Label Grid.Row="10" Grid.Column="0" Style="{StaticResource Supplier_Account_status_prompt}"></Label>
-                    <symControl:FieldControl Grid.Row="10" Grid.Column="2" Style="{StaticResource Supplier_Account_status_style}"></symControl:FieldControl>
+                    <Label Grid.Row="2" Grid.Column="4" Style="{StaticResource Supplier_Account_status_prompt}"></Label>
+                    <symControl:FieldControl Grid.Row="2" Grid.Column="6" Style="{StaticResource Supplier_Account_status_style}"></symControl:FieldControl>
 
                     <Label Grid.Row="4" Grid.Column="4"  Style="{StaticResource Supplier_Buyer_key_prompt}" VerticalAlignment="Center"></Label>
                     <symControl:FieldControl Grid.Row="4" Grid.Column="6" Style="{StaticResource Supplier_Buyer_key_style}"></symControl:FieldControl>

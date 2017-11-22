@@ -4,7 +4,7 @@
 
  Template author:   Richard C. Morris, Synergex Technology Evangelist
 
- Template Name: Symphony Framework : SYMPHONY_STYLE_V3_2.tpl
+ Template Name: Symphony Framework : SYMPHONY_STYLE_SFE.tpl
 
 -->
 <ResourceDictionary
@@ -56,6 +56,7 @@
                         CaretBrush="{StaticResource CaretBrush}"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
+                         HorizontalContentAlignment="Right"
                         Name="ctlCustomer_Cust_code"
                         Text="{Binding Path=Cust_code, Converter={StaticResource decimalConverter}  
                         ,UpdateSourceTrigger=PropertyChanged
@@ -64,6 +65,7 @@
                         IsEnabled="{Binding Path=Cust_codeIsEnabled}"
                         IsReadOnly="{Binding Path=Cust_codeIsReadOnly}"
                         SynergyDecimalField="False"                         MaxLength="6"
+                        FontSize="{StaticResource StandardFontSize}"
                         Width="72"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
@@ -140,6 +142,7 @@
                         IsReadOnly="{Binding Path=NameIsReadOnly}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
+                        FontSize="{StaticResource StandardFontSize}"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
                                       <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
@@ -215,6 +218,7 @@
                         IsReadOnly="{Binding Path=Address1IsReadOnly}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
+                        FontSize="{StaticResource StandardFontSize}"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
                                       <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
@@ -290,6 +294,7 @@
                         IsReadOnly="{Binding Path=Address2IsReadOnly}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
+                        FontSize="{StaticResource StandardFontSize}"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
                                       <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
@@ -365,6 +370,7 @@
                         IsReadOnly="{Binding Path=Address3IsReadOnly}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
+                        FontSize="{StaticResource StandardFontSize}"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
                                       <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
@@ -440,6 +446,7 @@
                         IsReadOnly="{Binding Path=PostcodeIsReadOnly}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
+                        FontSize="{StaticResource StandardFontSize}"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
                                       <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
@@ -515,6 +522,7 @@
                         IsReadOnly="{Binding Path=PhoneIsReadOnly}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
+                        FontSize="{StaticResource StandardFontSize}"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
                                       <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
@@ -590,6 +598,7 @@
                         IsReadOnly="{Binding Path=ContactIsReadOnly}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
+                        FontSize="{StaticResource StandardFontSize}"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
                                       <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
@@ -665,6 +674,7 @@
                         IsReadOnly="{Binding Path=EmailIsReadOnly}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
+                        FontSize="{StaticResource StandardFontSize}"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
                                       <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
@@ -737,6 +747,7 @@
                                 Validation.ErrorTemplate="{StaticResource validationTemplate}"
                                 IsEnabled="{Binding Path=Create_dateIsEnabled}"
                                 VerticalAlignment="Center"
+                                FontSize="{StaticResource StandardFontSize}"
                                 ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                         <DatePicker.Style>
                             <Style>
@@ -784,7 +795,8 @@
                         IsReadOnly="True"
                         Text="{Binding Path=Create_date, Converter={StaticResource decimalDateConverter},
                         ConverterParameter=FORMAT:YYYYMMDD                        , StringFormat=\{0:d\}}"
-                        Width="96">
+                        Width="96"
+                        FontSize="{StaticResource StandardFontSize}" >
                     </TextBox>
                 </ControlTemplate>
             </Setter.Value>

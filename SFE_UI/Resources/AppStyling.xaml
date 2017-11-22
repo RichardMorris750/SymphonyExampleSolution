@@ -49,7 +49,7 @@
     <SolidColorBrush x:Key="BackgroundPrimaryBrush" Color="{StaticResource BlackColour}"></SolidColorBrush>
     <SolidColorBrush x:Key="BackgroundSecondaryBrush" Color="{StaticResource BlackColour}"></SolidColorBrush>
     <SolidColorBrush x:Key="GridHeaderBackgroundBrush" Color="{StaticResource BlackColour}"></SolidColorBrush>
-    <SolidColorBrush x:Key="GridHeaderForegroundBrush" Color="{StaticResource LemonColour}"></SolidColorBrush>
+    <SolidColorBrush x:Key="GridHeaderForegroundBrush" Color="{StaticResource BlueColour}"></SolidColorBrush>
 
     <SolidColorBrush x:Key="GridHeaderBorderBrush" Color="{StaticResource BlueColour}"></SolidColorBrush>
     <SolidColorBrush x:Key="GridItemBackgroundBrush" Color="{StaticResource BlackColour}"></SolidColorBrush>
@@ -58,7 +58,7 @@
 
     <SolidColorBrush x:Key="TabItemForegroundBrush" Color="{StaticResource BlueColour}"></SolidColorBrush>
 
-    <SolidColorBrush x:Key="LabelColorBrush" Color="{StaticResource LemonColour}"></SolidColorBrush>
+    <SolidColorBrush x:Key="LabelColorBrush" Color="{StaticResource SilverColour}"></SolidColorBrush>
     <SolidColorBrush x:Key="InputBackgroundBrush" Color="{StaticResource WhiteColour}"></SolidColorBrush>
     <SolidColorBrush x:Key="InputForegroundBrush" Color="{StaticResource WhiteColour}"></SolidColorBrush>
 

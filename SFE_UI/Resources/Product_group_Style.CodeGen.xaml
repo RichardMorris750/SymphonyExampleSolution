@@ -4,7 +4,7 @@
 
  Template author:   Richard C. Morris, Synergex Technology Evangelist
 
- Template Name: Symphony Framework : SYMPHONY_STYLE_V3_2.tpl
+ Template Name: Symphony Framework : SYMPHONY_STYLE_SFE.tpl
 
 -->
 <ResourceDictionary
@@ -65,6 +65,7 @@
                         IsReadOnly="{Binding Path=Prod_groupIsReadOnly}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
+                        FontSize="{StaticResource StandardFontSize}"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
                                       <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
@@ -140,6 +141,7 @@
                         IsReadOnly="{Binding Path=Group_descIsReadOnly}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
+                        FontSize="{StaticResource StandardFontSize}"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
                                       <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>

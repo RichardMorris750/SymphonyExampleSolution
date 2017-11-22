@@ -4,7 +4,7 @@
 
  Template author:   Richard C. Morris, Synergex Technology Evangelist
 
- Template Name: Symphony Framework : SYMPHONY_STYLE_V3_2.tpl
+ Template Name: Symphony Framework : SYMPHONY_STYLE_SFE.tpl
 
 -->
 <ResourceDictionary
@@ -56,6 +56,7 @@
                         CaretBrush="{StaticResource CaretBrush}"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
+                         HorizontalContentAlignment="Right"
                         Name="ctlOrder_header_Order_no"
                         Text="{Binding Path=Order_no, Converter={StaticResource decimalConverter}  
                         ,UpdateSourceTrigger=Default
@@ -64,6 +65,7 @@
                         IsEnabled="{Binding Path=Order_noIsEnabled}"
                         IsReadOnly="{Binding Path=Order_noIsReadOnly}"
                         SynergyDecimalField="False"                         MaxLength="6"
+                        FontSize="{StaticResource StandardFontSize}"
                         Width="72"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
@@ -142,6 +144,7 @@
                         IsEnabled="{Binding Path=Supp_codeIsEnabled}"
                         IsReadOnly="{Binding Path=Supp_codeIsReadOnly}"
                         VerticalAlignment="Center"
+                        FontSize="{StaticResource StandardFontSize}"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
                                       <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
@@ -195,10 +198,11 @@
                         Width="100"
                         IsEnabled="{Binding Path=Supp_codeIsEnabled}"
                         IsReadOnly="{Binding Path=Supp_codeIsReadOnly}"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Left"
-                        ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
-                                    <i:Interaction.Behaviors>
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Left"
+                          FontSize="{StaticResource StandardFontSize}"
+                          ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
+                          <i:Interaction.Behaviors>
                                       <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
                                     </i:Interaction.Behaviors>
                                     <TextBox.Style>
@@ -269,6 +273,7 @@
                                 Validation.ErrorTemplate="{StaticResource validationTemplate}"
                                 IsEnabled="{Binding Path=Order_dateIsEnabled}"
                                 VerticalAlignment="Center"
+                                FontSize="{StaticResource StandardFontSize}"
                                 ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                         <DatePicker.Style>
                             <Style>
@@ -317,7 +322,8 @@
                         Text="{Binding Path=Order_date, Converter={StaticResource decimalDateConverter},
                         ConverterParameter=FORMAT:YYYYMMDD|NODEFAULTODAY
                         , StringFormat=\{0:d\}}"
-                        Width="96">
+                        Width="96"
+                        FontSize="{StaticResource StandardFontSize}" >
                     </TextBox>
                 </ControlTemplate>
             </Setter.Value>
@@ -359,6 +365,7 @@
                                 Validation.ErrorTemplate="{StaticResource validationTemplate}"
                                 IsEnabled="{Binding Path=Reqd_dateIsEnabled}"
                                 VerticalAlignment="Center"
+                                FontSize="{StaticResource StandardFontSize}"
                                 ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                         <DatePicker.Style>
                             <Style>
@@ -407,7 +414,8 @@
                         Text="{Binding Path=Reqd_date, Converter={StaticResource decimalDateConverter},
                         ConverterParameter=FORMAT:YYYYMMDD|NODEFAULTODAY
                         , StringFormat=\{0:d\}}"
-                        Width="96">
+                        Width="96"
+                        FontSize="{StaticResource StandardFontSize}" >
                     </TextBox>
                 </ControlTemplate>
             </Setter.Value>
@@ -452,6 +460,7 @@
                         IsReadOnly="{Binding Path=CommentsIsReadOnly}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
+                        FontSize="{StaticResource StandardFontSize}"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
                                       <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
@@ -519,6 +528,7 @@
                         CaretBrush="{StaticResource CaretBrush}"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
+                         HorizontalContentAlignment="Right"
                         Name="ctlOrder_header_Line_count"
                         Text="{Binding Path=Line_count, Converter={StaticResource decimalConverter}  
                         ,UpdateSourceTrigger=Default
@@ -527,6 +537,7 @@
                         IsEnabled="{Binding Path=Line_countIsEnabled}"
                         IsReadOnly="{Binding Path=Line_countIsReadOnly}"
                         SynergyDecimalField="False"                         MaxLength="5"
+                        FontSize="{StaticResource StandardFontSize}"
                         Width="60"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
@@ -595,6 +606,7 @@
                         CaretBrush="{StaticResource CaretBrush}"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
+                        HorizontalContentAlignment="Right"
                         Name="ctlOrder_header_Tot_value"
                         Text="{Binding Path=Tot_value, Converter={StaticResource impliedDecimalConverter}  ,StringFormat=#0.00
                                 , UpdateSourceTrigger=Default
@@ -603,6 +615,7 @@
                         IsEnabled="{Binding Path=Tot_valueIsEnabled}"
                         IsReadOnly="{Binding Path=Tot_valueIsReadOnly}"
                         SynergyDecimalField="True"                         NumberOfDecimals="2"
+                        FontSize="{StaticResource StandardFontSize}"                       
                         MaxLength="12"
                         Width="144"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
@@ -672,6 +685,7 @@
                         CaretBrush="{StaticResource CaretBrush}"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
+                        HorizontalContentAlignment="Right"
                         Name="ctlOrder_header_Tot_vat"
                         Text="{Binding Path=Tot_vat, Converter={StaticResource impliedDecimalConverter}  ,StringFormat=#0.00
                                 , UpdateSourceTrigger=Default
@@ -680,6 +694,7 @@
                         IsEnabled="{Binding Path=Tot_vatIsEnabled}"
                         IsReadOnly="{Binding Path=Tot_vatIsReadOnly}"
                         SynergyDecimalField="True"                         NumberOfDecimals="2"
+                        FontSize="{StaticResource StandardFontSize}"                       
                         MaxLength="12"
                         Width="144"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
@@ -749,6 +764,7 @@
                         CaretBrush="{StaticResource CaretBrush}"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
+                         HorizontalContentAlignment="Right"
                         Name="ctlOrder_header_Tot_qty"
                         Text="{Binding Path=Tot_qty, Converter={StaticResource decimalConverter}  
                         ,UpdateSourceTrigger=Default
@@ -757,6 +773,7 @@
                         IsEnabled="{Binding Path=Tot_qtyIsEnabled}"
                         IsReadOnly="{Binding Path=Tot_qtyIsReadOnly}"
                         SynergyDecimalField="False"                         MaxLength="6"
+                        FontSize="{StaticResource StandardFontSize}"
                         Width="72"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>

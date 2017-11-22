@@ -4,7 +4,7 @@
 
  Template author:   Richard C. Morris, Synergex Technology Evangelist
 
- Template Name: Symphony Framework : SYMPHONY_STYLE_V3_2.tpl
+ Template Name: Symphony Framework : SYMPHONY_STYLE_SFE.tpl
 
 -->
 <ResourceDictionary
@@ -56,6 +56,7 @@
                         CaretBrush="{StaticResource CaretBrush}"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
+                         HorizontalContentAlignment="Right"
                         Name="ctlSales_order_line_Order_no"
                         Text="{Binding Path=Order_no, Converter={StaticResource decimalConverter}  
                         ,UpdateSourceTrigger=Default
@@ -64,6 +65,7 @@
                         IsEnabled="{Binding Path=Order_noIsEnabled}"
                         IsReadOnly="{Binding Path=Order_noIsReadOnly}"
                         SynergyDecimalField="False"                         MaxLength="6"
+                        FontSize="{StaticResource StandardFontSize}"
                         Width="72"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
@@ -132,6 +134,7 @@
                         CaretBrush="{StaticResource CaretBrush}"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
+                         HorizontalContentAlignment="Right"
                         Name="ctlSales_order_line_Line_no"
                         Text="{Binding Path=Line_no, Converter={StaticResource decimalConverter}  
                         ,UpdateSourceTrigger=Default
@@ -140,6 +143,7 @@
                         IsEnabled="{Binding Path=Line_noIsEnabled}"
                         IsReadOnly="{Binding Path=Line_noIsReadOnly}"
                         SynergyDecimalField="False"                         MaxLength="5"
+                        FontSize="{StaticResource StandardFontSize}"
                         Width="60"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
@@ -218,6 +222,7 @@
                         IsEnabled="{Binding Path=Prod_codeIsEnabled}"
                         IsReadOnly="{Binding Path=Prod_codeIsReadOnly}"
                         VerticalAlignment="Center"
+                        FontSize="{StaticResource StandardFontSize}"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
                                       <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
@@ -271,10 +276,11 @@
                         Width="100"
                         IsEnabled="{Binding Path=Prod_codeIsEnabled}"
                         IsReadOnly="{Binding Path=Prod_codeIsReadOnly}"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Left"
-                        ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
-                                    <i:Interaction.Behaviors>
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Left"
+                          FontSize="{StaticResource StandardFontSize}"
+                          ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
+                          <i:Interaction.Behaviors>
                                       <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
                                     </i:Interaction.Behaviors>
                                     <TextBox.Style>
@@ -348,6 +354,7 @@
                         IsReadOnly="{Binding Path=Prod_descriptionIsReadOnly}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
+                        FontSize="{StaticResource StandardFontSize}"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
                                       <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
@@ -415,6 +422,7 @@
                         CaretBrush="{StaticResource CaretBrush}"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
+                         HorizontalContentAlignment="Right"
                         Name="ctlSales_order_line_Qty"
                         Text="{Binding Path=Qty, Converter={StaticResource decimalConverter}  
                         ,UpdateSourceTrigger=Default
@@ -423,6 +431,7 @@
                         IsEnabled="{Binding Path=QtyIsEnabled}"
                         IsReadOnly="{Binding Path=QtyIsReadOnly}"
                         SynergyDecimalField="False"                         MaxLength="6"
+                        FontSize="{StaticResource StandardFontSize}"
                         Width="72"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
@@ -491,6 +500,7 @@
                         CaretBrush="{StaticResource CaretBrush}"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
+                        HorizontalContentAlignment="Right"
                         Name="ctlSales_order_line_Price"
                         Text="{Binding Path=Price, Converter={StaticResource impliedDecimalConverter}  ,StringFormat=#0.00
                                 , UpdateSourceTrigger=Default
@@ -499,6 +509,7 @@
                         IsEnabled="{Binding Path=PriceIsEnabled}"
                         IsReadOnly="{Binding Path=PriceIsReadOnly}"
                         SynergyDecimalField="True"                         NumberOfDecimals="2"
+                        FontSize="{StaticResource StandardFontSize}"                       
                         MaxLength="10"
                         Width="120"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
@@ -568,6 +579,7 @@
                         CaretBrush="{StaticResource CaretBrush}"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
+                        HorizontalContentAlignment="Right"
                         Name="ctlSales_order_line_Line_value"
                         Text="{Binding Path=Line_value, Converter={StaticResource impliedDecimalConverter}  ,StringFormat=#0.00
                                 , UpdateSourceTrigger=Default
@@ -576,6 +588,7 @@
                         IsEnabled="{Binding Path=Line_valueIsEnabled}"
                         IsReadOnly="{Binding Path=Line_valueIsReadOnly}"
                         SynergyDecimalField="True"                         NumberOfDecimals="2"
+                        FontSize="{StaticResource StandardFontSize}"                       
                         MaxLength="12"
                         Width="144"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
@@ -645,6 +658,7 @@
                         CaretBrush="{StaticResource CaretBrush}"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
+                        HorizontalContentAlignment="Right"
                         Name="ctlSales_order_line_Vat_rate"
                         Text="{Binding Path=Vat_rate, Converter={StaticResource impliedDecimalConverter}  ,StringFormat=#0.00
                                 , UpdateSourceTrigger=Default
@@ -653,6 +667,7 @@
                         IsEnabled="{Binding Path=Vat_rateIsEnabled}"
                         IsReadOnly="{Binding Path=Vat_rateIsReadOnly}"
                         SynergyDecimalField="True"                         NumberOfDecimals="2"
+                        FontSize="{StaticResource StandardFontSize}"                       
                         MaxLength="7"
                         Width="84"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
@@ -722,6 +737,7 @@
                         CaretBrush="{StaticResource CaretBrush}"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
+                        HorizontalContentAlignment="Right"
                         Name="ctlSales_order_line_Vat_value"
                         Text="{Binding Path=Vat_value, Converter={StaticResource impliedDecimalConverter}  ,StringFormat=#0.00
                                 , UpdateSourceTrigger=Default
@@ -730,6 +746,7 @@
                         IsEnabled="{Binding Path=Vat_valueIsEnabled}"
                         IsReadOnly="{Binding Path=Vat_valueIsReadOnly}"
                         SynergyDecimalField="True"                         NumberOfDecimals="2"
+                        FontSize="{StaticResource StandardFontSize}"                       
                         MaxLength="12"
                         Width="144"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">

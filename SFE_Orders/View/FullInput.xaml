@@ -37,15 +37,14 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="25" />
-
+                    <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                    <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                    <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                    <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                    <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                    <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                    <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                    <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
                 </Grid.RowDefinitions>
 
                 <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource Order_header_Order_no_prompt}"></Label>

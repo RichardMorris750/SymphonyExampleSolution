@@ -45,7 +45,8 @@ rem Content files contain repository selection field data
 codegen %OPTS% -s %strList% -t Symphony_Content -o %ROOT%\%clientProjectNameSpace%\Resources -n %clientProjectNameSpace%.Content -ut ASSEMBLYNAME=%clientProjectNameSpace%
 
 rem Styles define field input control styling
-codegen %OPTS% -s %strList% -t Symphony_Style_V3_2 -o %ROOT%\%clientProjectNameSpace%\Resources -n %serverProjectNameSpace% -ut ASSEMBLYNAME=SFE_UI
+REM codegen %OPTS% -s %strList% -t Symphony_Style_V3_2 -o %ROOT%\%clientProjectNameSpace%\Resources -n %serverProjectNameSpace% -ut ASSEMBLYNAME=SFE_UI
+codegen %OPTS% -s %strList% -t Symphony_Style_SFE -o %ROOT%\%clientProjectNameSpace%\Resources -n %serverProjectNameSpace% -ut ASSEMBLYNAME=SFE_UI
 
 rem Create the connection object between styled input controls and select data 
 codegen %OPTS% -s %strList% -t Symphony_Collection_V3_2 -o %ROOT%\%clientProjectNameSpace%\Content -n %clientProjectNameSpace%.Content -ut ASSEMBLYNAME=%clientProjectNameSpace%

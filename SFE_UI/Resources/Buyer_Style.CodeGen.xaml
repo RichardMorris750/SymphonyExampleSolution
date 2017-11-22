@@ -4,7 +4,7 @@
 
  Template author:   Richard C. Morris, Synergex Technology Evangelist
 
- Template Name: Symphony Framework : SYMPHONY_STYLE_V3_2.tpl
+ Template Name: Symphony Framework : SYMPHONY_STYLE_SFE.tpl
 
 -->
 <ResourceDictionary
@@ -63,6 +63,7 @@
                         IsReadOnly="{Binding Path=Buyer_keyIsReadOnly}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
+                        FontSize="{StaticResource StandardFontSize}"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
                                       <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
@@ -177,6 +178,7 @@
                         IsReadOnly="{Binding Path=NameIsReadOnly}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
+                        FontSize="{StaticResource StandardFontSize}"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
                                       <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
@@ -252,6 +254,7 @@
                         IsReadOnly="{Binding Path=Address1IsReadOnly}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
+                        FontSize="{StaticResource StandardFontSize}"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
                                       <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
@@ -327,6 +330,7 @@
                         IsReadOnly="{Binding Path=Address2IsReadOnly}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
+                        FontSize="{StaticResource StandardFontSize}"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
                                       <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
@@ -402,6 +406,7 @@
                         IsReadOnly="{Binding Path=Address3IsReadOnly}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
+                        FontSize="{StaticResource StandardFontSize}"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
                                       <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
@@ -477,6 +482,7 @@
                         IsReadOnly="{Binding Path=PostcodeIsReadOnly}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
+                        FontSize="{StaticResource StandardFontSize}"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
                                       <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
@@ -552,6 +558,7 @@
                         IsReadOnly="{Binding Path=PhoneIsReadOnly}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
+                        FontSize="{StaticResource StandardFontSize}"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
                                       <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
@@ -627,6 +634,7 @@
                         IsReadOnly="{Binding Path=Mobile_phoneIsReadOnly}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
+                        FontSize="{StaticResource StandardFontSize}"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
                                       <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
@@ -702,6 +710,7 @@
                         IsReadOnly="{Binding Path=EmailIsReadOnly}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
+                        FontSize="{StaticResource StandardFontSize}"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
                                       <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
@@ -776,6 +785,7 @@
                         IsReadOnly="{Binding Path=FillerIsReadOnly}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
+                        FontSize="{StaticResource StandardFontSize}"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
                                       <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>

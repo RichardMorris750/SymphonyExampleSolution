@@ -164,6 +164,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.dbl" />
     <Compile Include="ViewModel\FileMaintViewModel.dbc" />
+    <Compile Include="ViewModel\FileMaintDetailsViewModel.dbc" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel" />

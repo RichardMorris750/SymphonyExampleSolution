@@ -4,7 +4,7 @@
 
  Template author:   Richard C. Morris, Synergex Technology Evangelist
 
- Template Name: Symphony Framework : SYMPHONY_STYLE_V3_2.tpl
+ Template Name: Symphony Framework : SYMPHONY_STYLE_SFE.tpl
 
 -->
 <ResourceDictionary
@@ -56,6 +56,7 @@
                         CaretBrush="{StaticResource CaretBrush}"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
+                         HorizontalContentAlignment="Right"
                         Name="ctlParameter_Last_order_no"
                         Text="{Binding Path=Last_order_no, Converter={StaticResource decimalConverter}  
                         ,UpdateSourceTrigger=Default
@@ -64,6 +65,7 @@
                         IsEnabled="{Binding Path=Last_order_noIsEnabled}"
                         IsReadOnly="{Binding Path=Last_order_noIsReadOnly}"
                         SynergyDecimalField="False"                         MaxLength="6"
+                        FontSize="{StaticResource StandardFontSize}"
                         Width="72"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>

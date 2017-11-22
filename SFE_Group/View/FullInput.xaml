@@ -41,10 +41,10 @@
                         <ColumnDefinition Width="1" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    
+
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
+                        <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
+                        <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
                         <RowDefinition Height="{StaticResource StandardInputGridHeight}" />
 
                     </Grid.RowDefinitions>

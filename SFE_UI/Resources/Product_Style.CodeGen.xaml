@@ -4,7 +4,7 @@
 
  Template author:   Richard C. Morris, Synergex Technology Evangelist
 
- Template Name: Symphony Framework : SYMPHONY_STYLE_V3_2.tpl
+ Template Name: Symphony Framework : SYMPHONY_STYLE_SFE.tpl
 
 -->
 <ResourceDictionary
@@ -65,6 +65,7 @@
                         IsReadOnly="{Binding Path=Prod_codeIsReadOnly}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
+                        FontSize="{StaticResource StandardFontSize}"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
                                       <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
@@ -140,6 +141,7 @@
                         IsReadOnly="{Binding Path=Prod_descriptionIsReadOnly}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
+                        FontSize="{StaticResource StandardFontSize}"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
                                       <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
@@ -218,6 +220,7 @@
                         IsEnabled="{Binding Path=Supp_codeIsEnabled}"
                         IsReadOnly="{Binding Path=Supp_codeIsReadOnly}"
                         VerticalAlignment="Center"
+                        FontSize="{StaticResource StandardFontSize}"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
                                       <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
@@ -272,10 +275,11 @@
                         CharacterCasing="Upper"
                         IsEnabled="{Binding Path=Supp_codeIsEnabled}"
                         IsReadOnly="{Binding Path=Supp_codeIsReadOnly}"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Left"
-                        ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
-                                    <i:Interaction.Behaviors>
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Left"
+                          FontSize="{StaticResource StandardFontSize}"
+                          ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
+                          <i:Interaction.Behaviors>
                                       <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
                                     </i:Interaction.Behaviors>
                                     <TextBox.Style>
@@ -341,6 +345,7 @@
                         CaretBrush="{StaticResource CaretBrush}"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
+                        HorizontalContentAlignment="Right"
                         Name="ctlProduct_Cost_price"
                         Text="{Binding Path=Cost_price, Converter={StaticResource impliedDecimalConverter}  ,StringFormat=#0.00
                                 , UpdateSourceTrigger=Default
@@ -349,6 +354,7 @@
                         IsEnabled="{Binding Path=Cost_priceIsEnabled}"
                         IsReadOnly="{Binding Path=Cost_priceIsReadOnly}"
                         SynergyDecimalField="True"                         NumberOfDecimals="2"
+                        FontSize="{StaticResource StandardFontSize}"                       
                         MaxLength="10"
                         Width="120"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
@@ -418,6 +424,7 @@
                         CaretBrush="{StaticResource CaretBrush}"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
+                        HorizontalContentAlignment="Right"
                         Name="ctlProduct_Sell_price"
                         Text="{Binding Path=Sell_price, Converter={StaticResource impliedDecimalConverter}  ,StringFormat=#0.00
                                 , UpdateSourceTrigger=Default
@@ -426,6 +433,7 @@
                         IsEnabled="{Binding Path=Sell_priceIsEnabled}"
                         IsReadOnly="{Binding Path=Sell_priceIsReadOnly}"
                         SynergyDecimalField="True"                         NumberOfDecimals="2"
+                        FontSize="{StaticResource StandardFontSize}"                       
                         MaxLength="10"
                         Width="120"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
@@ -503,6 +511,7 @@
                         IsReadOnly="{Binding Path=Pack_sizeIsReadOnly}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
+                        FontSize="{StaticResource StandardFontSize}"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
                                       <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
@@ -585,6 +594,7 @@
                             IsEnabled="{Binding Path=Vat_codeIsEnabled}"
                             Width="120"
                             Margin="0,1,0,1"
+                            FontSize="{StaticResource StandardFontSize}"
                             ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                             <ComboBox.Style>
                                 <Style>
@@ -653,7 +663,7 @@
                                                                  x:Name="DropDownBorder"
                                                                  Background="Transparent"
                                                                  BorderThickness="1"
-                                                                 BorderBrush="{StaticResource LabelColorBrush}"/>
+                                                                 BorderBrush="{StaticResource LabelColorBrush}"/> 
                                                              <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
                                                                  <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
                                                              </ScrollViewer>
@@ -744,6 +754,7 @@
                         IsEnabled="{Binding Path=Prod_groupIsEnabled}"
                         IsReadOnly="{Binding Path=Prod_groupIsReadOnly}"
                         VerticalAlignment="Center"
+                        FontSize="{StaticResource StandardFontSize}"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
                                     <i:Interaction.Behaviors>
                                       <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
@@ -798,10 +809,11 @@
                         CharacterCasing="Upper"
                         IsEnabled="{Binding Path=Prod_groupIsEnabled}"
                         IsReadOnly="{Binding Path=Prod_groupIsReadOnly}"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Left"
-                        ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
-                                    <i:Interaction.Behaviors>
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Left"
+                          FontSize="{StaticResource StandardFontSize}"
+                          ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
+                          <i:Interaction.Behaviors>
                                       <symphonyControls:SelectAllTextBoxBehavior></symphonyControls:SelectAllTextBoxBehavior>
                                     </i:Interaction.Behaviors>
                                     <TextBox.Style>
@@ -870,6 +882,7 @@
                         IsChecked="{Binding Path=Promotion, Converter={StaticResource decimalTFConverter}}"
                         IsEnabled="{Binding Path=PromotionIsEnabled}"
                         VerticalAlignment="Center"
+                        FontSize="{StaticResource StandardFontSize}"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
 						<CheckBox.Style>
 							<Style>
@@ -897,7 +910,7 @@
 																	<GradientStopCollection>
 																		<GradientStop Color="{DynamicResource BorderLightColor}"
 																					  Offset="0.0" />
-																		<GradientStop Color="{DynamicResource BorderDarkColor}"
+																		<GradientStop Color="{DynamicResource BorderLightColor}"
 																					  Offset="1.0" />
 																	</GradientStopCollection>
 																</LinearGradientBrush.GradientStops>

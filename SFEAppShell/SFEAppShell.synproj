@@ -19,12 +19,41 @@
     <ProjectTypeGuids>{339B3E77-97E9-4f6d-9151-E6D103EA4D4A};{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{BBD0F5D1-1CC4-42fd-BA4C-A96779C64378}</ProjectTypeGuids>
     <DBL_qWarnLevel>3 - Don't display warning levels higher than 3</DBL_qWarnLevel>
     <DBL_qWarn>True</DBL_qWarn>
-    <DBLCmdOptions> -W3 -qstack</DBLCmdOptions>
+    <DBLCmdOptions>-W3 -qstack</DBLCmdOptions>
     <DBL_unQulRecStm>Stack</DBL_unQulRecStm>
     <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
     <Name>SFEAppShell</Name>
     <TargetPlatform>v452</TargetPlatform>
     <EnableCommonProperties>True</EnableCommonProperties>
+    <DBL_qAltif>False</DBL_qAltif>
+    <DBL_qErrWarn>False</DBL_qErrWarn>
+    <DBL_qDisWarnOpt />
+    <DBL_WarnToErr />
+    <DBL_qVariantOpt />
+    <DBL_StackSize />
+    <DBL_device>False</DBL_device>
+    <DBL_mono>False</DBL_mono>
+    <DBL_qWarnStackSize>False</DBL_qWarnStackSize>
+    <DBL_qWarnStackSizeValue>65536</DBL_qWarnStackSizeValue>
+    <DBL_qDefineOptCheck>False</DBL_qDefineOptCheck>
+    <DBL_qDefineOpt />
+    <DBL_qRelaxedAllowDup>False</DBL_qRelaxedAllowDup>
+    <DBL_qRelaxedParamst>False</DBL_qRelaxedParamst>
+    <OtherOptions />
+    <Install>True</Install>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.*</ApplicationVersion>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>False</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>False</UpdatePeriodically>
+    <UpdateRequired>False</UpdateRequired>
+    <MapFileExtensions>True</MapFileExtensions>
+    <IsWebBootstrapper>False</IsWebBootstrapper>
+    <UseApplicationTrust>False</UseApplicationTrust>
+    <BootstrapperEnabled>True</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -287,6 +316,18 @@
       <Project>{042c6fdf-2e91-4cba-a1ac-336122022826}</Project>
       <Private>True</Private>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Install>True</Install>
+      <ProductName>Microsoft .NET Framework 4.5.2 (x86 and x64)</ProductName>
+      <Visible>False</Visible>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Install>False</Install>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Visible>False</Visible>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Synergex\VS2010\Synergex.SynergyDE.targets" />
   <PropertyGroup>

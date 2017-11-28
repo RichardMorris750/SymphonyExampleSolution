@@ -143,7 +143,7 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <CrescendoUI:DialogControl Grid.Row="1" Grid.Column="1" DataContext="{Binding Path=DialogVM}"></CrescendoUI:DialogControl>
+                <sfeuiCommon:DialogControl Grid.Row="1" Grid.Column="1" DataContext="{Binding Path=DialogVM}"></sfeuiCommon:DialogControl>
            
             </Grid>
         </Border>

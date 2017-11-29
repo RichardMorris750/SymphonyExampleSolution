@@ -330,29 +330,29 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\Debug\libhpdf.dll">
+    <Content Include="libhpdf.dll">
       <SubType>Content</SubType>
-      <Link>libhpdf.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="bin\Debug\libhpdf64.dll">
+    <Content Include="libhpdf64.dll">
       <SubType>Content</SubType>
-      <Link>libhpdf64.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="bin\Debug\libpng15.dll">
+    <Content Include="libpng15.dll">
       <SubType>Content</SubType>
-      <Link>libpng15.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="bin\Debug\libpng15_64.dll">
+    <Content Include="libpng15_64.dll">
       <SubType>Content</SubType>
-      <Link>libpng15_64.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="bin\Debug\zlibwapi.dll">
+    <Content Include="zlibwapi.dll">
       <SubType>Content</SubType>
-      <Link>zlibwapi.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="bin\Debug\zlibwapi64.dll">
+    <Content Include="zlibwapi64.dll">
       <SubType>Content</SubType>
-      <Link>zlibwapi64.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Synergex\VS2010\Synergex.SynergyDE.targets" />

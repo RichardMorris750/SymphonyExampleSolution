@@ -46,15 +46,14 @@
         <!-- title border -->
         <Grid Grid.Row="0" MouseLeftButtonUp="root_MouseLeftButtonUp" MouseLeftButtonDown="root_MouseLeftButtonDown" MouseMove="root_MouseMove">
 
-          <Border Style="{StaticResource StandardBorder}">
-            <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"
+                    <Border Style="{StaticResource StandardBorder}">
+                        <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"
 											 Text="{Binding Path=Title}"
-											 FontSize="16"
-                       Style="{StaticResource StdTextBlockStyle}">
-            </TextBlock>
-          </Border>
+											 FontSize="16">
+                        </TextBlock>
+                    </Border>
 
-        </Grid>
+                </Grid>
 
         <Grid Grid.Row="1">
 
@@ -69,31 +68,10 @@
           </Grid.ColumnDefinitions>
 
           <!--this is the image we can display-->
-          <Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Margin="10" Width="50" Height="50" >
-            <Image.Style>
-              <Style>
-                <Style.Triggers>
-                  <DataTrigger Binding="{Binding Path=Icon}" Value="{x:Static localVM:DialogIcon.Error}">
-                    <Setter Property="Image.Source" Value="pack://application:,,,/SymphonyCrescendo;component/Images/Dialog/error_mark.png"></Setter>
-                  </DataTrigger>
-                  <DataTrigger Binding="{Binding Path=Icon}" Value="{x:Static localVM:DialogIcon.Question}">
-                    <Setter Property="Image.Source" Value="pack://application:,,,/SymphonyCrescendo;component/Images/Dialog/question_mark.jpg"></Setter>
-                  </DataTrigger>
-                  <DataTrigger Binding="{Binding Path=Icon}" Value="{x:Static localVM:DialogIcon.Exclamation}">
-                    <Setter Property="Image.Source" Value="pack://application:,,,/SymphonyCrescendo;component/Images/Dialog/exclamation_mark.png"></Setter>
-                  </DataTrigger>
-                  <DataTrigger Binding="{Binding Path=Icon}" Value="{x:Static localVM:DialogIcon.Stop}">
-                    <Setter Property="Image.Source" Value="pack://application:,,,/SymphonyCrescendo;component/Images/Dialog/stop_mark.jpg"></Setter>
-                  </DataTrigger>
-                  <DataTrigger Binding="{Binding Path=Icon}" Value="{x:Static localVM:DialogIcon.Warning}">
-                    <Setter Property="Image.Source" Value="pack://application:,,,/SymphonyCrescendo;component/Images/Dialog/warning_mark.png"></Setter>
-                  </DataTrigger>
-                </Style.Triggers>
-              </Style>
-            </Image.Style>
-          </Image>
+                    <Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Margin="10" Width="50" Height="50" Style="{StaticResource DCImgTriggers}"/>
 
-          <TextBlock Grid.Row="0" Grid.Column="1"
+
+                    <TextBlock Grid.Row="0" Grid.Column="1"
 								 Margin="30"
 								 Text="{Binding Path=Message}"
 								 FontSize="20"

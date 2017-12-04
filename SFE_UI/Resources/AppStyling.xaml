@@ -36,7 +36,7 @@
     <Color x:Key="PressedBorderDarkColor">#FF444444</Color>
 
     <Color x:Key="NavyColour">#333a56</Color>
-    <Color x:Key="BlackColour">#000000</Color>
+    <Color x:Key="BlackColour">#252527</Color>
     <Color x:Key="BlueColour" >#0070DF</Color>
     <Color x:Key="BrightBlueColour" >#42A0FF</Color>
     <Color x:Key="WhiteColour">#F1F1F1</Color>

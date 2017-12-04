@@ -69,11 +69,11 @@
     <SolidColorBrush x:Key="StatusBarItemBackgroundBrush" Color="Transparent"></SolidColorBrush>
     <SolidColorBrush x:Key="StatusBarItemForegroundBrush" Color="{StaticResource OrangeColour}"></SolidColorBrush>
     <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource BlueColour}"></SolidColorBrush>
-    <SolidColorBrush x:Key="MenuItemBrush" Color="{StaticResource BlueColour}"></SolidColorBrush>
-    <SolidColorBrush x:Key="MenuItemTextBrush" Color="{StaticResource OrangeColour}"></SolidColorBrush>
+    <SolidColorBrush x:Key="MenuItemBrush" Color="{StaticResource LemonColour}"></SolidColorBrush>
+    <SolidColorBrush x:Key="MenuItemTextBrush" Color="{StaticResource LemonColour}"></SolidColorBrush>
     <SolidColorBrush x:Key="ButtonBackgroundBrush" Color="{StaticResource BlackColour}"></SolidColorBrush>
     <SolidColorBrush x:Key="ButtonActiveBackgroundBrush" Color="{StaticResource OrangeColour}"></SolidColorBrush>
-    <SolidColorBrush x:Key="ButtonTextBrush" Color="{StaticResource OrangeColour}"></SolidColorBrush>
+    <SolidColorBrush x:Key="ButtonTextBrush" Color="{StaticResource LemonColour}"></SolidColorBrush>
     <SolidColorBrush x:Key="ButtonDisabledTextBrush" Color="{StaticResource BlackColour}"></SolidColorBrush>
 
     <SolidColorBrush x:Key="CaretBrush" Color="{StaticResource OrangeColour}"></SolidColorBrush>
@@ -127,6 +127,7 @@
         </Setter>
         <Setter Property="Margin" Value="6,4,6,4"></Setter>
         <Setter Property="Foreground" Value="{StaticResource ButtonTextBrush}"></Setter>
+        <Setter Property="FontSize" Value="16"></Setter>
         <Style.Triggers>
             <Trigger Property="IsEnabled" Value="False">
                 <!--Setter Property="Foreground" Value="{StaticResource ButtonDisabledTextBrush}"></-->

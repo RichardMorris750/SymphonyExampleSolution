@@ -1,148 +1,141 @@
 ﻿<UserControl x:Class="SFE_UI.Common.DialogControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:localVM="clr-namespace:Symphony.Conductor.ViewModel;assembly=SymphonyConductor"
-              mc:Ignorable="d"
+             mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="600">
-    
-    <Grid>
-        
+
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="pack://application:,,,/SymphonyConductor;component/Resources/Converters.xaml"/>
+				<ResourceDictionary Source="pack://application:,,,/SFE_UI;component/Resources/AppStyling.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</UserControl.Resources>
+
+
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"></RowDefinition>
+			<RowDefinition Height="auto"></RowDefinition>
+			<RowDefinition Height="*"></RowDefinition>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"></ColumnDefinition>
+			<ColumnDefinition Width="auto"></ColumnDefinition>
+			<ColumnDefinition Width="*"></ColumnDefinition>
+		</Grid.ColumnDefinitions>
+
+
+
+
+    <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource StandardBorder}">
+
+      <Grid>
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+          <RowDefinition Height="40"></RowDefinition>
+          <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="auto"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-
-        <Border BorderBrush="Black" BorderThickness="3" Grid.Row="1" Grid.Column="1" CornerRadius="1" >
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="40"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                </Grid.RowDefinitions>
 
 
-                <!-- title border -->
-                <Grid Grid.Row="0" Background="#63b8ff" MouseLeftButtonUp="root_MouseLeftButtonUp" MouseLeftButtonDown="root_MouseLeftButtonDown" MouseMove="root_MouseMove">
+        <!-- title border -->
+        <Grid Grid.Row="0" MouseLeftButtonUp="root_MouseLeftButtonUp" MouseLeftButtonDown="root_MouseLeftButtonDown" MouseMove="root_MouseMove">
 
-                    <Border BorderBrush="Blue" BorderThickness="1">
+                    <Border Style="{StaticResource StandardBorder}">
                         <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                   Text="{Binding Path=Title}"
-                                   FontSize="16">
+											 Text="{Binding Path=Title}"
+											 FontSize="16">
                         </TextBlock>
                     </Border>
+
                 </Grid>
 
-                <Grid Grid.Row="1">
-                    <Grid.Background>
-                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                            <LinearGradientBrush.GradientStops>
-                                <GradientStop Offset="0.7" Color="White" />
-                                <GradientStop Offset="1.0" Color="SteelBlue" />
-                            </LinearGradientBrush.GradientStops>
-                        </LinearGradientBrush>
-                    </Grid.Background>
+        <Grid Grid.Row="1">
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+          </Grid.ColumnDefinitions>
 
-                    <!--this is the image we can display-->
-                    <Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Margin="10" Width="50" Height="50" >
-                        <Image.Style>
-                            <Style>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path=Icon}" Value="{x:Static localVM:DialogIcon.Error}">
-                                        <Setter Property="Image.Source" Value="pack://application:,,,/SymphonyCrescendo;component/Images/Dialog/error_mark.png"></Setter>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding Path=Icon}" Value="{x:Static localVM:DialogIcon.Question}">
-                                        <Setter Property="Image.Source" Value="pack://application:,,,/SymphonyCrescendo;component/Images/Dialog/question_mark.jpg"></Setter>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding Path=Icon}" Value="{x:Static localVM:DialogIcon.Exclamation}">
-                                        <Setter Property="Image.Source" Value="pack://application:,,,/SymphonyCrescendo;component/Images/Dialog/exclamation_mark.png"></Setter>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding Path=Icon}" Value="{x:Static localVM:DialogIcon.Stop}">
-                                        <Setter Property="Image.Source" Value="pack://application:,,,/SymphonyCrescendo;component/Images/Dialog/stop_mark.jpg"></Setter>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding Path=Icon}" Value="{x:Static localVM:DialogIcon.Warning}">
-                                        <Setter Property="Image.Source" Value="pack://application:,,,/SymphonyCrescendo;component/Images/Dialog/warning_mark.png"></Setter>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Image.Style>
-                    </Image>
+          <!--this is the image we can display-->
+                    <Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Margin="10" Width="50" Height="50" Style="{StaticResource DCImgTriggers}"/>
+
 
                     <TextBlock Grid.Row="0" Grid.Column="1"
-                           Margin="30" 
-                           Text="{Binding Path=Message}"
-                           FontSize="20"
-                           Width="450"
-                           TextWrapping="Wrap"
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Center">
-                    </TextBlock>
+								 Margin="30"
+								 Text="{Binding Path=Message}"
+								 FontSize="20"
+								 Width="450"
+								 TextWrapping="Wrap"
+								 HorizontalAlignment="Left"
+								 VerticalAlignment="Center">
+
+          </TextBlock>
 
 
-                    <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" >
+          <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" >
 
-                        <Grid.RowDefinitions>
-                            <RowDefinition></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <!-- OK button -->
-                        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center"  Margin="0,20,0,20">
-                            <StackPanel.Style>
-                                <Style>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Path=Style}" Value="{x:Static localVM:DialogStyle.OK}">
-                                            <Setter Property="StackPanel.Visibility" Value="Visible"></Setter>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding Path=Style}" Value="{x:Static localVM:DialogStyle.YesNo}">
-                                            <Setter Property="StackPanel.Visibility" Value="Hidden"></Setter>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </StackPanel.Style>
+            <Grid.RowDefinitions>
+              <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <!-- OK button -->
+            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center"  Margin="0,20,0,20">
+              <StackPanel.Style>
+                <Style>
+                  <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=Style}" Value="{x:Static localVM:DialogStyle.OK}">
+                      <Setter Property="StackPanel.Visibility" Value="Visible"></Setter>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=Style}" Value="{x:Static localVM:DialogStyle.YesNo}">
+                      <Setter Property="StackPanel.Visibility" Value="Hidden"></Setter>
+                    </DataTrigger>
+                  </Style.Triggers>
+                </Style>
+              </StackPanel.Style>
 
-                            <Button Command="{Binding Path=DialogCommand}" Height="24" CommandParameter="OK" Content="OK" Padding="20,0,20,0" IsDefault="True"></Button>
-                        </StackPanel>
+              <Button Command="{Binding Path=DialogCommand}" Height="24" CommandParameter="OK" Content="OK" Padding="20,0,20,0" IsDefault="True" Style="{StaticResource StandardButtonStyle}"></Button>
+            </StackPanel>
 
-                        <!-- Yes No buttons -->
-                        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,20">
-                            <StackPanel.Style>
-                                <Style>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Path=Style}" Value="{x:Static localVM:DialogStyle.YesNo}">
-                                            <Setter Property="StackPanel.Visibility" Value="Visible"></Setter>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding Path=Style}" Value="{x:Static localVM:DialogStyle.OK}">
-                                            <Setter Property="StackPanel.Visibility" Value="Hidden"></Setter>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </StackPanel.Style>
+            <!-- Yes No buttons -->
+            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,20">
+              <StackPanel.Style>
+                <Style>
+                  <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=Style}" Value="{x:Static localVM:DialogStyle.YesNo}">
+                      <Setter Property="StackPanel.Visibility" Value="Visible"></Setter>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=Style}" Value="{x:Static localVM:DialogStyle.OK}">
+                      <Setter Property="StackPanel.Visibility" Value="Hidden"></Setter>
+                    </DataTrigger>
+                  </Style.Triggers>
+                </Style>
+              </StackPanel.Style>
 
-                            <Button Command="{Binding Path=DialogCommand}" Height="24"  CommandParameter="YES" Content="Yes" Padding="20,0,20,0" IsDefault="True" Margin="0,0,5,0"></Button>
-                            <Button Command="{Binding Path=DialogCommand}" Height="24"  CommandParameter="NO" Content="No" Padding="20,0,20,0" IsCancel="True" Margin="5,0,0,0"></Button>
-                        </StackPanel>
-                    </Grid>
-                </Grid>
-            </Grid>
-            
-        </Border>
+              <Button Command="{Binding Path=DialogCommand}" Height="24"  CommandParameter="YES" Content="Yes" Padding="20,0,20,0" IsDefault="True" Style="{StaticResource StandardButtonStyle}"></Button>
+              <Button Command="{Binding Path=DialogCommand}" Height="24"  CommandParameter="NO" Content="No" Padding="20,0,20,0" IsCancel="True" Style="{StaticResource StandardButtonStyle}"></Button>
+            </StackPanel>
 
-    </Grid>
-    
+
+          </Grid>
+
+        </Grid>
+
+      </Grid>
+
+    </Border>
+
+
+	</Grid>
 </UserControl>
+
 

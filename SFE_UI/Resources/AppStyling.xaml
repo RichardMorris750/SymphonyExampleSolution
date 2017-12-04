@@ -43,6 +43,7 @@
     <Color x:Key="OrangeColour">#F0F0F0</Color>
     <Color x:Key="SilverColour">#9BADB3</Color>
     <Color x:Key="LemonColour">#F7FBAD</Color>
+    <Color x:Key="CharcoalColour">#101010</Color>
 
     <SolidColorBrush x:Key="TitleColorBrush" Color="{StaticResource LemonColour}"></SolidColorBrush>
 
@@ -77,6 +78,7 @@
     <SolidColorBrush x:Key="ButtonDisabledTextBrush" Color="{StaticResource BlackColour}"></SolidColorBrush>
 
     <SolidColorBrush x:Key="CaretBrush" Color="{StaticResource OrangeColour}"></SolidColorBrush>
+    <SolidColorBrush x:Key="DialogTitleBackgroundBrush" Color="{StaticResource CharcoalColour}"/>
 
     <Style TargetType="{x:Type Window}">
         <Setter Property="Background">
@@ -193,6 +195,7 @@
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="CornerRadius" Value="5"/>
         <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+        <Setter Property="Padding" Value="4"/>
     </Style>
 
 

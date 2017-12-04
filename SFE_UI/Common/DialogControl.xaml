@@ -44,7 +44,8 @@
 
 
         <!-- title border -->
-        <Grid Grid.Row="0" MouseLeftButtonUp="root_MouseLeftButtonUp" MouseLeftButtonDown="root_MouseLeftButtonDown" MouseMove="root_MouseMove">
+        <Grid Grid.Row="0" MouseLeftButtonUp="root_MouseLeftButtonUp" MouseLeftButtonDown="root_MouseLeftButtonDown" MouseMove="root_MouseMove"
+              Background="{StaticResource DialogTitleBackgroundBrush}">
 
                     <Border Style="{StaticResource StandardBorder}">
                         <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"

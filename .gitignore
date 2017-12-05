@@ -264,3 +264,5 @@ ModelManifest.xml
 #GI files
 admin.bat
 *.docx
+/runSFE.bat
+/Fonts/license.txt

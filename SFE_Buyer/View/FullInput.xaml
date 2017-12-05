@@ -76,7 +76,7 @@
                     <symControl:FieldControl Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="3" Style="{StaticResource Buyer_Email_style}"></symControl:FieldControl>
 
                     <Label Grid.Row="1" Grid.Column="6" Style="{StaticResource Buyer_Created_timestamp_prompt}"></Label>
-                    <TextBlock Grid.Row="1" Grid.Column="6" Foreground="{StaticResource InputForegroundBrush}" Width="79" Margin="0,4,-52,5" HorizontalAlignment="Right" VerticalAlignment="Center" 
+                    <TextBlock Grid.Row="1" Grid.Column="6" Foreground="{StaticResource InputForegroundBrush}" Width="79" Margin="0,4,-60,5" HorizontalAlignment="Right" VerticalAlignment="Center" 
                                IsEnabled="False" Text="{Binding Path=DateCreated}"></TextBlock>
 
                     <!-- image -->

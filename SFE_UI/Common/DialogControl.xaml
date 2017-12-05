@@ -103,7 +103,7 @@
                 </Style>
               </StackPanel.Style>
 
-              <Button Command="{Binding Path=DialogCommand}" Height="24" CommandParameter="OK" Content="OK" Padding="20,0,20,0" IsDefault="True" Style="{StaticResource StandardButtonStyle}"></Button>
+              <Button Command="{Binding Path=DialogCommand}" CommandParameter="OK" Content="OK" IsDefault="True" Style="{StaticResource  DialogButtonStyle}"></Button>
             </StackPanel>
 
             <!-- Yes No buttons -->
@@ -120,10 +120,10 @@
                   </Style.Triggers>
                 </Style>
               </StackPanel.Style>
-
-              <Button Command="{Binding Path=DialogCommand}" Height="24"  CommandParameter="YES" Content="Yes" Padding="20,0,20,0" IsDefault="True" Style="{StaticResource StandardButtonStyle}"></Button>
-              <Button Command="{Binding Path=DialogCommand}" Height="24"  CommandParameter="NO" Content="No" Padding="20,0,20,0" IsCancel="True" Style="{StaticResource StandardButtonStyle}"></Button>
-            </StackPanel>
+                
+              <Button Command="{Binding Path=DialogCommand}" CommandParameter="YES" Content="Yes" IsDefault="True" Style="{StaticResource DialogButtonStyle}"></Button>
+              <Button Command="{Binding Path=DialogCommand}" CommandParameter="NO"  Content="No"  IsCancel="True"  Style="{StaticResource DialogButtonStyle}"></Button>
+           </StackPanel>
 
 
           </Grid>

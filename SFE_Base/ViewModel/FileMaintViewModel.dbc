@@ -532,7 +532,7 @@ namespace SFE_Base.ViewModel
 			begin
 				if CurrentDialogResult == ^null then
 				begin
-					DialogVM.Message = "Are you SURE you want to Delete this Record?."
+					DialogVM.Message = "Are you SURE you want to Delete this Record?"
 					DialogVM.Icon = DialogIcon.Question
 					DialogVM.Style = DialogStyle.YesNo
 				

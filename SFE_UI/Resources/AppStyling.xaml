@@ -154,6 +154,13 @@
         </Setter>
     </Style>
 
+    <Style x:Key="DialogButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource StandardButtonStyle}">
+        <Setter Property="FontSize" Value="22"></Setter>
+        <Setter Property="FontWeight" Value="SemiBold"></Setter>
+        <Setter Property="Height" Value="25"></Setter>
+        <Setter Property="Padding" Value="20,0,20,0"></Setter> 
+    </Style>
+
     <Style TargetType="{x:Type Label}">
         <Setter Property="FontSize" Value="{StaticResource StandardFontSize}"></Setter>
         <Setter Property="Foreground" Value="{StaticResource LabelColorBrush}"></Setter>

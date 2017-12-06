@@ -36,7 +36,7 @@
     <Color x:Key="PressedBorderDarkColor">#FF444444</Color>
 
     <Color x:Key="NavyColour">#333a56</Color>
-    <Color x:Key="BlackColour">#000000</Color>
+    <Color x:Key="BlackColour">#252527</Color>
     <Color x:Key="BlueColour" >#0070DF</Color>
     <Color x:Key="BrightBlueColour" >#42A0FF</Color>
     <Color x:Key="WhiteColour">#F1F1F1</Color>
@@ -189,7 +189,10 @@
     </Style>
 
     <Style x:Key="DialogButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource StandardButtonStyle}">
-        <Setter Property="FontSize" Value="30"/>
+        <Setter Property="FontSize" Value="22"></Setter>
+        <Setter Property="FontWeight" Value="SemiBold"></Setter>
+        <Setter Property="Height" Value="25"></Setter>
+        <Setter Property="Padding" Value="20,0,20,0"></Setter> 
     </Style>
 
     <Style TargetType="{x:Type Label}">

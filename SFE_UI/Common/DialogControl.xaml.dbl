@@ -118,6 +118,15 @@ namespace SFE_UI.Common
 			
 		endmethod
 		
+		private method Dialog_Loaded, void
+			sender, @object 
+			e, @System.Windows.RoutedEventArgs 
+			endparams
+		proc
+			;this.DataContext = new ProductMaintentanceViewModel(this)
+			Dialog_No.Focus()
+		endmethod
+
 	endclass
 endnamespace
 

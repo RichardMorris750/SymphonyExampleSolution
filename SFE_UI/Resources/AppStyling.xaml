@@ -152,7 +152,7 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
-                            <Border Background="Green">
+                            <Border Background="{StaticResource DialogTitleBackgroundBrush}">
                                 <ContentPresenter/>
                             </Border>
                         </ControlTemplate>
@@ -189,10 +189,24 @@
     </Style>
 
     <Style x:Key="DialogButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource StandardButtonStyle}">
-        <Setter Property="FontSize" Value="22"></Setter>
-        <Setter Property="FontWeight" Value="SemiBold"></Setter>
-        <Setter Property="Height" Value="25"></Setter>
-        <Setter Property="Padding" Value="20,0,20,0"></Setter> 
+        <Setter Property="FontSize" Value="22"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Height" Value="25"/>
+        <Setter Property="Padding" Value="20,0,20,0"/>
+        <!--<Style.Triggers>
+            <Trigger Property="Button.IsDefault" Value="True">
+                --><!--<Setter Property="Button.Foreground" Value="Red"/>--><!--
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Button Foreground="Red"/>
+                            --><!--<ContentPresenter/>
+                            </Button>--><!--
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>-->
     </Style>
 
     <Style TargetType="{x:Type Label}">

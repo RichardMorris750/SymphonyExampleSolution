@@ -104,7 +104,7 @@
                 </Style>
               </StackPanel.Style>
 
-              <Button Command="{Binding Path=DialogCommand}" Height="40" CommandParameter="OK" Content="OK" Padding="20,0,20,0" IsDefault="True" Style="{StaticResource DialogButtonStyle}"></Button>
+              <Button Command="{Binding Path=DialogCommand}" Height="24" CommandParameter="OK" Content="OK" Padding="20,0,20,0" IsDefault="True" Style="{StaticResource DialogButtonStyle}"></Button>
             </StackPanel>
 
             <!-- Yes No buttons -->
@@ -122,8 +122,8 @@
                 </Style>
               </StackPanel.Style>
 
-              <Button Command="{Binding Path=DialogCommand}" Height="40"  CommandParameter="YES" Content="Yes" Padding="20,0,20,0" IsDefault="False" Style="{StaticResource DialogButtonStyle}" IsTabStop="True" TabIndex="2" Name="Dialog_Yes"></Button>
-              <Button Command="{Binding Path=DialogCommand}" Height="40"  CommandParameter="NO" Content="No" Padding="20,0,20,0" IsCancel="True" IsDefault="True" Style="{StaticResource DialogButtonStyle}" IsTabStop="True" TabIndex="1" Name="Dialog_No"></Button>
+              <Button Command="{Binding Path=DialogCommand}" Height="24"  CommandParameter="YES" Content="Yes" Padding="20,0,20,0" IsDefault="False" Style="{StaticResource DialogButtonStyle}" IsTabStop="True" TabIndex="2" Name="Dialog_Yes"></Button>
+              <Button Command="{Binding Path=DialogCommand}" Height="24"  CommandParameter="NO" Content="No" Padding="20,0,20,0" IsCancel="True" IsDefault="True" Style="{StaticResource DialogButtonStyle}" IsTabStop="True" TabIndex="1" Name="Dialog_No"></Button>
             </StackPanel>
 
 

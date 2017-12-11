@@ -132,6 +132,8 @@
         <Setter Property="Margin" Value="6,4,6,4"></Setter>
         <Setter Property="Foreground" Value="{StaticResource ButtonTextBrush}"></Setter>
         <Setter Property="FontSize" Value="16"></Setter>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Style.Triggers>
             <Trigger Property="IsEnabled" Value="False">
                 <!--Setter Property="Foreground" Value="{StaticResource ButtonDisabledTextBrush}"></-->
@@ -140,8 +142,11 @@
             <Trigger Property="Button.IsMouseOver" Value="True">
                 <Setter Property="Button.RenderTransform">
                     <Setter.Value>
-                        <ScaleTransform ScaleX="1.1" ScaleY="1.1" CenterX="10" CenterY="10"/>
+                        <ScaleTransform ScaleX="1.2" ScaleY="1.2" CenterX="10" CenterY="10"/>
                     </Setter.Value>
+                    <!--<Setter.Value>
+                        <RotateTransform Angle="15"/>
+                   </Setter.Value>-->
                 </Setter>
             </Trigger>
             <Trigger Property="Button.IsDefault" Value="True">
@@ -167,11 +172,11 @@
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>-->
-                <Setter Property="Button.RenderTransform">
+                <!--<Setter Property="Button.RenderTransform">
                     <Setter.Value>
                         <ScaleTransform ScaleX="1.1" ScaleY="1.1" CenterX="10" CenterY="10"/>
                     </Setter.Value>
-                </Setter>
+                </Setter>-->
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -193,8 +198,10 @@
         <Setter Property="FontWeight" Value="SemiBold"/>
         <Setter Property="Height" Value="25"/>
         <Setter Property="Padding" Value="20,0,20,0"/>
-        <!--<Style.Triggers>
-            <Trigger Property="Button.IsDefault" Value="True">
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Style.Triggers>
+            <!--<Trigger Property="Button.IsDefault" Value="True">
                 --><!--<Setter Property="Button.Foreground" Value="Red"/>--><!--
                 <Setter Property="Template">
                     <Setter.Value>
@@ -205,8 +212,19 @@
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
+            </Trigger>-->
+            <Trigger Property="Button.IsMouseOver" Value="True">
+                <Setter Property="Button.RenderTransform">
+                    <!--<Setter.Value>
+                        <ScaleTransform ScaleX="1.2" ScaleY="1.2" CenterX="10" CenterY="10"/>
+                    </Setter.Value>-->
+                    <Setter.Value>
+                        <RotateTransform Angle="15"/>
+                    </Setter.Value>
+                </Setter>
             </Trigger>
-        </Style.Triggers>-->
+
+        </Style.Triggers>
     </Style>
 
     <Style TargetType="{x:Type Label}">

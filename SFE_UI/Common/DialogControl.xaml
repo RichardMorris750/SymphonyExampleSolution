@@ -7,44 +7,44 @@
              mc:Ignorable="d" Loaded="Dialog_Loaded"
              d:DesignHeight="300" d:DesignWidth="600">
 
-	<UserControl.Resources>
-		<ResourceDictionary>
-			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="pack://application:,,,/SymphonyConductor;component/Resources/Converters.xaml"/>
-				<ResourceDictionary Source="pack://application:,,,/SFE_UI;component/Resources/AppStyling.xaml"/>
-			</ResourceDictionary.MergedDictionaries>
-		</ResourceDictionary>
-	</UserControl.Resources>
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/SymphonyConductor;component/Resources/Converters.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SFE_UI;component/Resources/AppStyling.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
 
 
 
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="*"></RowDefinition>
-			<RowDefinition Height="auto"></RowDefinition>
-			<RowDefinition Height="*"></RowDefinition>
-		</Grid.RowDefinitions>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="*"></ColumnDefinition>
-			<ColumnDefinition Width="auto"></ColumnDefinition>
-			<ColumnDefinition Width="*"></ColumnDefinition>
-		</Grid.ColumnDefinitions>
-
-
-
-
-    <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource StandardBorder}">
-
-      <Grid>
-
+    <Grid>
         <Grid.RowDefinitions>
-          <RowDefinition Height="40"></RowDefinition>
-          <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
 
 
-        <!-- title border -->
-        <Grid Grid.Row="0" MouseLeftButtonUp="root_MouseLeftButtonUp" MouseLeftButtonDown="root_MouseLeftButtonDown" MouseMove="root_MouseMove"
+
+
+        <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource StandardBorder}">
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+
+                <!-- title border -->
+                <Grid Grid.Row="0" MouseLeftButtonUp="root_MouseLeftButtonUp" MouseLeftButtonDown="root_MouseLeftButtonDown" MouseMove="root_MouseMove"
               Background="{StaticResource DialogTitleBackgroundBrush}">
 
                     <Border Style="{StaticResource StandardBorder}">
@@ -56,19 +56,19 @@
 
                 </Grid>
 
-        <Grid Grid.Row="1">
+                <Grid Grid.Row="1">
 
-          <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-          </Grid.RowDefinitions>
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-          </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
 
-          <!--this is the image we can display-->
+                    <!--this is the image we can display-->
                     <Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Margin="10" Width="50" Height="50" Style="{StaticResource DCImgTriggers}"/>
 
 
@@ -81,62 +81,63 @@
 								 HorizontalAlignment="Left"
 								 VerticalAlignment="Center">
 
-          </TextBlock>
+                    </TextBlock>
 
 
-          <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" >
+                    <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" >
 
-            <Grid.RowDefinitions>
-              <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <!-- OK button -->
-            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center"  Margin="0,20,0,20">
-              <StackPanel.Style>
-                <Style>
-                  <Style.Triggers>
-                    <DataTrigger Binding="{Binding Path=Style}" Value="{x:Static localVM:DialogStyle.OK}">
-                      <Setter Property="StackPanel.Visibility" Value="Visible"></Setter>
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding Path=Style}" Value="{x:Static localVM:DialogStyle.YesNo}">
-                      <Setter Property="StackPanel.Visibility" Value="Hidden"></Setter>
-                    </DataTrigger>
-                  </Style.Triggers>
-                </Style>
-              </StackPanel.Style>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <!-- OK button -->
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center"  Margin="0,20,0,20">
+                            <StackPanel.Style>
+                                <Style>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=Style}" Value="{x:Static localVM:DialogStyle.OK}">
+                                            <Setter Property="StackPanel.Visibility" Value="Visible"></Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=Style}" Value="{x:Static localVM:DialogStyle.YesNo}">
+                                            <Setter Property="StackPanel.Visibility" Value="Hidden"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
 
-              <Button Command="{Binding Path=DialogCommand}" Height="24" CommandParameter="OK" Content="OK" Padding="20,0,20,0" IsDefault="True" Style="{StaticResource DialogButtonStyle}"></Button>
-            </StackPanel>
+                            <Button Command="{Binding Path=DialogCommand}" Height="24" CommandParameter="OK" Content="OK" Padding="20,0,20,0" IsDefault="True" Style="{StaticResource DialogButtonStyle}" RenderTransformOrigin="0.5,0.5">
+                            </Button>
+                        </StackPanel>
 
-            <!-- Yes No buttons -->
-            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,20">
-              <StackPanel.Style>
-                <Style>
-                  <Style.Triggers>
-                    <DataTrigger Binding="{Binding Path=Style}" Value="{x:Static localVM:DialogStyle.YesNo}">
-                      <Setter Property="StackPanel.Visibility" Value="Visible"></Setter>
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding Path=Style}" Value="{x:Static localVM:DialogStyle.OK}">
-                      <Setter Property="StackPanel.Visibility" Value="Hidden"></Setter>
-                    </DataTrigger>
-                  </Style.Triggers>
-                </Style>
-              </StackPanel.Style>
+                        <!-- Yes No buttons -->
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,20">
+                            <StackPanel.Style>
+                                <Style>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=Style}" Value="{x:Static localVM:DialogStyle.YesNo}">
+                                            <Setter Property="StackPanel.Visibility" Value="Visible"></Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=Style}" Value="{x:Static localVM:DialogStyle.OK}">
+                                            <Setter Property="StackPanel.Visibility" Value="Hidden"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
 
-              <Button Command="{Binding Path=DialogCommand}" Height="24"  CommandParameter="YES" Content="Yes" Padding="20,0,20,0" IsDefault="False" Style="{StaticResource DialogButtonStyle}" IsTabStop="True" TabIndex="2" Name="Dialog_Yes"></Button>
-              <Button Command="{Binding Path=DialogCommand}" Height="24"  CommandParameter="NO" Content="No" Padding="20,0,20,0" IsCancel="True" IsDefault="True" Style="{StaticResource DialogButtonStyle}" IsTabStop="True" TabIndex="1" Name="Dialog_No"></Button>
-            </StackPanel>
-
-
-          </Grid>
-
-        </Grid>
-
-      </Grid>
-
-    </Border>
+                            <Button Command="{Binding Path=DialogCommand}" Height="24"  CommandParameter="YES" Content="Yes" Padding="20,0,20,0" IsDefault="False" Style="{StaticResource DialogButtonStyle}" IsTabStop="True" TabIndex="2" Name="Dialog_Yes" RenderTransformOrigin="0.5,0.5"></Button>
+                            <Button Command="{Binding Path=DialogCommand}" Height="24"  CommandParameter="NO" Content="No" Padding="20,0,20,0" IsCancel="True" IsDefault="True" Style="{StaticResource DialogButtonStyle}" IsTabStop="True" TabIndex="1" Name="Dialog_No" RenderTransformOrigin="0.5,0.5"></Button>
+                        </StackPanel>
 
 
-	</Grid>
+                    </Grid>
+
+                </Grid>
+
+            </Grid>
+
+        </Border>
+
+
+    </Grid>
 </UserControl>
 
 

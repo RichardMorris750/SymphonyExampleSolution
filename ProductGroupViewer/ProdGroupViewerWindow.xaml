@@ -212,7 +212,7 @@
             </StackPanel>
         </Border>
 
-        <Border Grid.Row="2" Margin="4" Padding="4" BorderThickness="1" CornerRadius="5" BorderBrush="{StaticResource BorderBrush}">
+        <Border Grid.Row="2" Style="{StaticResource StandardBorder}">
             <DataGrid RowHeaderWidth="0" ItemsSource="{Binding Path=ProductGroupList}" AutoGenerateColumns="False" 
                 IsReadOnly="True" SelectedItem="{Binding Path=SelectedProdGroup}" SelectionMode="Single" 
                 CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" CanUserSortColumns="True">

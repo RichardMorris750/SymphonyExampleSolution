@@ -20,7 +20,7 @@
 
 
     <Grid>
-        <Border Margin="4" Padding="4"  BorderThickness="1" CornerRadius="5" BorderBrush="{StaticResource BorderBrush}">
+        <Border Style="{StaticResource StandardBorder}">
 
             <DataGrid ItemsSource="{Binding Path=DataObjectDetailCollection}" AutoGenerateColumns="False" IsReadOnly="True" IsEnabled="{Binding Path=DetailGridIsEnabled}"     
                   SelectedItem="{Binding Path=SelectedDetailCollectionItem}" SelectedIndex="{Binding Path=SelectedDetailItemIndex}"

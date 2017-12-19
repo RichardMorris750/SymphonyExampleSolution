@@ -122,8 +122,8 @@
                                 </Style>
                             </StackPanel.Style>
 
-                            <Button Command="{Binding Path=DialogCommand}" CommandParameter="YES" Content="Yes" IsDefault="False" Style="{StaticResource DialogButtonStyle}" IsTabStop="True" TabIndex="2" Name="Dialog_Yes"></Button>
-                            <Button Command="{Binding Path=DialogCommand}" CommandParameter="NO" Content="No" IsCancel="True" IsDefault="True" Style="{StaticResource DialogButtonStyle}" IsTabStop="True" TabIndex="1" Name="Dialog_No"></Button>
+                            <Button Command="{Binding Path=DialogCommand}" CommandParameter="YES" Content="Yes" VerticalContentAlignment="Top" IsDefault="False" Style="{StaticResource DialogButtonStyle}" IsTabStop="True" TabIndex="2" Name="Dialog_Yes"></Button>
+                            <Button Command="{Binding Path=DialogCommand}" CommandParameter="NO" Content="No" VerticalContentAlignment="Top" IsCancel="True" IsDefault="True" Style="{StaticResource DialogButtonStyle}" IsTabStop="True" TabIndex="1" Name="Dialog_No"></Button>
                         </StackPanel>
 
 

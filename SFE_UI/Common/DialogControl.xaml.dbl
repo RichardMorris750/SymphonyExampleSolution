@@ -58,6 +58,7 @@ namespace SFE_UI.Common
 			endparams
 		proc
 			this.InitializeComponent()
+			Dialog_No.Focus()
 		endmethod
 
 

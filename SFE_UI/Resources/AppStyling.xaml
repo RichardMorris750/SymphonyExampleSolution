@@ -211,7 +211,7 @@
     <Style x:Key="DialogButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource StandardButtonStyle}">
         <Setter Property="FontSize" Value="22"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
-        <Setter Property="Height" Value="25"/>
+        <Setter Property="Height" Value="Auto"/>
         <Setter Property="Padding" Value="20,0,20,0"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>

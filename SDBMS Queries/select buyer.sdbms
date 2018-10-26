@@ -1,0 +1,4 @@
+[SymphonyDataExplorer]
+DATAOBJECT=Buyer_Data
+QUERYCOMMAND=select * from buyer
+CASESENSITIVE=True

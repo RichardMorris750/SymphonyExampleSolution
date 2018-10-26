@@ -84,35 +84,35 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="SymphonyAdapter, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.23\lib\net45\SymphonyAdapter.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.31\lib\net45\SymphonyAdapter.dll</HintPath>
       <Private>true</Private>
     </Reference>
     <Reference Include="SymphonyBridgeServerCore, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.23\lib\net45\SymphonyBridgeServerCore.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.31\lib\net45\SymphonyBridgeServerCore.dll</HintPath>
       <Private>true</Private>
     </Reference>
     <Reference Include="SymphonyConductor, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.23\lib\net45\SymphonyConductor.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.31\lib\net45\SymphonyConductor.dll</HintPath>
       <Private>true</Private>
     </Reference>
     <Reference Include="SymphonyConductorWPF, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.23\lib\net45\SymphonyConductorWPF.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.31\lib\net45\SymphonyConductorWPF.dll</HintPath>
       <Private>true</Private>
     </Reference>
     <Reference Include="SymphonyCore, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.23\lib\net45\SymphonyCore.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.31\lib\net45\SymphonyCore.dll</HintPath>
       <Private>true</Private>
     </Reference>
     <Reference Include="SymphonyCrescendo, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.23\lib\net45\SymphonyCrescendo.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.31\lib\net45\SymphonyCrescendo.dll</HintPath>
       <Private>true</Private>
     </Reference>
     <Reference Include="SymphonyHarmony, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.23\lib\net45\SymphonyHarmony.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.31\lib\net45\SymphonyHarmony.dll</HintPath>
       <Private>true</Private>
     </Reference>
     <Reference Include="SymphonyUIToolkit, Version=3.2.0.0, Culture=neutral, PublicKeyToken=14780e48e42cd7e3">
-      <HintPath>..\packages\SymphonyFramework.3.2.23\lib\net45\SymphonyUIToolkit.dll</HintPath>
+      <HintPath>..\packages\SymphonyFramework.3.2.31\lib\net45\SymphonyUIToolkit.dll</HintPath>
       <Private>true</Private>
     </Reference>
     <Reference Include="synrnt, Version=4.0.0.10, Culture=neutral, PublicKeyToken=114c5dbb1312a8bc">
@@ -233,11 +233,11 @@
     <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
     <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
   </Target>
-  <Import Project="..\packages\SymphonyFramework.3.2.23\build\net45\SymphonyFramework.targets" Condition="Exists('..\packages\SymphonyFramework.3.2.23\build\net45\SymphonyFramework.targets')" />
+  <Import Project="..\packages\SymphonyFramework.3.2.31\build\net45\SymphonyFramework.targets" Condition="Exists('..\packages\SymphonyFramework.3.2.31\build\net45\SymphonyFramework.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\SymphonyFramework.3.2.23\build\net45\SymphonyFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SymphonyFramework.3.2.23\build\net45\SymphonyFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\SymphonyFramework.3.2.31\build\net45\SymphonyFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SymphonyFramework.3.2.31\build\net45\SymphonyFramework.targets'))" />
   </Target>
 </Project>

@@ -64,7 +64,8 @@
                         Validation.ErrorTemplate="{StaticResource validationTemplate}"
                         IsEnabled="{Binding Path=Cust_codeIsEnabled}"
                         IsReadOnly="{Binding Path=Cust_codeIsReadOnly}"
-                        SynergyDecimalField="False"                         MaxLength="6"
+                        SynergyDecimalField="False" 
+                        MaxLength="6"
                         FontSize="{StaticResource StandardFontSize}"
                         Width="72"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
@@ -794,7 +795,8 @@
                         HorizontalAlignment="Left"
                         IsReadOnly="True"
                         Text="{Binding Path=Create_date, Converter={StaticResource decimalDateConverter},
-                        ConverterParameter=FORMAT:YYYYMMDD                        , StringFormat=\{0:d\}}"
+                        ConverterParameter=FORMAT:YYYYMMDD
+                        , StringFormat=\{0:d\}}"
                         Width="96"
                         FontSize="{StaticResource StandardFontSize}" >
                     </TextBox>

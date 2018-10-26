@@ -793,7 +793,8 @@
                         HorizontalAlignment="Left"
                         IsReadOnly="True"
                         Text="{Binding Path=Create_date, Converter={StaticResource decimalDateConverter},
-                        ConverterParameter=FORMAT:YYYYMMDD                        , StringFormat=\{0:d\}}"
+                        ConverterParameter=FORMAT:YYYYMMDD
+                        , StringFormat=\{0:d\}}"
                         Width="96"
                         FontSize="{StaticResource StandardFontSize}" >
                     </TextBox>

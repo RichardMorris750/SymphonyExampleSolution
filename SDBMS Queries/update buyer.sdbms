@@ -1,0 +1,5 @@
+[SymphonyDataExplorer]
+DATAOBJECT=Buyer_Data
+QUERYCOMMAND=update buyer set name='name1' where 
+buyer_key='8e29bddd-0a4f-4b57-8065-bcf6bf75'
+CASESENSITIVE=True

@@ -128,6 +128,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 		Templates\Symphony_FileIO.tpl = Templates\Symphony_FileIO.tpl
 		Templates\Symphony_FileIO_v3_2.tpl = Templates\Symphony_FileIO_v3_2.tpl
 		Templates\Symphony_RESTController_v3_2.tpl = Templates\Symphony_RESTController_v3_2.tpl
+		Templates\Symphony_SPA_MaintLogic_v3_2.tpl = Templates\Symphony_SPA_MaintLogic_v3_2.tpl
+		Templates\Symphony_SPA_MaintPage_v3_2.tpl = Templates\Symphony_SPA_MaintPage_v3_2.tpl
 		Templates\Symphony_Style_SFE.tpl = Templates\Symphony_Style_SFE.tpl
 		Templates\Symphony_Style_V3_2.tpl = Templates\Symphony_Style_V3_2.tpl
 		Templates\Symphony_TableMapper_v3_2.tpl = Templates\Symphony_TableMapper_v3_2.tpl
@@ -135,6 +137,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SymphonyBridgeConfiguration", "SymphonyBridgeConfiguration", "{4117DB0E-9641-4C58-9E75-F1C5A8E161EF}"
 	ProjectSection(SolutionItems) = preProject
+		ReadMe.txt = ReadMe.txt
 		SymphonyBridge\SymphonyBridgeServerService.exe.config = SymphonyBridge\SymphonyBridgeServerService.exe.config
 	EndProjectSection
 EndProject

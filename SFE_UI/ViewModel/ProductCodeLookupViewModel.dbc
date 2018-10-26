@@ -28,10 +28,10 @@ namespace SFE_UI.ViewModel
 			this.ResultsTable.Clear()
 			
 			;;iterate through the list and add data items to the list
-			data item	,@DataObjectBase
+			data item	,@Product_Data
 			foreach item in DataSelect.RunDataSelect(mConnector, "select prod_code,prod_description from product",new Product_Data()).Result 
 			begin
-				this.AddToResultsTable((Product_Data)item)
+				this.AddToResultsTable(item)
 			end
 		endmethod
 		

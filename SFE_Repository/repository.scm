@@ -24,6 +24,8 @@ Field NAME   Type ALPHA   Size 30
    Description "Buyer Name"
    Prompt "Buyer Name"   Report Heading "Buyer Name"
    Break   Required
+   Long Description
+      "@CODEGEN_DISPLAY_FIELD"
  
 Field ADDRESS1   Type ALPHA   Size 30
    Description "Address Line 1"
@@ -239,6 +241,8 @@ Field PROD_CODE   Type ALPHA   Size 6
 Field PROD_DESCRIPTION   Type ALPHA   Size 40
    Description "Description"
    Prompt "Description"   Report Heading "Description"
+   Long Description
+      "@CODEGEN_DISPLAY_FIELD"
  
 Field SUPP_CODE   Type ALPHA   Size 6
    Description "Supplier Code"
@@ -302,6 +306,8 @@ Field PROD_GROUP   Type ALPHA   Size 3
 Field GROUP_DESC   Type ALPHA   Size 20
    Description "Group Description"
    Prompt "Description"   Report Heading "Description"
+   Long Description
+      "@CODEGEN_DISPLAY_FIELD"
  
 Field FILLER   Type ALPHA   Size 500   Language Noview   Script Noview
  
@@ -371,6 +377,8 @@ Field NAME   Type ALPHA   Size 30
    Description "Supplier name"
    Prompt "Supplier Name"   Report Heading "Supplier Name"
    Break   Required
+   Long Description
+      "@CODEGEN_DISPLAY_FIELD"
  
 Field ADDRESS1   Type ALPHA   Size 30
    Description "Address Line 1"
@@ -441,6 +449,8 @@ Field NAME   Type ALPHA   Size 30
    Description "Supplier name"
    Prompt "Supplier Name"   Report Heading "Supplier Name"
    Break   Required
+   Long Description
+      "@CODEGEN_DISPLAY_FIELD"
  
 Field ADDRESS1   Type ALPHA   Size 30
    Description "Address Line 1"

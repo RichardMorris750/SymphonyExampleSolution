@@ -64,7 +64,8 @@
                         Validation.ErrorTemplate="{StaticResource validationTemplate}"
                         IsEnabled="{Binding Path=Last_order_noIsEnabled}"
                         IsReadOnly="{Binding Path=Last_order_noIsReadOnly}"
-                        SynergyDecimalField="False"                         MaxLength="6"
+                        SynergyDecimalField="False" 
+                        MaxLength="6"
                         FontSize="{StaticResource StandardFontSize}"
                         Width="72"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">

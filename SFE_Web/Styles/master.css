@@ -1,0 +1,139 @@
+﻿h1 {
+    text-align: center;
+    font-size: 18pt;
+    color: firebrick;
+}
+
+h2 {
+    text-align: center;
+    font-size: 16pt;
+    color: mediumslateblue;
+}
+
+body {
+    background-color: seashell;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 4px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.noBorder {
+    border: none;
+}
+
+.noBorder33 {
+    width: 33%;
+    border: none;
+}
+
+.simpletd {
+    width: 20px;
+}
+
+.simpletr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.simpleTable {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 80%;
+    margin-top: 100px;
+    margin-bottom: 10px;
+    margin-right: 150px;
+    margin-left: 80px;
+}
+
+.simpletr:nth-child(even) {
+    background-color: beige;
+}
+
+.selectListOption {
+    height: 20px;
+    width: 20px;
+}
+
+
+/*Menu container layout*/
+.menuContainer {
+    text-align: center;
+}
+
+.menuIcon {
+    display: inline-block;
+    padding: 0 25px;
+    height: 80px;
+    font-size: 20px;
+    line-height: 80px;
+    border-radius: 25px;
+    background-color: #f1f1f1;
+}
+
+    .menuIcon img {
+        float: left;
+        margin: 0 10px 0 -25px;
+        height: 80px;
+        width: 80px;
+        border-radius: 50%;
+    }
+
+/* On mouse-over, add a deeper shadow */
+    .menuIcon:hover {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+
+.centeredDiv {
+    text-align: center;
+}
+
+.navigationOption {
+    height: 60px;
+    width: 60px;
+}
+
+.dialog-blue, .dialog-hover-blue:hover {
+    color: #fff !important;
+    background-color: #2196F3 !important
+}
+
+
+.dialog-container, .dialog-panel {
+    padding: 0.01em 16px;
+    align-self: center;
+}
+
+.dialog-panel {
+    margin-top: 16px;
+    margin-bottom: 16px
+}
+
+.dialog-circle {
+    border-radius: 50%
+}
+.dialog-card-4, .dialog-hover-shadow:hover {
+    text-align: center;
+    box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2),0 4px 20px 0 rgba(0,0,0,0.19)
+}
+
+.requiredFieldIndicator {
+    color: red;
+}
+
+.infoLabel {
+    color: darkblue;
+    margin-left: 80px;
+    width: 80%;
+}

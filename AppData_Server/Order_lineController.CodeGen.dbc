@@ -381,14 +381,12 @@ namespace AppData
 
 				data command = "delete from order_line where " 
 				&	+ "order_no = :1"
-				&	+ "line_no = :1"
 
 				data controller = new DeleteController()
 
 				;;define parameters
 				data params = new Dictionary<string, Object>()
 				params.Add('order_no', id)
-				params.Add('line_no', id)
 
 				data settings = new JsonSerializerSettings()
 				settings.ContractResolver = new Symphony.Harmony.Core.ContractResolver()

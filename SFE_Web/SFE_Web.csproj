@@ -58,6 +58,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="browser.html" />
     <Content Include="Buyermaint.CodeGen.html" />
     <Content Include="Customermaint.CodeGen.html" />
     <Content Include="default.html" />
@@ -71,9 +72,11 @@
     <Content Include="Scripts\LoadProducts.js" />
     <Content Include="Scripts\maintenanceLogic.js" />
     <Content Include="Scripts\menuLogic.js" />
+    <Content Include="Scripts\PageLogic.js" />
     <Content Include="Scripts\ProductmaintLogic.CodeGen.js" />
     <Content Include="Scripts\Product_groupmaintLogic.CodeGen.js" />
     <Content Include="Scripts\SuppliermaintLogic.CodeGen.js" />
+    <Content Include="Styles\browserMaster.css" />
     <Content Include="Styles\master.css" />
     <Content Include="Suppliermaint.CodeGen.html" />
     <Content Include="Web.config" />

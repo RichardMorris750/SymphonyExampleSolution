@@ -53,10 +53,10 @@ codegen %OPTS% -s %strList% -t Symphony_Collection_V3_2 -o %ROOT%\%clientProject
 
 rem Maintenance pages
 codegen e -r -s  PRODUCT -t Symphony_SPA_MaintPage_v3_2 -o "%ROOT%SFE_Web" -ut PAGETITLE="Product Maintenance"
-codegen e -r -s  BUYER -t Symphony_SPA_MaintPage_v3_2 -o "%ROOT%SFE_Web" -ut PAGETITLE="Product Maintenance"
-codegen e -r -s  SUPPLIER -t Symphony_SPA_MaintPage_v3_2 -o "%ROOT%SFE_Web" -ut PAGETITLE="Product Maintenance"
-codegen e -r -s  PRODUCT_GROUP -t Symphony_SPA_MaintPage_v3_2 -o "%ROOT%SFE_Web" -ut PAGETITLE="Product Maintenance"
-codegen e -r -s  CUSTOMER -t Symphony_SPA_MaintPage_v3_2 -o "%ROOT%SFE_Web" -ut PAGETITLE="Product Maintenance"
+codegen e -r -s  BUYER -t Symphony_SPA_MaintPage_v3_2 -o "%ROOT%SFE_Web" -ut PAGETITLE="Buyer Maintenance"
+codegen e -r -s  SUPPLIER -t Symphony_SPA_MaintPage_v3_2 -o "%ROOT%SFE_Web" -ut PAGETITLE="Supplier Maintenance"
+codegen e -r -s  PRODUCT_GROUP -t Symphony_SPA_MaintPage_v3_2 -o "%ROOT%SFE_Web" -ut PAGETITLE="Group Maintenance"
+codegen e -r -s  CUSTOMER -t Symphony_SPA_MaintPage_v3_2 -o "%ROOT%SFE_Web" -ut PAGETITLE="Customer Maintenance"
 
 rem Maintenance logic
 codegen e -r -s PRODUCT -t Symphony_SPA_MaintLogic_v3_2 -o "%ROOT%SFE_Web\Scripts" -ut RESTRICTEDFIELDLIST="prod_code,prod_description"

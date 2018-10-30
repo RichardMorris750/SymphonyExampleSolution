@@ -53,3 +53,9 @@ After selecting one of the maintenance options you receive a message saying CORS
 -	Change the SYMPHONY_BRIDGE_CORS_DOMAINS value to the URI from your browser.
 -	Restart the SymphonyBridge_1 service.
 
+To view the standard maintenance web site make the SFE_Web project “Set as StartUp Project”.  Ensure 
+that the “default.html” page is “Set as Start Page”.  Running the project will show the maintenance options.
+
+To view the data browser, again ensure the SFE_Web project “Set as StartUp Project”.  Ensure 
+that the “browser.html” page is “Set as Start Page”.  
+ 

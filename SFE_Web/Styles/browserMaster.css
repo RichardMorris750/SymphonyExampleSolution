@@ -1,0 +1,78 @@
+﻿h1 {
+    text-align: center;
+    font-size: 18pt;
+    color: firebrick;
+}
+
+h2 {
+    text-align: center;
+    font-size: 16pt;
+    color: mediumslateblue;
+}
+
+h2 {
+    text-align: center;
+    font-size: 16pt;
+    color: mediumslateblue;
+}
+
+body {
+    text-align: left;
+    font-size: 12pt;
+    padding-left: 4px;
+    color: black;
+    background-color: beige;
+}
+
+select {
+    text-align: left;
+    font-size: 12pt;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.simpleTable {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.simpletr:nth-child(even) {
+    background-color: beige;
+}
+
+th, td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 4px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+label {
+    color: dodgerblue;
+}
+
+.centeredDiv {
+    text-align: center;
+    display: none;
+}
+
+.leftDiv {
+    text-align: left;
+    margin-left: 0px;
+}
+
+.formMargin {
+    margin-left: 10px;
+}
+
+.queryLabel {
+    color: brown;
+}

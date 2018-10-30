@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="/Styles/browserMaster.css">
+    <title>Synerg DBMS Browser</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/Scripts/PageLogic.js"></script>
+</head>
+
+<body onload="pageLoaded()">
+    <h1>Synergy DBMS Browser</h1>
+    <form>
+        <!--within this form we display/render the page details as per the data retreived from the server-->
+        <!--This section will display bulleted text-->
+        <div id="divServerDetails" class="leftDiv">
+            <table>
+                <tr>
+                    <td width="70%" padding="5">
+                        <label id="lblServerURL">Server URL: </label>
+                        <input type="text" id="txtServerURL" style="width:80%" />
+                    </td>
+                    <td width="30%">
+                        <label id="lblServerPort">Server Port: </label>
+                        <input type="text" id="txtServerPort" />
+                    </td>
+                </tr>
+            </table>
+            <p>
+                <button id="btnFindTables" type="button" OnClick="findServerTables();">Connect and load table info.</button>
+            </p>
+        </div>
+
+        <hr />
+        <div id="divSelection" class="leftDiv">
+            <div id="divTableList" class="leftDiv">
+                <!-- this is where the table selection will live-->
+            </div>
+            <p>
+                <table class="simpleTable">
+                    <tr class="simpletr">
+                        <td width="10%">
+                            <label>Select on primary key (comma separate key segments)</label>
+                        </td>
+                        <td width="80%">
+                            <input id="txtKeyValue" type="text" oninput="validateKeyValue();" />
+                        </td>
+                    </tr>
+                    <tr class="simpletr">
+                        <td width="10%">
+                            <label>Limit records returned</label>
+                        </td>
+                        <td width="80%">
+                            <input id="txtRowCount" type="text" oninput="validateRowCount();" />
+                        </td>
+                    </tr>
+                    <tr class="simpletr">
+                        <td>
+                            <label>Filtered by</label>
+                        </td>
+                        <td>
+                            <input id="txtFilteredBy" type="text" style="width:80%" />
+                        </td>
+                    </tr>
+                    <tr class="simpletr">
+                        <td>
+                            <label>Case sensitive filtering?</label>
+                        </td>
+                        <td>
+                            <select id="comboFilterBy">
+                                <option value="YES">Yes</option>
+                                <option value="NO">No</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr class="simpletr">
+                        <td>
+                            <label>Specify fields (comma separated)</label>
+                        </td>
+                        <td>
+                            <input id="txtFieldList" type="text" style="width:80%" />
+                        </td>
+                    </tr>
+                    <tr class="simpletr">
+                        <td>
+                            <label>Order by</label>
+                            <input type="checkbox" id="chkOrderBy" onclick="sortingOptions();">
+                        </td>
+                        <td id="tdOrderByField"></td>
+                    </tr>
+                </table>
+            </p>
+            <p>
+                <button id="btnLoadTableData" type="button" OnClick="loadItemsFromServer();">Load table data.</button>
+            </p>
+        </div>
+        <div id="divResults" class="leftDiv">
+            <p>
+                <label style="width:10%">Query:</label>
+                <label id="lblQueryString" style="width:90%" class="queryLabel"></label>
+                <br />
+                <label style="width:10%">Count:</label>
+                <label id="lblResultCount" style="width:90%" class="queryLabel"></label>
+                <div id="divResultsTable" class="leftDiv">
+                    <!-- this is where the results will live-->
+                </div>
+            </p>
+        </div>
+
+    </form>
+</body>
+</html>

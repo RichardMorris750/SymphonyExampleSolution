@@ -1,0 +1,12 @@
+import System
+import System.Collections.Generic
+import System.Text
+
+
+namespace SFE_Product_IG
+
+    public class Class
+    
+    endclass
+
+endnamespace

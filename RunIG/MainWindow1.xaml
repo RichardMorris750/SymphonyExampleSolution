@@ -1,0 +1,15 @@
+﻿<Window x:Class="RunIG.MainWindow1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ui="clr-namespace:SFE_Product.View;assembly=SFE_Product"
+    Title="MainWindow1" Height="600" Width="800" Background="Black">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <ui:Maintenance x:Name="maint" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></ui:Maintenance>
+        
+    </Grid>
+</Window>

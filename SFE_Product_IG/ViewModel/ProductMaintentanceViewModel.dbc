@@ -1,0 +1,268 @@
+;;**********************************************************************
+;;
+;; Title:       ProductMaintentanceViewModel.dbc
+;;
+;; Type:        Class
+;;
+;; Description: Supplier maintenance
+;;
+;; Author:      Richard C. Morris, RCP Consultants.
+;;
+;; Copyright (c) 2019, RCP Consultants. All rights reserved.
+;;
+;; Redistribution and use in source and binary forms, with or without
+;; modification, are permitted provided that the following conditions are met:
+;;
+;; * Redistributions of source code must retain the above copyright notice,
+;;   this list of conditions and the following disclaimer.
+;;
+;; * Redistributions in binary form must reproduce the above copyright notice,
+;;   this list of conditions and the following disclaimer in the documentation
+;;   and/or other materials provided with the distribution.
+;;
+;; THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+;; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+;; IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+;; ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+;; LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+;; CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+;; SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+;; INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+;; CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+;; ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+;; POSSIBILITY OF SUCH DAMAGE.
+;;
+;;*****************************************************************************
+import System
+import System.Collections.Generic
+import System.Text
+import SFE_Base.ViewModel
+import System.Windows
+import AppData
+import Symphony.Conductor.DataIO
+import Symphony.Conductor.ViewModel
+
+import System.Collections.ObjectModel
+import Symphony.Harmony
+
+;;use the extension methods
+import System.Linq
+import Symphony.Conductor.Model
+import Symphony.Conductor.Commands
+import Symphony.Conductor.DataIO
+import Symphony.Conductor.Types
+
+import Infragistics.Themes
+
+namespace SFE_Product.ViewModel
+
+	public class ProductMaintentanceViewModel extends FileMaintViewModel
+
+		private static mProduct	,@Product_Data	,new Product_Data()
+
+		public method ProductMaintentanceViewModel
+			sender									,@FrameworkElement
+			endparams
+			parent(sender, mProduct.GetType(), new Product_FileIO(FileOpenMode.UpdateIndexed), "ShowErrorState", "DialogViewState")
+		proc
+
+			ThemeManager.SetTheme(ParentView, new MetroDarkTheme())
+
+			this.ProgramModeChanged += doProgramModeChanged
+
+			;;we can use the stndard list loading method built into the base class or
+			;;load the list ourselves
+			DataObjectEntryItem = (DataObjectBase)new Product_Data()
+			DataObjectEntryItem.IsDataModifiedChanged += DoIsDataModified
+
+			this.LoadDetailList()
+
+		endmethod
+		
+		private static mConnector		,@DBConnector
+
+.ifdef FileObjects
+		public override method LoadBaseItemCollection, void
+.else
+		public async override method LoadBaseItemCollection, void
+.endc
+			endparams
+			
+;.define FileObjects
+
+		proc
+
+.ifdef FileObjects
+		
+			data item = new Product_Data()
+			data productIO = new Product_FileIO(FileOpenMode.InputIndexed)
+
+			;;clear the list down
+			this.DataObjectCollection.ClearCollection()
+
+			data productStatus	,FileAccessResults	,productIO.ReadFirstRecord(item)
+			while (productStatus == FileAccessResults.Success)
+			begin
+				data add	,boolean, false
+				data kWord	,a50
+				data Desc	,a50
+				kWord = mKeyWord
+				upcase kWord
+				Desc = item.Prod_description
+				upcase desc
+
+				if (!mKeyValue && !mKeyWord)
+					add = true
+
+				if  (mKeyValue != ^null && !mKeyWord ) &&  (atrim(mKeyValue) == item.Prod_code)
+					add=true
+
+				if  (mKeyWord != ^null && !mKeyValue) && (instr(1,desc,atrim(kWord)))
+					add=true
+
+				if  (mKeyWord != ^null && mKeyValue != ^null) && (instr(1,Desc,atrim(kWord)))  &&  (atrim(mKeyValue) == item.Prod_code)
+					add=true
+
+				if (add)
+				begin
+					data tmpDO = new Product_Data(item.SynergyRecord)
+					tmpDO.GlobalRFA = item.GlobalRFA
+					this.DataObjectCollection.AddToCollection((DataObjectBase)tmpDO)				
+				end
+				productStatus = productIO.ReadNextRecord(item)
+			end
+.else
+
+			mConnector = new DBConnector("SYMLOCAL:richard/morris!AppData.TableMapper.MapTableToFile")
+			
+			;;To enable case insensitive comparisons:
+			mConnector.SetCaseSensitivity(false)
+
+			data productObj	,@Product_Data	,new Product_Data()
+			
+			data dataSearch	,@DataSelect
+			
+			this.DataObjectCollection.ClearCollection()
+
+			if (!mKeyWord  && !mKeyValue)
+				dataSearch =  DataSelect.RunDataSelect(mConnector, "select * from product", new Product_Data()).Result
+			
+			if (!mKeyWord && mKeyValue != ^null)
+				dataSearch = DataSelect.RunDataSelect(mConnector, "select * from product where prod_code like:1", new Product_Data(), mKeyValue).Result
+				
+			if (!mKeyValue && mKeyWord != ^null)
+				dataSearch = DataSelect.RunDataSelect(mConnector, "select * from product where prod_description like:1", new Product_Data(), mKeyWord).Result
+				
+			if (mKeyValue != ^null && mKeyWord != ^null)
+				dataSearch = DataSelect.RunDataSelect(mConnector, "select * from product where prod_code like:1 and prod_description like:2", new Product_Data(), mKeyValue,mKeyWord).Result
+				
+			foreach productObj in dataSearch
+				this.DataObjectCollection.AddToCollection(productObj)	
+
+.endc
+				
+		endmethod
+
+
+		private method doProgramModeChanged	,void
+			in req currentMode				,ProgramMode
+			endparams
+		proc
+			;;this event handler allows us to prevent the user from being able to change field
+			;;that would break the data integrity - for example the key fields when in amend mode.
+
+			IgnoreDataChanged = true
+
+			using currentMode select
+			(ProgramMode.Modify),
+			begin
+				DataObjectEntryItem.SetFieldReadOnlyStatus(true, "PROD_CODE")
+			end
+			(ProgramMode.Add),
+			begin
+				DataObjectEntryItem.SetFieldReadOnlyStatus(false, "PROD_CODE")
+			end
+			(ProgramMode.Enquiry),
+			begin
+				DataObjectEntryItem.SetFieldReadOnlyStatus(true, "PROD_CODE")
+			end
+			endusing
+
+			IgnoreDataChanged = false
+
+		endmethod
+	
+		private mKeyWord	,string
+		
+		public property KeyWord, string
+			method get
+			proc
+				mreturn mKeyWord
+			endmethod
+			method set
+			proc
+				mKeyWord = value
+				RaisePropertyChanged("KeyWord")
+			endmethod
+			
+		endproperty
+		
+		
+		private	mKeyValue	,string	
+		
+		public property KeyValue, string
+			method get
+			proc
+				mreturn mKeyValue
+			endmethod
+			method set
+			proc
+				mKeyValue = value
+				RaisePropertyChanged("KeyValue")
+			endmethod
+		endproperty
+
+
+		
+		private mSearchCommand	,@GenericCommand
+		
+		public property SearchCommand, @GenericCommand
+			method get
+			proc
+
+				if (mSearchCommand == ^null)
+				begin
+					lambda doCommand(sender, param)
+					begin
+						LoadBaseItemCollection()
+					end
+					mSearchCommand = new GenericCommand("SEARCH", doCommand)
+				end
+
+				mreturn mSearchCommand
+			endmethod
+		endproperty
+
+		private mExitCommand	,@GenericCommand
+
+		public property ExitCommand, @GenericCommand
+			method get
+			proc
+				
+				if (mExitCommand == ^null)
+				begin
+					lambda doCommand(sender, param)
+					begin
+						StateCompleted()
+					end
+					mExitCommand = new GenericCommand("Exit", doCommand)
+				end
+				
+				mreturn mExitCommand
+			endmethod
+		endproperty
+
+	endclass
+
+
+endnamespace

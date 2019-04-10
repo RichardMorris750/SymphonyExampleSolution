@@ -1,0 +1,204 @@
+import System
+import System.Collections.Generic
+import System.Text
+import Symphony.Conductor.Model
+
+;;imports required to use data objects and file IO classes.
+import AppData
+import Symphony.Conductor.DataIO
+import System.Windows.Media
+
+namespace AppData
+	
+	public partial class Product_Data
+		
+		protected override method extendedConstructor, void
+			endparams
+		proc
+			ValidateData += doDataChanged
+			SynergyRecordChanged += synergychanged
+			SynergyRecordChanged += refreshData
+
+			;;if we have data passed to the constructor) then use it to populate the 
+			;;aditional fields
+			if (trim(product_main.str_prod_code)) synergychanged()
+			
+			
+		endmethod
+		
+		private method doDataChanged, void
+			inout req message			,@DataChangedMessage
+			endparams
+		proc
+
+
+			using message.FieldName select
+
+			("SUPP_CODE"),
+			begin
+				;;call the find-supplier method to validate the changed/entered value
+				;;invalid values will signal a validation error so the UI can display appropriate details.
+				if (findSupplier() != FileAccessResults.Success) then
+				begin
+					message.FailReason = "Supplier does not exist"
+					message.ValidationState = DataValidationState.Error
+				end
+				else
+					message.ValidationState = DataValidationState.OK
+			end
+
+			("PROD_GROUP"),
+			begin
+				;;call the find-group method to validate the changed/entered value
+				;;invalid values will signal a validation error so the UI can display appropriate details.
+				if (findGroup() != FileAccessResults.Success) then
+				begin
+					message.FailReason = "Product Group does not exist"
+					message.ValidationState = DataValidationState.Error
+				end
+				else
+					message.ValidationState = DataValidationState.OK
+			end
+			endusing
+
+		endmethod
+		
+
+;; this is where I can populate the extra fields I add to my data object		
+		private method synergychanged, void
+			endparams
+		proc
+			mProductImage = ^null
+			mPromotionImage = ^null
+			findSupplier()
+			findGroup()
+
+		endmethod
+		
+		private method refreshData, void
+			endparams
+		proc
+			RaisePropertyChanged(^null)
+		endmethod
+		
+		private mSupplierName	,string
+
+		private mGroupName	,string		
+
+		public property SupplierName, string
+			method get
+			proc
+				mreturn mSupplierName
+			endmethod
+			private method set
+			proc
+				mSupplierName = value
+				RaisePropertyChanged("SupplierName")
+			endmethod
+		endproperty
+	
+		public property GroupName, string
+			method get
+			proc
+				mreturn mGroupName
+			endmethod
+			private method set
+			proc
+				mGroupName = value
+				RaisePropertyChanged("GroupName")
+			endmethod
+		endproperty
+	
+		
+		public property ProductImageFile, string
+			method get
+			proc
+				mreturn AppData.DataLogic.GetImageFileName(product_main.str_prod_code, ImageFileType.JPGFileType)
+			endmethod
+		endproperty
+
+		private mProductImage	,@ImageSource
+
+		public property ProductImage, @ImageSource
+			method get
+			proc
+				if (mProductImage == ^null)
+					mProductImage = AppData.DataLogic.GetImageSource(product_main.str_prod_code, ImageFileType.JPGFileType)
+				mreturn mProductImage
+			endmethod
+		endproperty
+
+		public property PromotionImageFile, string
+			method get
+			proc
+				if (product_main.str_promotion == 1) then
+					mreturn AppData.DataLogic.GetImageFileName("sale", ImageFileType.PNGFileType)
+				else
+					mreturn ^null
+			
+			endmethod
+		endproperty
+		
+		private mPromotionImage	,@ImageSource
+
+		public property PromotionImage, @ImageSource
+			method get
+			proc
+				if (Promotion == 1) then
+				begin
+					if (mPromotionImage == ^null)
+						mPromotionImage = AppData.DataLogic.GetImageSource("sale", ImageFileType.PNGFileType)
+					mreturn mPromotionImage
+				end
+				else
+					mreturn ^null
+			endmethod
+		endproperty
+
+
+		;; set supplier name
+		private method findSupplier, FileAccessResults
+			endparams
+
+		proc
+			data response	,FileAccessResults
+			data tmpDO = Supplier_DOCache.DataObject(supp_code)
+			
+			if (tmpDO != ^null) then
+			begin
+				response = FileAccessResults.Success
+				SupplierName = tmpDO.Name
+			end
+			else
+			begin
+				response = FileAccessResults.RecordNotFound
+				SupplierName = 'Supplier name...' + Supp_code
+			end
+
+			mreturn response
+		endmethod
+
+		private method findGroup, FileAccessResults
+
+		proc
+			data response	,FileAccessResults
+			data tmpDO = Product_Group_DOCache.DataObject(prod_group)
+			
+			if (tmpDO != ^null) then
+			begin
+				response = FileAccessResults.Success
+				GroupName = tmpDO.Group_desc
+			end
+			else
+			begin
+				response = FileAccessResults.RecordNotFound
+				GroupName = 'Group name...' + prod_group
+			end
+			
+			mreturn response
+
+		endmethod
+
+	endclass
+	
+endnamespace

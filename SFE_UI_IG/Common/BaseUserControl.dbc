@@ -1,0 +1,108 @@
+;;**********************************************************************
+;;
+;; Title:       BaseUserControl.dbl
+;;
+;; Type:        Class
+;;
+;; Description: Base functionality for a user control.
+;;
+;; Author(s):	Richard C. Morris, Technology Evangelist, Synergex.
+;;
+;; Copyright (c) 2016, Synergex International, Inc. All rights reserved.
+;;
+;; Redistribution and use in source and binary forms, with or without
+;; modification, are permitted provided that the following conditions are met:
+;;
+;; * Redistributions of source code must retain the above copyright notice,
+;;   this list of conditions and the following disclaimer.
+;;
+;; * Redistributions in binary form must reproduce the above copyright notice,
+;;   this list of conditions and the following disclaimer in the documentation
+;;   and/or other materials provided with the distribution.
+;;
+;; THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+;; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+;; IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+;; ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+;; LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+;; CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+;; SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+;; INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+;; CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+;; ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+;; POSSIBILITY OF SUCH DAMAGE.
+;;
+;;*****************************************************************************
+
+import System
+import System.Collections.Generic
+import System.Text
+import System.Windows.Controls
+import System.Windows
+import System.Windows.Input
+import System.Windows.Media
+
+
+namespace SFE_UI.Common
+
+	public class BaseUserControl extends UserControl
+
+		private anchorPoint		,@Point
+		private currentPoint	,@Point
+		private isInDrag		,boolean	,false
+		
+		protected method root_MouseLeftButtonDown	,void
+			sender								,@Object
+			eArgs								,@MouseButtonEventArgs
+			endparams
+		proc
+			data element	,@FrameworkElement
+			element=^as(sender, FrameworkElement)
+			anchorPoint=eArgs.GetPosition(^null)
+			element.CaptureMouse()
+			isInDrag=true
+			this.Cursor=Cursors.Hand
+			eArgs.Handled=true
+		endmethod
+		
+		private transform	,@TranslateTransform	,new TranslateTransform()
+		
+		protected method root_MouseMove	,void
+			sender						,@Object
+			eArgs						,@MouseEventArgs 
+			endparams
+		proc
+			if (isInDrag)
+			begin
+				data element,@FrameworkElement
+				element=^as(sender, FrameworkElement)
+				currentPoint = eArgs.GetPosition(^null)
+				
+				transform.X += currentPoint.X-anchorPoint.X
+				transform.Y += currentPoint.Y-anchorPoint.Y
+				
+				this.RenderTransform=transform
+				anchorPoint=currentPoint
+			end
+			
+		endmethod
+		
+		protected method root_MouseLeftButtonUp	,void
+			sender								,@Object
+			eArgs								,@MouseButtonEventArgs
+			endparams
+		proc
+			if (isInDrag)
+			begin
+				data element	,@FrameworkElement
+				element=^as(sender, FrameworkElement)
+				element.ReleaseMouseCapture()
+				isInDrag=false
+				this.Cursor=Cursors.Arrow
+				eArgs.Handled=true
+			end
+		endmethod
+	
+	endclass
+
+endnamespace

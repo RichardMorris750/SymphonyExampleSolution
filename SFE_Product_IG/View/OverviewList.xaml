@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="SFE_Product.View.OverviewList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ig="http://infragistics.com/DataPresenter" 
+             xmlns:symphonyVM="clr-namespace:Symphony.Conductor.ViewModel;assembly=SymphonyConductor"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+            <symphonyVM:BindingProxy x:Key="proxy" Data="{Binding}"></symphonyVM:BindingProxy>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <ig:XamDataGrid Grid.Row="0" 
+                        DataSource="{Binding Path=DataObjectCollection}" 
+                        IsEnabled="{Binding Path=GridIsEnabled}"
+                        SelectedDataItem="{Binding Path=SelectedCollectionItem}"
+                        GroupByAreaLocation="None" 
+                        AllowDrop="False">
+
+            <ig:XamDataGrid.FieldLayoutSettings>
+                <ig:FieldLayoutSettings AllowRecordFixing="Top" 
+                                        FixedRecordLimit="1"
+                                        FixedRecordSortOrder="FixOrder"
+                                        FixedRecordUIType="None"
+                                        AutoGenerateFields="False"
+                                        HighlightAlternateRecords="False"
+                                        HeaderPrefixAreaDisplayMode="FieldChooserButton">
+                </ig:FieldLayoutSettings>
+            </ig:XamDataGrid.FieldLayoutSettings>
+
+            <ig:XamDataGrid.FieldLayouts>
+                <ig:FieldLayout>
+                    <ig:FieldLayout.Fields>
+
+                        <ig:Field Label="Code"
+                                  AlternateBinding="{Binding Path=Prod_code, Mode=TwoWay}" >
+                            <ig:Field.Settings>
+                                <ig:FieldSettings AllowHiding="Default" AllowEdit="False" Width="*" />
+                            </ig:Field.Settings>
+                        </ig:Field>
+
+                        <ig:Field Label="Name"
+                                  AlternateBinding="{Binding Path=Prod_description, Mode=TwoWay}" >
+                            <ig:Field.Settings>
+                                <ig:FieldSettings AllowHiding="Default" AllowEdit="False" Width="*" />
+                            </ig:Field.Settings>
+                        </ig:Field>
+
+                        <ig:Field Label="Pack"
+                                  AlternateBinding="{Binding Path=Pack_size}" >
+                            <ig:Field.Settings>
+                                <ig:FieldSettings AllowHiding="Default" AllowEdit="False" Width="*" />
+                            </ig:Field.Settings>
+                        </ig:Field>
+                        <ig:Field Label="Supplier"
+                                  AlternateBinding="{Binding Path=Supp_code}" >
+                            <ig:Field.Settings>
+                                <ig:FieldSettings AllowHiding="Default" AllowEdit="False" Width="*" />
+                            </ig:Field.Settings>
+                        </ig:Field>
+                        <ig:Field Label="Supplier Name"
+                                  AlternateBinding="{Binding Path=SupplierName}" >
+                            <ig:Field.Settings>
+                                <ig:FieldSettings AllowHiding="Default" AllowEdit="False" Width="*" />
+                            </ig:Field.Settings>
+                        </ig:Field>
+                        <ig:Field Label="Group"
+                                  AlternateBinding="{Binding Path=Prod_group}" >
+                            <ig:Field.Settings>
+                                <ig:FieldSettings AllowHiding="Default" AllowEdit="False" Width="*" />
+                            </ig:Field.Settings>
+                        </ig:Field>
+                        <ig:Field Label="Group Name"
+                                  AlternateBinding="{Binding Path=GroupName}" >
+                            <ig:Field.Settings>
+                                <ig:FieldSettings AllowHiding="Default" AllowEdit="False" Width="*" />
+                            </ig:Field.Settings>
+                        </ig:Field>
+
+                    </ig:FieldLayout.Fields>
+                </ig:FieldLayout>
+            </ig:XamDataGrid.FieldLayouts>
+
+        </ig:XamDataGrid>
+    </Grid>
+
+</UserControl>

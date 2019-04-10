@@ -1,0 +1,213 @@
+;;**********************************************************************
+;;
+;; Title:       DataLogic.dbc
+;;
+;; Type:        Class
+;;
+;; Description: Various data related methods. 
+;;
+;; Author:      Richard C. Morris, Synergex Technology Evangelist
+;;
+;; Copyright (c) 2016, Synergex International, Inc. All rights reserved.
+;;
+;; Redistribution and use in source and binary forms, with or without
+;; modification, are permitted provided that the following conditions are met:
+;;
+;; * Redistributions of source code must retain the above copyright notice,
+;;   this list of conditions and the following disclaimer.
+;;
+;; * Redistributions in binary form must reproduce the above copyright notice,
+;;   this list of conditions and the following disclaimer in the documentation
+;;   and/or other materials provided with the distribution.
+;;
+;; THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+;; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+;; IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+;; ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+;; LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+;; CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+;; SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+;; INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+;; CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+;; ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+;; POSSIBILITY OF SUCH DAMAGE.
+;;
+;;*****************************************************************************
+import System
+import System.Collections.Generic
+import System.Text
+
+import System.Windows.Media
+import System.Windows.Media.Imaging
+import System.IO
+
+namespace AppData
+
+	public enum ImageFileType
+		PNGFileType
+		JPGFileType
+	endenum
+
+	public static class DataLogic
+	
+		;;; <summary>
+		;;; Provide access to an image given a file name and file extension type.
+		;;; </summary>
+		;;; <param name="imageName"></param>
+		;;; <param name="fileType"></param>
+		;;; <returns>An ImageSource</returns>
+		public static method GetImageSource	,@ImageSource
+			in req imageName				,String
+			in req fileType					,ImageFileType
+			endparams
+		proc
+
+			data fileName = GetImageFileName(imageName, fileType)
+
+			if (IO.File.Exists(fileName) == false)
+			begin
+				mreturn ^null
+			end
+
+			data source, @BitmapImage, new BitmapImage()
+			source.BeginInit()
+			data fileData	,[#]byte
+			fileData = File.ReadAllBytes(fileName)
+			source.StreamSource = new MemoryStream(fileData)
+			source.EndInit()
+			mreturn source
+
+		endmethod
+
+		;;; <summary>
+		;;; Overload method to above.
+		;;; </summary>
+		;;; <param name="imageName"></param>
+		;;; <param name="fileType"></param>
+		;;; <param name="logical"></param>
+		public static method GetImageSource	,@ImageSource
+			in req imageName				,String
+			in req fileType					,ImageFileType
+			in req logical					,String
+			endparams
+		proc
+
+			data fileName = GetImageFileName(imageName, fileType,logical)
+
+			if (IO.File.Exists(fileName) == false)
+			begin
+				mreturn ^null
+			end
+
+			data source, @BitmapImage, new BitmapImage()
+			source.BeginInit()
+			data fileData	,[#]byte
+			fileData = File.ReadAllBytes(fileName)
+			source.StreamSource = new MemoryStream(fileData)
+			source.EndInit()
+			mreturn source
+
+		endmethod
+
+		;;; <summary>
+		;;; Provides access to the fully qualtified image file name given the image name and file extension.
+		;;; </summary>
+		;;; <param name="imageName"></param>
+		;;; <param name="fileType"></param>
+		;;; <returns>Image file name as a string</returns>
+		public static method GetImageFileName	,String
+			in req imageName					,String
+			in req fileType						,ImageFileType
+			endparams
+		proc
+
+			loadImageFolderName()
+
+			data fileExtension	,string
+			using fileType select
+			(ImageFileType.JPGFileType),
+				fileExtension = ".jpg"
+			(ImageFileType.PNGFileType),
+				fileExtension = ".png"
+			endusing
+
+			data fileName	,String	,mImageFolderName + "\" + %atrim(imageName) + fileExtension
+			if (IO.File.Exists(fileName) == false)
+			begin
+				mreturn ^null
+			end
+
+			mreturn fileName
+
+		endmethod
+
+		;;; <summary>
+		;;; Overload method to above.
+		;;; </summary>
+		;;; <param name="imageName"></param>
+		;;; <param name="fileType"></param>
+		;;; <param name="logical"></param>
+		public static method GetImageFileName	,String
+			in req imageName					,String
+			in req fileType						,ImageFileType
+			in req logical						,String
+			endparams
+		proc
+
+			loadImageFolderName(logical)
+
+			data fileExtension	,string
+			using fileType select
+			(ImageFileType.JPGFileType),
+				fileExtension = ".jpg"
+			(ImageFileType.PNGFileType),
+				fileExtension = ".png"
+			endusing
+
+			data fileName	,String	,mImageFolderName + "\" + %atrim(imageName) + fileExtension
+			if (IO.File.Exists(fileName) == false)
+			begin
+				mreturn ^null
+			end
+
+			mreturn fileName
+
+		endmethod
+
+		private static mImageFolderName	,string
+
+		;;build the image folder based on a logical
+		private static method loadImageFolderName ,void
+			endparams
+		proc
+			if (string.IsNullOrEmpty(mImageFolderName) == true)
+			begin
+
+				data logName	,a255
+				data logStatus	,i4
+				getlog('SFEImages', logName, logStatus)
+				mImageFolderName = %atrim(logName)
+			end
+		endmethod
+
+		;;; <summary>
+		;;; Overload method to above.
+		;;; </summary>
+		;;; <param name="logical"></param>
+		private static method loadImageFolderName ,void
+			logical	,string
+			endparams
+		proc
+			if (string.IsNullOrEmpty(mImageFolderName) == true)
+			begin
+
+				data logName	,a255
+				data logStatus	,i4
+				getlog(atrim(logical), logName, logStatus)
+				mImageFolderName = %atrim(logName)
+			end
+		endmethod
+
+	endclass
+
+endnamespace

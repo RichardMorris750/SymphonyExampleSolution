@@ -1,0 +1,97 @@
+;;*******************************************************************************
+;;
+;;This code was provided by Infragistics and has been converted using the 
+;; C# to Synergy convertion (with a few minor changes to correct compiler
+;; limitations.
+;;
+;;*******************************************************************************
+
+import System
+import System.Collections.Generic
+import System.Linq
+import System.Text
+import System.Windows
+import System.Windows.Controls
+import System.Windows.Interactivity
+import Infragistics.Windows.Editors
+
+.array 0
+namespace SFE_UI.Controls
+
+	public class SelectAllNumericEditorBehavior extends Behavior<XamNumericEditor>
+		
+		;;;  <summary>
+		;;;  Called after the behavior is attached to an AssociatedObject.
+		;;;  </summary>
+		;;;  <remarks>Override this to hook up functionality to the AssociatedObject.</remarks>
+		protected override method OnAttached, void
+			endparams
+		proc
+			parent.OnAttached()
+			this.AssociatedObject.GotFocus += OnGotFocusCapture
+			this.AssociatedObject.GotMouseCapture += OnGotMouseCapture
+			this.AssociatedObject.GotKeyboardFocus += OnGotKeyboardFocus
+		endmethod
+		
+		;;;  <summary>
+		;;;  Handles the GotFocus event of the XamNumericEditor control.
+		;;;  </summary>
+		;;;  <param name="sender">The source of the event.</param>
+		;;;  <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
+		private method OnGotFocusCapture, void
+			sender, @object 
+			e, @RoutedEventArgs 
+			endparams
+		proc
+			data tmpEditor	,@XamNumericEditor	,^as(sender, XamNumericEditor)
+			if (tmpEditor.IsInEditMode == true)
+				tmpEditor.SelectAll()
+		endmethod
+		
+		;;;  <summary>
+		;;;  Handles the GotFocusCapture event of the XamNumericEditor control.
+		;;;  </summary>
+		;;;  <param name="sender">The source of the event.</param>
+		;;;  <param name="e">The <see cref="MouseEventArgs" /> instance containing the event data.</param>
+		private method OnGotMouseCapture, void
+			sender, @object 
+			e, @System.Windows.Input.MouseEventArgs 
+			endparams
+		proc
+			data tmpEditor	,@XamNumericEditor	,^as(sender, XamNumericEditor)
+			if (tmpEditor.IsInEditMode == true)
+				tmpEditor.SelectAll()
+		endmethod
+		
+		;;;  <summary>
+		;;;  Handles the GotKeyboardFocus event of the XamNumericEditor control.
+		;;;  </summary>
+		;;;  <param name="sender">The source of the event.</param>
+		;;;  <param name="e">The <see cref="KeyboardFocusChangedEventArgs" /> instance containing the event data.</param>
+		private method OnGotKeyboardFocus, void
+			sender, @object 
+			e, @System.Windows.Input.KeyboardFocusChangedEventArgs 
+			endparams
+		proc
+			data tmpEditor	,@XamNumericEditor	,^as(sender, XamNumericEditor)
+			if (tmpEditor.IsInEditMode == true)
+				tmpEditor.SelectAll()
+		endmethod
+		
+		;;;  <summary>
+		;;;  Called when the behavior is being detached from its AssociatedObject, but before it has actually occurred.
+		;;;  </summary>
+		;;;  <remarks>Override this to unhook functionality from the AssociatedObject.</remarks>
+		protected override method OnDetaching, void
+			endparams
+		proc
+			;;  Recommended best practice: 
+			;;  Detach the registered event handler to avoid memory leaks.
+			this.AssociatedObject.GotFocus -= OnGotFocusCapture
+			this.AssociatedObject.GotMouseCapture -= OnGotMouseCapture
+			this.AssociatedObject.GotKeyboardFocus -= OnGotKeyboardFocus
+			parent.OnDetaching()
+		endmethod
+	endclass
+	
+endnamespace

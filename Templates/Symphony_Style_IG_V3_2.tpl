@@ -65,6 +65,7 @@
         <ResourceDictionary Source="pack://application:,,,/SymphonyConductor;component/Resources/Converters.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/<ASSEMBLYNAME>;component/Resources/<Structure_name>_Content.CodeGen.xaml"/>
      </ResourceDictionary.MergedDictionaries>
+	 <symphonyConverters:NullItemProtectedConverter x:Key="nullConverter"></symphonyConverters:NullItemProtectedConverter>
 
 <FIELD_LOOP>
 <IF CUSTOM_NOT_SYMPHONY_ARRAY_FIELD>

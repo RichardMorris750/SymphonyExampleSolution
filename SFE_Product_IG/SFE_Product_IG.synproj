@@ -58,23 +58,26 @@
     <Prefer32Bit Condition=" '$(TargetFrameworkVersion)'  != 'v4.0' AND '$(Prefer32Bit)' != 'false' ">true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="InfragisticsWPF4.Controls.Grids.XamGrid.v16.2, Version=16.2.20162.1006, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb">
-      <HintPath>..\..\Program Files (x86)\Infragistics\2016.2\WPF\CLR4.0\Bin\InfragisticsWPF4.Controls.Grids.XamGrid.v16.2.dll</HintPath>
+    <Reference Include="InfragisticsWPF4.Themes.RoyalLight.v18.2, Version=18.2.20182.186, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb">
+      <HintPath>..\..\..\Program Files (x86)\Infragistics\2018.2\WPF\CLR4.0\Bin\InfragisticsWPF4.Themes.RoyalLight.v18.2.dll</HintPath>
     </Reference>
-    <Reference Include="InfragisticsWPF4.DataManager.v16.2, Version=16.2.20162.1006, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb">
-      <HintPath>..\..\Program Files (x86)\Infragistics\2016.2\WPF\CLR4.0\Bin\InfragisticsWPF4.DataManager.v16.2.dll</HintPath>
+    <Reference Include="InfragisticsWPF4.v18.2, Version=18.2.20182.186, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>C:\Program Files (x86)\Infragistics\2018.2\WPF\CLR4.0\Bin\InfragisticsWPF4.v18.2.dll</HintPath>
     </Reference>
-    <Reference Include="InfragisticsWPF4.DataPresenter.v16.2, Version=16.2.20162.1006, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb">
-      <HintPath>..\..\Program Files (x86)\Infragistics\2016.2\WPF\CLR4.0\Bin\InfragisticsWPF4.DataPresenter.v16.2.dll</HintPath>
+    <Reference Include="InfragisticsWPF4.Themes.Office2010Blue.v18.2, Version=18.2.20182.186, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>C:\Program Files (x86)\Infragistics\2018.2\WPF\CLR4.0\Bin\InfragisticsWPF4.Themes.Office2010Blue.v18.2.dll</HintPath>
     </Reference>
-    <Reference Include="InfragisticsWPF4.Themes.MetroDark.v16.2, Version=16.2.20162.1006, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb">
-      <HintPath>..\..\Program Files (x86)\Infragistics\2016.2\WPF\CLR4.0\Bin\InfragisticsWPF4.Themes.MetroDark.v16.2.dll</HintPath>
+    <Reference Include="InfragisticsWPF4.Themes.MetroDark.v18.2, Version=18.2.20182.186, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>C:\Program Files (x86)\Infragistics\2018.2\WPF\CLR4.0\Bin\InfragisticsWPF4.Themes.MetroDark.v18.2.dll</HintPath>
     </Reference>
-    <Reference Include="InfragisticsWPF4.Themes.Office2010Blue.v16.2, Version=16.2.20162.1006, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb">
-      <HintPath>..\..\Program Files (x86)\Infragistics\2016.2\WPF\CLR4.0\Bin\InfragisticsWPF4.Themes.Office2010Blue.v16.2.dll</HintPath>
+    <Reference Include="InfragisticsWPF4.DataPresenter.v18.2, Version=18.2.20182.186, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>C:\Program Files (x86)\Infragistics\2018.2\WPF\CLR4.0\Bin\InfragisticsWPF4.DataPresenter.v18.2.dll</HintPath>
     </Reference>
-    <Reference Include="InfragisticsWPF4.v16.2, Version=16.2.20162.1006, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb">
-      <HintPath>..\..\Program Files (x86)\Infragistics\2016.2\WPF\CLR4.0\Bin\InfragisticsWPF4.v16.2.dll</HintPath>
+    <Reference Include="InfragisticsWPF4.DataManager.v18.2, Version=18.2.20182.186, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>C:\Program Files (x86)\Infragistics\2018.2\WPF\CLR4.0\Bin\InfragisticsWPF4.DataManager.v18.2.dll</HintPath>
+    </Reference>
+    <Reference Include="InfragisticsWPF4.Controls.Grids.XamGrid.v18.2, Version=18.2.20182.186, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>C:\Program Files (x86)\Infragistics\2018.2\WPF\CLR4.0\Bin\InfragisticsWPF4.Controls.Grids.XamGrid.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>..\packages\Blend.Interctivity.WPF.v4.0.1.0.3\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>

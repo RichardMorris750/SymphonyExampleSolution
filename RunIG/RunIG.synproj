@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -65,14 +65,14 @@
     <Prefer32Bit Condition=" '$(TargetFrameworkVersion)'  != 'v4.0' AND '$(Prefer32Bit)' != 'false' ">true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="InfragisticsWPF4.DataPresenter.v16.2, Version=16.2.20162.1006, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb">
-      <HintPath>..\..\Program Files (x86)\Infragistics\2016.2\WPF\CLR4.0\Bin\InfragisticsWPF4.DataPresenter.v16.2.dll</HintPath>
+    <Reference Include="InfragisticsWPF4.v18.2, Version=18.2.20182.186, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>C:\Program Files (x86)\Infragistics\2018.2\WPF\CLR4.0\Bin\InfragisticsWPF4.v18.2.dll</HintPath>
     </Reference>
-    <Reference Include="InfragisticsWPF4.Editors.v16.2, Version=16.2.20162.1006, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb">
-      <HintPath>..\..\Program Files (x86)\Infragistics\2016.2\WPF\CLR4.0\Bin\InfragisticsWPF4.Editors.v16.2.dll</HintPath>
+    <Reference Include="InfragisticsWPF4.Editors.v18.2, Version=18.2.20182.186, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>C:\Program Files (x86)\Infragistics\2018.2\WPF\CLR4.0\Bin\InfragisticsWPF4.Editors.v18.2.dll</HintPath>
     </Reference>
-    <Reference Include="InfragisticsWPF4.v16.2, Version=16.2.20162.1006, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb">
-      <HintPath>..\..\Program Files (x86)\Infragistics\2016.2\WPF\CLR4.0\Bin\InfragisticsWPF4.v16.2.dll</HintPath>
+    <Reference Include="InfragisticsWPF4.DataPresenter.v18.2, Version=18.2.20182.186, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>C:\Program Files (x86)\Infragistics\2018.2\WPF\CLR4.0\Bin\InfragisticsWPF4.DataPresenter.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>..\packages\Blend.Interctivity.WPF.v4.0.1.0.3\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>

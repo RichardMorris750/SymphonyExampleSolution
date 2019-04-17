@@ -66,8 +66,8 @@ namespace SFE_Product.ViewModel
 			parent(sender, mProduct.GetType(), new Product_FileIO(FileOpenMode.UpdateIndexed), "ShowErrorState", "DialogViewState")
 		proc
 
-			ThemeManager.SetTheme(ParentView, new MetroDarkTheme())
-
+;;			ThemeManager.SetTheme(ParentView, new MetroDarkTheme())
+			ThemeManager.SetTheme(ParentView, new RoyalLightTheme())
 			this.ProgramModeChanged += doProgramModeChanged
 
 			;;we can use the stndard list loading method built into the base class or

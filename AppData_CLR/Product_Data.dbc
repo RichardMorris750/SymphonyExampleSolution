@@ -21,7 +21,7 @@ namespace AppData
 
 			;;if we have data passed to the constructor) then use it to populate the 
 			;;aditional fields
-			if (trim(product_main.str_prod_code)) synergychanged()
+			if (trim(product_main.prod_code)) synergychanged()
 			
 			
 		endmethod
@@ -113,7 +113,7 @@ namespace AppData
 		public property ProductImageFile, string
 			method get
 			proc
-				mreturn AppData.DataLogic.GetImageFileName(product_main.str_prod_code, ImageFileType.JPGFileType)
+				mreturn AppData.DataLogic.GetImageFileName(product_main.prod_code, ImageFileType.JPGFileType)
 			endmethod
 		endproperty
 
@@ -123,7 +123,7 @@ namespace AppData
 			method get
 			proc
 				if (mProductImage == ^null)
-					mProductImage = AppData.DataLogic.GetImageSource(product_main.str_prod_code, ImageFileType.JPGFileType)
+					mProductImage = AppData.DataLogic.GetImageSource(product_main.prod_code, ImageFileType.JPGFileType)
 				mreturn mProductImage
 			endmethod
 		endproperty
@@ -131,7 +131,7 @@ namespace AppData
 		public property PromotionImageFile, string
 			method get
 			proc
-				if (product_main.str_promotion == 1) then
+				if (product_main.promotion == 1) then
 					mreturn AppData.DataLogic.GetImageFileName("sale", ImageFileType.PNGFileType)
 				else
 					mreturn ^null

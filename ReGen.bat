@@ -28,17 +28,17 @@ codegen %OPTS% -s %strListLessParameter% -t Symphony_FileIO_V3_2 -o %ROOT%\%serv
 
 rem C# CLR version
 rem Data library
-codegen %OPTS% -s %strList% -t Symphony_Data_V3_2 -o %ROOT%\%serverProjectNameSpace%_CLR -n %serverProjectNameSpace%
+codegen %OPTS% -s %strList% -t Symphony_Data_CLR_v3_2 -o %ROOT%\%serverProjectNameSpace%_CLR -n %serverProjectNameSpace%
 
 rem Stadnard File IO classes
 codegen %OPTS% -s %strListLessParameter% -t Symphony_FileIO_V3_2 -o %ROOT%\%serverProjectNameSpace%_CLR -n AppData -ut MODELNAMESPACE=%serverProjectNameSpace%
 
-rem Data object cache classes
-codegen %OPTS% -s BUYER SUPPLIER PRODUCT_GROUP -t Symphony_DOCache_v3_3.tpl -o %ROOT%%serverProjectNameSpace%_Server -n %serverProjectNameSpace% -ut MODELNAMESPACE=%serverProjectNameSpace% -ut ASSEMBLYNAME=%serverProjectNameSpace%_Server
-
 rem C# CLR version
 rem Data object cache classes
-codegen %OPTS% -s BUYER SUPPLIER PRODUCT_GROUP -t Symphony_DOCache_v3_3.tpl -o %ROOT%%serverProjectNameSpace%_CLR -n %serverProjectNameSpace% -ut MODELNAMESPACE=%serverProjectNameSpace% -ut ASSEMBLYNAME=%serverProjectNameSpace%_CLR
+codegen %OPTS% -s BUYER SUPPLIER PRODUCT_GROUP -t Symphony_DOCache_CLR_v3_3.tpl -o %ROOT%%serverProjectNameSpace%_CLR -n %serverProjectNameSpace% -ut MODELNAMESPACE=%serverProjectNameSpace% -ut ASSEMBLYNAME=%serverProjectNameSpace%_CLR
+
+rem Data object cache classes
+codegen %OPTS% -s BUYER SUPPLIER PRODUCT_GROUP -t Symphony_DOCache_v3_3.tpl -o %ROOT%%serverProjectNameSpace%_Server -n %serverProjectNameSpace% -ut MODELNAMESPACE=%serverProjectNameSpace% -ut ASSEMBLYNAME=%serverProjectNameSpace%_Server
 
 rem Data mapping
 codegen %OPTS% -s %strList% -t Symphony_DataFieldMapper -o %ROOT%\%serverProjectNameSpace%_Server -n %serverProjectNameSpace%

@@ -37,6 +37,12 @@ rem C# CLR version
 rem Data object cache classes
 codegen %OPTS% -s BUYER SUPPLIER PRODUCT_GROUP -t Symphony_DOCache_CLR_v3_3.tpl -o %ROOT%%serverProjectNameSpace%_CLR -n %serverProjectNameSpace% -ut MODELNAMESPACE=%serverProjectNameSpace% -ut ASSEMBLYNAME=%serverProjectNameSpace%_CLR
 
+rem Data mapping
+codegen %OPTS% -s %strList% -t Symphony_DataFieldMapper -o %ROOT%\%serverProjectNameSpace%_CLR -n %serverProjectNameSpace%
+
+rem Table mapping routine
+codegen %OPTS% -s * -ms -t Symphony_TableMapper_v3_2 -o %ROOT%\%serverProjectNameSpace%_CLR -n %serverProjectNameSpace%
+
 rem Data object cache classes
 codegen %OPTS% -s BUYER SUPPLIER PRODUCT_GROUP -t Symphony_DOCache_v3_3.tpl -o %ROOT%%serverProjectNameSpace%_Server -n %serverProjectNameSpace% -ut MODELNAMESPACE=%serverProjectNameSpace% -ut ASSEMBLYNAME=%serverProjectNameSpace%_Server
 

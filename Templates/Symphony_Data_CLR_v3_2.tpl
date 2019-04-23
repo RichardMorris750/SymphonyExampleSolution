@@ -820,6 +820,13 @@ namespace <NAMESPACE>
 			mreturn result
 		endmethod
 
+		public override property StructureSize	,Int32
+			method get
+			proc
+				mreturn RPSStructureSize
+			endmethod
+		endproperty
+
 	endclass
 endnamespace
 

@@ -126,30 +126,41 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Buyer_Data.CodeGen.dbc" />
+    <Compile Include="Buyer_DFM.CodeGen.dbc" />
     <Compile Include="Buyer_DOCache.CodeGen.dbc" />
     <Compile Include="Buyer_FileIO.CodeGen.dbc" />
     <Compile Include="Customer_Data.CodeGen.dbc" />
+    <Compile Include="Customer_DFM.CodeGen.dbc" />
     <Compile Include="Customer_FileIO.CodeGen.dbc" />
     <Compile Include="DataLogic.dbc" />
     <Compile Include="Order_header_Data.CodeGen.dbc" />
+    <Compile Include="Order_header_DFM.CodeGen.dbc" />
     <Compile Include="Order_header_FileIO.CodeGen.dbc" />
     <Compile Include="Order_line_Data.CodeGen.dbc" />
+    <Compile Include="Order_line_DFM.CodeGen.dbc" />
     <Compile Include="Order_line_FileIO.CodeGen.dbc" />
     <Compile Include="Parameter_Data.CodeGen.dbc" />
+    <Compile Include="Parameter_DFM.CodeGen.dbc" />
     <Compile Include="Product_Data.CodeGen.dbc" />
     <Compile Include="Product_Data.dbc" />
+    <Compile Include="Product_DFM.CodeGen.dbc" />
     <Compile Include="Product_FileIO.CodeGen.dbc" />
     <Compile Include="Product_group_Data.CodeGen.dbc" />
+    <Compile Include="Product_group_DFM.CodeGen.dbc" />
     <Compile Include="Product_group_DOCache.CodeGen.dbc" />
     <Compile Include="Product_group_FileIO.CodeGen.dbc" />
     <Compile Include="Properties\AssemblyInfo.dbl" />
     <Compile Include="Sales_order_header_Data.CodeGen.dbc" />
+    <Compile Include="Sales_order_header_DFM.CodeGen.dbc" />
     <Compile Include="Sales_order_header_FileIO.CodeGen.dbc" />
     <Compile Include="Sales_order_line_Data.CodeGen.dbc" />
+    <Compile Include="Sales_order_line_DFM.CodeGen.dbc" />
     <Compile Include="Sales_order_line_FileIO.CodeGen.dbc" />
     <Compile Include="Supplier_Data.CodeGen.dbc" />
+    <Compile Include="Supplier_DFM.CodeGen.dbc" />
     <Compile Include="Supplier_DOCache.CodeGen.dbc" />
     <Compile Include="Supplier_FileIO.CodeGen.dbc" />
+    <Compile Include="TableMapper.CodeGen.dbc" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties" />

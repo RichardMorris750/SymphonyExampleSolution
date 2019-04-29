@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ui="clr-namespace:SFE_Product.View"
-             xmlns:sfeuiCommon="clr-namespace:SFE_UI.Common;assembly=SFE_UI"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
@@ -226,8 +225,6 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <sfeuiCommon:ErrorDialog Grid.Row="1" Grid.Column="1"></sfeuiCommon:ErrorDialog>
-
             </Grid>
 
         </Border>
@@ -251,8 +248,6 @@
                     <ColumnDefinition Width="auto"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-
-                <sfeuiCommon:DialogControl Grid.Row="1" Grid.Column="1" DataContext="{Binding Path=DialogVM}"></sfeuiCommon:DialogControl>
 
             </Grid>
         </Border>

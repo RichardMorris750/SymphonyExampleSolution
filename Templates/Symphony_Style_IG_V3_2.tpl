@@ -22,7 +22,7 @@
 ;//
 ;// * Redistributions in binary form must reproduce the above copyright notice,
 ;//   this list of conditions and the following disclaimer in the documentation
-;//   and/or other materials provided with the distribution.
+;//   and/or other materials provided with the distribution.s
 ;//
 ;// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 ;// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -49,6 +49,7 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:clr="clr-namespace:System;assembly=mscorlib"
@@ -57,7 +58,7 @@
     xmlns:symphonyTriggers="clr-namespace:Symphony.Conductor.Triggers;assembly=SymphonyConductor"
     xmlns:symphonyUI="clr-namespace:Symphony.Crescendo.Presentation;assembly=SymphonyCrescendo"
     xmlns:symphonyControls="clr-namespace:Symphony.Conductor.Controls;assembly=SymphonyConductor"
-	xmlns:uiControls="clr-namespace:SFE_UI.Controls;assembly=SFE_UI"
+	xmlns:uiControls="clr-namespace:<ASSEMBLYNAME>.Controls;assembly=<ASSEMBLYNAME>"
     xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity">
 
     <ResourceDictionary.MergedDictionaries>
@@ -138,7 +139,7 @@
                             Validation.ErrorTemplate="{StaticResource validationTemplate}"
                             <SYMPHONY_ALPHA_SIZE>
                             <IF UPPERCASE>
-                            Mask=">{char:<FIELD_SIZE>:a-zA-Z0-9}"
+                            Mask="{}{char:<FIELD_SIZE>:a-z A-Z 0-9}"
                             </IF UPPERCASE>
                             IsEnabled="{Binding Path=<Field_sqlname>IsEnabled}"
                             <IF READONLY>
@@ -150,12 +151,9 @@
                             VerticalAlignment="Center"
                             HorizontalAlignment="Left"
                             ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
-                            <i:Interaction.Behaviors>
+							<i:Interaction.Behaviors>
                                 <uiControls:SelectAllMaskedEditorBehavior></uiControls:SelectAllMaskedEditorBehavior>
                             </i:Interaction.Behaviors>
-                            <igWPF:XamMaskedEditor.ValueConstraint>
-                                <igWPF:ValueConstraint MaxLength="<FIELD_SIZE>"></igWPF:ValueConstraint>
-                            </igWPF:XamMaskedEditor.ValueConstraint>
 <IF ARRIVE>
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="GotFocus">
@@ -163,28 +161,6 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
 </IF ARRIVE>
-                            <igWPF:XamMaskedEditor.Style>
-                                <Style>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Path=<Field_sqlname>IsFocused}" Value="true">
-                                            <Setter Property="FocusManager.FocusedElement"
-                                                    Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
-                                            <Setter Property="TextBox.Background" >
-                                                <Setter.Value>
-                                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                        <LinearGradientBrush.GradientStops>
-                                                            <GradientStop Offset="0.2" Color="WhiteSmoke" />
-                                                            <GradientStop Offset="3" Color="Red" />
-                                                        </LinearGradientBrush.GradientStops>
-                                                    </LinearGradientBrush>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </igWPF:XamMaskedEditor.Style>
                         </igWPF:XamMaskedEditor>
                         <Button Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type <ANCESTORCONTROL>}}, Path=<SYMPHONY_SEARCHBOX_COMMAND>}"
                                 CommandParameter="<FIELD_DRILLM>DrillState"
@@ -237,8 +213,11 @@
                         Validation.ErrorTemplate="{StaticResource validationTemplate}"
                         Width="<SYMPHONY_FIELD_PIXEL_WIDTH>"
                         <IF UPPERCASE>
-                        Mask=">{char:<FIELD_SIZE>:a-zA-Z0-9}"
+                        Mask="{}{char:<FIELD_SIZE>:A-Z 0-9}"
                         </IF UPPERCASE>
+						<IF NOTUPPERCASE>
+                        Mask="{}{char:<FIELD_SIZE>:a-z A-Z 0-9}"
+                        </IF NOTUPPERCASE>
                         IsEnabled="{Binding Path=<Field_sqlname>IsEnabled}"
                         <IF READONLY>
                         IsReadOnly="true"
@@ -252,9 +231,6 @@
 						<i:Interaction.Behaviors>
 							<uiControls:SelectAllMaskedEditorBehavior></uiControls:SelectAllMaskedEditorBehavior>
 						</i:Interaction.Behaviors>
-                        <igWPF:XamMaskedEditor.ValueConstraint>
-                            <igWPF:ValueConstraint MaxLength="<FIELD_SIZE>"></igWPF:ValueConstraint>
-                        </igWPF:XamMaskedEditor.ValueConstraint>
 <IF ARRIVE>
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="GotFocus">
@@ -262,28 +238,6 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
 </IF ARRIVE>
-                        <igWPF:XamMaskedEditor.Style>
-                            <Style>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path=<Field_sqlname>IsFocused}" Value="true">
-                                        <Setter Property="FocusManager.FocusedElement"
-                                                Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
-                                        <Setter Property="TextBox.Background">
-                                            <Setter.Value>
-                                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                <LinearGradientBrush.GradientStops>
-                                                    <GradientStop Offset="0.2" Color="WhiteSmoke" />
-                                                    <GradientStop Offset="3" Color="Red" />
-                                                </LinearGradientBrush.GradientStops>
-                                                </LinearGradientBrush>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </igWPF:XamMaskedEditor.Style>
                     </igWPF:XamMaskedEditor>
                 </ControlTemplate>
             </Setter.Value>
@@ -305,44 +259,22 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <ComboBox Grid.Row="0"
+                        <igWPF:XamComboEditor Grid.Row="0"
+							ValueType="{x:Type system:String}"
                             Visibility="{Binding Path=<Field_sqlname>IsReadOnly, Converter={StaticResource reverseBooleanToVisibilityConverter}}"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Name="ctl<Structure_name>_<Field_sqlname>"
                             ItemsSource="{Binding <SYMPHONY_ITEMSSOURCE_PATH>}"
+							IsEditable="False" 
                             DisplayMemberPath="Description"
-                            SelectedValue="{Binding Path=<Field_sqlname>,
-                            ValidatesOnDataErrors=True}"
-                            Validation.ErrorTemplate="{StaticResource validationTemplate}"
-                            SelectedValuePath="ItemStringValue"
+                            ValuePath="ItemStringValue"
+                            Value="{Binding Path=<Field_sqlname>}"
                             IsEnabled="{Binding Path=<Field_sqlname>IsEnabled}"
                             Width="<SYMPHONY_SELWND_LENGTH>"
                             Margin="0,1,0,1"
                             ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
-                            <ComboBox.Style>
-                                <Style>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Path=<Field_sqlname>IsFocused}" Value="true">
-                                            <Setter Property="FocusManager.FocusedElement"
-                                                    Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
-                                            <Setter Property="ComboBox.Background">
-                                                <Setter.Value>
-                                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                        <LinearGradientBrush.GradientStops>
-                                                            <GradientStop Offset="0.2" Color="WhiteSmoke" />
-                                                            <GradientStop Offset="3" Color="Red" />
-                                                        </LinearGradientBrush.GradientStops>
-                                                    </LinearGradientBrush>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </ComboBox.Style>
-                        </ComboBox>
+                        </igWPF:XamComboEditor>
                         <TextBox Grid.Row="0"
                                  Width="<SYMPHONY_SELWND_LENGTH>"
                                  HorizontalAlignment="Left"
@@ -371,44 +303,22 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <ComboBox Grid.Row="0"
+                        <igWPF:XamComboEditor Grid.Row="0"
+							ValueType="{x:Type system:String}"
                             Visibility="{Binding Path=<Field_sqlname>IsReadOnly, Converter={StaticResource reverseBooleanToVisibilityConverter}}"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Name="ctl<Structure_name>_<Field_sqlname>"
-                            ItemsSource="{Binding Source={StaticResource <FIELD_SELWND>items}}"
+                            ItemsSource="{Binding <SYMPHONY_ITEMSSOURCE_PATH>}"
+							IsEditable="False" 
                             DisplayMemberPath="Description"
-                            SelectedValue="{Binding Path=<Field_sqlname>,
-                            ValidatesOnDataErrors=True}"
-                            Validation.ErrorTemplate="{StaticResource validationTemplate}"
-                            SelectedValuePath="ItemStringValue"
+                            ValuePath="ItemStringValue"
+                            Value="{Binding Path=<Field_sqlname>}"
                             IsEnabled="{Binding Path=<Field_sqlname>IsEnabled}"
                             Width="<SYMPHONY_SELWND_LENGTH>"
                             Margin="0,1,0,1"
                             ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
-                            <ComboBox.Style>
-                                <Style>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Path=<Field_sqlname>IsFocused}" Value="true">
-                                            <Setter Property="FocusManager.FocusedElement"
-                                                    Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
-                                            <Setter Property="ComboBox.Background">
-                                                <Setter.Value>
-                                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                        <LinearGradientBrush.GradientStops>
-                                                            <GradientStop Offset="0.2" Color="WhiteSmoke" />
-                                                            <GradientStop Offset="3" Color="Red" />
-                                                        </LinearGradientBrush.GradientStops>
-                                                    </LinearGradientBrush>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </ComboBox.Style>
-                        </ComboBox>
+                        </igWPF:XamComboEditor>
                         <TextBox Grid.Row="0"
                                  Width="<SYMPHONY_SELWND_LENGTH>"
                                  HorizontalAlignment="Left"
@@ -541,9 +451,6 @@
 							<i:Interaction.Behaviors>
 								<uiControls:SelectAllNumericEditorBehavior></uiControls:SelectAllNumericEditorBehavior>
 							</i:Interaction.Behaviors>
-                            <igWPF:XamNumericEditor.ValueConstraint>
-                                <igWPF:ValueConstraint MaxLength="<SYMPHONY_FIELD_SIZE>"></igWPF:ValueConstraint>
-                            </igWPF:XamNumericEditor.ValueConstraint>
 <IF ARRIVE>
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="GotFocus">
@@ -551,28 +458,6 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
 </IF ARRIVE>
-                            <igWPF:XamNumericEditor.Style>
-                                <Style>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Path=<Field_sqlname>IsFocused}" Value="true">
-                                            <Setter Property="FocusManager.FocusedElement"
-                                                    Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
-                                            <Setter Property="TextBox.Background" >
-                                                <Setter.Value>
-                                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                        <LinearGradientBrush.GradientStops>
-                                                            <GradientStop Offset="0.2" Color="WhiteSmoke" />
-                                                            <GradientStop Offset="3" Color="Red" />
-                                                        </LinearGradientBrush.GradientStops>
-                                                    </LinearGradientBrush>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </igWPF:XamNumericEditor.Style>
                         </igWPF:XamNumericEditor>
                         <Button Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type <ANCESTORCONTROL>}}, Path=<SYMPHONY_SEARCHBOX_COMMAND>}"
                                 CommandParameter="<FIELD_DRILLM>DrillState"
@@ -650,9 +535,6 @@
 							<i:Interaction.Behaviors>
 								<uiControls:SelectAllNumericEditorBehavior></uiControls:SelectAllNumericEditorBehavior>
 							</i:Interaction.Behaviors>
-							<igWPF:XamNumericEditor.ValueConstraint>
-								<igWPF:ValueConstraint MaxLength="<SYMPHONY_FIELD_SIZE>"></igWPF:ValueConstraint>
-							</igWPF:XamNumericEditor.ValueConstraint>
 <IF ARRIVE>
 									<i:Interaction.Triggers>
 										<i:EventTrigger EventName="GotFocus">
@@ -660,28 +542,6 @@
 										</i:EventTrigger>
 									</i:Interaction.Triggers>
 </IF ARRIVE>
-							<igWPF:XamNumericEditor.Style>
-								<Style>
-									<Style.Triggers>
-										<DataTrigger Binding="{Binding Path=<Field_sqlname>IsFocused}" Value="true">
-											<Setter Property="FocusManager.FocusedElement"
-													Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>_noDrill}"></Setter>
-										</DataTrigger>
-										<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
-											<Setter Property="TextBox.Background">
-												<Setter.Value>
-													<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-														<LinearGradientBrush.GradientStops>
-															<GradientStop Offset="0.2" Color="WhiteSmoke" />
-															<GradientStop Offset="3" Color="Red" />
-														</LinearGradientBrush.GradientStops>
-													</LinearGradientBrush>
-												</Setter.Value>
-											</Setter>
-										</DataTrigger>
-									</Style.Triggers>
-								</Style>
-							</igWPF:XamNumericEditor.Style>
 						</igWPF:XamNumericEditor>
 						<Button Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type <ANCESTORCONTROL>}}, Path=<SYMPHONY_SEARCHBOX_COMMAND>}"
 								CommandParameter="<FIELD_DRILLM>DrillState"
@@ -760,9 +620,6 @@
 						<i:Interaction.Behaviors>
 							<uiControls:SelectAllNumericEditorBehavior></uiControls:SelectAllNumericEditorBehavior>
 						</i:Interaction.Behaviors>
-                        <igWPF:XamNumericEditor.ValueConstraint>
-                            <igWPF:ValueConstraint MaxLength="<SYMPHONY_FIELD_SIZE>"></igWPF:ValueConstraint>
-                        </igWPF:XamNumericEditor.ValueConstraint>
 <IF ARRIVE>
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="GotFocus">
@@ -770,28 +627,6 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
 </IF ARRIVE>
-                        <igWPF:XamNumericEditor.Style>
-                            <Style>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path=<Field_sqlname>IsFocused}" Value="true">
-                                        <Setter Property="FocusManager.FocusedElement"
-                                                Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
-                                        <Setter Property="TextBox.Background">
-                                            <Setter.Value>
-                                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                    <LinearGradientBrush.GradientStops>
-                                                        <GradientStop Offset="0.2" Color="WhiteSmoke" />
-                                                        <GradientStop Offset="3" Color="Red" />
-                                                    </LinearGradientBrush.GradientStops>
-                                                </LinearGradientBrush>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </igWPF:XamNumericEditor.Style>
                     </igWPF:XamNumericEditor>
                 </ControlTemplate>
             </Setter.Value>
@@ -813,44 +648,22 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <ComboBox Grid.Row="0"
+                        <igWPF:XamComboEditor Grid.Row="0"
+							ValueType="{x:Type system:Int32}"
                             Visibility="{Binding Path=<Field_sqlname>IsReadOnly, Converter={StaticResource reverseBooleanToVisibilityConverter}}"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Name="ctl<Structure_name>_<Field_sqlname>"
-                            ItemsSource="{Binding Source={StaticResource <FIELD_ORIGINAL_NAME>items}}"
+                            ItemsSource="{Binding <SYMPHONY_ITEMSSOURCE_PATH>}"
+							IsEditable="False" 
                             DisplayMemberPath="Description"
-                            SelectedValue="{Binding Path=<Field_sqlname>,
-                            ValidatesOnDataErrors=True}"
-                            Validation.ErrorTemplate="{StaticResource validationTemplate}"
-                            SelectedValuePath="IndexValue"
+                            ValuePath="ItemValue"
+                            Value="{Binding Path=<Field_sqlname>}"
                             IsEnabled="{Binding Path=<Field_sqlname>IsEnabled}"
                             Width="<SYMPHONY_SELWND_LENGTH>"
                             Margin="0,1,0,1"
                             ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
-                            <ComboBox.Style>
-                                <Style>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Path=<Field_sqlname>IsFocused}" Value="true">
-                                            <Setter Property="FocusManager.FocusedElement"
-                                                    Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
-                                            <Setter Property="ComboBox.Background">
-                                                <Setter.Value>
-                                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                        <LinearGradientBrush.GradientStops>
-                                                            <GradientStop Offset="0.2" Color="WhiteSmoke" />
-                                                            <GradientStop Offset="3" Color="Red" />
-                                                        </LinearGradientBrush.GradientStops>
-                                                    </LinearGradientBrush>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </ComboBox.Style>
-                        </ComboBox>
+                        </igWPF:XamComboEditor>
                         <TextBox Grid.Row="0"
                                  Width="<SYMPHONY_SELWND_LENGTH>"
                                  HorizontalAlignment="Left"
@@ -879,44 +692,22 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <ComboBox Grid.Row="0"
+                        <igWPF:XamComboEditor Grid.Row="0"
+							ValueType="{x:Type system:Int32}"
                             Visibility="{Binding Path=<Field_sqlname>IsReadOnly, Converter={StaticResource reverseBooleanToVisibilityConverter}}"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Name="ctl<Structure_name>_<Field_sqlname>"
-                            ItemsSource="{Binding Source={StaticResource <FIELD_SELWND>items}}"
+                            ItemsSource="{Binding <SYMPHONY_ITEMSSOURCE_PATH>}"
+							IsEditable="False" 
                             DisplayMemberPath="Description"
-                            SelectedValue="{Binding Path=<Field_sqlname>,
-                            ValidatesOnDataErrors=True}"
-                            Validation.ErrorTemplate="{StaticResource validationTemplate}"
-                            SelectedValuePath="ItemValue"
+                            ValuePath="ItemValue"
+                            Value="{Binding Path=<Field_sqlname>}"
                             IsEnabled="{Binding Path=<Field_sqlname>IsEnabled}"
                             Width="<SYMPHONY_SELWND_LENGTH>"
                             Margin="0,1,0,1"
                             ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
-                            <ComboBox.Style>
-                                <Style>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Path=<Field_sqlname>IsFocused}" Value="true">
-                                            <Setter Property="FocusManager.FocusedElement"
-                                                    Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
-                                            <Setter Property="ComboBox.Background">
-                                                <Setter.Value>
-                                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                        <LinearGradientBrush.GradientStops>
-                                                            <GradientStop Offset="0.2" Color="WhiteSmoke" />
-                                                            <GradientStop Offset="3" Color="Red" />
-                                                        </LinearGradientBrush.GradientStops>
-                                                    </LinearGradientBrush>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </ComboBox.Style>
-                        </ComboBox>
+                        </igWPF:XamComboEditor>
                         <TextBox Grid.Row="0"
                                  Width="<SYMPHONY_SELWND_LENGTH>"
                                  HorizontalAlignment="Left"
@@ -1069,9 +860,6 @@
 							<i:Interaction.Behaviors>
 								<uiControls:SelectAllNumericEditorBehavior></uiControls:SelectAllNumericEditorBehavior>
 							</i:Interaction.Behaviors>
-							<igWPF:XamNumericEditor.ValueConstraint>
-								<igWPF:ValueConstraint MaxLength="<SYMPHONY_FIELD_SIZE>"></igWPF:ValueConstraint>
-							</igWPF:XamNumericEditor.ValueConstraint>
 <IF ARRIVE>
 								<i:Interaction.Triggers>
 									<i:EventTrigger EventName="GotFocus">
@@ -1079,28 +867,6 @@
 									</i:EventTrigger>
 								</i:Interaction.Triggers>
 </IF ARRIVE>
-							<igWPF:XamNumericEditor.Style>
-								<Style>
-									<Style.Triggers>
-										<DataTrigger Binding="{Binding Path=<Field_sqlname>IsFocused}" Value="true">
-											<Setter Property="FocusManager.FocusedElement"
-													Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
-										</DataTrigger>
-										<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
-											<Setter Property="TextBox.Background">
-												<Setter.Value>
-													<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-														<LinearGradientBrush.GradientStops>
-															<GradientStop Offset="0.2" Color="WhiteSmoke" />
-															<GradientStop Offset="3" Color="Red" />
-														</LinearGradientBrush.GradientStops>
-													</LinearGradientBrush>
-												</Setter.Value>
-											</Setter>
-										</DataTrigger>
-									</Style.Triggers>
-								</Style>
-							</igWPF:XamNumericEditor.Style>
 						</igWPF:XamNumericEditor>
 						<Button Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type <ANCESTORCONTROL>}}, Path=<SYMPHONY_SEARCHBOX_COMMAND>}"
 								CommandParameter="<FIELD_DRILLM>DrillState"
@@ -1197,9 +963,6 @@
 						<i:Interaction.Behaviors>
 							<uiControls:SelectAllNumericEditorBehavior></uiControls:SelectAllNumericEditorBehavior>
 						</i:Interaction.Behaviors>
-						<igWPF:XamNumericEditor.ValueConstraint>
-							<igWPF:ValueConstraint MaxLength="<SYMPHONY_FIELD_SIZE>"></igWPF:ValueConstraint>
-						</igWPF:XamNumericEditor.ValueConstraint>
 <IF ARRIVE>
 							<i:Interaction.Triggers>
 								<i:EventTrigger EventName="GotFocus">
@@ -1207,28 +970,6 @@
 								</i:EventTrigger>
 							</i:Interaction.Triggers>
 </IF ARRIVE>
-						<igWPF:XamNumericEditor.Style>
-							<Style>
-								<Style.Triggers>
-									<DataTrigger Binding="{Binding Path=<Field_sqlname>IsFocused}" Value="true">
-										<Setter Property="FocusManager.FocusedElement"
-												Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
-									</DataTrigger>
-									<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
-										<Setter Property="TextBox.Background">
-											<Setter.Value>
-												<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-													<LinearGradientBrush.GradientStops>
-														<GradientStop Offset="0.2" Color="WhiteSmoke" />
-														<GradientStop Offset="3" Color="Red" />
-													</LinearGradientBrush.GradientStops>
-												</LinearGradientBrush>
-											</Setter.Value>
-										</Setter>
-									</DataTrigger>
-								</Style.Triggers>
-							</Style>
-						</igWPF:XamNumericEditor.Style>
 					</igWPF:XamNumericEditor>
                 </ControlTemplate>
             </Setter.Value>
@@ -1278,9 +1019,11 @@
                         IsReadOnly="{Binding Path=<Field_sqlname>IsReadOnly}"
                         VerticalAlignment="Center"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
+<!--
 						<i:Interaction.Behaviors>
 							<uiControls:SelectAllDateTimeEditorBehavior></uiControls:SelectAllDateTimeEditorBehavior>
 						</i:Interaction.Behaviors>
+-->
 <IF ARRIVE>
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="GotFocus">
@@ -1288,28 +1031,6 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
 </IF ARRIVE>
-                        <igWPF:XamDateTimeEditor.Style>
-                            <Style>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path=<Field_sqlname>IsFocused}" Value="true">
-                                        <Setter Property="FocusManager.FocusedElement"
-                                                Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
-                                        <Setter Property="DatePicker.Background">
-                                            <Setter.Value>
-                                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                    <LinearGradientBrush.GradientStops>
-                                                        <GradientStop Offset="0.2" Color="WhiteSmoke" />
-                                                        <GradientStop Offset="3" Color="Red" />
-                                                    </LinearGradientBrush.GradientStops>
-                                                </LinearGradientBrush>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </igWPF:XamDateTimeEditor.Style>
                     </igWPF:XamDateTimeEditor>
                 </ControlTemplate>
             </Setter.Value>
@@ -1334,38 +1055,18 @@
                         IsReadOnly="{Binding Path=<Field_sqlname>IsReadOnly}"
                         VerticalAlignment="Center"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
+<!--
 						<i:Interaction.Behaviors>
 							<uiControls:SelectAllDateTimeEditorBehavior></uiControls:SelectAllDateTimeEditorBehavior>
 						</i:Interaction.Behaviors>
+-->
 <IF ARRIVE>
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="GotFocus">
-                                    <symphonyTriggers:UIElementGotFocus DataObject="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type igWPF:XamDateTimeEditor}}, Path=DataContext}" FieldName="<Field_sqlname>/<FIELD_ARRIVEM>" ValidateOnHost="True"></symphonyTriggers:UIElementGotFocus>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="GotFocus">
+                                <symphonyTriggers:UIElementGotFocus DataObject="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type igWPF:XamDateTimeEditor}}, Path=DataContext}" FieldName="<Field_sqlname>/<FIELD_ARRIVEM>" ValidateOnHost="True"></symphonyTriggers:UIElementGotFocus>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
 </IF ARRIVE>
-                        <igWPF:XamDateTimeEditor.Style>
-                            <Style>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path=<Field_sqlname>IsFocused}" Value="true">
-                                        <Setter Property="FocusManager.FocusedElement"
-                                                Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
-                                        <Setter Property="DatePicker.Background">
-                                            <Setter.Value>
-                                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                    <LinearGradientBrush.GradientStops>
-                                                        <GradientStop Offset="0.2" Color="WhiteSmoke" />
-                                                        <GradientStop Offset="3" Color="Red" />
-                                                    </LinearGradientBrush.GradientStops>
-                                                </LinearGradientBrush>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </igWPF:XamDateTimeEditor.Style>
                     </igWPF:XamDateTimeEditor>
                 </ControlTemplate>
             </Setter.Value>
@@ -1396,38 +1097,18 @@
                         IsReadOnly="{Binding Path=<Field_sqlname>IsReadOnly}"
                         VerticalAlignment="Center"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
+<!--
 						<i:Interaction.Behaviors>
 							<uiControls:SelectAllDateTimeEditorBehavior></uiControls:SelectAllDateTimeEditorBehavior>
 						</i:Interaction.Behaviors>
+-->
 <IF ARRIVE>
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="GotFocus">
-                                    <symphonyTriggers:UIElementGotFocus DataObject="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type igWPF:XamDateTimeEditor}}, Path=DataContext}" FieldName="<Field_sqlname>/<FIELD_ARRIVEM>" ValidateOnHost="True"></symphonyTriggers:UIElementGotFocus>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="GotFocus">
+                                <symphonyTriggers:UIElementGotFocus DataObject="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type igWPF:XamDateTimeEditor}}, Path=DataContext}" FieldName="<Field_sqlname>/<FIELD_ARRIVEM>" ValidateOnHost="True"></symphonyTriggers:UIElementGotFocus>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
 </IF ARRIVE>
-                        <igWPF:XamDateTimeEditor.Style>
-                            <Style>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path=<Field_sqlname>IsFocused}" Value="true">
-                                        <Setter Property="FocusManager.FocusedElement"
-                                                Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
-                                        <Setter Property="DatePicker.Background">
-                                            <Setter.Value>
-                                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                    <LinearGradientBrush.GradientStops>
-                                                        <GradientStop Offset="0.2" Color="WhiteSmoke" />
-                                                        <GradientStop Offset="3" Color="Red" />
-                                                    </LinearGradientBrush.GradientStops>
-                                                </LinearGradientBrush>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </igWPF:XamDateTimeEditor.Style>
                     </igWPF:XamDateTimeEditor>
                 </ControlTemplate>
             </Setter.Value>
@@ -1452,38 +1133,18 @@
                         IsReadOnly="{Binding Path=<Field_sqlname>IsReadOnly}"
                         VerticalAlignment="Center"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
+<!--
 						<i:Interaction.Behaviors>
 							<uiControls:SelectAllDateTimeEditorBehavior></uiControls:SelectAllDateTimeEditorBehavior>
 						</i:Interaction.Behaviors>
+-->
 <IF ARRIVE>
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="GotFocus">
-                                    <symphonyTriggers:UIElementGotFocus DataObject="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type igWPF:XamDateTimeEditor}}, Path=DataContext}" FieldName="<Field_sqlname>/<FIELD_ARRIVEM>" ValidateOnHost="True"></symphonyTriggers:UIElementGotFocus>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="GotFocus">
+                                <symphonyTriggers:UIElementGotFocus DataObject="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type igWPF:XamDateTimeEditor}}, Path=DataContext}" FieldName="<Field_sqlname>/<FIELD_ARRIVEM>" ValidateOnHost="True"></symphonyTriggers:UIElementGotFocus>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
 </IF ARRIVE>
-                        <igWPF:XamDateTimeEditor.Style>
-                            <Style>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path=<Field_sqlname>IsFocused}" Value="true">
-                                        <Setter Property="FocusManager.FocusedElement"
-                                                Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
-                                        <Setter Property="DatePicker.Background">
-                                            <Setter.Value>
-                                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                    <LinearGradientBrush.GradientStops>
-                                                        <GradientStop Offset="0.2" Color="WhiteSmoke" />
-                                                        <GradientStop Offset="3" Color="Red" />
-                                                    </LinearGradientBrush.GradientStops>
-                                                </LinearGradientBrush>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </igWPF:XamDateTimeEditor.Style>
                     </igWPF:XamDateTimeEditor>
                 </ControlTemplate>
             </Setter.Value>
@@ -1536,38 +1197,18 @@
                         Width="80"
                         SpinButtonDisplayMode="OnlyInEditMode"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
+<!--
 						<i:Interaction.Behaviors>
 							<uiControls:SelectAllNumericEditorBehavior></uiControls:SelectAllNumericEditorBehavior>
 						</i:Interaction.Behaviors>
+-->
 <IF ARRIVE>
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="GotFocus">
-                                    <symphonyTriggers:UIElementGotFocus DataObject="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type igWPF:XamNumericEditor}}, Path=DataContext}" FieldName="<Field_sqlname>/<FIELD_ARRIVEM>" ValidateOnHost="True"></symphonyTriggers:UIElementGotFocus>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="GotFocus">
+                                <symphonyTriggers:UIElementGotFocus DataObject="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type igWPF:XamNumericEditor}}, Path=DataContext}" FieldName="<Field_sqlname>/<FIELD_ARRIVEM>" ValidateOnHost="True"></symphonyTriggers:UIElementGotFocus>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
 </IF ARRIVE>
-                        <igWPF:XamNumericEditor.Style>
-                            <Style>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path=<Field_sqlname>IsFocused}" Value="true">
-                                        <Setter Property="FocusManager.FocusedElement"
-                                                Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
-                                        <Setter Property="TextBox.Background">
-                                            <Setter.Value>
-                                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                    <LinearGradientBrush.GradientStops>
-                                                        <GradientStop Offset="0.2" Color="WhiteSmoke" />
-                                                        <GradientStop Offset="3" Color="Red" />
-                                                    </LinearGradientBrush.GradientStops>
-                                                </LinearGradientBrush>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </igWPF:XamNumericEditor.Style>
                     </igWPF:XamNumericEditor>
                 </ControlTemplate>
             </Setter.Value>
@@ -1602,38 +1243,18 @@
                         Width="80"
                         SpinButtonDisplayMode="OnlyInEditMode"
                         ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
+<!--
 						<i:Interaction.Behaviors>
 							<uiControls:SelectAllNumericEditorBehavior></uiControls:SelectAllNumericEditorBehavior>
 						</i:Interaction.Behaviors>
+-->
 <IF ARRIVE>
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="GotFocus">
-                                    <symphonyTriggers:UIElementGotFocus DataObject="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type igWPF:XamNumericEditor}}, Path=DataContext}" FieldName="<Field_sqlname>/<FIELD_ARRIVEM>" ValidateOnHost="True"></symphonyTriggers:UIElementGotFocus>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="GotFocus">
+                                <symphonyTriggers:UIElementGotFocus DataObject="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type igWPF:XamNumericEditor}}, Path=DataContext}" FieldName="<Field_sqlname>/<FIELD_ARRIVEM>" ValidateOnHost="True"></symphonyTriggers:UIElementGotFocus>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
 </IF ARRIVE>
-                        <igWPF:XamNumericEditor.Style>
-                            <Style>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path=<Field_sqlname>IsFocused}" Value="true">
-                                        <Setter Property="FocusManager.FocusedElement"
-                                                Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
-                                        <Setter Property="TextBox.Background">
-                                            <Setter.Value>
-                                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                    <LinearGradientBrush.GradientStops>
-                                                        <GradientStop Offset="0.2" Color="WhiteSmoke" />
-                                                        <GradientStop Offset="3" Color="Red" />
-                                                    </LinearGradientBrush.GradientStops>
-                                                </LinearGradientBrush>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </igWPF:XamNumericEditor.Style>
                     </igWPF:XamNumericEditor>
                 </ControlTemplate>
             </Setter.Value>
@@ -1673,28 +1294,6 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
 </IF ARRIVE>
-                        <symphonyUI:SynergyIntBox.Style>
-                            <Style>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path=<Field_sqlname>IsFocused}" Value="true">
-                                        <Setter Property="FocusManager.FocusedElement"
-                                                Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
-                                        <Setter Property="TextBox.Background">
-                                            <Setter.Value>
-                                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                    <LinearGradientBrush.GradientStops>
-                                                        <GradientStop Offset="0.2" Color="WhiteSmoke" />
-                                                        <GradientStop Offset="3" Color="Red" />
-                                                    </LinearGradientBrush.GradientStops>
-                                                </LinearGradientBrush>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </symphonyUI:SynergyIntBox.Style>
                     </symphonyUI:SynergyIntBox>
                 </ControlTemplate>
             </Setter.Value>
@@ -1715,44 +1314,22 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <ComboBox Grid.Row="0"
+                        <igWPF:XamComboEditor Grid.Row="0"
+							ValueType="{x:Type system:Int32}"
                             Visibility="{Binding Path=<Field_sqlname>IsReadOnly, Converter={StaticResource reverseBooleanToVisibilityConverter}}"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Name="ctl<Structure_name>_<Field_sqlname>"
-                            ItemsSource="{Binding Source={StaticResource <FIELD_ORIGINAL_NAME>items}}"
+                            ItemsSource="{Binding <SYMPHONY_ITEMSSOURCE_PATH>}"
+							IsEditable="False" 
                             DisplayMemberPath="Description"
-                            SelectedValue="{Binding Path=<Field_sqlname>, Converter={StaticResource intConverter},
-                            ValidatesOnDataErrors=True}"
-                            Validation.ErrorTemplate="{StaticResource validationTemplate}"
-                            SelectedValuePath="IndexValue"
+                            ValuePath="ItemValue"
+                            Value="{Binding Path=<Field_sqlname>}"
                             IsEnabled="{Binding Path=<Field_sqlname>IsEnabled}"
                             Width="<SYMPHONY_SELWND_LENGTH>"
                             Margin="0,1,0,1"
                             ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
-                            <ComboBox.Style>
-                                <Style>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Path=<Field_sqlname>IsFocused}" Value="true">
-                                            <Setter Property="FocusManager.FocusedElement"
-                                                    Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
-                                            <Setter Property="ComboBox.Background">
-                                                <Setter.Value>
-                                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                        <LinearGradientBrush.GradientStops>
-                                                            <GradientStop Offset="0.2" Color="WhiteSmoke" />
-                                                            <GradientStop Offset="3" Color="Red" />
-                                                        </LinearGradientBrush.GradientStops>
-                                                    </LinearGradientBrush>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </ComboBox.Style>
-                        </ComboBox>
+                       </igWPF:XamComboEditor>
                         <TextBox Grid.Row="0"
                                  Width="<SYMPHONY_SELWND_LENGTH>"
                                  HorizontalAlignment="Left"
@@ -1781,44 +1358,22 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <ComboBox Grid.Row="0"
+                        <igWPF:XamComboEditor Grid.Row="0"
+							ValueType="{x:Type system:Int32}"
                             Visibility="{Binding Path=<Field_sqlname>IsReadOnly, Converter={StaticResource reverseBooleanToVisibilityConverter}}"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Name="ctl<Structure_name>_<Field_sqlname>"
-                            ItemsSource="{Binding Source={StaticResource <FIELD_SELWND>items}}"
+                            ItemsSource="{Binding <SYMPHONY_ITEMSSOURCE_PATH>}"
+							IsEditable="False" 
                             DisplayMemberPath="Description"
-                            SelectedValue="{Binding Path=<Field_sqlname>, Converter={StaticResource intConverter},
-                            ValidatesOnDataErrors=True}"
-                            Validation.ErrorTemplate="{StaticResource validationTemplate}"
-                            SelectedValuePath="ItemValue"
+                            ValuePath="ItemValue"
+                            Value="{Binding Path=<Field_sqlname>}"
                             IsEnabled="{Binding Path=<Field_sqlname>IsEnabled}"
                             Width="<SYMPHONY_SELWND_LENGTH>"
                             Margin="0,1,0,1"
                             ToolTip="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors), Converter={StaticResource errorConveter}}">
-                            <ComboBox.Style>
-                                <Style>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Path=<Field_sqlname>IsFocused}" Value="true">
-                                            <Setter Property="FocusManager.FocusedElement"
-                                                    Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
-                                            <Setter Property="ComboBox.Background">
-                                                <Setter.Value>
-                                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                        <LinearGradientBrush.GradientStops>
-                                                            <GradientStop Offset="0.2" Color="WhiteSmoke" />
-                                                            <GradientStop Offset="3" Color="Red" />
-                                                        </LinearGradientBrush.GradientStops>
-                                                    </LinearGradientBrush>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </ComboBox.Style>
-                        </ComboBox>
+                        </igWPF:XamComboEditor>
                         <TextBox Grid.Row="0"
                                  Width="<SYMPHONY_SELWND_LENGTH>"
                                  HorizontalAlignment="Left"
@@ -1959,7 +1514,7 @@
                         Validation.ErrorTemplate="{StaticResource validationTemplate}"
                         <SYMPHONY_ALPHA_SIZE>
                         <IF UPPERCASE>
-                        Mask=">{char:<FIELD_SIZE>:a-zA-Z0-9}"
+                        Mask="{}{char:<FIELD_SIZE>:a-z A-Z 0-9}"
                         </IF UPPERCASE>
                         IsEnabled="{Binding Path=<Field_sqlname>IsEnabled}"
                         <IF READONLY>
@@ -1974,9 +1529,6 @@
 						<i:Interaction.Behaviors>
 							<uiControls:SelectAllMaskedEditorBehavior></uiControls:SelectAllMaskedEditorBehavior>
 						</i:Interaction.Behaviors>
-                        <igWPF:XamMaskedEditor.ValueConstraint>
-                            <igWPF:ValueConstraint MaxLength="<FIELD_SIZE>"></igWPF:ValueConstraint>
-                        </igWPF:XamMaskedEditor.ValueConstraint>
 <IF ARRIVE>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="GotFocus">
@@ -1984,28 +1536,6 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
 </IF ARRIVE>
-                        <igWPF:XamMaskedEditor.Style>
-                            <Style>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path=<Field_sqlname>IsFocused}" Value="true">
-                                        <Setter Property="FocusManager.FocusedElement"
-                                                Value="{Binding ElementName=ctl<Structure_name>_<Field_sqlname>}"></Setter>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=(Validation.HasError)}" Value="True">
-                                        <Setter Property="TextBox.Background">
-                                            <Setter.Value>
-                                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                    <LinearGradientBrush.GradientStops>
-                                                        <GradientStop Offset="0.2" Color="WhiteSmoke" />
-                                                        <GradientStop Offset="3" Color="Red" />
-                                                    </LinearGradientBrush.GradientStops>
-                                                </LinearGradientBrush>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </igWPF:XamMaskedEditor.Style>
                     </igWPF:XamMaskedEditor>
                 </ControlTemplate>
             </Setter.Value>

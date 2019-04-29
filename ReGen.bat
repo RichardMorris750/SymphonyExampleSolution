@@ -70,7 +70,7 @@ rem Content files contain repository selection field data
 codegen %OPTS% -s %strList% -t Symphony_Content -o %ROOT%\%clientProjectNameSpace%_IG\Resources -n %clientProjectNameSpace%.Content -ut ASSEMBLYNAME=%clientProjectNameSpace%
 
 rem Styles define field input control styling
-codegen %OPTS% -s %strList% -t Symphony_Style_IG_V3_2 -o %ROOT%\%clientProjectNameSpace%_IG\Resources -n %serverProjectNameSpace% -ut ASSEMBLYNAME=SFE_UI
+codegen %OPTS% -s %strList% -t Symphony_Style_IG_V3_2 -o %ROOT%\%clientProjectNameSpace%_IG\Resources -n %serverProjectNameSpace% -ut ASSEMBLYNAME=SFE_UI 
 
 
 

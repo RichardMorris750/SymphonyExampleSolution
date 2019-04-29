@@ -55,7 +55,7 @@
                             <symControl:FieldControl Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="4" Style="{StaticResource Product_Prod_description_style}"></symControl:FieldControl>
 
                             <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource Product_Pack_size_prompt}" Grid.ColumnSpan="3"></Label>
-                            <symControl:FieldControl Grid.Row="3" Grid.Column="2" Style="{StaticResource Product_Pack_size_style}"></symControl:FieldControl>
+                            <symControl:FieldControl Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="4" Style="{StaticResource Product_Pack_size_style}"></symControl:FieldControl>
 
                             <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource Product_Prod_group_prompt}" Grid.ColumnSpan="3"></Label>
                             <symControl:FieldControl Grid.Row="4" Grid.Column="2" Style="{StaticResource Product_Prod_group_style}"></symControl:FieldControl>
